@@ -1,93 +1,128 @@
-# pwa
+<p align="center">
+  <a href="https://github.com/SolgiDeveloper">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://toppng.com/uploads/preview/octocat-filled-icon-github-icon-svg-11553443886f4krecogcv.png">
+      <img src="https://toppng.com/uploads/preview/octocat-filled-icon-github-icon-svg-11553443886f4krecogcv.png" height="128">
+    </picture>
+    <h1 align="center">Documentation</h1>
+  </a>
+</p>
 
+## Table of Contents
 
+| No. | **Project Structure**                         |
+| --- | --------------------------------------------- |
+| 1   | [app directory](#app-directory)               |
+| 2   | [components directory](#components-directory) |
+| 3   | [services directory](#services-directory)     |
+| 4   | [constant directory](#constant-directory)     |
+| 5   | [request structure](#request-structure)       |
+| 6   | [commit-rules](#commit-rules)                 |
 
-## Getting started
+1.  ### app directory
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+    the main part of this pwa project is separation of concerns, first of all is **app** folder based on [next.js app router](https://nextjs.org/docs/app) we specify all route with just
+    folders with specific name. for instance **about us** page created with folder named **about-us** and inside the folder must be a page.tsx file.
+    in page.tsx file just return **components** of the page without any logic etc ... , this file intend to be pure and plain.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+    example:
 
-## Add your files
+    ```jsx harmony
+    export default async function About() {
+      return <AboutComponents />;
+    }
+    ```
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+    Note: for some plain page like /not-found/ page just create name.tsx file in app folder.
 
-```
-cd existing_repo
-git remote add origin https://git.ozonedev.ir/new-front/pwa.git
-git branch -M develop
-git push -uf origin develop
-```
+    if we have nested route (ex: ozone), just add folder inside our current folder with page.tsx (perform above rules ) and it will be rendered as about-us/ozone.
 
-## Integrate with your tools
+    for [dynamic routes](https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes) add folder name inside [ ], for instance [station] folder in gas-station route.
 
-- [ ] [Set up project integrations](https://git.ozonedev.ir/new-front/pwa/-/settings/integrations)
+2.  ### components directory
 
-## Collaborate with your team
+    in this folder we have [@base](), [app](), [shared]() folders.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+    [@base]() :all reusable and logic less components (ex: button, card, badge ...), inside each folder must be page.tsx and type.ts files.
 
-## Test and Deploy
+    [app]() :all components of each folder in src/app with corresponding name created in this folder, for example about folder added here and have its own components for with nested static or dynamic page folders.
 
-Use the built-in continuous integration in GitLab.
+    [shared]() : components in this folder will be reusable and shared in all app folders and in the other hand this components have their own logics.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+    Note: if we have specific share component in some page, just add @shared folder for holding that files inside page route folder component.
+    (ex: src/components/app/home/components/default/@shared)
 
-***
+**[⬆ Back to Top](#table-of-contents)**
 
-# Editing this README
+3. ### services directory
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+   there is 2 type of service folder:
 
-## Suggestions for a good README
+   a. src/components/shared/services: all share request may used in cross app will be here
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+   b. src/components/app/(folder-name)/services: all request may used in page and in **all** nested page
 
-## Name
-Choose a self-explaining name for your project.
+4. ### constant directory
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+   every string in our app will be stored here and imported from here, **there is no hard code string in every file in any situation**
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+   also all routes in our apis will be stored at [routes.ts]() file
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+5. ### request structure
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+   a. service hook template
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+   ```jsx harmony
+   export function useGetFuelStation(id) {
+     return useQuery({
+       queryFn: () => getFuelStation(id),
+       queryKey: [GET_FUEL_STATION, id],
+     });
+   }
+   ```
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+   b.service endpoint template
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+   ```jsx harmony
+       export async function getFuelStation(id: FuelStationIdType) {
+         const {
+           data: { data },
+         }: { data: { data: GasStationModel } } = await axios.get(
+           APIUrlGenerator(API_ROUTES.GET_FUEL_STATION(id)),
+         );
+         return data;
+       }
+   ```
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+   what is **APIUrlGenerator** ?
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+   the argument of this function is (route: string, qry?: object), as you see this function get
+   route and queries and under the hood create our url, for queries just need to send object with key value pair of our query keys
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+   **Hint**: **Namification** : for naming our hooks add **use** keyword to axios method name (ex: [GET](), [POST](), [PUT](), [PATCH](), [DELETE]()) and function name like [useGetFuelStations]()
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+   and for service naming just remove **use** keyword in above Namification
 
-## License
-For open source projects, say how it is licensed.
+   **=> example for hook naming:**
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+   [useGetFuelStation](), [usePostLogin](), [useDeleteCar]()
+
+   **=> example for service naming:**
+
+   [getFuelStation](), [getLiveVote](), [postVote]()
+
+**[⬆ Back to Top](#table-of-contents)**
+
+6. ### commit rules
+
+   all commits must be categorized in the below blue prints
+
+   **[-ref]() :** refactor message
+
+   **[-fix]() :** bug fix message
+
+   **[-hotFix]() :** hotfix message
+
+   **[-feat]() :** feature message
+
+   **[-style]() :** structural manipulation message
