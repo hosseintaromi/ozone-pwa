@@ -1,0 +1,34 @@
+{
+  "name": "app",
+  "short_name": "app",
+  "icons": [
+    {
+      "src": "/images/splash_screens/icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/splash_screens/icon.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/splash_screens/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#FFFFFF",
+  "background_color": "#01286D",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "description": "",
+  "id": "app",
+  "dir": "rtl",
+  "lang": "fa",
+  "gcm_sender_id": "203227373373",
+  "categories": ["government", "utilities"]
+}

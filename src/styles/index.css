@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*TODO: headlessui fix for modal padding*/
+html {
+    padding: 0 !important;
+}
+
+body {
+    background-color: #ccc;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+:focus {
+    outline: transparent none 0;
+}
