@@ -1,0 +1,126 @@
+stages:
+  - prepare
+  - deploy
+
+image: repo.app.ir/node:20.10.0-alpine3.19
+
+#========================================  prepare  ========================================
+
+yarn-install:
+  stage: prepare
+  script:
+#    - sha512sum -c <(echo "$DOCKERFILE_CHECKSUM  Dockerfile") || (echo "Dockerfile has changed! Revert your change or update DOCKERFILE_CHECKSUM" && return -1)
+    - yarn install
+  cache:
+    key:
+      files:
+        - yarn.lock
+    untracked: true
+    paths:
+      - node_modules/
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - node_modules/
+
+#========================================  deploy  ========================================
+
+# Dev
+
+build-image-dev:
+  stage: deploy
+  image: repo.app.ir/podman/stable:v4.9
+  needs:
+    - job: yarn-install
+      artifacts: true
+  script:
+    - echo "$GITLAB_REGISTRY_WRITE_TOKEN" | podman login registry.kian.group -u "$GITLAB_REGISTRY_USERNAME" --password-stdin
+    - echo "$APP_MIRROR_TOKEN" | podman login repo.app.ir -u "$APP_MIRROR_USERNAME" --password-stdin
+    - podman build -t registry.kian.group/app/app-ui/dev:${CI_COMMIT_SHA} --build-arg NEXT_PUBLIC_API_URL=https://app-debt-dev.app.rocks/api --build-arg NEXT_PUBLIC_CLIENT_ID=2 --build-arg NEXT_PUBLIC_CLIENT_SECRET=LvG6MWs8iPynSiuQc5VnioTZ3UIDYIx1NgULNrgD --squash --omit-history .
+    - podman push registry.kian.group/app/app-ui/dev:${CI_COMMIT_SHA}
+  only:
+    - dev@app/app-ui
+
+deploy-kuber-dev:
+  stage: deploy
+  image: repo.app.ir/alpine/helm:3.13.3
+  needs:
+    - build-image-dev
+  tags:
+    - kuber-staging
+  variables:
+    NAMESPACE_NAME: "app-next-ui-dev"
+    HELM_NAME: $CI_PROJECT_NAME
+    DOMAIN: "dev-pwa.app.com"
+    PATHPREFIX: "/"
+  script:
+    - helm upgrade --install --create-namespace $HELM_NAME -n $NAMESPACE_NAME ./charts --set fullnameOverride=$HELM_NAME --set image.tag=$CI_COMMIT_SHA --set image.repository=registry.kian.group/app/app-ui --set image.pullPolicy=IfNotPresent --set ingress.enabled=true --set ingress.hosts[0].host=$DOMAIN --set ingress.hosts[0].paths[0].pathType=Prefix --set ingress.hosts[0].paths[0].path=$PATHPREFIX --set ingress.tls[0].hosts[0]=$DOMAIN
+  only:
+    - dev@app/app-ui
+
+# Stage
+
+build-image-stage:
+  stage: deploy
+  image: repo.app.ir/podman/stable:v4.9
+  needs:
+    - job: yarn-install
+      artifacts: true
+  script:
+    - echo "$GITLAB_REGISTRY_WRITE_TOKEN" | podman login registry.kian.group -u "$GITLAB_REGISTRY_USERNAME" --password-stdin
+    - echo "$APP_MIRROR_TOKEN" | podman login repo.app.ir -u "$APP_MIRROR_USERNAME" --password-stdin
+    - podman build -t registry.kian.group/app/app-ui/stage:${CI_COMMIT_SHA} --squash --omit-history .
+    - podman push registry.kian.group/app/app-ui/stage:${CI_COMMIT_SHA}
+  only:
+    - stage@app/app-ui
+
+deploy-kuber-stage:
+  stage: deploy
+  image: repo.app.ir/alpine/helm:3.13.3
+  needs:
+    - build-image-stage
+  tags:
+    - kuber-staging
+  variables:
+    NAMESPACE_NAME: "app-next-ui-stage"
+    HELM_NAME: $CI_PROJECT_NAME
+    DOMAIN: "stage-pwa.app.com"
+    PATHPREFIX: "/"
+  script:
+    - helm upgrade --install --create-namespace $HELM_NAME -n $NAMESPACE_NAME ./charts --set fullnameOverride=$HELM_NAME --set image.tag=$CI_COMMIT_SHA --set image.repository=registry.kian.group/app/app-ui --set image.pullPolicy=IfNotPresent --set ingress.enabled=true --set ingress.hosts[0].host=$DOMAIN --set ingress.hosts[0].paths[0].pathType=Prefix --set ingress.hosts[0].paths[0].path=$PATHPREFIX --set ingress.tls[0].hosts[0]=$DOMAIN
+  only:
+    - stage@app/app-ui
+
+# Production
+
+build-image-production:
+  stage: deploy
+  image: repo.app.ir/podman/stable:v4.9
+  needs:
+    - job: yarn-install
+      artifacts: true
+  script:
+    - echo "$GITLAB_REGISTRY_WRITE_TOKEN" | podman login registry.kian.group -u "$GITLAB_REGISTRY_USERNAME" --password-stdin
+    - echo "$APP_MIRROR_TOKEN" | podman login repo.app.ir -u "$APP_MIRROR_USERNAME" --password-stdin
+    - podman build -t registry.kian.group/app/app-ui/production:${CI_COMMIT_SHA} --squash --omit-history .
+    - podman push registry.kian.group/app/app-ui/production:${CI_COMMIT_SHA}
+  only:
+    - tags@app/app-ui
+
+deploy-kuber-production:
+  stage: deploy
+  image: repo.app.ir/alpine/helm:3.13.3
+  needs:
+    - build-image-production
+  tags:
+    - kuber
+  variables:
+    NAMESPACE_NAME: "app-next-ui"
+    HELM_NAME: $CI_PROJECT_NAME
+    TLS: "app-ir"
+    DOMAIN: "pwa.app.com"
+    PATHPREFIX: "/"
+  script:
+    - helm upgrade --install --create-namespace $HELM_NAME -n $NAMESPACE_NAME ./charts --set fullnameOverride=$HELM_NAME --set image.tag=$CI_COMMIT_SHA --set image.repository=registry.kian.group/app/app-ui/production --set image.pullPolicy=IfNotPresent --set ingress.enabled=true --set ingress.hosts[0].host=$DOMAIN --set ingress.hosts[0].paths[0].pathType=Prefix --set ingress.hosts[0].paths[0].path=$PATHPREFIX --set ingress.tls[0].hosts[0]=$DOMAIN --set ingress.tls[0].secretName=$TLS
+  only:
+    - tags@app/app-ui
