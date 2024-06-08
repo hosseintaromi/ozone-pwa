@@ -1,4 +1,5 @@
-import Container from '@/components/@base/container';
+import { Container } from 'ozone-uikit';
+
 import { Props } from '@/components/@base/modal/action/type';
 
 export default function ModalAction({ children }: Props) {

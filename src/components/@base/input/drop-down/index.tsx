@@ -1,4 +1,5 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { Container } from 'ozone-uikit';
 import { useEffect, useState } from 'react';
 import { IoChevronDown } from 'react-icons/io5';
 
@@ -6,7 +7,6 @@ import cn from '@/lib/clsxm';
 import { createPathQueryString } from '@/lib/helper';
 
 import { SIZE_ENUM } from '@/components/@base/@helpers/types';
-import Container from '@/components/@base/container';
 import DropDownList from '@/components/@base/input/drop-down/list';
 import DropDownItem from '@/components/@base/input/drop-down/list/item';
 import DropDownSearch from '@/components/@base/input/drop-down/search';

@@ -1,9 +1,10 @@
 import localFont from 'next/font/local';
+import { Container } from 'ozone-uikit';
 import { ReactNode } from 'react';
 
-import Container from '@/components/@base/container';
 import Toast from '@/components/@base/toast';
 import CommonModal from '@/components/shared/components/common-modal';
+
 import DisableZoom from './disable-zoom';
 
 type Props = {

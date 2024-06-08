@@ -1,9 +1,9 @@
 import { Switch } from '@headlessui/react';
+import { Container } from 'ozone-uikit';
 
 import cn from '@/lib/clsxm';
 
 import { COLOR_ENUM } from '@/components/@base/@helpers/types';
-import Container from '@/components/@base/container';
 import Props from '@/components/@base/input/check-box/type';
 
 export default function CheckBox({ onChange, checked = false, text, color }: Props) {

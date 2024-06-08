@@ -1,9 +1,9 @@
 import { useParams, usePathname, useRouter } from 'next/navigation';
+import { Container } from 'ozone-uikit';
 import { useEffect, useState } from 'react';
 
 import cn from '@/lib/clsxm';
 
-import Container from '@/components/@base/container';
 import { Props } from '@/components/@base/stepper/type';
 import { Text } from '@/components/@base/typography';
 export default function Stepper({ steps }: Props) {

@@ -1,8 +1,9 @@
+import { Container } from 'ozone-uikit';
+
 import cn from '@/lib/clsxm';
 
 import { COLOR_ENUM, SIZE_ENUM } from '@/components/@base/@helpers/types';
 import { BUTTON_TYPE, Props, VARIANT_ENUM } from '@/components/@base/button/type';
-import Container from '@/components/@base/container';
 
 const ButtonLoading = () => {
   return (
