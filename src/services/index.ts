@@ -1,10 +1,7 @@
-import axios from '@/lib/axios-instance';
+import { httpGetRequest } from '@/lib/baseHttpService';
 import { APIUrlGenerator } from '@/lib/helper';
 
-import AUTH from '@/constant/auth';
 import { API_ROUTES } from '@/constant/routes';
-// import UserModel from '@/models/user.model';
-import { httpGetRequest, httpPostRequest } from '@/lib/baseHttpService';
 
 // export const postProfile = async (body: any): Promise<UserModel> => {
 //   const { data }: { data: UserModel } = await axios.post(

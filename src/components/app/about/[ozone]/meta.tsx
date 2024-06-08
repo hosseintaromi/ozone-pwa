@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     url: `${SITE_URL}/`,
     locale: 'fa_IR',
     type: 'website',
-    siteName: localization.app,
+    siteName: 'app',
     images: [
       {
         url: imageBuilder('og-visit-blocks', { ext: 'jpg' }),

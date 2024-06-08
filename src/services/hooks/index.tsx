@@ -1,9 +1,8 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
-
-import { getPeople } from '..';
 import { QUERY_KEYS } from '@/constant/query-key';
 
+import { getPeople } from '..';
 
 // export const usePostProfile = () => {
 //   return useMutation({
@@ -15,7 +14,6 @@ import { QUERY_KEYS } from '@/constant/query-key';
 export const useGetProfile = (id: number) => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_SAMPLE_KEY],
-    queryFn: () => getPeople(id)
+    queryFn: () => getPeople(id),
   });
 };
-
