@@ -1,9 +1,9 @@
+import { Container } from 'ozone-uikit';
 import { Fragment } from 'react';
 
 import cn from '@/lib/clsxm';
 
 import { SIZE_ENUM } from '@/components/@base/@helpers/types';
-import Container from '@/components/@base/container';
 import { Tab } from '@/components/@base/tab';
 import { Text } from '@/components/@base/typography';
 

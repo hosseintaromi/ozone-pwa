@@ -1,10 +1,10 @@
 import { Datepicker } from 'headless-datetimepicker';
 import { config } from 'headless-datetimepicker/jalali';
+import { Container } from 'ozone-uikit';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
 
 import cn from '@/lib/clsxm';
 
-import Container from '@/components/@base/container';
 import Props from '@/components/@base/date-picker/type';
 
 export default function DatePicker({ onChange, value }: Props) {

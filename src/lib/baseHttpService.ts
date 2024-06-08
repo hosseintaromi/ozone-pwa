@@ -1,8 +1,10 @@
 import axios, { AxiosRequestConfig } from 'axios';
+
 import StorageKey from '@/constant/storage-key';
 axios.defaults.baseURL = process.env.REACT_APP_API_URL!;
 axios.defaults.timeout = +process.env.REACT_APP_REQUEST_TIMEOUT!;
 import Cookies from 'js-cookie';
+
 import { API_GATE_WAY } from '@/constant/routes';
 const baseURL = API_GATE_WAY,
   isServer = typeof window === 'undefined';

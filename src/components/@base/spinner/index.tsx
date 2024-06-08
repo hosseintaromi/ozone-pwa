@@ -1,4 +1,4 @@
-import Container from '@/components/@base/container';
+import { Container } from 'ozone-uikit';
 
 export default function Spinner() {
   return (

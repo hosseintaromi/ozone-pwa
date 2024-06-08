@@ -1,5 +1,5 @@
-import { Text } from '@/components/@base/typography';
 import { COLOR_ENUM, SIZE_ENUM } from '@/components/@base/@helpers/types';
+import { Text } from '@/components/@base/typography';
 
 export default function Ozone() {
   return (

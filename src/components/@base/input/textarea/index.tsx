@@ -1,9 +1,9 @@
+import { Container } from 'ozone-uikit';
 import { forwardRef } from 'react';
 
 import cn from '@/lib/clsxm';
 
 import { COLOR_ENUM, SIZE_ENUM } from '@/components/@base/@helpers/types';
-import Container from '@/components/@base/container';
 import Props from '@/components/@base/input/textarea/type';
 import { Text as TypographyText } from '@/components/@base/typography';
 
@@ -32,7 +32,7 @@ function Textarea(
           size === SIZE_ENUM.MD && 'h-24',
           size === SIZE_ENUM.LG && 'h-28',
           size === SIZE_ENUM.XL && 'h-32',
-          errorMessage && 'border-solid border-error focus:border-error focus:ring-0',
+          errorMessage && 'border-error focus:border-error border-solid focus:ring-0',
           className,
         )}
         {...props}

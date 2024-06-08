@@ -1,8 +1,9 @@
+import { Container } from 'ozone-uikit';
+
 import cn from '@/lib/clsxm';
 
 import { COLOR_ENUM } from '@/components/@base/@helpers/types';
 import Props from '@/components/@base/badge/type';
-import Container from '@/components/@base/container';
 import { Text } from '@/components/@base/typography';
 
 export default function Badge({ text, color = COLOR_ENUM.PURPLE, className }: Props) {

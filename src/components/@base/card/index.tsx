@@ -1,3 +1,5 @@
+import { Container } from 'ozone-uikit';
+
 import cn from '@/lib/clsxm';
 
 import CardAction from '@/components/@base/card/action';
@@ -5,7 +7,6 @@ import CardContent from '@/components/@base/card/content';
 import CardHeader from '@/components/@base/card/header';
 import CardMedia from '@/components/@base/card/media';
 import { Props } from '@/components/@base/card/type';
-import Container from '@/components/@base/container';
 
 export default function Card({
   noShadow = false,

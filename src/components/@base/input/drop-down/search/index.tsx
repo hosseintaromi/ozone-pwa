@@ -1,9 +1,9 @@
+import { Container } from 'ozone-uikit';
 import { CiSearch } from 'react-icons/ci';
 
 import cn from '@/lib/clsxm';
 
 import { SIZE_ENUM } from '@/components/@base/@helpers/types';
-import Container from '@/components/@base/container';
 import DebounceInput from '@/components/shared/components/debounce-input';
 import Props from '@/components/shared/components/debounce-input/type';
 

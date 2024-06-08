@@ -1,7 +1,8 @@
+import { Container } from 'ozone-uikit';
+
 import cn from '@/lib/clsxm';
 
 import { SIZE_ENUM } from '@/components/@base/@helpers/types';
-import Container from '@/components/@base/container';
 import Props from '@/components/@base/input/radio/circular/type';
 import { Text } from '@/components/@base/typography';
 

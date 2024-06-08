@@ -4,18 +4,18 @@
 
 /*TODO: headlessui fix for modal padding*/
 html {
-    padding: 0 !important;
+  padding: 0 !important;
 }
 
 body {
-    background-color: #ccc;
+  background-color: #ccc;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+  -webkit-appearance: none;
 }
 
 :focus {
-    outline: transparent none 0;
+  outline: transparent none 0;
 }

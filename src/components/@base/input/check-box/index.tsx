@@ -1,9 +1,9 @@
 import { Switch } from '@headlessui/react';
+import { Container } from 'ozone-uikit';
 import { IoMdCheckmark } from 'react-icons/io';
 
 import cn from '@/lib/clsxm';
 
-import Container from '@/components/@base/container';
 import Toggle from '@/components/@base/input/check-box/toggle';
 import Props from '@/components/@base/input/check-box/type';
 import { Text } from '@/components/@base/typography';
@@ -16,7 +16,7 @@ export default function CheckBox({ onChange, checked = false, className, text }:
       <Container className={cn(text && 'flex items-center gap-2.5')}>
         <Container
           className={cn(
-            'flex h-[18px] w-[18px] items-center justify-center rounded border-2 border-i-gray',
+            'border-i-gray flex h-[18px] w-[18px] items-center justify-center rounded border-2',
             checked && 'border-primary-50 bg-primary-50',
             className,
           )}
