@@ -1,7 +1,6 @@
 'use client';
-import { COLOR_ENUM, SIZE_ENUM } from '@/components/@base/@helpers/types';
-
-import { Text } from 'ozone-uikit';
+// import { useGetProfile } from "@/services/hooks";
+import { COLOR_ENUM, SIZE_ENUM, Text } from 'ozone-uikit';
 
 export default function HOME() {
   // const { data, isLoading } = useGetProfile(1)

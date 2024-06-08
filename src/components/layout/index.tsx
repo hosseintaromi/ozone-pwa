@@ -2,8 +2,9 @@ import localFont from 'next/font/local';
 import { Container } from 'ozone-uikit';
 import { ReactNode } from 'react';
 
-import Toast from '@/components/@base/toast';
-import CommonModal from '@/components/shared/components/common-modal';
+// FIXME:should be fix with package
+// import Toast from '@/components/@base/toast';
+// import CommonModal from '@/components/shared/components/common-modal';
 
 import DisableZoom from './disable-zoom';
 
@@ -56,8 +57,6 @@ export default async function Layout({ children }: Props) {
       id='root-element'
       className='relative m-auto flex min-h-[100vh] max-w-[448px] flex-col bg-white'
     >
-      <Toast />
-      <CommonModal />
       <DisableZoom />
 
       {children}

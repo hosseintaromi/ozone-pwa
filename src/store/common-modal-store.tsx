@@ -1,14 +1,10 @@
 import { ReactNode } from 'react';
 import { create } from 'zustand';
 
-import { DialogPanelProps, DialogProps } from '@/components/@base/modal/type';
-
 interface OptionsType {
   Head?: (() => ReactNode) | null;
   Body?: () => ReactNode;
   Action?: (() => ReactNode) | null;
-  DialogProps?: DialogProps | null;
-  DialogPanelProps?: DialogPanelProps | null;
   onDemandClose?: boolean;
   noBackDrop?: boolean;
   center?: boolean;
@@ -19,13 +15,9 @@ interface CommonModalState {
   Head: (() => ReactNode) | null;
   Body: () => ReactNode;
   Action: (() => ReactNode) | null;
-  DialogProps?: DialogProps | null;
-  DialogPanelProps?: DialogPanelProps | null;
   onDemandClose?: boolean;
   noBackDrop?: boolean;
   center?: boolean;
-  setDialogProps: (DialogProps: DialogProps) => void;
-  setDialogPanelProps: (DialogPanelProps: DialogPanelProps) => void;
   setShow: (showing: boolean, options?: OptionsType) => void;
   setHead: (Head: ReactNode) => void;
   setBody: (Body: ReactNode) => void;
@@ -41,16 +33,12 @@ const useCommonModalStore = create<CommonModalState>((set) => ({
   DialogPanelProps: null,
   onDemandClose: false,
   center: false,
-  setDialogProps: (DialogProps) => set({ DialogProps }),
-  setDialogPanelProps: (DialogPanelProps) => set({ DialogPanelProps }),
   setShow: (
     show,
     {
       Head = null,
       Body = () => <></>,
       Action = null,
-      DialogProps = null,
-      DialogPanelProps = null,
       onDemandClose = false,
       noBackDrop = false,
       center = false,
@@ -58,8 +46,6 @@ const useCommonModalStore = create<CommonModalState>((set) => ({
       Head: null,
       Body: () => <></>,
       Action: null,
-      DialogProps: null,
-      DialogPanelProps: null,
       onDemandClose: false,
       noBackDrop: false,
       center: false,
@@ -70,8 +56,6 @@ const useCommonModalStore = create<CommonModalState>((set) => ({
       Body,
       Action,
       Head,
-      DialogProps,
-      DialogPanelProps,
       onDemandClose,
       noBackDrop,
       center,

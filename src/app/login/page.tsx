@@ -1,14 +1,11 @@
 'use client';
 import { Container, Input, SIZE_ENUM } from 'ozone-uikit';
-import { useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { FaChevronLeft } from 'react-icons/fa6';
-
-import { INPUT_TYPES } from '@/components/@base/input/text/type';
+// FIXME: we should add input type to package
+// import INPUT_TYPES from 'ozone-uikit';
 
 const Login = () => {
-  const [val, setVal] = useState('');
-
   const {
     register,
     handleSubmit,
@@ -25,7 +22,7 @@ const Login = () => {
       <Text bold semiBold color={COLOR_ENUM.PRIMARY} >hello</Text> */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
-          type={INPUT_TYPES.TEXT}
+          // type={INPUT_TYPES}
           label='hello'
           background='bg-[#333333]'
           labelClassName='text-white '
