@@ -1,4 +1,4 @@
-FROM basereg.o3social.app/base/devops/node:18-alpine AS base
+FROM repo.ozonedev.ir/base/node:18-alpine AS base
 
 # 1. Install dependencies only when needed
 FROM base AS deps
