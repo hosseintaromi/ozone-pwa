@@ -22,13 +22,14 @@ build_manual:
     - docker image rmi --force repo.ozonedev.ir/dev/new-front/pwa:latest || true
   script:
     - cp ${dev_env} .env
-    - docker build \
-      --build-arg NEXT_PUBLIC_ENVIROMENT=develop \
-      --build-arg NODE_ENV=develop \
-      -f ./docker/Dockerfile \
-      -t repo.ozonedev.ir/dev/new-front/pwa:${CI_COMMIT_SHA:0:8} \
-      -t repo.ozonedev.ir/dev/new-front/pwa:latest \
-      .
+    - |
+      docker build \
+        --build-arg NEXT_PUBLIC_ENVIROMENT=develop \
+        --build-arg NODE_ENV=develop \
+        -f ./docker/Dockerfile \
+        -t repo.ozonedev.ir/dev/new-front/pwa:${CI_COMMIT_SHA:0:8} \
+        -t repo.ozonedev.ir/dev/new-front/pwa:latest \
+        .
     - docker push repo.ozonedev.ir/dev/new-front/pwa:${CI_COMMIT_SHA:0:8}
     - docker push repo.ozonedev.ir/dev/new-front/pwa:latest
   when: manual
@@ -47,13 +48,14 @@ build_automatic:
     - docker image rmi --force repo.ozonedev.ir/dev/new-front/pwa:latest || true
   script:
     - cp ${dev_env} .env.production
-    - docker build \
-      --build-arg NEXT_PUBLIC_ENVIROMENT=develop \
-      --build-arg NODE_ENV=develop \
-      -f ./docker/Dockerfile \
-      -t repo.ozonedev.ir/dev/new-front/pwa:${CI_COMMIT_SHA:0:8} \
-      -t repo.ozonedev.ir/dev/new-front/pwa:latest \
-      .
+    - |
+      docker build \
+        --build-arg NEXT_PUBLIC_ENVIROMENT=develop \
+        --build-arg NODE_ENV=develop \
+        -f ./docker/Dockerfile \
+        -t repo.ozonedev.ir/dev/new-front/pwa:${CI_COMMIT_SHA:0:8} \
+        -t repo.ozonedev.ir/dev/new-front/pwa:latest \
+        .
     - docker push repo.ozonedev.ir/dev/new-front/pwa:${CI_COMMIT_SHA:0:8}
     - docker push repo.ozonedev.ir/dev/new-front/pwa:latest
   only:
@@ -90,14 +92,13 @@ deploy_dev:
 #     - docker image rmi --force reg.o3social.app/prod/new-front/pwa:latest || true
 #   script:
 #     - cp ${prod_env} .env.production
-#     - |
-#       docker build \
-#         --build-arg NEXT_PUBLIC_ENVIROMENT=production \
-#         --build-arg NODE_ENV=production \
-#         -f ./docker/Dockerfile \
-#         -t reg.o3social.app/prod/new-front/pwa:${CI_COMMIT_SHA:0:8} \
-#         -t reg.o3social.app/prod/new-front/pwa:latest \
-#         .
+#     - docker build \
+#       --build-arg NEXT_PUBLIC_ENVIROMENT=production \
+#       --build-arg NODE_ENV=production \
+#       -f ./docker/Dockerfile \
+#       -t reg.o3social.app/prod/new-front/pwa:${CI_COMMIT_SHA:0:8} \
+#       -t reg.o3social.app/prod/new-front/pwa:latest \
+#       .
 #     - docker push reg.o3social.app/prod/new-front/pwa:${CI_COMMIT_SHA:0:8}
 #     - docker push reg.o3social.app/prod/new-front/pwa:latest
 #   only:
