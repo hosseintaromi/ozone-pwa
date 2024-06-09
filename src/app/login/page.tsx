@@ -1,9 +1,7 @@
 'use client';
-import { Container, Input, SIZE_ENUM } from 'ozone-uikit';
+import { Container, Input, INPUT_TYPES, SIZE_ENUM } from 'ozone-uikit';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { FaChevronLeft } from 'react-icons/fa6';
-// FIXME: we should add input type to package
-// import INPUT_TYPES from 'ozone-uikit';
 
 const Login = () => {
   const {
@@ -22,7 +20,7 @@ const Login = () => {
       <Text bold semiBold color={COLOR_ENUM.PRIMARY} >hello</Text> */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
-          // type={INPUT_TYPES}
+          type={INPUT_TYPES.TEXT}
           label='hello'
           background='bg-[#333333]'
           labelClassName='text-white '
