@@ -1,6 +1,3 @@
-image: repo.ozonedev.ir/base/node:18-alpine
-cache:
-  key: '$CI_COMMIT_REF_NAME'
 stages:
   - build_dev
   - deploy_dev
@@ -14,6 +11,33 @@ variables:
   ARTIFACT_COMPRESSION_LEVEL: 'fast'
   CACHE_COMPRESSION_LEVEL: 'fast'
 
+build_manual:
+  stage: build_dev
+  image: repo.ozonedev.ir/base/docker:26.1-dind
+
+  tags:
+    - dev-builder
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" repo.ozonedev.ir
+    - docker image rmi --force repo.ozonedev.ir/dev/new-front/pwa:${CI_COMMIT_SHA:0:8} || true
+    - docker image rmi --force repo.ozonedev.ir/dev/new-front/pwa:latest || true
+  script:
+    - cp ${dev_env} .env
+    - |
+      docker build \
+        --build-arg NEXT_PUBLIC_ENVIROMENT=develop \
+        --build-arg NODE_ENV=develop \
+        -f ./docker/Dockerfile \
+        -t repo.ozonedev.ir/dev/new-front/pwa:${CI_COMMIT_SHA:0:8} \
+        -t repo.ozonedev.ir/dev/new-front/pwa:latest \
+        .
+    - docker push repo.ozonedev.ir/dev/new-front/pwa:${CI_COMMIT_SHA:0:8}
+    - docker push repo.ozonedev.ir/dev/new-front/pwa:latest
+  when: manual
+  only:
+    - merge_requests
+  allow_failure: false
+
 build_automatic:
   stage: build_dev
   image: repo.ozonedev.ir/base/docker:26.1-dind
@@ -21,56 +45,79 @@ build_automatic:
     - dev-builder
   before_script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" repo.ozonedev.ir
-    - docker image rmi --force repo.ozonedev.ir/dev/frontend/merchant-panel-v2:${CI_COMMIT_SHA:0:8} || true
+    - docker image rmi --force repo.ozonedev.ir/dev/new-front/pwa:${CI_COMMIT_SHA:0:8} || true
     - docker image rmi --force repo.ozonedev.ir/dev/new-front/pwa:latest || true
   script:
-    - cp ${dev_env} .env
+    - cp ${dev_env} .env.production
     - |
       docker build \
-        -f ./deployment/Dockerfile \
-        -t repo.ozonedev.ir/dev/frontend/merchant-panel-v2:${CI_COMMIT_SHA:0:8} \
+        --build-arg NEXT_PUBLIC_ENVIROMENT=develop \
+        --build-arg NODE_ENV=develop \
+        -f ./docker/Dockerfile \
+        -t repo.ozonedev.ir/dev/new-front/pwa:${CI_COMMIT_SHA:0:8} \
         -t repo.ozonedev.ir/dev/new-front/pwa:latest \
         .
-    - docker push repo.ozonedev.ir/dev/frontend/merchant-panel-v2:${CI_COMMIT_SHA:0:8}
+    - docker push repo.ozonedev.ir/dev/new-front/pwa:${CI_COMMIT_SHA:0:8}
     - docker push repo.ozonedev.ir/dev/new-front/pwa:latest
   only:
     - develop
-
-build_manual:
-  stage: build_dev
-  image: repo.ozonedev.ir/base/docker:26.1-dind
-  tags:
-    - dev-builder
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" repo.ozonedev.ir
-    - docker image rmi --force repo.ozonedev.ir/dev/frontend/merchant-panel-v2:${CI_COMMIT_SHA:0:8} || true
-    - docker image rmi --force repo.ozonedev.ir/dev/new-front/pwa:latest || true
-  script:
-    - |
-      docker build \
-        --build-arg NEXT_PUBLIC_API_URL="https://pwa.ozonedev.ir/api/v1" \
-        -f ./deployment/Dockerfile \
-        -t repo.ozonedev.ir/dev/frontend/merchant-panel-v2:${CI_COMMIT_SHA:0:8} \
-        -t repo.ozonedev.ir/dev/new-front/pwa:latest \
-        .
-    - docker push repo.ozonedev.ir/dev/frontend/merchant-panel-v2:${CI_COMMIT_SHA:0:8}
-    - docker push repo.ozonedev.ir/dev/new-front/pwa:latest
-  when: manual
-  only:
-    - merge_requests
   allow_failure: false
 
 deploy_dev:
   stage: deploy_dev
   image:
     name: repo.ozonedev.ir/base/docker:26.1-dind
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" repo.ozonedev.ir
+    entrypoint: ['']
   tags:
-    - dev-ship1
+    - ozone-dev
+  before_script:
+    - ls
   script:
-    - docker pull repo.ozonedev.ir/dev/new-front/pwa:latest
-    - docker compose -f ./deployment/docker-compose.yml up -d
+    - kubectl --kubeconfig=$dev_kubeconfig -n dev-app set image deployment dev-pwa dev-pwa="repo.ozonedev.ir/dev/new-front/pwa:${CI_COMMIT_SHA:0:8}"
+    - kubectl --kubeconfig=$dev_kubeconfig -n dev-app delete po -l project=pwa,type=client --force || true
   only:
-    - develop
     - merge_requests
+    - develop
+  except:
+    - production
+# build_prod:
+#   stage: build_prod
+#   image: repo.ozonedev.ir/base/docker:26.1-dind
+#   tags:
+#     - ozone-prod
+#   before_script:
+#     - ls -a
+#     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" basereg.o3social.app
+#     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" reg.o3social.app
+#     - docker image rmi --force reg.o3social.app/prod/new-front/pwa:${CI_COMMIT_SHA:0:8} || true
+#     - docker image rmi --force reg.o3social.app/prod/new-front/pwa:latest || true
+#   script:
+#     - cp ${prod_env} .env.production
+#     - |
+#       docker build \
+#         --build-arg NEXT_PUBLIC_ENVIROMENT=production \
+#         --build-arg NODE_ENV=production \
+#         -f ./docker/Dockerfile \
+#         -t reg.o3social.app/prod/new-front/pwa:${CI_COMMIT_SHA:0:8} \
+#         -t reg.o3social.app/prod/new-front/pwa:latest \
+#         .
+#     - docker push reg.o3social.app/prod/new-front/pwa:${CI_COMMIT_SHA:0:8}
+#     - docker push reg.o3social.app/prod/new-front/pwa:latest
+#   only:
+#     - production
+
+# deploy_prod:
+#   stage: deploy_prod
+#   image:
+#     name: basereg.o3social.app/base/devops/bitnami/kubectl
+#     entrypoint: ['']
+#   tags:
+#     - prod-deploy
+#   before_script:
+#     - ls
+#   script:
+#     - kubectl --kubeconfig=$prod_kubeconfig -n prod-app set image deployment prod-pwa prod-pwa="reg.o3social.app/prod/new-front/pwa:${CI_COMMIT_SHA:0:8}"
+#     - kubectl --kubeconfig=$prod_kubeconfig -n prod-app delete po -l project=pwa,type=client --force || true
+#   only:
+#     - production
+#   when: manual
