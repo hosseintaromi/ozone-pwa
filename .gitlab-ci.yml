@@ -1,126 +1,78 @@
+image: repo.ozonedev.ir/base/node:18-alpine
+cache:
+  key: '$CI_COMMIT_REF_NAME'
 stages:
-  - prepare
-  - deploy
+  - build_dev
+  - deploy_dev
+  - build_prod
+  - deploy_prod
 
-image: repo.app.ir/node:20.10.0-alpine3.19
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ''
+  FF_USE_FASTZIP: 'true'
+  ARTIFACT_COMPRESSION_LEVEL: 'fast'
+  CACHE_COMPRESSION_LEVEL: 'fast'
 
-#========================================  prepare  ========================================
-
-yarn-install:
-  stage: prepare
-  script:
-#    - sha512sum -c <(echo "$DOCKERFILE_CHECKSUM  Dockerfile") || (echo "Dockerfile has changed! Revert your change or update DOCKERFILE_CHECKSUM" && return -1)
-    - yarn install
-  cache:
-    key:
-      files:
-        - yarn.lock
-    untracked: true
-    paths:
-      - node_modules/
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - node_modules/
-
-#========================================  deploy  ========================================
-
-# Dev
-
-build-image-dev:
-  stage: deploy
-  image: repo.app.ir/podman/stable:v4.9
-  needs:
-    - job: yarn-install
-      artifacts: true
-  script:
-    - echo "$GITLAB_REGISTRY_WRITE_TOKEN" | podman login registry.ozone.group -u "$GITLAB_REGISTRY_USERNAME" --password-stdin
-    - echo "$APP_MIRROR_TOKEN" | podman login repo.app.ir -u "$APP_MIRROR_USERNAME" --password-stdin
-    - podman build -t registry.ozone.group/app/app-ui/dev:${CI_COMMIT_SHA} --build-arg NEXT_PUBLIC_API_URL=https://app-debt-dev.app.rocks/api --build-arg NEXT_PUBLIC_CLIENT_ID=2 --build-arg NEXT_PUBLIC_CLIENT_SECRET=LvG6MWs8iPynSiuQc5VnioTZ3UIDYIx1NgULNrgD --squash --omit-history .
-    - podman push registry.ozone.group/app/app-ui/dev:${CI_COMMIT_SHA}
-  only:
-    - dev@app/app-ui
-
-deploy-kuber-dev:
-  stage: deploy
-  image: repo.app.ir/alpine/helm:3.13.3
-  needs:
-    - build-image-dev
+build_automatic:
+  stage: build_dev
+  image: repo.ozonedev.ir/base/docker:26.1-dind
   tags:
-    - kuber-staging
-  variables:
-    NAMESPACE_NAME: "app-next-ui-dev"
-    HELM_NAME: $CI_PROJECT_NAME
-    DOMAIN: "dev-pwa.app.com"
-    PATHPREFIX: "/"
+    - dev-builder
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" repo.ozonedev.ir
+    - docker image rmi --force repo.ozonedev.ir/dev/frontend/pwa:${CI_COMMIT_SHA:0:8} || true
+    - docker image rmi --force repo.ozonedev.ir/dev/frontend/pwa:latest || true
   script:
-    - helm upgrade --install --create-namespace $HELM_NAME -n $NAMESPACE_NAME ./charts --set fullnameOverride=$HELM_NAME --set image.tag=$CI_COMMIT_SHA --set image.repository=registry.ozone.group/app/app-ui --set image.pullPolicy=IfNotPresent --set ingress.enabled=true --set ingress.hosts[0].host=$DOMAIN --set ingress.hosts[0].paths[0].pathType=Prefix --set ingress.hosts[0].paths[0].path=$PATHPREFIX --set ingress.tls[0].hosts[0]=$DOMAIN
+    - cp ${dev_env} .env.production
+    - |
+      docker build \
+        --build-arg PKG_TOKEN=${PKG_TOKEN} \
+        -f ./deployment/Dockerfile \
+        -t repo.ozonedev.ir/dev/frontend/pwa:${CI_COMMIT_SHA:0:8} \
+        -t repo.ozonedev.ir/dev/frontend/pwa:latest \
+        .
+    - docker push repo.ozonedev.ir/dev/frontend/pwa:${CI_COMMIT_SHA:0:8}
+    - docker push repo.ozonedev.ir/dev/frontend/pwa:latest
   only:
-    - dev@app/app-ui
+    - develop
 
-# Stage
-
-build-image-stage:
-  stage: deploy
-  image: repo.app.ir/podman/stable:v4.9
-  needs:
-    - job: yarn-install
-      artifacts: true
-  script:
-    - echo "$GITLAB_REGISTRY_WRITE_TOKEN" | podman login registry.ozone.group -u "$GITLAB_REGISTRY_USERNAME" --password-stdin
-    - echo "$APP_MIRROR_TOKEN" | podman login repo.app.ir -u "$APP_MIRROR_USERNAME" --password-stdin
-    - podman build -t registry.ozone.group/app/app-ui/stage:${CI_COMMIT_SHA} --squash --omit-history .
-    - podman push registry.ozone.group/app/app-ui/stage:${CI_COMMIT_SHA}
-  only:
-    - stage@app/app-ui
-
-deploy-kuber-stage:
-  stage: deploy
-  image: repo.app.ir/alpine/helm:3.13.3
-  needs:
-    - build-image-stage
+build_manual:
+  stage: build_dev
+  image: repo.ozonedev.ir/base/docker:26.1-dind
   tags:
-    - kuber-staging
-  variables:
-    NAMESPACE_NAME: "app-next-ui-stage"
-    HELM_NAME: $CI_PROJECT_NAME
-    DOMAIN: "stage-pwa.app.com"
-    PATHPREFIX: "/"
+    - dev-builder
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" repo.ozonedev.ir
+    - docker image rmi --force repo.ozonedev.ir/dev/frontend/pwa:${CI_COMMIT_SHA:0:8} || true
+    - docker image rmi --force repo.ozonedev.ir/dev/frontend/pwa:latest || true
   script:
-    - helm upgrade --install --create-namespace $HELM_NAME -n $NAMESPACE_NAME ./charts --set fullnameOverride=$HELM_NAME --set image.tag=$CI_COMMIT_SHA --set image.repository=registry.ozone.group/app/app-ui --set image.pullPolicy=IfNotPresent --set ingress.enabled=true --set ingress.hosts[0].host=$DOMAIN --set ingress.hosts[0].paths[0].pathType=Prefix --set ingress.hosts[0].paths[0].path=$PATHPREFIX --set ingress.tls[0].hosts[0]=$DOMAIN
+    - cp ${dev_env} .env.production
+    - |
+      docker build --progress=plain \
+        --build-arg PKG_TOKEN=${PKG_TOKEN} \
+        -f ./deployment/Dockerfile \
+        -t repo.ozonedev.ir/dev/frontend/pwa:${CI_COMMIT_SHA:0:8} \
+        -t repo.ozonedev.ir/dev/frontend/pwa:latest \
+        .
+    - docker push repo.ozonedev.ir/dev/frontend/pwa:${CI_COMMIT_SHA:0:8}
+    - docker push repo.ozonedev.ir/dev/frontend/pwa:latest
+  when: manual
   only:
-    - stage@app/app-ui
+    - merge_requests
+  allow_failure: false
 
-# Production
-
-build-image-production:
-  stage: deploy
-  image: repo.app.ir/podman/stable:v4.9
-  needs:
-    - job: yarn-install
-      artifacts: true
-  script:
-    - echo "$GITLAB_REGISTRY_WRITE_TOKEN" | podman login registry.ozone.group -u "$GITLAB_REGISTRY_USERNAME" --password-stdin
-    - echo "$APP_MIRROR_TOKEN" | podman login repo.app.ir -u "$APP_MIRROR_USERNAME" --password-stdin
-    - podman build -t registry.ozone.group/app/app-ui/production:${CI_COMMIT_SHA} --squash --omit-history .
-    - podman push registry.ozone.group/app/app-ui/production:${CI_COMMIT_SHA}
-  only:
-    - tags@app/app-ui
-
-deploy-kuber-production:
-  stage: deploy
-  image: repo.app.ir/alpine/helm:3.13.3
-  needs:
-    - build-image-production
+deploy_dev:
+  stage: deploy_dev
+  image:
+    name: repo.ozonedev.ir/base/docker:26.1-dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" repo.ozonedev.ir
   tags:
-    - kuber
-  variables:
-    NAMESPACE_NAME: "app-next-ui"
-    HELM_NAME: $CI_PROJECT_NAME
-    TLS: "app-ir"
-    DOMAIN: "pwa.app.com"
-    PATHPREFIX: "/"
+    - dev-ship1
   script:
-    - helm upgrade --install --create-namespace $HELM_NAME -n $NAMESPACE_NAME ./charts --set fullnameOverride=$HELM_NAME --set image.tag=$CI_COMMIT_SHA --set image.repository=registry.ozone.group/app/app-ui/production --set image.pullPolicy=IfNotPresent --set ingress.enabled=true --set ingress.hosts[0].host=$DOMAIN --set ingress.hosts[0].paths[0].pathType=Prefix --set ingress.hosts[0].paths[0].path=$PATHPREFIX --set ingress.tls[0].hosts[0]=$DOMAIN --set ingress.tls[0].secretName=$TLS
+    - docker pull repo.ozonedev.ir/dev/frontend/pwa:latest
+    - docker compose -f ./deployment/docker-compose.yml up -d
   only:
-    - tags@app/app-ui
+    - develop
+    - merge_requests
