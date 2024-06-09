@@ -49,12 +49,12 @@ build_automatic:
     - docker image rmi --force repo.ozonedev.ir/dev/new-front/pwa:latest || true
   script:
     - cp ${dev_env} .env.production
-    - if [ ! -f ./docker/Dockerfile ]; then echo "Dockerfile not found"; exit 1; fi
+    - if [ ! -f ./deployment/Dockerfile ]; then echo "Dockerfile not found"; exit 1; fi
     - |
       docker build \
         --build-arg NEXT_PUBLIC_ENVIROMENT=develop \
         --build-arg NODE_ENV=develop \
-        -f ./docker/Dockerfile \
+        -f ./deployment/Dockerfile \
         -t repo.ozonedev.ir/dev/new-front/pwa:${CI_COMMIT_SHA:0:8} \
         -t repo.ozonedev.ir/dev/new-front/pwa:latest \
         .
