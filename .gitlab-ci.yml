@@ -68,19 +68,34 @@ deploy_dev:
   stage: deploy_dev
   image:
     name: repo.ozonedev.ir/base/docker:26.1-dind
-    entrypoint: ['']
-  tags:
-    - dev-builder
   before_script:
-    - ls
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" repo.ozonedev.ir
+  tags:
+    - dev-ship1
   script:
-    - kubectl --kubeconfig=$dev_kubeconfig -n dev-app set image deployment dev-pwa dev-pwa="repo.ozonedev.ir/dev/new-front/pwa:${CI_COMMIT_SHA:0:8}"
-    - kubectl --kubeconfig=$dev_kubeconfig -n dev-app delete po -l project=pwa,type=client --force || true
+    - docker pull repo.ozonedev.ir/dev/new-front/pwa:latest
+    - docker compose -f ./deployment/docker-compose.yml up -d
   only:
-    - merge_requests
     - develop
-  except:
-    - production
+    - merge_requests
+# deploy_dev:
+#   stage: deploy_dev
+#   image:
+#     name: repo.ozonedev.ir/base/docker:26.1-dind
+#     entrypoint: ['']
+#   tags:
+#     - dev-builder
+#   before_script:
+#     - ls
+#   script:
+#     - kubectl --kubeconfig=$dev_kubeconfig -n dev-app set image deployment dev-pwa dev-pwa="repo.ozonedev.ir/dev/new-front/pwa:${CI_COMMIT_SHA:0:8}"
+#     - kubectl --kubeconfig=$dev_kubeconfig -n dev-app delete po -l project=pwa,type=client --force || true
+#   only:
+#     - merge_requests
+#     - develop
+#   except:
+#     - production
+
 # build_prod:
 #   stage: build_prod
 #   image: repo.ozonedev.ir/base/docker:26.1-dind
