@@ -1,0 +1,8 @@
+version: '0.1'
+services:
+  new_pwa:
+    container_name: new_pwa
+    image: repo.ozonedev.ir/dev/new-front/pwa:latest
+    ports:
+      - 5011:80
+    restart: 'always'

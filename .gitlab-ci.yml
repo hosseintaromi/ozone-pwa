@@ -1,6 +1,76 @@
-build project:
-  image: node:15
+image: repo.ozonedev.ir/base/node:18-alpine
+cache:
+  key: '$CI_COMMIT_REF_NAME'
+stages:
+  - build_dev
+  - deploy_dev
+  - build_prod
+  - deploy_prod
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ''
+  FF_USE_FASTZIP: 'true'
+  ARTIFACT_COMPRESSION_LEVEL: 'fast'
+  CACHE_COMPRESSION_LEVEL: 'fast'
+
+build_automatic:
+  stage: build_dev
+  image: repo.ozonedev.ir/base/docker:26.1-dind
+  tags:
+    - dev-builder
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" repo.ozonedev.ir
+    - docker image rmi --force repo.ozonedev.ir/dev/frontend/merchant-panel-v2:${CI_COMMIT_SHA:0:8} || true
+    - docker image rmi --force repo.ozonedev.ir/dev/new-front/pwa:latest || true
   script:
-    - yarn install
-    - yarn test
-    - yarn build
+    - cp ${dev_env} .env
+    - |
+      docker build \
+        -f ./deployment/Dockerfile \
+        -t repo.ozonedev.ir/dev/frontend/merchant-panel-v2:${CI_COMMIT_SHA:0:8} \
+        -t repo.ozonedev.ir/dev/new-front/pwa:latest \
+        .
+    - docker push repo.ozonedev.ir/dev/frontend/merchant-panel-v2:${CI_COMMIT_SHA:0:8}
+    - docker push repo.ozonedev.ir/dev/new-front/pwa:latest
+  only:
+    - develop
+
+build_manual:
+  stage: build_dev
+  image: repo.ozonedev.ir/base/docker:26.1-dind
+  tags:
+    - dev-builder
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" repo.ozonedev.ir
+    - docker image rmi --force repo.ozonedev.ir/dev/frontend/merchant-panel-v2:${CI_COMMIT_SHA:0:8} || true
+    - docker image rmi --force repo.ozonedev.ir/dev/new-front/pwa:latest || true
+  script:
+    - |
+      docker build \
+        --build-arg NEXT_PUBLIC_API_URL="https://pwa.ozonedev.ir/api/v1" \
+        -f ./deployment/Dockerfile \
+        -t repo.ozonedev.ir/dev/frontend/merchant-panel-v2:${CI_COMMIT_SHA:0:8} \
+        -t repo.ozonedev.ir/dev/new-front/pwa:latest \
+        .
+    - docker push repo.ozonedev.ir/dev/frontend/merchant-panel-v2:${CI_COMMIT_SHA:0:8}
+    - docker push repo.ozonedev.ir/dev/new-front/pwa:latest
+  when: manual
+  only:
+    - merge_requests
+  allow_failure: false
+
+deploy_dev:
+  stage: deploy_dev
+  image:
+    name: repo.ozonedev.ir/base/docker:26.1-dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" repo.ozonedev.ir
+  tags:
+    - dev-ship1
+  script:
+    - docker pull repo.ozonedev.ir/dev/new-front/pwa:latest
+    - docker compose -f ./deployment/docker-compose.yml up -d
+  only:
+    - develop
+    - merge_requests
