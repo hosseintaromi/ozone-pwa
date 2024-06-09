@@ -22,6 +22,7 @@ build_manual:
     - docker image rmi --force repo.ozonedev.ir/dev/new-front/pwa:latest || true
   script:
     - cp ${dev_env} .env
+    - if [ ! -f ./docker/Dockerfile ]; then echo "Dockerfile not found"; exit 1; fi
     - |
       docker build \
         --build-arg NEXT_PUBLIC_ENVIROMENT=develop \
@@ -48,6 +49,7 @@ build_automatic:
     - docker image rmi --force repo.ozonedev.ir/dev/new-front/pwa:latest || true
   script:
     - cp ${dev_env} .env.production
+    - if [ ! -f ./docker/Dockerfile ]; then echo "Dockerfile not found"; exit 1; fi
     - |
       docker build \
         --build-arg NEXT_PUBLIC_ENVIROMENT=develop \
