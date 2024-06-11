@@ -1,14 +1,12 @@
 import { create } from 'zustand';
 
-import TokenModel from '@/models/token.model';
-import UserModel from '@/models/user.model';
-
 interface UserStore {
-  user: UserModel | null;
-  token: TokenModel | null;
+  user: null;
+  token: null;
   clear: () => void;
-  setUser: (user: UserModel) => void;
-  setToken: (token: TokenModel) => void;
+  // FIXME: any type
+  setUser: (user: any) => void;
+  setToken: (token: any) => void;
 }
 
 const useUserStore = create<UserStore>((set) => ({

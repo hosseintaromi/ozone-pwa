@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
 //FIXME: use localization for all hardcode strings
-import localization from '@/constant/localization';
+// import localization from '@/constant/localization';
 
 export const mobile = Yup.string()
   .matches(
