@@ -154,8 +154,9 @@ export function getLocationStandardURL(latitude: number, longitude: number) {
 export function convertToEnglishNumber(num) {
   return num
     ?.toString()
-    .replace(/([۰-۹])/g, (englishNumber) =>
-      String.fromCharCode(englishNumber.charCodeAt(0) - 1728),
+    .replace(/[^۰-۹0-9]/g, '')
+    .replace(/([۰-۹])/g, (persianNumber) =>
+      String.fromCharCode(persianNumber.charCodeAt(0) - 1728),
     );
 }
 
