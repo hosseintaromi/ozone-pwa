@@ -4,5 +4,6 @@ const common = {
   record: 'ثبت',
   welcome: 'خوش آمدید',
   to: 'به',
+  entree: 'ورود',
 };
 export default common;

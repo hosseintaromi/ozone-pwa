@@ -1,14 +1,13 @@
 import * as Yup from 'yup';
 
-//FIXME: use localization for all hardcode strings
-// import localization from '@/constant/localization';
+import locale from '@/locale';
 
 const mobile = Yup.string()
   .matches(
     /(0|\+98)?( |-|[()]){0,2}9[1|02349]( |-|[()]){0,2}(?:[0-9]( |-|[()]){0,2}){8}/,
-    'phone is incorrect',
+    locale.error.wrongPhoneNumber,
   )
-  .max(11, 'phone not match');
+  .max(11, locale.error.wrongPhoneNumber);
 const digit = Yup.string().matches(/^([۰-۹]|[0-9])+$/, 'pattern is not correct');
 
 const validation = {

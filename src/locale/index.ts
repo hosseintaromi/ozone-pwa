@@ -1,4 +1,5 @@
 import common from './common';
+import error from './error';
 import login from './login';
 
 export const locale = {
@@ -6,6 +7,7 @@ export const locale = {
     title: 'اوزون کارت',
     description: 'سامانه جامع خدمات',
   },
+  error,
   login,
   common,
 };
