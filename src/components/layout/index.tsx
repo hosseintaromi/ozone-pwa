@@ -5,7 +5,6 @@ import { ReactNode } from 'react';
 // FIXME:should be fix with package
 // import Toast from '@/components/@base/toast';
 // import CommonModal from '@/components/shared/components/common-modal';
-
 import DisableZoom from './disable-zoom';
 
 type Props = {

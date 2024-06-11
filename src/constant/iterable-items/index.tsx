@@ -1,17 +1,15 @@
 import generator from '@/constant/iterable-items/generator';
 import { SideBarMenuItemType, STEP_TYPE } from '@/constant/iterable-items/type';
-import localization, { pageLevelLocalization } from '@/constant/localization';
+import locale, { pageLevelLocale } from '@/locale';
+
 import { ROUTES } from '../routes';
 
-const {} = localization;
+const {} = locale;
 
-const {} = pageLevelLocalization;
+const {} = pageLevelLocale;
 
 export const SIDEBAR_MENU_ITEMS = () =>
-  generator<SideBarMenuItemType>(
-    [[localization.hello, ROUTES.HOME]],
-    ['name', 'link', 'subMenu'],
-  );
+  generator<SideBarMenuItemType>([[locale.hello, ROUTES.HOME]], ['name', 'link', 'subMenu']);
 
 export const STEP_TYPES = generator<{
   id: number;
@@ -19,8 +17,8 @@ export const STEP_TYPES = generator<{
   value: string;
 }>(
   [
-    ['1', localization.hello, STEP_TYPE.SUBMIT_INFO],
-    ['2', localization.hello, STEP_TYPE.AUTHENTICATION],
+    ['1', locale.hello, STEP_TYPE.SUBMIT_INFO],
+    ['2', locale.hello, STEP_TYPE.AUTHENTICATION],
   ],
   ['id', 'name', 'value', 'isActive'],
 );

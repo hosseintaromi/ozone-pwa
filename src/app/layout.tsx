@@ -9,13 +9,13 @@ import Layout, { yekanBakhFont } from '@/components/layout';
 import { metadata as PWAMetadata } from '@/components/layout/meta';
 
 import ReactQueryClientContext from '@/@core/contexts/react-query-client-context';
-import { pageLevelLocalization } from '@/constant/localization';
+import { locale } from '@/locale';
 
-const { home: homeLocalization } = pageLevelLocalization;
+const { home: homeLocale } = locale;
 const mergeMeta = isPWA() ? PWAMetadata : {};
 export const metadata: Metadata = {
-  title: homeLocalization.title,
-  description: homeLocalization.description,
+  title: homeLocale.title,
+  description: homeLocale.description,
   ...mergeMeta,
 };
 

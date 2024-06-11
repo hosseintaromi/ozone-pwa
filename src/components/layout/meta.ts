@@ -1,16 +1,16 @@
 import type { Metadata } from 'next';
 
-import { pageLevelLocalization } from '@/constant/localization';
+import { locale } from '@/locale';
 
-const { home: homeLocalization } = pageLevelLocalization;
+const { home: homeLocale } = locale;
 
 export const metadata: Metadata = {
-  applicationName: homeLocalization.title,
+  applicationName: homeLocale.title,
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: homeLocalization.title,
+    title: homeLocale.title,
     // startUpImage: [],
   },
   formatDetection: {

@@ -4247,10 +4247,10 @@ ospath@^1.2.2:
   resolved "https://registry.yarnpkg.com/ospath/-/ospath-1.2.2.tgz#1276639774a3f8ef2572f7fe4280e0ea4550c07b"
   integrity sha512-o6E5qJV5zkAbIDNhGSIlyOhScKXgQrSRMilfph0clDfM0nEnBOlKlH4sWDmG95BW/CvwNz0vmm7dJVtU2KlMiA==
 
-ozone-uikit@^0.0.80:
-  version "0.0.80"
-  resolved "https://registry.yarnpkg.com/ozone-uikit/-/ozone-uikit-0.0.80.tgz#8695ace3945ce7dbf4f1b101c71015e91c599ae0"
-  integrity sha512-gZc6ktOXXTRSWUUxUcBwUEE0/+vNDq3KwGi+X1YDyfzRWrONUwfVWsbPX1Rzx56jtL5c3zgNMlFmgP/Ty5yPeQ==
+ozone-uikit@^0.0.82:
+  version "0.0.82"
+  resolved "https://registry.yarnpkg.com/ozone-uikit/-/ozone-uikit-0.0.82.tgz#5fa516cfecf01b986d08cb0455d356666f8ee636"
+  integrity sha512-4FzlvACZZjF8qTF6W2peR9jn1zDjPfEmcxBDWNbw1SELe7ZGwAWvDaS2dwmQ3selxMZKoIqyKQxSFDacacRr5A==
 
 p-limit@^2.2.0:
   version "2.3.0"
@@ -4581,7 +4581,7 @@ react-loading-skeleton@3.4.0:
   resolved "https://registry.yarnpkg.com/react-loading-skeleton/-/react-loading-skeleton-3.4.0.tgz#c71a3a17259d08e4064974aa0b07f150a09dfd57"
   integrity sha512-1oJEBc9+wn7BbkQQk7YodlYEIjgeR+GrRjD+QXkVjwZN7LGIcAFHrx4NhT7UHGBxNY1+zax3c+Fo6XQM4R7CgA==
 
-react-otp-input@3.1.1:
+react-otp-input@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/react-otp-input/-/react-otp-input-3.1.1.tgz#910169629812c40a614e6c175cc2c5f36102bb61"
   integrity sha512-bjPavgJ0/Zmf/AYi4onj8FbH93IjeD+e8pWwxIJreDEWsU1ILR5fs8jEJmMGWSBe/yyvPP6X/W6Mk9UkOCkTPw==
