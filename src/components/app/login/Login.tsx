@@ -6,7 +6,7 @@ import PhoneNumber from './components/PhoneNumber';
 import { LOGIN_STEPS } from './Login.module';
 
 const Login = () => {
-  const [step, setStep] = useState(LOGIN_STEPS.PHONE_NUMBER);
+  const [step, setStep] = useState(LOGIN_STEPS.OTP);
   const [phoneNumber, setPhoneNumber] = useState('');
   return (
     <div>

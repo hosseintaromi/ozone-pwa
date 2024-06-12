@@ -1,3 +1,5 @@
+'use client';
+import { useRouter } from 'next/navigation';
 import {
   Button,
   BUTTON_TYPE,
@@ -17,54 +19,68 @@ import { useTimer } from 'react-timer-hook';
 import { addToTime } from '@/lib/date';
 import { addZeroIfUnder10 } from '@/lib/helper';
 
+import XImage from '@/components/share/x-image';
+
 import ICON_SIZE, { ICON_COLOR } from '@/constant/icon-size-color';
 import locale from '@/locale';
 
 import { SetStepType } from '../Login.module';
 
-const Otp = ({ setStep, phoneNumber }: { setStep: SetStepType; phoneNumber: string }) => {
+const Otp = ({ phoneNumber }: { setStep: SetStepType; phoneNumber: string }) => {
   const { login, common } = locale;
   const [otp, setOtp] = useState('');
   const [active, setActive] = useState(false);
+  const router = useRouter();
 
-  const { minutes, seconds, restart } = useTimer({
+  const { minutes, seconds } = useTimer({
     expiryTimestamp: addToTime(new Date(), 2, { unit: 'MINUTES' }),
     onExpire: () => !active && setActive(true),
   });
   return (
-    <Container center className='flex-col'>
-      <Text className='mt-16' size={SIZE_ENUM.LG} bold>
-        {login.verificationCode}
-      </Text>
-      <Text color={COLOR_ENUM.LIGHT_GRAY} size={SIZE_ENUM.SM} className='mt-2'>
-        {login.checkNumber(phoneNumber)}
-      </Text>
-      <Button className='mt-14' variant={VARIANT_ENUM.TEXT}>
-        <Text size={SIZE_ENUM.MD} light color={COLOR_ENUM.PRIMARY}>
-          {login.changeNumber}
-        </Text>
-      </Button>
-
-      <OTPInput
-        shouldAutoFocus
-        value={otp}
-        containerStyle='justify-between flex-row-reverse'
-        inputStyle='!w-12'
-        onChange={setOtp}
-        numInputs={5}
-        inputType={INPUT_TYPES.NUMBER}
-        // renderSeparator={<Container>-</Container>}
-        renderInput={(props) => (
-          <Input
-            size={SIZE_ENUM.XL}
-            {...props}
-            type={INPUT_TYPES.NUMBER}
-            className='mx-3 mt-14 !w-12 border-neutral bg-neutral-900 text-white focus:border-primary'
+    <Container className='flex min-h-screen flex-col justify-between  p-4'>
+      <Container center className='flex-col'>
+        <Container className='mt-5 w-14  xs:w-16'>
+          <XImage
+            placeholder
+            src='/images/logo/Logo.svg'
+            alt='Picture of the author'
+            width={1000}
+            height={1000}
           />
-        )}
-      />
+        </Container>
+        <Text className='mt-5' size={SIZE_ENUM.LG} bold>
+          {login.verificationCode}
+        </Text>
+        <Text color={COLOR_ENUM.LIGHT_GRAY} size={SIZE_ENUM.SM} className='mt-2'>
+          {login.checkNumber(phoneNumber)}
+        </Text>
+        <Button className='mt-6' variant={VARIANT_ENUM.TEXT}>
+          <Text size={SIZE_ENUM.MD} light color={COLOR_ENUM.PRIMARY}>
+            {login.changeNumber}
+          </Text>
+        </Button>
 
-      <Container className='absolute bottom-10 left-5 right-5'>
+        <OTPInput
+          shouldAutoFocus
+          value={otp}
+          containerStyle='justify-between flex-row-reverse'
+          inputStyle='!w-12'
+          onChange={setOtp}
+          numInputs={5}
+          inputType={INPUT_TYPES.NUMBER}
+          // renderSeparator={<Container>-</Container>}
+          renderInput={(props) => (
+            <Input
+              size={SIZE_ENUM.XL}
+              {...props}
+              type={INPUT_TYPES.NUMBER}
+              className='mx-3 mt-8 !w-12 border-neutral bg-neutral-900 text-white focus:border-primary'
+            />
+          )}
+        />
+      </Container>
+
+      <Container>
         <Container center className='mb-9 gap-2'>
           <Text
             className='text-center'
@@ -81,7 +97,7 @@ const Otp = ({ setStep, phoneNumber }: { setStep: SetStepType; phoneNumber: stri
           type={BUTTON_TYPE.SUBMIT}
           size={SIZE_ENUM.XL}
           className='w-full'
-          onClick={() => {}}
+          onClick={() => router.push('/')}
           disabled={otp.length < 5}
         >
           {login.entree}

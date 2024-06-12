@@ -1,6 +1,5 @@
 'use client';
 import { useFormik } from 'formik';
-import Image from 'next/image';
 import {
   Button,
   BUTTON_TYPE,
@@ -15,6 +14,9 @@ import { RxCrossCircled } from 'react-icons/rx';
 import { object } from 'yup';
 
 import { convertToEnglishNumber, isIOS } from '@/lib/helper';
+
+import Carousel, { CarouselItem } from '@/components/share/carousel';
+import XImage from '@/components/share/x-image';
 
 import validation from '@/constant/validation-rules';
 import { locale } from '@/locale';
@@ -48,24 +50,54 @@ const PhoneNumber = ({
   };
   return (
     <Container className='flex w-full flex-col items-center'>
-      {/* FIXME: change Image with xImage */}
-      <Image
-        src='/images/logo/Logo.svg'
-        width={76}
-        height={76}
-        className='mt-16'
-        alt='Picture of the author'
-      />
-      <Text className='mt-10' size={SIZE_ENUM.XL} bold>
+      <Container className='mt-5 w-14  xs:w-16'>
+        <XImage
+          placeholder
+          src='/images/logo/Logo.svg'
+          alt='Picture of the author'
+          width={1000}
+          height={1000}
+        />
+      </Container>
+
+      <Text className='text-1xl mt-5 xs:text-2xl' bold>
         {common.to} <span className='text-primary'>{common.ozoneCard}</span> {common.welcome}
       </Text>
-      <Text size={SIZE_ENUM.MD} className='mt-2 text-neutral-300'>
-        {login.enterPhoneNumber}
-      </Text>
+
+      <Container className='m-5 w-1/2 xs:m-5 xs:w-full'>
+        <Carousel
+          slidesPerView={1}
+          loop
+          autoplay={{
+            delay: 3000,
+          }}
+        >
+          {[
+            '/images/guide/New-1.mp4',
+            '/images/guide/New-2.mp4',
+            '/images/guide/New-3.mp4',
+          ].map((item) => (
+            <CarouselItem key={item}>
+              <video
+                width='100%'
+                height='100%'
+                className='max-h-96'
+                loop
+                muted
+                autoPlay
+                onClick={(e) => e.preventDefault()}
+              >
+                <source src={item} type='video/mp4' />
+                Your browser does not support the video tag.
+              </video>
+            </CarouselItem>
+          ))}
+        </Carousel>
+      </Container>
 
       <form
         onSubmit={handleSubmit}
-        className='flex w-full flex-col px-5 pt-16'
+        className='flex w-full flex-col px-5 xs:pt-5'
         autoComplete='off'
       >
         <Input
@@ -85,7 +117,7 @@ const PhoneNumber = ({
             />
           )}
         />
-        <Container className='absolute bottom-10 left-5 right-5'>
+        <Container className='mt-10'>
           <Button
             type={BUTTON_TYPE.SUBMIT}
             size={SIZE_ENUM.XL}
