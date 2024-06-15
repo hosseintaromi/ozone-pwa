@@ -51,7 +51,7 @@ const Otp = ({ phoneNumber }: { setStep: SetStepType; phoneNumber: string }) => 
         <Text className='mt-5' size={SIZE_ENUM.LG} bold>
           {login.verificationCode}
         </Text>
-        <Text color={COLOR_ENUM.LIGHT_GRAY} size={SIZE_ENUM.SM} className='mt-2'>
+        <Text color={COLOR_ENUM.LIGHT_GRAY} size={SIZE_ENUM.MD} className='mt-2'>
           {login.checkNumber(phoneNumber)}
         </Text>
         <Button className='mt-6' variant={VARIANT_ENUM.TEXT}>
@@ -80,7 +80,7 @@ const Otp = ({ phoneNumber }: { setStep: SetStepType; phoneNumber: string }) => 
         />
       </Container>
 
-      <Container>
+      <Container className='mb-24'>
         <Container center className='mb-9 gap-2'>
           <Text
             className='text-center'

@@ -8,7 +8,7 @@ html {
 }
 
 body {
-  background-color: #ccc;
+  background-color: #1c2023;
 }
 
 input::-webkit-outer-spin-button,
@@ -18,4 +18,14 @@ input::-webkit-inner-spin-button {
 
 :focus {
   outline: transparent none 0;
+}
+
+:root {
+  --rsbs-backdrop-bg: rgba(0, 0, 0, 0.6);
+  --rsbs-bg: #1c2023;
+  --rsbs-handle-bg: hsla(0, 0%, 89%, 0.418);
+  --rsbs-max-w: auto;
+  --rsbs-ml: env(safe-area-inset-left);
+  --rsbs-mr: env(safe-area-inset-right);
+  --rsbs-overlay-rounded: 16px;
 }

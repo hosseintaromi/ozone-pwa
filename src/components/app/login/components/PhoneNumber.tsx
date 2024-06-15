@@ -10,8 +10,12 @@ import {
   SIZE_ENUM,
   Text,
 } from 'ozone-uikit';
+import { useState } from 'react';
 import { RxCrossCircled } from 'react-icons/rx';
+import { BottomSheet } from 'react-spring-bottom-sheet';
 import { object } from 'yup';
+
+import 'react-spring-bottom-sheet/dist/style.css';
 
 import { convertToEnglishNumber, isIOS } from '@/lib/helper';
 
@@ -32,6 +36,7 @@ const PhoneNumber = ({
 }) => {
   const isIos = isIOS();
   const { login, common } = locale;
+  const [open, setOpen] = useState(false);
 
   const { handleSubmit, values, errors, handleChange, isValid, dirty, resetForm } = useFormik({
     initialValues: {
@@ -64,7 +69,7 @@ const PhoneNumber = ({
         {common.to} <span className='text-primary'>{common.ozoneCard}</span> {common.welcome}
       </Text>
 
-      <Container className='m-5 w-1/2 xs:m-5 xs:w-full'>
+      <Container className='m-5 w-1/2 xs:w-1/2 xs:p-5'>
         <Carousel
           slidesPerView={1}
           loop
@@ -82,9 +87,7 @@ const PhoneNumber = ({
                 width='100%'
                 height='100%'
                 className='max-h-96'
-                loop
-                muted
-                autoPlay
+                playsInline
                 onClick={(e) => e.preventDefault()}
               >
                 <source src={item} type='video/mp4' />
@@ -131,11 +134,38 @@ const PhoneNumber = ({
             {common.record}
           </Button>
           <Text className='mt-6 w-full text-center'>
-            <span className='text-primary'> {login.TermsAndConditions}</span>
+            <span className='text-primary' onClick={() => setOpen(true)}>
+              {' '}
+              {login.TermsAndConditions}
+            </span>
             {login.readAndAgree}
           </Text>
         </Container>
       </form>
+      <BottomSheet
+        open={open}
+        onDismiss={() => setOpen(false)}
+        blocking={false}
+        snapPoints={({ maxHeight }) => [maxHeight]}
+        header
+      >
+        <Container className='px-4 py-3 text-justify'>
+          {[1, 2, 3, 4, 5].map(() => (
+            <>
+              <Text color={COLOR_ENUM.PRIMARY}>۱. شرط</Text>
+              <Text color={COLOR_ENUM.LIGHT_GRAY}>
+                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
+                طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که
+                لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و و فرهنگ پیشرو در زبان فارسی
+                ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه
+                راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی
+                دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد
+                استفاده قرار گیرد.
+              </Text>
+            </>
+          ))}
+        </Container>
+      </BottomSheet>
     </Container>
   );
 };

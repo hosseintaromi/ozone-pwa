@@ -1,10 +1,21 @@
 'use client';
-import { COLOR_ENUM, SIZE_ENUM, Text } from 'ozone-uikit';
+import useCommonModalStore from '@/store/common-modal-store';
 
 export default function Home() {
+  const { setShow } = useCommonModalStore();
+  const openModal = () => {
+    setShow(true, {
+      onDemandClose: false,
+      darkBackDrop: true,
+      Head: () => <button onClick={() => setShow(false)}>close this shit</button>,
+      Body: () => <p className='h-32'>Body</p>,
+    });
+  };
   return (
-    <Text size={SIZE_ENUM.LG} bold color={COLOR_ENUM.TEXT}>
-      data
-    </Text>
+    <>
+      <button style={{ color: 'white' }} onClick={openModal}>
+        hello
+      </button>
+    </>
   );
 }
