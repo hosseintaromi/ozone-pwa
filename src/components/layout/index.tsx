@@ -9,8 +9,6 @@ import { isIOS } from '@/lib/helper';
 // import Toast from '@/components/@base/toast';
 // import CommonModal from '@/components/shared/components/common-modal';
 import DisableZoom from './disable-zoom';
-import CommonModal from '../share/common-modal';
-
 type Props = {
   children: ReactNode;
 };
@@ -64,7 +62,6 @@ export default async function Layout({ children }: Props) {
         isIos ? 'h-vh' : 'h-dvh',
       )}
     >
-      <CommonModal />
       <DisableZoom />
 
       {children}

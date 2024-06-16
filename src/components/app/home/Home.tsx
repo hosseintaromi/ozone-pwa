@@ -1,21 +1,19 @@
 'use client';
-import useCommonModalStore from '@/store/common-modal-store';
+import Modal, { ModalBody, ModalHead } from '@/components/share/modal';
+import { useState } from 'react';
 
 export default function Home() {
-  const { setShow } = useCommonModalStore();
-  const openModal = () => {
-    setShow(true, {
-      onDemandClose: false,
-      darkBackDrop: true,
-      Head: () => <button onClick={() => setShow(false)}>close this shit</button>,
-      Body: () => <p className='h-32'>Body</p>,
-    });
-  };
+  const [show, setShow] = useState(false);
+
   return (
     <>
-      <button style={{ color: 'white' }} onClick={openModal}>
+      <button style={{ color: 'white' }} onClick={() => setShow(true)}>
         hello
       </button>
+      <Modal show={show} onClose={() => setShow(false)}>
+        <ModalHead isCustomHead></ModalHead>
+        <ModalBody className='flex flex-col gap-2.5'>hoss</ModalBody>
+      </Modal>
     </>
   );
 }

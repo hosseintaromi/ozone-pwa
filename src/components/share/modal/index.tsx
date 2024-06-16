@@ -27,6 +27,7 @@ export default function Modal({
   return (
     <Transition
       appear
+      enter='ease-out duration-300'
       enterFrom='opacity-0'
       enterTo='opacity-100'
       leave='transition-opacity duration-500'
