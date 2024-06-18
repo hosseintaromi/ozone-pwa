@@ -1,5 +1,6 @@
 'use client';
 import { useFormik } from 'formik';
+import { CloseCircle } from 'iconsax-react';
 import {
   Button,
   BUTTON_TYPE,
@@ -11,13 +12,13 @@ import {
   Text,
 } from 'ozone-uikit';
 import { useState } from 'react';
-import { RxCrossCircled } from 'react-icons/rx';
 import { BottomSheet } from 'react-spring-bottom-sheet';
 import { object } from 'yup';
 
 import 'react-spring-bottom-sheet/dist/style.css';
 
 import { convertToEnglishNumber, isIOS } from '@/lib/helper';
+import useDeviceDetection from '@/hooks/useDeviceDetection';
 
 import Carousel, { CarouselItem } from '@/components/share/carousel';
 import XImage from '@/components/share/x-image';
@@ -34,7 +35,8 @@ const PhoneNumber = ({
   setStep: SetStepType;
   setPhoneNumber: SetPhoneType;
 }) => {
-  const isIos = isIOS();
+  const isIos = useDeviceDetection();
+
   const { login, common } = locale;
   const [open, setOpen] = useState(false);
 
@@ -45,7 +47,7 @@ const PhoneNumber = ({
     validationSchema: object().shape({
       phoneNumber: validation.mobile,
     }),
-    onSubmit: (values, action) => {
+    onSubmit: () => {
       // console.log('call api', values, action);
     },
   });
@@ -68,7 +70,7 @@ const PhoneNumber = ({
       <Text className='text-1xl mt-5 xs:text-2xl' bold>
         {common.to} <span className='text-primary'>{common.ozoneCard}</span> {common.welcome}
       </Text>
-
+      <p style={{ color: 'white' }}>{isIos ? 'slm' : 'buy'}</p>
       <Container className='m-5 w-1/2 xs:w-1/2 xs:p-5'>
         <Carousel
           slidesPerView={1}
@@ -113,7 +115,7 @@ const PhoneNumber = ({
           value={values.phoneNumber}
           onChange={isIos ? persianNumToEnNumChange : handleChange}
           LeftIcon={() => (
-            <RxCrossCircled
+            <CloseCircle
               color={COLOR_ENUM.WHITE}
               className='size-7'
               onClick={() => resetForm()}

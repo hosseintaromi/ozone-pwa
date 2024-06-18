@@ -1,4 +1,5 @@
 'use client';
+import { Clock } from 'iconsax-react';
 import { useRouter } from 'next/navigation';
 import {
   Button,
@@ -12,7 +13,6 @@ import {
   VARIANT_ENUM,
 } from 'ozone-uikit';
 import React, { useState } from 'react';
-import { LuClock4 } from 'react-icons/lu';
 import OTPInput from 'react-otp-input';
 import { useTimer } from 'react-timer-hook';
 
@@ -91,7 +91,7 @@ const Otp = ({ phoneNumber }: { setStep: SetStepType; phoneNumber: string }) => 
               ? login.requestOTPAgain
               : `${addZeroIfUnder10(minutes)}:${addZeroIfUnder10(seconds)}`}
           </Text>
-          {!active && <LuClock4 color={ICON_COLOR.white} size={ICON_SIZE.md} />}
+          {!active && <Clock color={ICON_COLOR.white} size={ICON_SIZE.md} />}
         </Container>
         <Button
           type={BUTTON_TYPE.SUBMIT}

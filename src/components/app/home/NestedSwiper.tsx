@@ -27,11 +27,11 @@ export default function App() {
         creativeEffect={{
           next: {
             shadow: true,
-            translate: ['-110%', 0, -100],
+            translate: ['-110%', 0, 0],
           },
           prev: {
             shadow: true,
-            translate: ['110%', 0, -100],
+            translate: ['110%', 0, 0],
           },
         }}
         modules={[Pagination, EffectCreative]}

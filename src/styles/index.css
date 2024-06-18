@@ -24,8 +24,8 @@ input::-webkit-inner-spin-button {
   --rsbs-backdrop-bg: rgba(0, 0, 0, 0.6);
   --rsbs-bg: #1c2023;
   --rsbs-handle-bg: hsla(0, 0%, 89%, 0.418);
-  --rsbs-max-w: auto;
-  --rsbs-ml: env(safe-area-inset-left);
-  --rsbs-mr: env(safe-area-inset-right);
+  --rsbs-max-w: 448px;
+  --rsbs-ml: auto;
+  --rsbs-mr: auto;
   --rsbs-overlay-rounded: 16px;
 }
