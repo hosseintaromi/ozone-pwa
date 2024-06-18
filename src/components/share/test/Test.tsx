@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
+import React, { useState } from 'react';
 
 const Test = () => {
   const [isOpen, setIsOpen] = useState(false);

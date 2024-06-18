@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
 import { motion, useAnimation } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 
 function BottomSheet({ isClosed, setIsClosed }) {
   const [isOpen, setIsOpen] = useState(false);

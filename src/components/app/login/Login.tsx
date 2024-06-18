@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import React, { useState } from 'react';
 
 import Otp from './components/Otp';
@@ -15,6 +16,7 @@ const Login = () => {
       ) : (
         <Otp setStep={setStep} phoneNumber={phoneNumber} />
       )}
+      <Link href='/'>go</Link>
     </div>
   );
 };
