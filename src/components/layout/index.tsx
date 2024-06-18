@@ -2,12 +2,13 @@ import localFont from 'next/font/local';
 import { Container } from 'ozone-uikit';
 import { ReactNode } from 'react';
 
+import cn from '@/lib/clsxm';
+import { isIOS } from '@/lib/helper';
+
 // FIXME:should be fix with package
 // import Toast from '@/components/@base/toast';
 // import CommonModal from '@/components/shared/components/common-modal';
-
 import DisableZoom from './disable-zoom';
-
 type Props = {
   children: ReactNode;
 };
@@ -52,10 +53,14 @@ export const yekanBakhFont = localFont({
   ],
 });
 export default async function Layout({ children }: Props) {
+  const isIos = isIOS();
   return (
     <Container
       id='root-element'
-      className='relative m-auto flex  h-dvh max-w-[448px] flex-col  bg-neutral-900'
+      className={cn(
+        'relative m-auto flex  max-w-[448px] flex-col  bg-neutral-900',
+        isIos ? 'h-vh' : 'h-dvh',
+      )}
     >
       <DisableZoom />
 

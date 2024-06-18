@@ -12,7 +12,5 @@ type Props = {
 export default function ReactQueryClientContext({ children }: Props) {
   const [queryClient] = useState(() => new QueryClient(queryClientOptions));
 
-  return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
+  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 }

@@ -1,34 +1,31 @@
 import { Metadata } from 'next';
 
-import { imageBuilder } from '@/lib/helper';
-
-import localization, { pageLevelLocalization } from '@/constant/localization';
-const { home: homeLocalization } = pageLevelLocalization;
-import { SITE_URL } from '@/constant/routes';
+import { locale } from '@/locale';
+const { home: homeLocale } = locale;
 
 export const metadata: Metadata = {
-  title: homeLocalization.title,
-  description: homeLocalization.description,
-  alternates: {
-    canonical: `${SITE_URL}/`,
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-  openGraph: {
-    title: homeLocalization.title,
-    description: homeLocalization.description,
-    url: `${SITE_URL}/`,
-    locale: 'fa_IR',
-    type: 'website',
-    siteName: localization.hello,
-    images: [
-      {
-        url: imageBuilder('og-visit-blocks', { ext: 'jpg' }),
-        width: 600,
-        height: 400,
-      },
-    ],
-  },
+  title: homeLocale.title,
+  description: homeLocale.description,
+  // alternates: {
+  //   canonical: `${SITE_URL}/`,
+  // },
+  // robots: {
+  //   index: true,
+  //   follow: true,
+  // },
+  // openGraph: {
+  //   title: homeLocale.title,
+  //   description: homeLocale.description,
+  //   url: `${SITE_URL}/`,
+  //   locale: 'fa_IR',
+  //   type: 'website',
+  //   siteName: locale.hello,
+  //   images: [
+  //     {
+  //       url: imageBuilder('og-visit-blocks', { ext: 'jpg' }),
+  //       width: 600,
+  //       height: 400,
+  //     },
+  //   ],
+  // },
 };
