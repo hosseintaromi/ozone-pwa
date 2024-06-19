@@ -70,7 +70,6 @@ const PhoneNumber = ({
       <Text className='text-1xl mt-5 xs:text-2xl' bold>
         {common.to} <span className='text-primary'>{common.ozoneCard}</span> {common.welcome}
       </Text>
-      <p style={{ color: 'white' }}>{isIos ? 'slm' : 'buy'}</p>
       <Container className='m-5 w-1/2 xs:w-1/2 xs:p-5'>
         <Carousel
           slidesPerView={1}
@@ -100,11 +99,7 @@ const PhoneNumber = ({
         </Carousel>
       </Container>
 
-      <form
-        onSubmit={handleSubmit}
-        className='flex w-full flex-col px-5 xs:pt-5'
-        autoComplete='off'
-      >
+      <form onSubmit={handleSubmit} className='flex w-full flex-col px-5 xs:pt-5'>
         <Input
           name='phoneNumber'
           errorMessage={errors.phoneNumber}
@@ -152,8 +147,8 @@ const PhoneNumber = ({
         header
       >
         <Container className='px-4 py-3 text-justify'>
-          {[1, 2, 3, 4, 5].map(() => (
-            <>
+          {[1, 2, 3, 4, 5].map((i) => (
+            <Container key={i + 'terms'}>
               <Text color={COLOR_ENUM.PRIMARY}>۱. شرط</Text>
               <Text color={COLOR_ENUM.LIGHT_GRAY}>
                 لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
@@ -164,7 +159,7 @@ const PhoneNumber = ({
                 دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد
                 استفاده قرار گیرد.
               </Text>
-            </>
+            </Container>
           ))}
         </Container>
       </BottomSheet>
