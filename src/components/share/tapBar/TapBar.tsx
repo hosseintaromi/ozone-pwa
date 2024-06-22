@@ -64,12 +64,11 @@ const TapBar = () => {
         >
           <Container>
             {item.icon({
-              className: activeTab === item.id && 'text-primary',
+              className: activeTab === item.id ? 'text-primary' : '',
               variant: 'Bold',
               size: '28',
             })}
           </Container>
-
           <Text
             className={cn(
               `invisible mt-1 text-xs font-bold`,

@@ -9,6 +9,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 import './styles.css';
+import NormalCard from './NormalCard';
 
 export default function App() {
   return (
@@ -19,9 +20,9 @@ export default function App() {
         loop
         slidesPerView={1.3}
         centeredSlides
-        pagination={{
-          clickable: true,
-        }}
+        // pagination={{
+        //   clickable: true,
+        // }}
         grabCursor={true}
         effect='creative'
         creativeEffect={{
@@ -34,9 +35,12 @@ export default function App() {
             translate: ['110%', 0, 0],
           },
         }}
-        modules={[Pagination, EffectCreative]}
+        // modules={[Pagination, EffectCreative]}
+        modules={[EffectCreative]}
       >
-        <SwiperSlide>Horizontal Slide 1</SwiperSlide>
+        <SwiperSlide>
+          <NormalCard />
+        </SwiperSlide>
         <SwiperSlide>
           <Swiper
             className='mySwiper2 swiper-v'

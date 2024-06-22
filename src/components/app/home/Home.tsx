@@ -61,8 +61,8 @@ export default function Home() {
         <Container className='mb-20  px-5'>
           <Text className='text-lg'>{app.transactions}</Text>
           <Container>
-            {data.map((item) => (
-              <HorizontalCard data={item} />
+            {data.map((item, index) => (
+              <HorizontalCard key={index} data={item} />
             ))}
           </Container>
 

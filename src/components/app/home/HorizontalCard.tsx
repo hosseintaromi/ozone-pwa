@@ -7,14 +7,17 @@ import ICON_SIZE, { IconSize } from '@/constant/icon-size-color';
 import common from '@/locale/common';
 
 import { HorizontalCardType } from './home';
+import cn from '@/lib/clsxm';
 
 const HorizontalCard = ({ data }: { data: HorizontalCardType }) => {
   return (
     <Container className='flex flex-col border-b-[1px] border-neutral-500 pb-5 pt-5'>
       <Container center className='w-full gap-3'>
         <Container
-          className={`${data.isPayIn ? 'bg-primary/30' : 'bg-alert-500/10'} 
-                h-fit w-fit rounded-lg p-2`}
+          className={cn(
+            data.isPayIn ? 'bg-primary/30' : 'bg-alert-500/10',
+            `h-fit w-fit rounded-lg p-2`,
+          )}
         >
           {data.isPayIn ? (
             <ArrowDown size={IconSize.lg} color={colors.primary} />
