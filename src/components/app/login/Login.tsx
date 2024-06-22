@@ -2,15 +2,15 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 
+// import { useGetProfile } from '@/services/hooks';
 import Otp from './components/Otp';
 import PhoneNumber from './components/PhoneNumber';
 import { LOGIN_STEPS } from './Login.module';
-import { useGetProfile } from '@/services/hooks';
 
 const Login = () => {
   const [step, setStep] = useState(LOGIN_STEPS.PHONE_NUMBER);
   const [phoneNumber, setPhoneNumber] = useState('');
-  const { isLoading, data } = useGetProfile(3);
+  // const { isLoading, data } = useGetProfile(3);
 
   return (
     <div>

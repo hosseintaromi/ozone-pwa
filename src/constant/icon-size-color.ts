@@ -15,4 +15,9 @@ export const ICON_COLOR = {
   secondary: '#00BC3B',
 } as const;
 
+export const IconSize = {
+  md: '18',
+  lg: '22',
+};
+
 export default ICON_SIZE;

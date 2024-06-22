@@ -6,7 +6,7 @@ const layout = ({ children }: { children: ReactNode }) => {
   return (
     <>
       {children}
-      {/* <TapBar /> */}
+      <TapBar />
     </>
   );
 };
