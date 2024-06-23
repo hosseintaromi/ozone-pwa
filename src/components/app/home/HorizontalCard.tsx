@@ -2,12 +2,13 @@ import { ArrowDown, ArrowLeft2, ArrowUp } from 'iconsax-react';
 import { Container, Text } from 'ozone-uikit';
 import React from 'react';
 
+import cn from '@/lib/clsxm';
+
 import colors from '@/constant/colors';
 import ICON_SIZE, { IconSize } from '@/constant/icon-size-color';
 import common from '@/locale/common';
 
 import { HorizontalCardType } from './home';
-import cn from '@/lib/clsxm';
 
 const HorizontalCard = ({ data }: { data: HorizontalCardType }) => {
   return (

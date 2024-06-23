@@ -9,6 +9,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 import './styles.css';
+
 import NormalCard from './NormalCard';
 
 export default function App() {
