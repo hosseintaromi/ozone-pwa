@@ -3,6 +3,7 @@ const ICON_SIZE = {
   md: 18,
   lg: 24,
   xl: 32,
+  xxl: 35,
 } as const;
 
 export const ICON_COLOR = {

@@ -14,9 +14,9 @@ import NormalCard from './NormalCard';
 
 export default function App() {
   return (
-    <Container className='h-36'>
+    <Container className='h-44'>
       <Swiper
-        className='mySwiper swiper-h'
+        className='mySwiper swiper-h '
         spaceBetween={50}
         loop
         slidesPerView={1.3}

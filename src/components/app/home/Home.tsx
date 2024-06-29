@@ -1,17 +1,17 @@
 'use client';
+import { CardAdd, InfoCircle } from 'iconsax-react';
 import { Container, Text } from 'ozone-uikit';
+import React, { useState } from 'react';
 import { BottomSheet } from 'react-spring-bottom-sheet';
 
 import 'react-spring-bottom-sheet/dist/style.css';
 
-import Navbar from '@/components/share/navbar/Navbar';
-
-import locale from '@/locale';
-
 import { HorizontalCardType } from './home';
 import HorizontalCard from './HorizontalCard';
 import NestedSwiper from './NestedSwiper';
-
+import Modal, { ModalBody, ModalHead } from '../../share/modal';
+import Navbar from '../../../components/share/navbar/Navbar';
+import locale from '../../../locale';
 const data: HorizontalCardType[] = [
   {
     title: 'افزایش موجودی',
@@ -40,10 +40,16 @@ const data: HorizontalCardType[] = [
 ];
 
 export default function Home() {
+  const [show, setShow] = useState(true);
+
   const { app } = locale;
   return (
     <div className='h-full bg-neutral-800'>
-      <Navbar />
+      <Navbar>
+        <InfoCircle color='#fff' size={30} onClick={() => setShow((pre) => !pre)} />
+        <Text>حساب ها</Text>
+        <CardAdd color='#fff' size={30} />
+      </Navbar>
       <NestedSwiper />
       <BottomSheet
         open={true}
@@ -79,12 +85,15 @@ export default function Home() {
             </Text>
           </Container> */}
         </Container>
+        <Modal
+          show={show}
+          onClose={() => setShow(false)}
+          dialogPanelClassName='bg-neutral-900'
+        >
+          {/* <ModalHead isCustomHead> </ModalHead> */}
+          <ModalBody className='flex flex-col gap-2.5'></ModalBody>
+        </Modal>
       </BottomSheet>
-
-      {/* <Modal show={show} onClose={() => setShow(false)}>
-        <ModalHead isCustomHead></ModalHead>
-        <ModalBody className='flex flex-col gap-2.5'>hoss</ModalBody>
-      </Modal> */}
     </div>
   );
 }
