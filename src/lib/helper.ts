@@ -170,3 +170,23 @@ export function isValidNationalCode(nationalCode: string) {
       .reduce((acc, x, i) => acc + +x * (10 - i), 0) % 11;
   return sum < 2 ? check === sum : check + sum === 11;
 }
+
+export function formatCurrency(amount: number): string {
+  // Define the currency units and their labels
+  const units = [
+    { divisor: 1e12, label: ' تریلیون تومان' },
+    { divisor: 1e9, label: ' میلیارد تومان' },
+    { divisor: 1e6, label: ' میلیون تومان' },
+    { divisor: 1e3, label: ' هزار تومان' },
+  ];
+
+  // Find the appropriate unit for the given amount
+  for (const unit of units) {
+    if (amount >= unit.divisor) {
+      return (amount / unit.divisor).toFixed(0) + unit.label;
+    }
+  }
+
+  // If amount is less than 1000, return it as is (in Tomans)
+  return amount.toFixed(0) + ' تومان';
+}

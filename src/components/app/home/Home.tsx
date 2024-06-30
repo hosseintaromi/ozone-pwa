@@ -6,12 +6,13 @@ import { BottomSheet } from 'react-spring-bottom-sheet';
 
 import 'react-spring-bottom-sheet/dist/style.css';
 
+import HorizontalCard from './components/HorizontalCard';
+import NestedSwiper from './components/NestedSwiper';
+import PayInDialog from './components/PayInDialog';
 import { HorizontalCardType } from './home';
-import HorizontalCard from './HorizontalCard';
-import NestedSwiper from './NestedSwiper';
-import Modal, { ModalBody, ModalHead } from '../../share/modal';
 import Navbar from '../../../components/share/navbar/Navbar';
 import locale from '../../../locale';
+
 const data: HorizontalCardType[] = [
   {
     title: 'افزایش موجودی',
@@ -85,14 +86,7 @@ export default function Home() {
             </Text>
           </Container> */}
         </Container>
-        <Modal
-          show={show}
-          onClose={() => setShow(false)}
-          dialogPanelClassName='bg-neutral-900'
-        >
-          {/* <ModalHead isCustomHead> </ModalHead> */}
-          <ModalBody className='flex flex-col gap-2.5'></ModalBody>
-        </Modal>
+        <PayInDialog show={show} setShow={setShow} />
       </BottomSheet>
     </div>
   );

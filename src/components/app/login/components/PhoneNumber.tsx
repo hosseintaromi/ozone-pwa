@@ -132,7 +132,6 @@ const PhoneNumber = ({
           </Button>
           <Text className='mt-6 w-full text-center'>
             <span className='text-primary' onClick={() => setOpen(true)}>
-              {' '}
               {login.TermsAndConditions}
             </span>
             {login.readAndAgree}

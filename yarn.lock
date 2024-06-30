@@ -4362,10 +4362,10 @@ ospath@^1.2.2:
   resolved "https://registry.yarnpkg.com/ospath/-/ospath-1.2.2.tgz#1276639774a3f8ef2572f7fe4280e0ea4550c07b"
   integrity sha512-o6E5qJV5zkAbIDNhGSIlyOhScKXgQrSRMilfph0clDfM0nEnBOlKlH4sWDmG95BW/CvwNz0vmm7dJVtU2KlMiA==
 
-ozone-uikit@^0.0.82:
-  version "0.0.82"
-  resolved "https://registry.yarnpkg.com/ozone-uikit/-/ozone-uikit-0.0.82.tgz#5fa516cfecf01b986d08cb0455d356666f8ee636"
-  integrity sha512-4FzlvACZZjF8qTF6W2peR9jn1zDjPfEmcxBDWNbw1SELe7ZGwAWvDaS2dwmQ3selxMZKoIqyKQxSFDacacRr5A==
+ozone-uikit@^0.0.85:
+  version "0.0.85"
+  resolved "https://registry.yarnpkg.com/ozone-uikit/-/ozone-uikit-0.0.85.tgz#e7a3165ad16062c5876e36e1dd81a90e93153aa4"
+  integrity sha512-+/KJv6kjmQVbc1omLOSyKbk5X+I0dE66y193F/z2r+E+6bCKGqPy3Bzdi0z0SW/69oRXTFVeXJgdc6nlrVdRgA==
 
 p-limit@^2.2.0:
   version "2.3.0"
