@@ -1,11 +1,13 @@
 import React, { ReactNode } from 'react';
 
+import TapBar from '@/components/share/tapBar/TapBar';
+
 const layout = ({ children }: { children: ReactNode }) => {
   return (
-    <div>
-      applayout
+    <>
       {children}
-    </div>
+      <TapBar />
+    </>
   );
 };
 

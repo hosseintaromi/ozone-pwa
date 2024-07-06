@@ -1,12 +1,24 @@
 import * as Yup from 'yup';
 
-//FIXME: use localization for all hardcode strings
-// import localization from '@/constant/localization';
+import locale from '@/locale';
 
-export const mobile = Yup.string()
+const { error } = locale;
+const mobile = Yup.string()
   .matches(
     /(0|\+98)?( |-|[()]){0,2}9[1|02349]( |-|[()]){0,2}(?:[0-9]( |-|[()]){0,2}){8}/,
-    'phone is incorrect',
+    error.wrongPhoneNumber,
   )
-  .max(11, 'phone not match');
-export const digit = Yup.string().matches(/^([۰-۹]|[0-9])+$/, 'pattern is not correct');
+  .max(11, error.wrongPhoneNumber);
+const digit = Yup.string().matches(/^([۰-۹]|[0-9])+$/, 'pattern is not correct');
+const amountCheck = Yup.number()
+  .min(50000, error.amountMin)
+  .max(99900000000, error.amountMax)
+  .required('Amount is required');
+
+const validation = {
+  mobile,
+  digit,
+  amountCheck,
+};
+
+export default validation;

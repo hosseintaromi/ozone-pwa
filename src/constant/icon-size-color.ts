@@ -3,6 +3,7 @@ const ICON_SIZE = {
   md: 18,
   lg: 24,
   xl: 32,
+  xxl: 35,
 } as const;
 
 export const ICON_COLOR = {
@@ -14,5 +15,10 @@ export const ICON_COLOR = {
   text_blue: '#3058BC',
   secondary: '#00BC3B',
 } as const;
+
+export const IconSize = {
+  md: '18',
+  lg: '22',
+};
 
 export default ICON_SIZE;
