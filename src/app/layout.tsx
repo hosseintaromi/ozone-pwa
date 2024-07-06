@@ -11,11 +11,11 @@ import { metadata as PWAMetadata } from '@/components/layout/meta';
 import ReactQueryClientContext from '@/@core/contexts/react-query-client-context';
 import { locale } from '@/locale';
 
-const { home: homeLocale } = locale;
+const { wallet: walletLocale } = locale;
 const mergeMeta = isPWA() ? PWAMetadata : {};
 export const metadata: Metadata = {
-  title: homeLocale.title,
-  description: homeLocale.description,
+  title: walletLocale.title,
+  description: walletLocale.description,
   ...mergeMeta,
 };
 

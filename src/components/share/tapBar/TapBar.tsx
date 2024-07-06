@@ -4,11 +4,10 @@ import { Container, Text } from 'ozone-uikit';
 import React, { useState } from 'react';
 
 import cn from '@/lib/clsxm';
-import useDeviceDetection from '@/hooks/useDeviceDetection';
 
 enum TAB {
   HOME = 'home',
-  CARDS = 'cards',
+  WALLET = 'wallet',
   COUPON = 'coupon',
   SCAN = 'scan',
   SETTING = 'setting',
@@ -24,7 +23,7 @@ const TapBar = () => {
       text: 'خانه',
     },
     {
-      id: TAB.CARDS,
+      id: TAB.WALLET,
       icon: (props) => <Card {...props} />,
       text: 'کارت ها',
     },

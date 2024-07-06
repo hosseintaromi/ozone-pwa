@@ -4,7 +4,7 @@ import error from './error';
 import login from './login';
 
 export const locale = {
-  home: {
+  wallet: {
     title: 'اوزون کارت',
     description: 'سامانه جامع خدمات',
   },

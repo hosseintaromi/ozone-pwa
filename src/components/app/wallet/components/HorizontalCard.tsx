@@ -8,7 +8,7 @@ import colors from '@/constant/colors';
 import ICON_SIZE, { IconSize } from '@/constant/icon-size-color';
 import common from '@/locale/common';
 
-import { HorizontalCardType } from '../home';
+import { HorizontalCardType } from '../type';
 
 const HorizontalCard = ({ data }: { data: HorizontalCardType }) => {
   return (

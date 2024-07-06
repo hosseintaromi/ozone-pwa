@@ -11,4 +11,5 @@ export const ROUTES = {
   HOME: '/',
   ABOUT_US: '/about/',
   LOGIN: '/login/',
+  WALLET: '/wallet/',
 };

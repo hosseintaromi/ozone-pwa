@@ -180,13 +180,47 @@ export function formatCurrency(amount: number): string {
     { divisor: 1e3, label: ' هزار تومان' },
   ];
 
-  // Find the appropriate unit for the given amount
-  for (const unit of units) {
-    if (amount >= unit.divisor) {
-      return (amount / unit.divisor).toFixed(0) + unit.label;
+  // Recursive function to format large numbers
+  function formatLargeNumber(num: number): string {
+    for (const unit of units) {
+      if (num >= unit.divisor) {
+        return (num / unit.divisor).toFixed(0) + unit.label;
+      }
     }
+    return num.toFixed(0) + ' تومان';
   }
 
-  // If amount is less than 1000, return it as is (in Tomans)
-  return amount.toFixed(0) + ' تومان';
+  // Check if amount is negative
+  const isNegative = amount < 0;
+  amount = Math.abs(amount);
+
+  // Use the recursive function for large numbers
+  if (amount >= 1e6) {
+    return (isNegative ? '-' : '') + formatLargeNumber(amount);
+  } else {
+    return (isNegative ? '-' : '') + amount.toFixed(0) + ' تومان';
+  }
 }
+
+export const numberInputProps = (
+  callback: (formattedValue: string) => void,
+): {
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+} => {
+  return {
+    onChange: (e) => {
+      const { value } = e.target;
+      let numberValue = value.replace(/,/g, '');
+      if (isIOS()) numberValue = convertToEnglishNumber(numberValue);
+      if (!isNaN(Number(numberValue)) && Number.isFinite(+numberValue)) {
+        const formattedValue =
+          Number(numberValue) > 0 ? numberValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '';
+        callback(formattedValue);
+      }
+    },
+  };
+};
+
+export const formatNumberWithCommas = (number) => {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};

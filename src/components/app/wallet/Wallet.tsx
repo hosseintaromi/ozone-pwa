@@ -9,8 +9,8 @@ import 'react-spring-bottom-sheet/dist/style.css';
 import HorizontalCard from './components/HorizontalCard';
 import NestedSwiper from './components/NestedSwiper';
 import PayInDialog from './components/PayInDialog';
-import { HorizontalCardType } from './home';
-import Navbar from '../../../components/share/navbar/Navbar';
+import { HorizontalCardType } from './type';
+import Navbar from '../../share/navbar/Navbar';
 import locale from '../../../locale';
 
 const data: HorizontalCardType[] = [
@@ -40,7 +40,7 @@ const data: HorizontalCardType[] = [
   },
 ];
 
-export default function Home() {
+export default function Wallet() {
   const [show, setShow] = useState(true);
 
   const { app } = locale;

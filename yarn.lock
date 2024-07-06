@@ -388,6 +388,11 @@
   resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.4.0.tgz#08d6c5e20cf7e4cc02fd181c4b0c225cd31dbb60"
   integrity sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==
 
+"@kurkle/color@^0.3.0":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@kurkle/color/-/color-0.3.2.tgz#5acd38242e8bde4f9986e7913c8fdf49d3aa199f"
+  integrity sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==
+
 "@next/env@14.2.2":
   version "14.2.2"
   resolved "https://registry.yarnpkg.com/@next/env/-/env-14.2.2.tgz#6c36fe0b04a22ea78bd60a645ae77d53cd16d3ca"
@@ -1788,6 +1793,13 @@ chalk@^4.0.0, chalk@^4.1.0:
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
+
+chart.js@^4.4.3:
+  version "4.4.3"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-4.4.3.tgz#3b2e11e7010fefa99b07d0349236f5098e5226ad"
+  integrity sha512-qK1gkGSRYcJzqrrzdR6a+I0vQ4/R+SoODXyAjscQ/4mzuNzySaMCd+hyVxitSY1+L2fjPD1Gbn+ibNqRmwQeLw==
+  dependencies:
+    "@kurkle/color" "^0.3.0"
 
 check-more-types@^2.24.0:
   version "2.24.0"
@@ -4248,6 +4260,11 @@ npm-run-path@^5.1.0:
   dependencies:
     path-key "^4.0.0"
 
+num2persian@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/num2persian/-/num2persian-3.2.2.tgz#3d53096920597dc03df45fc1e3c4cc38d58c78fd"
+  integrity sha512-xwT+fAiVWq6Nde+JWf5/PlW3qAGRNa0TJEUJwoJmaXjmLp1dewOFiX2+jUSreAsTrX2qi/rzgk3diSt36f6ouQ==
+
 object-assign@^4.0.1, object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
@@ -4362,10 +4379,10 @@ ospath@^1.2.2:
   resolved "https://registry.yarnpkg.com/ospath/-/ospath-1.2.2.tgz#1276639774a3f8ef2572f7fe4280e0ea4550c07b"
   integrity sha512-o6E5qJV5zkAbIDNhGSIlyOhScKXgQrSRMilfph0clDfM0nEnBOlKlH4sWDmG95BW/CvwNz0vmm7dJVtU2KlMiA==
 
-ozone-uikit@^0.0.85:
-  version "0.0.85"
-  resolved "https://registry.yarnpkg.com/ozone-uikit/-/ozone-uikit-0.0.85.tgz#e7a3165ad16062c5876e36e1dd81a90e93153aa4"
-  integrity sha512-+/KJv6kjmQVbc1omLOSyKbk5X+I0dE66y193F/z2r+E+6bCKGqPy3Bzdi0z0SW/69oRXTFVeXJgdc6nlrVdRgA==
+ozone-uikit@^0.0.96:
+  version "0.0.96"
+  resolved "https://registry.yarnpkg.com/ozone-uikit/-/ozone-uikit-0.0.96.tgz#895822085d8199a5d47eaed4f7523ad30217858e"
+  integrity sha512-QIstNpIIAumqZSuxqTJud4WN0oVlE6Bg2RyDDJ6BBtVo7eroDkXOCEAD2xrotJxReNzesMrEyesS2OiWo4zunw==
 
 p-limit@^2.2.0:
   version "2.3.0"
@@ -4662,6 +4679,11 @@ randomized-string@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/randomized-string/-/randomized-string-2.0.1.tgz#9db86ca4bd0daf78d0a452e682f38a2d21659f45"
   integrity sha512-pO1z/2gf/kA7ffsVdVySElIeSeeAVBIj1x35OJcwpOvxfsFnKTow+g6qJdjQGl90PMC6GE9G8eOFk5XFVJgrFA==
+
+react-chartjs-2@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/react-chartjs-2/-/react-chartjs-2-5.2.0.tgz#43c1e3549071c00a1a083ecbd26c1ad34d385f5d"
+  integrity sha512-98iN5aguJyVSxp5U3CblRLH67J8gkfyGNbiK3c+l1QI/G4irHMPQw44aEPmjVag+YKTyQ260NcF82GTQ3bdscA==
 
 react-device-detect@^2.2.3:
   version "2.2.3"

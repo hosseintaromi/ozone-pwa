@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
 
 import { locale } from '@/locale';
-const { home: homeLocale } = locale;
+const { wallet: walletLocale } = locale;
 
 export const metadata: Metadata = {
-  title: homeLocale.title,
-  description: homeLocale.description,
+  title: walletLocale.title,
+  description: walletLocale.description,
   // alternates: {
   //   canonical: `${SITE_URL}/`,
   // },
@@ -14,8 +14,8 @@ export const metadata: Metadata = {
   //   follow: true,
   // },
   // openGraph: {
-  //   title: homeLocale.title,
-  //   description: homeLocale.description,
+  //   title:walletLocale.title,
+  //   description:walletLocale.description,
   //   url: `${SITE_URL}/`,
   //   locale: 'fa_IR',
   //   type: 'website',

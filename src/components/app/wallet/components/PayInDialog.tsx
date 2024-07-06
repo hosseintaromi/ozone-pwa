@@ -1,5 +1,6 @@
 import { useFormik } from 'formik';
 import { CloseCircle } from 'iconsax-react';
+import Num2persian from 'num2persian';
 import {
   Button,
   COLOR_ENUM,
@@ -13,13 +14,12 @@ import React from 'react';
 import { object } from 'yup';
 
 import cn from '@/lib/clsxm';
-import { convertToEnglishNumber, formatCurrency } from '@/lib/helper';
-import useDeviceDetection from '@/hooks/useDeviceDetection';
+import { formatNumberWithCommas } from '@/lib/helper';
 
 import validation from '@/constant/validation-rules';
 import locale from '@/locale';
 
-import { OfferPriceType, PayInDialogType } from '../home';
+import { OfferPriceType, PayInDialogType } from '../type';
 import Modal, { ModalBody, ModalHead } from '../../../share/modal';
 
 const OfferedPrice = ({ children, isActive, setVal, value }: OfferPriceType) => {
@@ -30,7 +30,9 @@ const OfferedPrice = ({ children, isActive, setVal, value }: OfferPriceType) => 
         'w-full rounded-xl border-[1px] border-solid border-neutral-500 px-2 py-3 text-center text-white',
         isActive && 'bg-primary-400 border-primary',
       )}
-      onClick={() => setVal?.(value)}
+      onClick={() => {
+        setVal?.(value);
+      }}
     >
       {children}
     </Text>
@@ -40,47 +42,38 @@ const OfferedPrice = ({ children, isActive, setVal, value }: OfferPriceType) => 
 const offerList = [
   {
     title: '1,000,000 تومان',
-    value: 1000000,
+    value: 10000000,
   },
   {
     title: '3,000,000 تومان',
-    value: 3000000,
+    value: 30000000,
   },
   {
     title: '5,000,000 تومان',
-    value: 5000000,
+    value: 50000000,
   },
 ];
 
 const PayInDialog = (props: PayInDialogType) => {
   const { show, setShow } = props;
   const { app } = locale;
-  const isIos = useDeviceDetection();
-  const persianNumToEnNumChange = (e) => {
-    e.target.value = convertToEnglishNumber(e.target.value);
-    handleChange(e);
+
+  const { handleSubmit, values, errors, isValid, setValues, setFieldValue, handleBlur } =
+    useFormik({
+      initialValues: {
+        amount: 1000000,
+      },
+      validationSchema: object().shape({
+        amount: validation.amountCheck,
+      }),
+      onSubmit: () => {
+        // console.log('call api', values, action);
+      },
+    });
+  const setValue = (val) => {
+    setValues({ amount: val });
   };
-  const setValue = () => {};
-  const {
-    handleSubmit,
-    values,
-    errors,
-    handleChange,
-    isValid,
-    dirty,
-    resetForm,
-    setFieldValue,
-  } = useFormik({
-    initialValues: {
-      amount: 1000000,
-    },
-    validationSchema: object().shape({
-      amount: validation.mobile,
-    }),
-    onSubmit: () => {
-      // console.log('call api', values, action);
-    },
-  });
+
   return (
     <Modal show={show} onClose={() => setShow(false)} dialogPanelClassName='bg-neutral-900'>
       <ModalHead>
@@ -96,20 +89,31 @@ const PayInDialog = (props: PayInDialogType) => {
           <Input
             name='amount'
             errorMessage={errors.amount}
-            value={values.amount}
             size={SIZE_ENUM.XL}
             label={app.payDialog.inputTitle}
-            hint={values.amount ? `${formatCurrency(values.amount)}` : ''}
+            hint={
+              values.amount
+                ? `${Num2persian(Math.round(+String(values.amount).replaceAll(',', '') / 10))} تومان`
+                : ''
+            }
             labelClassName='text-md text-bold'
-            type={isIos ? INPUT_TYPES.TEL : INPUT_TYPES.NUMBER}
+            type={INPUT_TYPES.TEL}
             inputMode='numeric'
-            className='text-right'
-            onChange={isIos ? persianNumToEnNumChange : handleChange}
+            className='rtl text-right'
+            maxLength={13}
+            onBlur={handleBlur}
+            onChange={(e) => {
+              const value = e.target.value.replace(/,/g, '');
+              if (!isNaN(+value)) {
+                setFieldValue('amount', Number(value));
+              }
+            }}
+            value={formatNumberWithCommas(values.amount)}
             LeftIcon={() => (
               <CloseCircle
                 color={COLOR_ENUM.WHITE}
                 className='size-7'
-                onClick={() => resetForm()}
+                onClick={() => setValues({ amount: 0 })}
               />
             )}
           />
@@ -130,6 +134,7 @@ const PayInDialog = (props: PayInDialogType) => {
           onClick={() => {
             setFieldValue('amount', 10);
           }}
+          disabled={!isValid}
           color={COLOR_ENUM.PRIMARY}
           size={SIZE_ENUM.XXL}
           className='mt-8'
