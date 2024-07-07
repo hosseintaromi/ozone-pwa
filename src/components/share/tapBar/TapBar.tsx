@@ -1,44 +1,40 @@
 'use client';
+
 import { Card, Home, Scan, Setting2, TicketDiscount } from 'iconsax-react';
-import { Container, Text } from 'ozone-uikit';
-import React, { useState } from 'react';
+import { Container } from 'ozone-uikit';
+import React from 'react';
 
 import cn from '@/lib/clsxm';
-
-enum TAB {
-  HOME = 'home',
-  WALLET = 'wallet',
-  COUPON = 'coupon',
-  SCAN = 'scan',
-  SETTING = 'setting',
-}
+import Link from 'next/link';
+import { ROUTES } from '@/constant/routes';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 const TapBar = () => {
-  // const isIos = useDeviceDetection();
-  const [activeTab, setActiveTab] = useState(TAB.HOME);
+  const pathname = usePathname();
+
   const navList = [
     {
-      id: TAB.HOME,
+      id: ROUTES.HOME,
       icon: (props) => <Home {...props} />,
       text: 'خانه',
     },
     {
-      id: TAB.WALLET,
+      id: ROUTES.WALLET,
       icon: (props) => <Card {...props} />,
       text: 'کارت ها',
     },
     {
-      id: TAB.COUPON,
+      id: ROUTES.VOUCHER,
       icon: (props) => <TicketDiscount {...props} />,
       text: 'کوپن',
     },
     {
-      id: TAB.SCAN,
+      id: ROUTES.SCAN,
       icon: (props) => <Scan {...props} />,
       text: 'اسکن',
     },
     {
-      id: TAB.SETTING,
+      id: ROUTES.SETTING,
       icon: (props) => <Setting2 {...props} />,
       text: 'تنظیمات',
     },
@@ -56,28 +52,24 @@ const TapBar = () => {
       )}
     >
       {navList.map((item, index) => (
-        <Container
-          key={index}
-          className='w flex flex-col items-center'
-          onClick={() => setActiveTab(item.id)}
-        >
+        <Link href={item.id} key={index} className='w flex flex-col items-center'>
           <Container>
             {item.icon({
-              className: activeTab === item.id ? 'text-primary' : '',
+              className: pathname.includes(item.id) ? 'text-primary' : '',
               variant: 'Bold',
               size: '28',
             })}
           </Container>
-          <Text
+          <Container
             className={cn(
               `invisible mt-1 text-xs font-bold`,
-              activeTab === item.id && 'text-primary',
-              activeTab === item.id && 'visible',
+              pathname.includes(item.id) && 'text-primary',
+              pathname.includes(item.id) && 'visible',
             )}
           >
             {item.text}
-          </Text>
-        </Container>
+          </Container>
+        </Link>
       ))}
     </div>
   );

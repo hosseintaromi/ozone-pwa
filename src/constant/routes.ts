@@ -8,8 +8,11 @@ export const API_ROUTES = {
 };
 
 export const ROUTES = {
-  HOME: '/',
+  HOME: '/home/',
   ABOUT_US: '/about/',
+  SCAN: '/scan/',
+  VOUCHER: '/voucher/',
+  SETTING: '/setting/',
   LOGIN: '/login/',
   WALLET: '/wallet/',
 };
