@@ -41,7 +41,7 @@ const data: HorizontalCardType[] = [
 ];
 
 export default function Wallet() {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   const { app } = locale;
   return (
