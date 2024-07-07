@@ -1,5 +1,5 @@
-'use client';
 import { Clock } from 'iconsax-react';
+import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import {
   Button,
@@ -12,7 +12,7 @@ import {
   Text,
   VARIANT_ENUM,
 } from 'ozone-uikit';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import OTPInput from 'react-otp-input';
 import { useTimer } from 'react-timer-hook';
 
@@ -22,7 +22,10 @@ import { addZeroIfUnder10 } from '@/lib/helper';
 import XImage from '@/components/share/x-image';
 
 import ICON_SIZE, { ICON_COLOR } from '@/constant/icon-size-color';
+import { ROUTES } from '@/constant/routes';
 import locale from '@/locale';
+import { useLoginOtp } from '@/services/hooks';
+import { LOGIN_ROLES } from '@/services/types';
 
 import { SetStepType } from '../Login.module';
 
@@ -31,11 +34,33 @@ const Otp = ({ phoneNumber }: { setStep: SetStepType; phoneNumber: string }) => 
   const [otp, setOtp] = useState('');
   const [active, setActive] = useState(false);
   const router = useRouter();
-
+  const { mutate, isPending } = useLoginOtp();
   const { minutes, seconds } = useTimer({
     expiryTimestamp: addToTime(new Date(), 2, { unit: 'MINUTES' }),
     onExpire: () => !active && setActive(true),
   });
+
+  const submit = () => {
+    mutate(
+      {
+        cellphone: phoneNumber,
+        clients: [LOGIN_ROLES.CUSTOMER],
+        code: otp,
+      },
+      {
+        onSuccess: (e) => {
+          Cookies.set('token', e.token_type + ' ' + e.access_token, {
+            expires: e.expires_in,
+            path: '/',
+          });
+          Cookies.set('expires_in', e.expires_in);
+          Cookies.set('refresh_token', e.refresh_token);
+          router.push(ROUTES.HOME);
+        },
+      },
+    );
+  };
+  useEffect(() => {});
   return (
     <Container className='flex min-h-screen flex-col justify-between  p-4'>
       <Container center className='flex-col'>
@@ -97,8 +122,8 @@ const Otp = ({ phoneNumber }: { setStep: SetStepType; phoneNumber: string }) => 
           type={BUTTON_TYPE.SUBMIT}
           size={SIZE_ENUM.XL}
           className='w-full'
-          onClick={() => router.push('/')}
           disabled={otp.length < 5}
+          onClick={submit}
         >
           {login.entree}
         </Button>

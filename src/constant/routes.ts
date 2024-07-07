@@ -5,6 +5,9 @@ export const PWA_HOST = 'pwa.app.com';
 export const API_ROUTES = {
   GET_SERVICES: '/services',
   GET_USER: (id: number) => `/people/${id}`,
+  ///////////////////////
+  POST_LOGIN_INIT: '/init',
+  POST_LOGIN_OTP: '/login/otp',
 };
 
 export const ROUTES = {

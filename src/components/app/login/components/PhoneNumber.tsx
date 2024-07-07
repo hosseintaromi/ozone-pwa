@@ -17,7 +17,7 @@ import { object } from 'yup';
 
 import 'react-spring-bottom-sheet/dist/style.css';
 
-import { convertToEnglishNumber, isIOS } from '@/lib/helper';
+import { convertPhoneNumber, convertToEnglishNumber, isIOS } from '@/lib/helper';
 import useDeviceDetection from '@/hooks/useDeviceDetection';
 
 import Carousel, { CarouselItem } from '@/components/share/carousel';
@@ -25,6 +25,8 @@ import XImage from '@/components/share/x-image';
 
 import validation from '@/constant/validation-rules';
 import { locale } from '@/locale';
+import { useLoginInit } from '@/services/hooks';
+import { LOGIN_ROLES } from '@/services/types';
 
 import { LOGIN_STEPS, SetPhoneType, SetStepType } from '../Login.module';
 
@@ -39,6 +41,7 @@ const PhoneNumber = ({
 
   const { login, common } = locale;
   const [open, setOpen] = useState(false);
+  const { mutate, isPending } = useLoginInit();
 
   const { handleSubmit, values, errors, handleChange, isValid, dirty, resetForm } = useFormik({
     initialValues: {
@@ -47,8 +50,20 @@ const PhoneNumber = ({
     validationSchema: object().shape({
       phoneNumber: validation.mobile,
     }),
-    onSubmit: () => {
-      // console.log('call api', values, action);
+    onSubmit: (e) => {
+      const phoneNumber = convertPhoneNumber(e.phoneNumber);
+      mutate(
+        {
+          cellphone: phoneNumber,
+          clients: [LOGIN_ROLES.CUSTOMER],
+        },
+        {
+          onSuccess: (e) => {
+            setStep(LOGIN_STEPS.OTP);
+            setPhoneNumber(phoneNumber);
+          },
+        },
+      );
     },
   });
   const persianNumToEnNumChange = (e) => {
@@ -122,11 +137,7 @@ const PhoneNumber = ({
             type={BUTTON_TYPE.SUBMIT}
             size={SIZE_ENUM.XL}
             className='w-full'
-            disabled={!isValid || !dirty}
-            onClick={() => {
-              setPhoneNumber(values.phoneNumber);
-              setStep(LOGIN_STEPS.OTP);
-            }}
+            disabled={!isValid || !dirty || isPending}
           >
             {common.record}
           </Button>

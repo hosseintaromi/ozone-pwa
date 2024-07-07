@@ -1,7 +1,15 @@
-import { httpGetRequest } from '@/lib/baseHttpService';
+import { httpGetRequest, httpPostRequest } from '@/lib/baseHttpService';
 import { APIUrlGenerator } from '@/lib/helper';
 
 import { API_ROUTES } from '@/constant/routes';
+
+import {
+  BACKEND_SERVICE,
+  loginInitTypeIn,
+  loginInitTypeOut,
+  loginOtpTypeIn,
+  loginOtpTypeOut,
+} from './types';
 
 // export const postProfile = async (body: any): Promise<UserModel> => {
 //   const { data }: { data: UserModel } = await axios.post(
@@ -25,3 +33,15 @@ import { API_ROUTES } from '@/constant/routes';
 
 export const getPeople = (id: number) =>
   httpGetRequest<any>(APIUrlGenerator(API_ROUTES.GET_USER(id))).then((res) => res.data);
+
+export const postLoginInit = (data: loginInitTypeIn) =>
+  httpPostRequest<loginInitTypeOut>(
+    APIUrlGenerator(API_ROUTES.POST_LOGIN_INIT, BACKEND_SERVICE.AUTH),
+    data,
+  ).then((res) => res.data);
+
+export const postLoginOtp = (data: loginOtpTypeIn) =>
+  httpPostRequest<loginOtpTypeOut>(
+    APIUrlGenerator(API_ROUTES.POST_LOGIN_OTP, BACKEND_SERVICE.AUTH),
+    data,
+  ).then((res) => res.data);
