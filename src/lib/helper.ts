@@ -227,5 +227,5 @@ export const formatNumberWithCommas = (number) => {
 };
 
 export const convertPhoneNumber = (number) => {
-  return '+98' + String(number);
+  return '+98' + String(number).substr(1);
 };

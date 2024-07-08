@@ -49,12 +49,12 @@ const Otp = ({ phoneNumber }: { setStep: SetStepType; phoneNumber: string }) => 
       },
       {
         onSuccess: (e) => {
-          Cookies.set('token', e.token_type + ' ' + e.access_token, {
-            expires: e.expires_in,
+          Cookies.set('token', e.data.token_type + ' ' + e.data.access_token, {
+            expires: e.data.expires_in,
             path: '/',
           });
-          Cookies.set('expires_in', e.expires_in);
-          Cookies.set('refresh_token', e.refresh_token);
+          Cookies.set('expires_in', e.data.expires_in);
+          Cookies.set('refresh_token', e.data.refresh_token);
           router.push(ROUTES.HOME);
         },
       },
@@ -76,8 +76,9 @@ const Otp = ({ phoneNumber }: { setStep: SetStepType; phoneNumber: string }) => 
         <Text className='mt-5' size={SIZE_ENUM.LG} bold>
           {login.verificationCode}
         </Text>
+
         <Text color={COLOR_ENUM.LIGHT_GRAY} size={SIZE_ENUM.MD} className='mt-2'>
-          {login.checkNumber(phoneNumber)}
+          {login.checkNumber(`0${phoneNumber.slice(3)}`)}
         </Text>
         <Button className='mt-6' variant={VARIANT_ENUM.TEXT}>
           <Text size={SIZE_ENUM.MD} light color={COLOR_ENUM.PRIMARY}>

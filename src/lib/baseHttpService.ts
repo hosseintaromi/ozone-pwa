@@ -41,9 +41,7 @@ export const httpPostRequest = <T>(endpoint: string, data: any, config?: Request
     url: endpoint,
     data,
     ...config,
-  })
-    .then((res) => res.data)
-    .catch((err) => err.response.data);
+  });
 
 export const httpPutRequest = <T>(endpoint: string, data: any, config?: RequestConfig) =>
   axios<T>({
@@ -51,7 +49,7 @@ export const httpPutRequest = <T>(endpoint: string, data: any, config?: RequestC
     url: endpoint,
     data,
     ...config,
-  }).then((res) => res.data);
+  });
 
 export const httpPatchRequest = <T>(endpoint: string, data: any, config?: RequestConfig) =>
   axios<T>({
@@ -59,14 +57,14 @@ export const httpPatchRequest = <T>(endpoint: string, data: any, config?: Reques
     url: endpoint,
     data,
     ...config,
-  }).then((res) => res.data);
+  });
 
 export const httpDeleteRequest = <T>(endpoint: string, config?: RequestConfig) =>
   axios<T>({
     method: 'delete',
     url: endpoint,
     ...config,
-  }).then((res) => res.data);
+  });
 
 export const httpCustomRequest = <T>(
   url: string,
@@ -79,7 +77,7 @@ export const httpCustomRequest = <T>(
     url,
     data,
     ...config,
-  }).then((res) => res.data);
+  });
 
 // INTERCEPTORS
 api.interceptors.request.use(async (config) => {

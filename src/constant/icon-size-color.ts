@@ -1,3 +1,5 @@
+import colors from './colors';
+
 const ICON_SIZE = {
   sm: 16,
   md: 18,
@@ -7,15 +9,19 @@ const ICON_SIZE = {
 } as const;
 
 export const ICON_COLOR = {
-  white: '#fff',
-  black: '#222',
-  gray: '#808080',
-  light_blue: '#CCE4FF',
-  primary: '#01286D',
-  text_blue: '#3058BC',
-  secondary: '#00BC3B',
+  white: colors['neutral-0'],
+  black: colors['neutral-950'],
+  gray: colors['neutral-600'],
+  light_gray: colors['neutral-300'],
+  light_blue: colors['info-300'],
+  primary: colors.primary,
+  light_primary: colors['primary-300'],
+  text_blue: colors['info-600'],
+  secondary: colors.secondary,
+  success: colors['success-250'],
+  danger: colors['danger-300'],
+  info: colors['info-300'],
 } as const;
-
 export const IconSize = {
   md: '18',
   lg: '22',
