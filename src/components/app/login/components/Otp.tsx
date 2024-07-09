@@ -27,14 +27,14 @@ import locale from '@/locale';
 import { useLoginOtp } from '@/services/hooks';
 import { LOGIN_ROLES } from '@/services/types';
 
-import { SetStepType } from '../Login.module';
+import { LOGIN_STEPS, SetStepType } from '../Login.module';
 
-const Otp = ({ phoneNumber }: { setStep: SetStepType; phoneNumber: string }) => {
-  const { login, common } = locale;
+const Otp = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: string }) => {
+  const { login } = locale;
   const [otp, setOtp] = useState('');
   const [active, setActive] = useState(false);
   const router = useRouter();
-  const { mutate, isPending } = useLoginOtp();
+  const { mutate } = useLoginOtp();
   const { minutes, seconds } = useTimer({
     expiryTimestamp: addToTime(new Date(), 2, { unit: 'MINUTES' }),
     onExpire: () => !active && setActive(true),
@@ -80,7 +80,11 @@ const Otp = ({ phoneNumber }: { setStep: SetStepType; phoneNumber: string }) => 
         <Text color={COLOR_ENUM.LIGHT_GRAY} size={SIZE_ENUM.MD} className='mt-2'>
           {login.checkNumber(`0${phoneNumber.slice(3)}`)}
         </Text>
-        <Button className='mt-6' variant={VARIANT_ENUM.TEXT}>
+        <Button
+          onClick={() => setStep(LOGIN_STEPS.PHONE_NUMBER)}
+          className='mt-6'
+          variant={VARIANT_ENUM.TEXT}
+        >
           <Text size={SIZE_ENUM.MD} light color={COLOR_ENUM.PRIMARY}>
             {login.changeNumber}
           </Text>

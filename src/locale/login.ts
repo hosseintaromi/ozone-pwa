@@ -9,6 +9,10 @@ const login = {
   changeNumber: 'تغییر شماره موبایل',
   entree: 'ورود',
   requestOTPAgain: 'ارسال مجدد',
+  checkNumberForPassword: (val: string) => `کد تایید به شماره موبایل ${val} ارسال شد.`,
+  passwordLabel: 'رمز عبور',
+  forgetPasswordButton: ' فراموشی رمز عبور',
+  loginWithOtp: 'ورود با رمز یک بار مصرف',
 };
 
 export default login;

@@ -19,11 +19,11 @@ import { object } from 'yup';
 
 import 'react-spring-bottom-sheet/dist/style.css';
 
-import { convertPhoneNumber, convertToEnglishNumber, isIOS } from '@/lib/helper';
+import { convertPhoneNumber, convertToEnglishNumber } from '@/lib/helper';
 import useDeviceDetection from '@/hooks/useDeviceDetection';
 
 import Carousel, { CarouselItem } from '@/components/share/carousel';
-import { ErrorMsg, InfoMsg } from '@/components/share/toast/toast';
+import { ErrorMsg } from '@/components/share/toast/toast';
 import XImage from '@/components/share/x-image';
 
 import validation from '@/constant/validation-rules';
@@ -62,7 +62,7 @@ const PhoneNumber = ({
         },
         {
           onSuccess(e) {
-            setStep(LOGIN_STEPS.OTP);
+            setStep(e.data.has_password ? LOGIN_STEPS.OTP : LOGIN_STEPS.PASSWORD);
             setPhoneNumber(phoneNumber);
           },
           onError(e) {
