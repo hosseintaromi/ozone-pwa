@@ -23,7 +23,8 @@ const passwordSchema = Yup.string()
   .matches(/[A-Z]/, login.includesLowercaseUppercase)
   .matches(/[a-z]/, login.includesLowercaseUppercase)
   .matches(/[0-9]/, login.containsNumber)
-  .matches(/[!?.]/, login.includingSign);
+  .matches(/[!?.]/, login.includingSign)
+  .required(error.required);
 
 const validation = {
   mobile,
