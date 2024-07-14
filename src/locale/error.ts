@@ -4,5 +4,6 @@ const error = {
   amountMin: 'کمتر از ۵۰,000 تومان امکان افزایش موجودی نیست',
   required: 'وارد کردن این فیلدالزامی است',
   digits: 'باید عدد وارد شود',
+  passwordsMustMatch: 'مقدار ها یکسان نیست',
 };
 export default error;

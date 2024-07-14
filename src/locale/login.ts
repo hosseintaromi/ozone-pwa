@@ -13,6 +13,12 @@ const login = {
   passwordLabel: 'رمز عبور',
   forgetPasswordButton: ' فراموشی رمز عبور',
   loginWithOtp: 'ورود با رمز یک بار مصرف',
+  choosePassword: 'انتخاب رمز عبور',
+  choosePasswordForAccount: 'برای حساب کاربری خود، رمز عبور انتخاب کنید.',
+  atLeast8Characters: 'حداقل ۸ کارکتر',
+  includesLowercaseUppercase: 'شامل حروف کوچک و بزرگ انگلیسی',
+  containsNumber: 'شامل یک عدد',
+  includingSign: 'شامل علامت ( ! @ # $ % &*^)',
 };
 
 export default login;
