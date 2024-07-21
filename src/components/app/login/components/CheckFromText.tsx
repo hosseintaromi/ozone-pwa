@@ -1,7 +1,8 @@
-import ICON_SIZE from '@/constant/icon-size-color';
 import { InfoCircle, TickCircle } from 'iconsax-react';
 import { COLOR_ENUM, Text } from 'ozone-uikit';
 import React from 'react';
+
+import ICON_SIZE from '@/constant/icon-size-color';
 
 const CheckFromText = ({ text, condition }: { text: string; condition: boolean }) => {
   return (

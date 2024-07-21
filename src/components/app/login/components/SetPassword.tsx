@@ -1,3 +1,5 @@
+import { useFormik } from 'formik';
+import { Eye, EyeSlash } from 'iconsax-react';
 import {
   Button,
   BUTTON_TYPE,
@@ -10,17 +12,15 @@ import {
   VARIANT_ENUM,
 } from 'ozone-uikit';
 import React, { useEffect, useState } from 'react';
-
-import locale from '@/locale';
-
-import { SetStepType } from '../Login.module';
-import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { object } from 'yup';
-import validation from '@/constant/validation-rules';
-import { Eye, EyeSlash } from 'iconsax-react';
+
 import { ICON_COLOR } from '@/constant/icon-size-color';
+import validation from '@/constant/validation-rules';
+import locale from '@/locale';
+
 import CheckFromText from './CheckFromText';
+import { SetStepType } from '../Login.module';
 
 const minLength = yup.string().min(8);
 const hasUpperCase = yup.string().matches(/[A-Z]/);

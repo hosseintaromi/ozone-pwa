@@ -1,3 +1,4 @@
+import { useFormik } from 'formik';
 import {
   Button,
   BUTTON_TYPE,
@@ -10,15 +11,14 @@ import {
   VARIANT_ENUM,
 } from 'ozone-uikit';
 import React from 'react';
+import { object } from 'yup';
 
 import XImage from '@/components/share/x-image';
 
+import validation from '@/constant/validation-rules';
 import locale from '@/locale';
 
 import { LOGIN_STEPS, SetStepType } from '../Login.module';
-import { useFormik } from 'formik';
-import validation from '@/constant/validation-rules';
-import { object } from 'yup';
 
 const Password = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: string }) => {
   const { login, common } = locale;

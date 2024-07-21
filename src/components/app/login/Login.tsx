@@ -4,13 +4,13 @@ import React, { useState } from 'react';
 
 // import { useGetProfile } from '@/services/hooks';
 import Otp from './components/Otp';
-import PhoneNumber from './components/PhoneNumber';
-import { LOGIN_STEPS } from './Login.module';
 import Password from './components/Password';
+import PhoneNumber from './components/PhoneNumber';
 import SetPassword from './components/SetPassword';
+import { LOGIN_STEPS } from './Login.module';
 
 const Login = () => {
-  const [step, setStep] = useState(LOGIN_STEPS.SET_PASSWORD);
+  const [step, setStep] = useState(LOGIN_STEPS.PHONE_NUMBER);
   const [phoneNumber, setPhoneNumber] = useState('');
   // const { isLoading, data } = useGetProfile(3);
 

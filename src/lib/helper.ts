@@ -9,7 +9,8 @@ export function APIUrlGenerator(route: string, service?: string, qry?: object): 
   const query = qry || {};
   const queryKeys = Object.keys(query);
   const version = 'v1';
-  let apiUrl = `${API_GATE_WAY}${service}/${version}${route}`;
+  const scope = 'app';
+  let apiUrl = `${API_GATE_WAY}${service}/${version}/${scope}${route}`;
 
   queryKeys.map((item, index) => {
     if (index === 0) {

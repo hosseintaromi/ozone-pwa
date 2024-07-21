@@ -1,5 +1,3 @@
-'use client';
-import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { CloseCircle } from 'iconsax-react';
 import {
@@ -14,7 +12,6 @@ import {
 } from 'ozone-uikit';
 import { useState } from 'react';
 import { BottomSheet } from 'react-spring-bottom-sheet';
-import { toast } from 'react-toastify';
 import { object } from 'yup';
 
 import 'react-spring-bottom-sheet/dist/style.css';
@@ -23,7 +20,6 @@ import { convertPhoneNumber, convertToEnglishNumber } from '@/lib/helper';
 import useDeviceDetection from '@/hooks/useDeviceDetection';
 
 import Carousel, { CarouselItem } from '@/components/share/carousel';
-import { ErrorMsg } from '@/components/share/toast/toast';
 import XImage from '@/components/share/x-image';
 
 import validation from '@/constant/validation-rules';
@@ -62,12 +58,12 @@ const PhoneNumber = ({
         },
         {
           onSuccess(e) {
-            setStep(e.data.has_password ? LOGIN_STEPS.OTP : LOGIN_STEPS.PASSWORD);
+            setStep(e.data.has_password ? LOGIN_STEPS.PASSWORD : LOGIN_STEPS.OTP);
             setPhoneNumber(phoneNumber);
           },
-          onError(e) {
-            if (e instanceof AxiosError) toast(<ErrorMsg text={e.response?.data?.message} />);
-          },
+          // onError(e) {
+          //   if (e instanceof AxiosError) toast(<ErrorMsg text={e.response?.data?.message} />);
+          // },
         },
       );
     },
