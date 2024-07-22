@@ -6,9 +6,7 @@ const { error, login } = locale;
 
 const require = Yup.string().required(error.required);
 
-const mobile = Yup.string()
-  .matches(/^09\d{9}$/, error.wrongPhoneNumber)
-  .max(11, error.wrongPhoneNumber);
+const mobile = Yup.string().matches(/^09[0-9]{9}$/, error.wrongPhoneNumber);
 const digit = Yup.string().matches(/^([۰-۹]|[0-9])+$/, error.digits);
 const amountCheck = Yup.number()
   .min(50000, error.amountMin)
