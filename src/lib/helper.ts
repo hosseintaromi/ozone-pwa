@@ -5,10 +5,12 @@ import { ReadonlyURLSearchParams } from 'next/navigation';
 import { API_GATE_WAY, STORAGE_URL } from '@/constant/routes';
 import StorageKey from '@/constant/storage-key';
 
-export function APIUrlGenerator(route: string, qry?: object): string {
+export function APIUrlGenerator(route: string, service?: string, qry?: object): string {
   const query = qry || {};
   const queryKeys = Object.keys(query);
-  let apiUrl = `${API_GATE_WAY}${route}`;
+  const version = 'v1';
+  const scope = 'app';
+  let apiUrl = `${API_GATE_WAY}${service}/${version}/${scope}${route}`;
 
   queryKeys.map((item, index) => {
     if (index === 0) {
@@ -223,4 +225,8 @@ export const numberInputProps = (
 
 export const formatNumberWithCommas = (number) => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
+
+export const convertPhoneNumber = (number) => {
+  return '+98' + String(number).substr(1);
 };
