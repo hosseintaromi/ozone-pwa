@@ -2,17 +2,6 @@ import { AxiosError } from 'axios';
 import { Clock } from 'iconsax-react';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
-import {
-  Button,
-  BUTTON_TYPE,
-  COLOR_ENUM,
-  Container,
-  Input,
-  INPUT_TYPES,
-  SIZE_ENUM,
-  Text,
-  VARIANT_ENUM,
-} from 'ozone-uikit';
 import React, { useEffect, useState } from 'react';
 import OTPInput from 'react-otp-input';
 import { useTimer } from 'react-timer-hook';
@@ -31,6 +20,11 @@ import { useLoginInit, useLoginOtp } from '@/services/hooks';
 import { LOGIN_ROLES } from '@/services/types';
 
 import { LOGIN_STEPS, SetStepType } from '../Login.module';
+import Button from '@/components/share/button';
+import { BUTTON_TYPE, COLOR_ENUM, INPUT_TYPES, SIZE_ENUM, VARIANT_ENUM } from '@/@types';
+import { Input } from '@/components/share/input';
+import Container from '@/components/share/container';
+import { Text } from '@/components/share/typography';
 
 const Otp = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: string }) => {
   const { login } = locale;
