@@ -29,3 +29,15 @@ input::-webkit-inner-spin-button {
   --rsbs-mr: auto;
   --rsbs-overlay-rounded: 16px;
 }
+
+.Toastify__toast-theme--light {
+  background: transparent !important;
+  font-family: 'Yekan Bakh', Tahoma, Arial;
+}
+
+.Toastify__toast-container {
+  width: 100%;
+}
+.Toastify__toast {
+  box-shadow: none;
+}

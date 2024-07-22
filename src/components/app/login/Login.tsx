@@ -4,7 +4,9 @@ import React, { useState } from 'react';
 
 // import { useGetProfile } from '@/services/hooks';
 import Otp from './components/Otp';
+import Password from './components/Password';
 import PhoneNumber from './components/PhoneNumber';
+import SetPassword from './components/SetPassword';
 import { LOGIN_STEPS } from './Login.module';
 
 const Login = () => {
@@ -16,10 +18,13 @@ const Login = () => {
     <div>
       {step === LOGIN_STEPS.PHONE_NUMBER ? (
         <PhoneNumber setStep={setStep} setPhoneNumber={setPhoneNumber} />
+      ) : step === LOGIN_STEPS.PASSWORD ? (
+        <Password setStep={setStep} phoneNumber={phoneNumber} />
+      ) : step === LOGIN_STEPS.SET_PASSWORD ? (
+        <SetPassword setStep={setStep} phoneNumber={phoneNumber} />
       ) : (
         <Otp setStep={setStep} phoneNumber={phoneNumber} />
       )}
-      <Link href='/'>go</Link>
     </div>
   );
 };
