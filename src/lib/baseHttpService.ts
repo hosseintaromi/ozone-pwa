@@ -105,24 +105,13 @@ api.interceptors.response.use(
     const num = error.response.status;
 
     if (num === 401) {
-      window.location.href = '//domain/path';
+      window.location.href = '/login';
     } else if (num === 404) {
-      window.location.href = '//notFound';
+      window.location.href = '/404';
     } else if (num === 422) {
       throw error;
     } else if (num >= 400 && num <= 499) {
       showToast(error.response.data.message);
     }
-    // if(error.response.status === 400)
-    //   toast general
-    // if(error.response.status === 401)
-    //   login
-    // if(error.response.status === 403)
-    //   redirect
-    // if(error.response.status === 404)
-    //   redirect
-    // if(error.response.status === 422)
-    //   zire input
-    // if(error.response.status === 422)
   },
 );

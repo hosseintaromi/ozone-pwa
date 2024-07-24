@@ -10,9 +10,14 @@ import { toast } from 'react-toastify';
 import { addToTime } from '@/lib/date';
 import { addZeroIfUnder10 } from '@/lib/helper';
 
+import Button from '@/components/share/button';
+import Container from '@/components/share/container';
+import { Input } from '@/components/share/input';
 import { ErrorMsg } from '@/components/share/toast/toast';
+import { Text } from '@/components/share/typography';
 import XImage from '@/components/share/x-image';
 
+import { BUTTON_TYPE, COLOR_ENUM, INPUT_TYPES, SIZE_ENUM, VARIANT_ENUM } from '@/@types';
 import ICON_SIZE, { ICON_COLOR } from '@/constant/icon-size-color';
 import { ROUTES } from '@/constant/routes';
 import locale from '@/locale';
@@ -20,11 +25,6 @@ import { useLoginInit, useLoginOtp } from '@/services/hooks';
 import { LOGIN_ROLES } from '@/services/types';
 
 import { LOGIN_STEPS, SetStepType } from '../Login.module';
-import Button from '@/components/share/button';
-import { BUTTON_TYPE, COLOR_ENUM, INPUT_TYPES, SIZE_ENUM, VARIANT_ENUM } from '@/@types';
-import { Input } from '@/components/share/input';
-import Container from '@/components/share/container';
-import { Text } from '@/components/share/typography';
 
 const Otp = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: string }) => {
   const { login } = locale;

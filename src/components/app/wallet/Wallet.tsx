@@ -1,14 +1,13 @@
 'use client';
 import { CardAdd, InfoCircle } from 'iconsax-react';
 import { Container, Text } from 'ozone-uikit';
-import React, { useState } from 'react';
+import React from 'react';
 import { BottomSheet } from 'react-spring-bottom-sheet';
 
 import 'react-spring-bottom-sheet/dist/style.css';
 
 import HorizontalCard from './components/HorizontalCard';
 import NestedSwiper from './components/NestedSwiper';
-import PayInDialog from './components/PayInDialog';
 import { HorizontalCardType } from './type';
 import Navbar from '../../share/navbar/Navbar';
 import locale from '../../../locale';
@@ -41,13 +40,11 @@ const data: HorizontalCardType[] = [
 ];
 
 export default function Wallet() {
-  const [show, setShow] = useState(false);
-
   const { app } = locale;
   return (
     <div className='h-full bg-neutral-800'>
       <Navbar>
-        <InfoCircle color='#fff' size={30} onClick={() => setShow((pre) => !pre)} />
+        <InfoCircle color='#fff' size={30} />
         <Text>حساب ها</Text>
         <CardAdd color='#fff' size={30} />
       </Navbar>
@@ -86,7 +83,6 @@ export default function Wallet() {
             </Text>
           </Container> */}
         </Container>
-        <PayInDialog show={show} setShow={setShow} />
       </BottomSheet>
     </div>
   );
