@@ -1,5 +1,5 @@
 import { COLOR_ENUM, SIZE_ENUM, Text } from 'ozone-uikit';
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 
 import Container from '@/components/share/container';
 import { RadioGroup } from '@/components/share/input/radio';
