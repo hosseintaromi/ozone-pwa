@@ -43,6 +43,12 @@ export default function App() {
           <NormalCard />
         </SwiperSlide>
         <SwiperSlide>
+          <NormalCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <NormalCard />
+        </SwiperSlide>
+        {/* <SwiperSlide>
           <Swiper
             className='mySwiper2 swiper-v'
             direction='vertical'
@@ -61,7 +67,7 @@ export default function App() {
           </Swiper>
         </SwiperSlide>
         <SwiperSlide>Horizontal Slide 3</SwiperSlide>
-        <SwiperSlide>Horizontal Slide 4</SwiperSlide>
+        <SwiperSlide>Horizontal Slide 4</SwiperSlide> */}
       </Swiper>
     </Container>
   );

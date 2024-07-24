@@ -44,7 +44,7 @@ const TapBar = () => {
   return (
     <div
       className={cn(
-        `absolute bottom-0 left-0 right-0 z-20 flex h-auto
+        `fixed bottom-0 left-0 right-0 z-20 mx-auto flex h-auto max-w-[448px]
          justify-around border-t-[1px] border-neutral-700 bg-neutral-900
           pb-2 pt-5
           text-neutral-500
