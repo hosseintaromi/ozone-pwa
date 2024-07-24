@@ -9,5 +9,10 @@ const app = {
     inputHint: 'هزار تومان',
     button: 'افزایش موجودی',
   },
+  daily: 'روزانه',
+  monthly: 'ماهانه',
+  weekly: 'هفتگی',
+  getPhysicalCard: 'درخواست اوزون‌کارت فیزیکی',
+  latestPurchases: 'آخرین خرید ها',
 };
 export default app;

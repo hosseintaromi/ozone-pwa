@@ -41,3 +41,10 @@ input::-webkit-inner-spin-button {
 .Toastify__toast {
   box-shadow: none;
 }
+.highcharts-credits {
+  display: none !important;
+}
+
+.shadow {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 18px 0px;
+}
