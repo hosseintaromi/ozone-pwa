@@ -2148,6 +2148,11 @@ date-fns@^2.30.0:
   dependencies:
     "@babel/runtime" "^7.21.0"
 
+date-fns@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-3.6.0.tgz#f20ca4fe94f8b754951b24240676e8618c0206bf"
+  integrity sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==
+
 dayjs@^1.10.4:
   version "1.11.12"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.12.tgz#5245226cc7f40a15bf52e0b99fd2a04669ccac1d"
@@ -3725,6 +3730,11 @@ jackspeak@2.1.1, jackspeak@^2.3.5, jackspeak@^2.3.6, jackspeak@^3.1.2:
   optionalDependencies:
     "@pkgjs/parseargs" "^0.11.0"
 
+jalaali-js@^1.2.7:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/jalaali-js/-/jalaali-js-1.2.7.tgz#7694cab2d0ca21830766faf08278e71c204cc4fe"
+  integrity sha512-gE+YHWSbygYAoJa+Xg8LWxGILqFOxZSBQQw39ghel01fVFUxV7bjL0x1JFsHcLQ3uPjvn81HQMa+kxwyPWnxGQ==
+
 jiti@^1.21.0:
   version "1.21.6"
   resolved "https://registry.yarnpkg.com/jiti/-/jiti-1.21.6.tgz#6c7f7398dd4b3142767f9a168af2f317a428d268"
@@ -3832,6 +3842,11 @@ jsprim@^2.0.2:
     array.prototype.flat "^1.3.1"
     object.assign "^4.1.4"
     object.values "^1.1.6"
+
+keen-slider@^6.8.6:
+  version "6.8.6"
+  resolved "https://registry.yarnpkg.com/keen-slider/-/keen-slider-6.8.6.tgz#17bb7b219860f291a5ea5fde4496b737bf407a83"
+  integrity sha512-dcEQ7GDBpCjUQA8XZeWh3oBBLLmyn8aoeIQFGL/NTVkoEOsmlnXqA4QykUm/SncolAZYGsEk/PfUhLZ7mwMM2w==
 
 keyv@^4.5.4:
   version "4.5.4"
@@ -4774,18 +4789,6 @@ randomized-string@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/randomized-string/-/randomized-string-2.0.1.tgz#9db86ca4bd0daf78d0a452e682f38a2d21659f45"
   integrity sha512-pO1z/2gf/kA7ffsVdVySElIeSeeAVBIj1x35OJcwpOvxfsFnKTow+g6qJdjQGl90PMC6GE9G8eOFk5XFVJgrFA==
-
-react-apexcharts@^1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/react-apexcharts/-/react-apexcharts-1.4.1.tgz#95ab31e4d2201308f59f3d2a4b65d10d9d0ea4bb"
-  integrity sha512-G14nVaD64Bnbgy8tYxkjuXEUp/7h30Q0U33xc3AwtGFijJB9nHqOt1a6eG0WBn055RgRg+NwqbKGtqPxy15d0Q==
-  dependencies:
-    prop-types "^15.8.1"
-
-react-chartjs-2@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/react-chartjs-2/-/react-chartjs-2-5.2.0.tgz#43c1e3549071c00a1a083ecbd26c1ad34d385f5d"
-  integrity sha512-98iN5aguJyVSxp5U3CblRLH67J8gkfyGNbiK3c+l1QI/G4irHMPQw44aEPmjVag+YKTyQ260NcF82GTQ3bdscA==
 
 react-device-detect@^2.2.3:
   version "2.2.3"
