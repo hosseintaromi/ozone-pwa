@@ -6,5 +6,6 @@ const common = {
   to: 'به',
   entree: 'ورود',
   rial: 'ریال',
+  confirm: 'تایید',
 };
 export default common;

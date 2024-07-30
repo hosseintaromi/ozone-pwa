@@ -5,8 +5,6 @@ import { useState } from 'react';
 import { BottomSheet } from 'react-spring-bottom-sheet';
 import { object } from 'yup';
 
-import 'react-spring-bottom-sheet/dist/style.css';
-
 import { convertPhoneNumber, convertToEnglishNumber } from '@/lib/helper';
 import useDeviceDetection from '@/hooks/useDeviceDetection';
 
