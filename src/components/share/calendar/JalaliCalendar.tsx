@@ -1,30 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import * as jalaali from 'jalaali-js';
 import './style.css';
 import Wheel from './Wheel';
-import { toJalaali } from 'jalaali-js';
-
-interface JalaliDate {
-  year: number;
-  month: number;
-  day: number;
-}
-
-// const getJalaliDaysInMonth = (year: number, month: number) => {
-//     const daysInMonth = jalaali.jalaaliMonthLength(year, month);
-//     const days: any = [];
-//     for (let day = 1; day <= daysInMonth; day++) {
-//         days.push(day);
-//     }
-//     return days;
-// };
-
-// const getTodayJalali = (): JalaliDate => {
-//     const today = new Date();
-//     const { jy, jm, jd } = jalaali.toJalaali(today.getFullYear(), today.getMonth() + 1, today.getDate());
-//     return { year: jy, month: jm, day: jd };
-// };
-
+import jalaali, { toJalaali } from 'jalaali-js';
+import { convertJalaliToRfc } from '@/lib/date';
 const months = [
   'فروردین',
   'اردیبهشت',
@@ -40,20 +18,18 @@ const months = [
   'اسفند',
 ];
 
-const JalaliCalendar: React.FC = () => {
-  // console.log(toJalaali(new Date()).jy, toJalaali(new Date()).jm);
+const JalaliCalendar = ({
+  setValue,
+}: {
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   const [selectedYear, setSelectedYear] = useState(toJalaali(new Date()).jy - 1370);
   const [selectedMonth, setSelectedMonth] = useState(toJalaali(new Date()).jm - 1);
   const [selectedDay, setSelectedDay] = useState(toJalaali(new Date()).jd - 1);
-  const [dayList, setDayList] = useState(29);
 
   useEffect(() => {
-    setDayList(jalaali.jalaaliMonthLength(selectedYear, selectedMonth));
-  }, [selectedYear, selectedMonth]);
-
-  // useEffect(() => {
-  //     console.log('dayList', dayList);
-  // }, [dayList])
+    setValue(convertJalaliToRfc(`${selectedYear}-${selectedMonth}-${selectedDay}`));
+  }, [selectedYear, selectedMonth, selectedDay]);
 
   const setYear = (e: number) => {
     e = e + 1370;

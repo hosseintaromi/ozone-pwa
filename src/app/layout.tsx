@@ -8,6 +8,7 @@ import { isPWA } from '@/lib/helper';
 import Layout, { yekanBakhFont } from '@/components/layout';
 import { metadata as PWAMetadata } from '@/components/layout/meta';
 
+import 'react-spring-bottom-sheet/dist/style.css';
 import ReactQueryClientContext from '@/@core/contexts/react-query-client-context';
 import { locale } from '@/locale';
 

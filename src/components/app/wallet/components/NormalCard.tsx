@@ -43,9 +43,11 @@ const NormalCard = () => {
               افزایش موجودی
             </Text>
           </Container>
-          <XImage src={ozoneLogo} alt='222' width={40} height={10} />
+          <Container className='h-3'>
+            <XImage src={ozoneLogo} alt='222' width={40} height={10} />
+          </Container>
         </Container>
-        <Container className='mt-2'>
+        <Container className='mt-7'>
           <Text className='leading-7' size={SIZE_ENUM.LG}>
             5,000,000 ریال
           </Text>

@@ -50,7 +50,6 @@ const Home = () => {
           <Container center className='gap-3'>
             <Container className='w-6'>
               <XImage
-                placeholder
                 src='/images/logo/SmallLogo.svg'
                 alt='Picture of the author'
                 width={1000}

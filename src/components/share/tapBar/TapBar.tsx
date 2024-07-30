@@ -2,7 +2,7 @@
 
 import { Card, Home, Scan, Setting2, TicketDiscount } from 'iconsax-react';
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { Container } from 'ozone-uikit';
 import React from 'react';
 
