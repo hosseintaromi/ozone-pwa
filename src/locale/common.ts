@@ -5,5 +5,7 @@ const common = {
   welcome: 'خوش آمدید',
   to: 'به',
   entree: 'ورود',
+  rial: 'ریال',
+  confirm: 'تایید',
 };
 export default common;

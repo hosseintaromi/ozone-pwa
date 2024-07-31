@@ -1,11 +1,14 @@
 import React, { ReactNode } from 'react';
 
+import Container from '@/components/share/container';
+import TapBar from '@/components/share/tapBar/TapBar';
+
 const layout = ({ children }: { children: ReactNode }) => {
   return (
-    <div>
-      applayout
+    <Container className='pb-20'>
       {children}
-    </div>
+      <TapBar />
+    </Container>
   );
 };
 

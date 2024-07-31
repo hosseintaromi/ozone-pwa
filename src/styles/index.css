@@ -5,6 +5,9 @@
 /*TODO: headlessui fix for modal padding*/
 html {
   padding: 0 !important;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 body {
@@ -24,8 +27,27 @@ input::-webkit-inner-spin-button {
   --rsbs-backdrop-bg: rgba(0, 0, 0, 0.6);
   --rsbs-bg: #1c2023;
   --rsbs-handle-bg: hsla(0, 0%, 89%, 0.418);
-  --rsbs-max-w: auto;
-  --rsbs-ml: env(safe-area-inset-left);
-  --rsbs-mr: env(safe-area-inset-right);
+  --rsbs-max-w: 448px;
+  --rsbs-ml: auto;
+  --rsbs-mr: auto;
   --rsbs-overlay-rounded: 16px;
+}
+
+.Toastify__toast-theme--light {
+  background: transparent !important;
+  font-family: 'Yekan Bakh', Tahoma, Arial;
+}
+
+.Toastify__toast-container {
+  width: 100%;
+}
+.Toastify__toast {
+  box-shadow: none;
+}
+.highcharts-credits {
+  display: none !important;
+}
+
+.shadow {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 18px 0px;
 }

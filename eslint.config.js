@@ -26,7 +26,7 @@ export default [
     rules: {
       'no-var': 'error',
       'no-console': 'error',
-      'prefer-const': 'error',
+      'prefer-const': 'off',
       'no-unused-vars': 'off',
       'no-irregular-whitespace': 'off',
       'no-unsafe-optional-chaining': 0,
@@ -42,42 +42,7 @@ export default [
       'react/jsx-curly-brace-presence': ['warn', { props: 'never', children: 'never' }],
 
       //#region  //*=========== Import Sort ===========
-      'simple-import-sort/exports': 'warn',
-      'simple-import-sort/imports': [
-        'warn',
-        {
-          groups: [
-            // ext library & side effect imports
-            ['^@?\\w', '^\\u0000'],
-            // {s}css files
-            ['^.+\\.s?css$'],
-            // Lib and hooks
-            ['^@/lib', '^@/hooks'],
-            // static data
-            ['^@/data'],
-            // components
-            ['^@/components', '^@/container'],
-            // zustand store
-            ['^@/store'],
-            // Other imports
-            ['^@/'],
-            // relative paths up until 3 level
-            [
-              '^\\./?$',
-              '^\\.(?!/?$)',
-              '^\\.\\./?$',
-              '^\\.\\.(?!/?$)',
-              '^\\.\\./\\.\\./?$',
-              '^\\.\\./\\.\\.(?!/?$)',
-              '^\\.\\./\\.\\./\\.\\./?$',
-              '^\\.\\./\\.\\./\\.\\.(?!/?$)',
-            ],
-            ['^@/types'],
-            // other that didnt fit in
-            ['^'],
-          ],
-        },
-      ],
+      'simple-import-sort/exports': 'off',
       //#endregion  //*======== Import Sort ===========
     },
   },

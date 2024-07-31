@@ -1,13 +1,13 @@
 import localFont from 'next/font/local';
 import { Container } from 'ozone-uikit';
 import { ReactNode } from 'react';
+import { ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 import cn from '@/lib/clsxm';
 import { isIOS } from '@/lib/helper';
 
-// FIXME:should be fix with package
-// import Toast from '@/components/@base/toast';
-// import CommonModal from '@/components/shared/components/common-modal';
 import DisableZoom from './disable-zoom';
 type Props = {
   children: ReactNode;
@@ -63,6 +63,18 @@ export default async function Layout({ children }: Props) {
       )}
     >
       <DisableZoom />
+      <ToastContainer
+        position='top-center'
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={true}
+        closeOnClick
+        rtl
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        closeButton={false}
+      />
 
       {children}
     </Container>

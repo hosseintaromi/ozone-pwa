@@ -5,10 +5,12 @@ import { ReadonlyURLSearchParams } from 'next/navigation';
 import { API_GATE_WAY, STORAGE_URL } from '@/constant/routes';
 import StorageKey from '@/constant/storage-key';
 
-export function APIUrlGenerator(route: string, qry?: object): string {
+export function APIUrlGenerator(route: string, service?: string, qry?: object): string {
   const query = qry || {};
   const queryKeys = Object.keys(query);
-  let apiUrl = `${API_GATE_WAY}${route}`;
+  const version = 'v1';
+  const scope = 'app';
+  let apiUrl = `${API_GATE_WAY}${service}/${version}/${scope}${route}`;
 
   queryKeys.map((item, index) => {
     if (index === 0) {
@@ -170,3 +172,61 @@ export function isValidNationalCode(nationalCode: string) {
       .reduce((acc, x, i) => acc + +x * (10 - i), 0) % 11;
   return sum < 2 ? check === sum : check + sum === 11;
 }
+
+export function formatCurrency(amount: number): string {
+  // Define the currency units and their labels
+  const units = [
+    { divisor: 1e12, label: ' تریلیون تومان' },
+    { divisor: 1e9, label: ' میلیارد تومان' },
+    { divisor: 1e6, label: ' میلیون تومان' },
+    { divisor: 1e3, label: ' هزار تومان' },
+  ];
+
+  // Recursive function to format large numbers
+  function formatLargeNumber(num: number): string {
+    for (const unit of units) {
+      if (num >= unit.divisor) {
+        return (num / unit.divisor).toFixed(0) + unit.label;
+      }
+    }
+    return num.toFixed(0) + ' تومان';
+  }
+
+  // Check if amount is negative
+  const isNegative = amount < 0;
+  amount = Math.abs(amount);
+
+  // Use the recursive function for large numbers
+  if (amount >= 1e6) {
+    return (isNegative ? '-' : '') + formatLargeNumber(amount);
+  } else {
+    return (isNegative ? '-' : '') + amount.toFixed(0) + ' تومان';
+  }
+}
+
+export const numberInputProps = (
+  callback: (formattedValue: string) => void,
+): {
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+} => {
+  return {
+    onChange: (e) => {
+      const { value } = e.target;
+      let numberValue = value.replace(/,/g, '');
+      if (isIOS()) numberValue = convertToEnglishNumber(numberValue);
+      if (!isNaN(Number(numberValue)) && Number.isFinite(+numberValue)) {
+        const formattedValue =
+          Number(numberValue) > 0 ? numberValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '';
+        callback(formattedValue);
+      }
+    },
+  };
+};
+
+export const formatNumberWithCommas = (number) => {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
+
+export const convertPhoneNumber = (number) => {
+  return '+98' + String(number).substr(1);
+};

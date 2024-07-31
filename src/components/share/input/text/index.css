@@ -1,0 +1,11 @@
+.float-label-input:focus-within label,
+.float-label-input input:not(:placeholder-shown) + label {
+  font-size: 80%;
+  top: -2%;
+  transition: all 300ms;
+}
+.float-label-input:not(:focus) label,
+.float-label-input input:not(:placeholder-shown) + label {
+  top: '50%';
+  transition: all 300ms;
+}

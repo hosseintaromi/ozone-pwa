@@ -1,41 +1,81 @@
-'use client';
+import { AxiosError } from 'axios';
+import { Clock } from 'iconsax-react';
+import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
-import {
-  Button,
-  BUTTON_TYPE,
-  COLOR_ENUM,
-  Container,
-  Input,
-  INPUT_TYPES,
-  SIZE_ENUM,
-  Text,
-  VARIANT_ENUM,
-} from 'ozone-uikit';
-import React, { useState } from 'react';
-import { LuClock4 } from 'react-icons/lu';
+import React, { useEffect, useState } from 'react';
 import OTPInput from 'react-otp-input';
 import { useTimer } from 'react-timer-hook';
+import { toast } from 'react-toastify';
 
 import { addToTime } from '@/lib/date';
 import { addZeroIfUnder10 } from '@/lib/helper';
 
+import Button from '@/components/share/button';
+import Container from '@/components/share/container';
+import { Input } from '@/components/share/input';
+import { ErrorMsg } from '@/components/share/toast/toast';
+import { Text } from '@/components/share/typography';
 import XImage from '@/components/share/x-image';
 
+import { BUTTON_TYPE, COLOR_ENUM, INPUT_TYPES, SIZE_ENUM, VARIANT_ENUM } from '@/@types';
 import ICON_SIZE, { ICON_COLOR } from '@/constant/icon-size-color';
+import { ROUTES } from '@/constant/routes';
 import locale from '@/locale';
+import { useLoginInit, useLoginOtp } from '@/services/hooks';
+import { LOGIN_ROLES } from '@/services/types';
 
-import { SetStepType } from '../Login.module';
+import { LOGIN_STEPS, SetStepType } from '../Login.module';
 
-const Otp = ({ phoneNumber }: { setStep: SetStepType; phoneNumber: string }) => {
-  const { login, common } = locale;
+const Otp = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: string }) => {
+  const { login } = locale;
   const [otp, setOtp] = useState('');
   const [active, setActive] = useState(false);
+  const otpInputLength = 5;
   const router = useRouter();
-
+  const { mutate } = useLoginOtp();
   const { minutes, seconds } = useTimer({
     expiryTimestamp: addToTime(new Date(), 2, { unit: 'MINUTES' }),
     onExpire: () => !active && setActive(true),
   });
+
+  const submit = () => {
+    mutate(
+      {
+        cellphone: phoneNumber,
+        clients: [LOGIN_ROLES.CUSTOMER],
+        code: otp,
+      },
+      {
+        onSuccess: (e) => {
+          Cookies.set('token', e.data.token_type + ' ' + e.data.access_token, {
+            expires: e.data.expires_in,
+            path: '/',
+          });
+          Cookies.set('expires_in', e.data.expires_in);
+          Cookies.set('refresh_token', e.data.refresh_token);
+          router.push(ROUTES.HOME);
+        },
+      },
+    );
+  };
+
+  const { mutate: reSend } = useLoginInit();
+  const clickResend = () => {
+    reSend(
+      {
+        cellphone: phoneNumber,
+        clients: [LOGIN_ROLES.CUSTOMER],
+      },
+      {
+        onError(e) {
+          if (e instanceof AxiosError) toast(<ErrorMsg text={e.response?.data?.message} />);
+        },
+      },
+    );
+  };
+  useEffect(() => {
+    if (otp.length === otpInputLength) submit();
+  }, [otp]);
   return (
     <Container className='flex min-h-screen flex-col justify-between  p-4'>
       <Container center className='flex-col'>
@@ -51,10 +91,15 @@ const Otp = ({ phoneNumber }: { setStep: SetStepType; phoneNumber: string }) => 
         <Text className='mt-5' size={SIZE_ENUM.LG} bold>
           {login.verificationCode}
         </Text>
+
         <Text color={COLOR_ENUM.LIGHT_GRAY} size={SIZE_ENUM.MD} className='mt-2'>
-          {login.checkNumber(phoneNumber)}
+          {login.checkNumber(`0${phoneNumber.slice(3)}`)}
         </Text>
-        <Button className='mt-6' variant={VARIANT_ENUM.TEXT}>
+        <Button
+          onClick={() => setStep(LOGIN_STEPS.PHONE_NUMBER)}
+          className='mt-6'
+          variant={VARIANT_ENUM.TEXT}
+        >
           <Text size={SIZE_ENUM.MD} light color={COLOR_ENUM.PRIMARY}>
             {login.changeNumber}
           </Text>
@@ -66,7 +111,7 @@ const Otp = ({ phoneNumber }: { setStep: SetStepType; phoneNumber: string }) => 
           containerStyle='justify-between flex-row-reverse'
           inputStyle='!w-12'
           onChange={setOtp}
-          numInputs={5}
+          numInputs={otpInputLength}
           inputType={INPUT_TYPES.NUMBER}
           // renderSeparator={<Container>-</Container>}
           renderInput={(props) => (
@@ -87,18 +132,20 @@ const Otp = ({ phoneNumber }: { setStep: SetStepType; phoneNumber: string }) => 
             color={active ? COLOR_ENUM.PRIMARY : COLOR_ENUM.WHITE}
             size={SIZE_ENUM.MD}
           >
-            {active
-              ? login.requestOTPAgain
-              : `${addZeroIfUnder10(minutes)}:${addZeroIfUnder10(seconds)}`}
+            {active ? (
+              <p onClick={clickResend}> {login.requestOTPAgain}</p>
+            ) : (
+              `${addZeroIfUnder10(minutes)}:${addZeroIfUnder10(seconds)}`
+            )}
           </Text>
-          {!active && <LuClock4 color={ICON_COLOR.white} size={ICON_SIZE.md} />}
+          {!active && <Clock color={ICON_COLOR.white} size={ICON_SIZE.md} />}
         </Container>
         <Button
           type={BUTTON_TYPE.SUBMIT}
           size={SIZE_ENUM.XL}
           className='w-full'
-          onClick={() => router.push('/')}
-          disabled={otp.length < 5}
+          disabled={otp.length < otpInputLength}
+          onClick={submit}
         >
           {login.entree}
         </Button>

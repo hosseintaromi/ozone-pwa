@@ -2,15 +2,15 @@ import type { Metadata } from 'next';
 
 import { locale } from '@/locale';
 
-const { home: homeLocale } = locale;
+const { wallet: walletLocale } = locale;
 
 export const metadata: Metadata = {
-  applicationName: homeLocale.title,
+  applicationName: walletLocale.title,
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: homeLocale.title,
+    title: walletLocale.title,
     // startUpImage: [],
   },
   formatDetection: {
