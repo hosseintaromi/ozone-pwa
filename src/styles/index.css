@@ -51,3 +51,14 @@ input::-webkit-inner-spin-button {
 .shadow {
   box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 18px 0px;
 }
+
+.gray-down-dash-border {
+  background-image: linear-gradient(to right, #32373b 33%, #7c7f82ff 0%);
+  background-position: bottom;
+  background-size: 15px 1px;
+  background-repeat: repeat-x;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+}

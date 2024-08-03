@@ -217,6 +217,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         media='screen and (device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)'
         href='/images/splash_screens/8.3__iPad_Mini_portrait.png'
       />
+      <link rel='icon' href='/images/logo/SmallLogo.svg' type='image/x-icon' />
       <body className={yekanBakhFont.className}>
         <ReactQueryClientContext>
           <Layout>{children}</Layout>
