@@ -19,4 +19,5 @@ export const ROUTES = {
   LOGIN: '/login/',
   WALLET: '/wallet/',
   KYC: '/kyc/',
+  PurchaseDetail: '/purchaseDetail/',
 };

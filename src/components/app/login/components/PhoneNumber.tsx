@@ -34,7 +34,7 @@ const PhoneNumber = ({
   const [open, setOpen] = useState(false);
   const { mutate, isPending } = useLoginInit();
 
-  const { handleSubmit, values, errors, handleChange, isValid, dirty, resetForm } = useFormik({
+  const { handleSubmit, values, errors, handleChange, dirty, resetForm } = useFormik({
     initialValues: {
       phoneNumber: '',
     },

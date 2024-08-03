@@ -1,3 +1,4 @@
+'use client';
 import { ArrowLeft2 } from 'iconsax-react';
 import React from 'react';
 
@@ -9,6 +10,8 @@ import XImage from '@/components/share/x-image';
 import { COLOR_ENUM } from '@/@types';
 import { ICON_COLOR } from '@/constant/icon-size-color';
 import locale from '@/locale';
+import Link from 'next/link';
+import { ROUTES } from '@/constant/routes';
 
 const LatestPurchases = () => {
   const { app } = locale;
@@ -18,24 +21,26 @@ const LatestPurchases = () => {
         {app.latestPurchases}
       </Text>
       {[1, 2, 3, 4, 5].map((x) => (
-        <Container className='mt-2 border-b-[1px] border-gray-700'>
-          <Container center className='justify-between'>
-            <Container className=' w-8'>
-              <XImage
-                src='/images/mock/filmeNet.svg'
-                alt='Picture of the author'
-                width={1000}
-                height={1000}
-              />
+        <div className='mt-2 border-b-[1px] border-gray-700'>
+          <Link href={ROUTES.PurchaseDetail}>
+            <Container center className='justify-between'>
+              <Container className=' w-8'>
+                <XImage
+                  src='/images/mock/filmeNet.svg'
+                  alt='Picture of the author'
+                  width={1000}
+                  height={1000}
+                />
+              </Container>
+              <ArrowLeft2 color={ICON_COLOR.light_gray} />
             </Container>
-            <ArrowLeft2 color={ICON_COLOR.light_gray} />
-          </Container>
-          <Container center className='justify-between'>
-            <Text color={COLOR_ENUM.WHITE}>خرید از فیلم نت</Text>
-            <Text>200,000,000 ریال</Text>
-          </Container>
-          <Text color={COLOR_ENUM.LIGHT_GRAY}>سه شنبه 16 اردیبهشت 1402- 15:20</Text>
-        </Container>
+            <Container center className='justify-between'>
+              <Text color={COLOR_ENUM.WHITE}>خرید از فیلم نت</Text>
+              <Text>200,000,000 ریال</Text>
+            </Container>
+            <Text color={COLOR_ENUM.LIGHT_GRAY}>سه شنبه 16 اردیبهشت 1402- 15:20</Text>
+          </Link>
+        </div>
       ))}
     </Container>
   );
