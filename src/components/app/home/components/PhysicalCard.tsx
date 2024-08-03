@@ -6,7 +6,7 @@ import { Text } from '@/components/share/typography';
 import XImage from '@/components/share/x-image';
 
 import { SIZE_ENUM } from '@/@types';
-import ICON_SIZE, { ICON_COLOR, IconSize } from '@/constant/icon-size-color';
+import ICON_SIZE, { ICON_COLOR } from '@/constant/icon-size-color';
 import locale from '@/locale';
 
 const PhysicalCard = () => {

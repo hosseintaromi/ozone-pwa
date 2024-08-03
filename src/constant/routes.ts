@@ -18,5 +18,6 @@ export const ROUTES = {
   SETTING: '/setting/',
   LOGIN: '/login/',
   WALLET: '/wallet/',
-  KYC: '/KYC/',
+  KYC: '/kyc/',
+  PurchaseDetail: '/purchaseDetail/',
 };

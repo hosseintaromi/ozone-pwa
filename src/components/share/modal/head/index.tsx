@@ -6,12 +6,12 @@ import colors from '@/constant/colors';
 
 import { Props } from './type';
 
-export default function ModalHead({ isCustomHead, children }: Props) {
+export default function ModalHead({ isCustomHead, children, setShow }: Props) {
   return isCustomHead ? (
     children
   ) : (
     <Dialog.Title className='relative mb-8 text-right'>
-      <Container className='absolute left-5'>
+      <Container className='absolute left-0' onClick={() => setShow && setShow((pre) => !pre)}>
         <CloseCircle size='26' color={colors['neutral-0']} />
       </Container>
       {children}

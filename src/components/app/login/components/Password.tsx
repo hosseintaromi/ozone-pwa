@@ -21,7 +21,7 @@ import locale from '@/locale';
 import { LOGIN_STEPS, SetStepType } from '../Login.module';
 
 const Password = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: string }) => {
-  const { login, common } = locale;
+  const { login } = locale;
   // const { mutate, isPending } = useLoginInit();
 
   const { handleSubmit, values, errors, handleChange } = useFormik({
@@ -31,7 +31,7 @@ const Password = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber:
     validationSchema: object().shape({
       password: validation.require,
     }),
-    onSubmit: (e) => {
+    onSubmit: () => {
       // console.log(e);
     },
   });
