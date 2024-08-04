@@ -17,7 +17,9 @@ const ChooseWallet = (props: PayInDialogType) => {
 
   const { show, setShow } = props;
 
-  const { app } = locale;
+  const {
+    app: { chooseWallet },
+  } = locale;
 
   const handleChange = (value) => {
     setSelectedItem(value);
@@ -38,12 +40,12 @@ const ChooseWallet = (props: PayInDialogType) => {
 
   return (
     <Modal show={show} onClose={() => setShow(false)} dialogPanelClassName='bg-neutral-900'>
-      <ModalHead>
+      <ModalHead setShow={() => setShow((pre) => !pre)}>
         <Text size={SIZE_ENUM.LG} medium>
-          {app.payDialog.title}
+          {chooseWallet.title}
         </Text>
         <Text size={SIZE_ENUM.SM} medium color={COLOR_ENUM.XLIGHT_GRAY} className='mt-4'>
-          {app.payDialog.subTitle}
+          {chooseWallet.subTitle}
         </Text>
       </ModalHead>
       <ModalBody className='mx-5 flex flex-col gap-2.5 text-white'>
