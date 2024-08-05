@@ -1,8 +1,7 @@
 import React, { ReactNode } from 'react';
 import Container from '../container';
-import { Augur } from 'iconsax-react';
 import { Text } from '../typography';
-import { COLOR_ENUM, SIZE_ENUM } from '@/@types';
+import { SIZE_ENUM } from '@/@types';
 import cn from '@/lib/clsxm';
 
 type wizardDataType = {

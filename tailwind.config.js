@@ -7,6 +7,9 @@ export default {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      height: {
+        'calc-100-minus-200': 'calc(100% - 200px)',
+      },
       colors: colors,
       screens: {
         xs: '380px',

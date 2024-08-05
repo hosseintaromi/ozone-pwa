@@ -20,4 +20,5 @@ export const ROUTES = {
   WALLET: '/wallet/',
   KYC: '/kyc/',
   PurchaseDetail: '/purchaseDetail/',
+  AddWALLET: '/addWallet',
 };

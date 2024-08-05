@@ -24,12 +24,12 @@ const app = {
     title: 'افزودن حساب',
     step1Title: 'انتخاب سرویس',
     step2Title: 'کد تایید',
+    confirmAndBack: 'تایید و بازگشت',
+    confirm: 'تایید',
     step3Title: 'تایید حساب',
     step1SubTitle: 'سرویس مورد نظر را جهت افزودن حساب اعتباری انتخاب کنید.',
     step2SubTitle: 'کد تایید را وارد کنید ',
-    step2Desc: (tell) => {
-      `کد تایید به شماره موبایل ${tell} ارسال شد.`;
-    },
+    step2Desc: (tell) => `کد تایید به شماره موبایل ${tell} ارسال شد.`,
     step3Subtitle: 'برای افزودن حساب های اعتباری زیر، روی دکمه تایید حساب بزنید.',
   },
   payDialog: {

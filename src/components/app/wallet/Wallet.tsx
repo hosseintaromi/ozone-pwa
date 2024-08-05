@@ -9,6 +9,8 @@ import NestedSwiper from './components/NestedSwiper';
 import { HorizontalCardType } from './type';
 import Navbar from '../../share/navbar/Navbar';
 import locale from '../../../locale';
+import Link from 'next/link';
+import { ROUTES } from '@/constant/routes';
 
 const data: HorizontalCardType[] = [
   {
@@ -44,7 +46,10 @@ export default function Wallet() {
       <Navbar>
         <InfoCircle color='#fff' size={30} />
         <Text>حساب ها</Text>
-        <CardAdd color='#fff' size={30} />
+
+        <Link href={ROUTES.AddWALLET}>
+          <CardAdd color='#fff' size={30} />
+        </Link>
       </Navbar>
       <NestedSwiper />
       <BottomSheet
@@ -64,7 +69,9 @@ export default function Wallet() {
           <Text className='text-lg'>{app.transactions}</Text>
           <Container>
             {data.map((item, index) => (
-              <HorizontalCard key={index} data={item} />
+              <Link href={ROUTES.PurchaseDetail}>
+                <HorizontalCard key={index} data={item} />
+              </Link>
             ))}
           </Container>
 
