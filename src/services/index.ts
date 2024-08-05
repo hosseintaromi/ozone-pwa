@@ -17,8 +17,10 @@ export const postLoginInit = (data: loginInitTypeIn) =>
     data,
   );
 
-export const postLoginOtp = (data: loginOtpTypeIn) =>
-  httpPostRequest<loginOtpTypeOut>(
+export const postLoginOtp = async (data: loginOtpTypeIn) => {
+  const res: { data: { data: loginOtpTypeOut } } = await httpPostRequest(
     APIUrlGenerator(API_ROUTES.POST_LOGIN_OTP, BACKEND_SERVICE.AUTH),
     data,
   );
+  return res.data;
+};

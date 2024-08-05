@@ -11,7 +11,7 @@ export const API_ROUTES = {
 };
 
 export const ROUTES = {
-  HOME: '/home/',
+  HOME: '/',
   ABOUT_US: '/about/',
   SCAN: '/scan/',
   VOUCHER: '/voucher/',
