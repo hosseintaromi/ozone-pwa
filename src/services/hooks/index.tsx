@@ -3,7 +3,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/constant/query-key';
 
 import { getInvoicesDetails, postLoginInit, postLoginOtp } from '..';
-import { loginInitTypeIn, loginOtpBodyType } from '@/models/login.model';
+import { loginInitTypeIn, loginOtpBodyType } from '@/models/auth.model';
 
 export const useLoginInit = () => {
   return useMutation({

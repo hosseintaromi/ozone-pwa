@@ -8,7 +8,7 @@ import {
   loginInitTypeOut,
   loginOtpBodyType,
   loginOtpTypeOut,
-} from '@/models/login.model';
+} from '@/models/auth.model';
 
 export const postLoginInit = (data: loginInitTypeIn) =>
   httpPostRequest<loginInitTypeOut>(
