@@ -88,12 +88,12 @@ api.interceptors.request.use(async (config) => {
       token = cookies().get(StorageKey.TOKEN)?.value;
 
     if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+      config.headers['Authorization'] = `${token}`;
     }
   } else {
     const token = Cookies.get(StorageKey.TOKEN);
     if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+      config.headers['Authorization'] = `${token}`;
     }
   }
 
