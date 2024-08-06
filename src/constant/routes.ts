@@ -7,6 +7,8 @@ export const API_ROUTES = {
   POST_LOGIN_OTP: '/login/otp',
   GET_INVOICES_DETAIL: (id: string) => `/invoices/detail/${id}`,
   POST_KYC: '/users/kyc',
+  GET_USER_ME: '/users/me',
+  POST_KYC_VERIFY: '/users/kyc/verify',
 };
 
 export const ROUTES = {

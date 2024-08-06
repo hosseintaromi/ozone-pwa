@@ -8,7 +8,6 @@ import { object } from 'yup';
 import validation from '@/constant/validation-rules';
 import { addZeroIfUnder10, convertPhoneNumber, convertToEnglishNumber } from '@/lib/helper';
 import { useLoginInit } from '@/services/hooks';
-import { LOGIN_ROLES } from '@/services/types';
 import { useFormik } from 'formik';
 import locale from '@/locale';
 import { BUTTON_TYPE, COLOR_ENUM, INPUT_TYPES } from '@/@types';
@@ -19,6 +18,7 @@ import { addToTime } from '@/lib/date';
 import Button from '@/components/share/button';
 import { Input } from '@/components/share/input';
 import useDeviceDetection from '@/hooks/useDeviceDetection';
+import { LOGIN_ROLES } from '@/models/auth.model';
 
 const AddWalletStep2 = ({
   setActive: setActiveTab,

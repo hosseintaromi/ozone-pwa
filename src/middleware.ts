@@ -18,5 +18,5 @@ export async function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 export const config = {
-  matcher: ['/', '/home/', '/login/', '/wallet/', '/kyc/'],
+  matcher: ['/', '/home/', '/login/', '/wallet/', '/KYC/', '/kyc/'],
 };

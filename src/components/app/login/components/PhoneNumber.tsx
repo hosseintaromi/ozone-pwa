@@ -17,9 +17,9 @@ import XImage from '@/components/share/x-image';
 import validation from '@/constant/validation-rules';
 import { locale } from '@/locale';
 import { useLoginInit } from '@/services/hooks';
-import { LOGIN_ROLES } from '@/services/types';
 
 import { LOGIN_STEPS, SetPhoneType, SetStepType } from '../Login.module';
+import { LOGIN_ROLES } from '@/models/auth.model';
 
 const PhoneNumber = ({
   setStep,

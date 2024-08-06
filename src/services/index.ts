@@ -10,7 +10,12 @@ import {
   loginOtpTypeOut,
 } from '@/models/auth.model';
 import { invoiceDetail } from '@/models/transaction.model';
-import { kycBodyType } from '@/models/userManagement.model';
+import {
+  kycBodyType,
+  kycVerify,
+  kycVerifyBodyType,
+  userMe,
+} from '@/models/userManagement.model';
 
 export const postLoginInit = (data: loginInitTypeIn) =>
   httpPostRequest<loginInitTypeOut>(
@@ -38,4 +43,19 @@ export const postKyc = async (data: kycBodyType) => {
     data,
   );
   return res.data;
+};
+
+export const postKycVerify = async (data: kycVerifyBodyType) => {
+  const res: { data: { data: kycVerify } } = await httpPostRequest(
+    APIUrlGenerator(API_ROUTES.POST_KYC_VERIFY, BACKEND_SERVICE.USER_MANAGEMENT),
+    data,
+  );
+  return res.data;
+};
+
+export const getUserMe = async () => {
+  const res: { data: { data: userMe } } = await httpGetRequest(
+    APIUrlGenerator(API_ROUTES.GET_USER_ME, BACKEND_SERVICE.USER_MANAGEMENT),
+  );
+  return res.data.data;
 };

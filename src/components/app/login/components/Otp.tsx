@@ -21,10 +21,11 @@ import { BUTTON_TYPE, COLOR_ENUM, INPUT_TYPES, SIZE_ENUM, VARIANT_ENUM } from '@
 import ICON_SIZE, { ICON_COLOR } from '@/constant/icon-size-color';
 import { ROUTES } from '@/constant/routes';
 import locale from '@/locale';
-import { useLoginInit, useLoginOtp } from '@/services/hooks';
-import { LOGIN_ROLES } from '@/services/types';
+import { useGetUser, useLoginInit, useLoginOtp } from '@/services/hooks';
 
 import { LOGIN_STEPS, SetStepType } from '../Login.module';
+import { LOGIN_ROLES } from '@/models/auth.model';
+import useUserStore from '@/store/user-store';
 
 const Otp = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: string }) => {
   const { login } = locale;
@@ -37,6 +38,13 @@ const Otp = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: stri
     expiryTimestamp: addToTime(new Date(), 2, { unit: 'MINUTES' }),
     onExpire: () => !active && setActive(true),
   });
+  const { token, setToken } = useUserStore();
+  const { isSuccess, data } = useGetUser(token);
+
+  useEffect(() => {
+    if (!isSuccess) return;
+    Cookies.set('user', JSON.stringify(data));
+  }, [isSuccess]);
 
   const submit = () => {
     mutate(
@@ -47,6 +55,7 @@ const Otp = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: stri
       },
       {
         onSuccess: ({ data }) => {
+          setToken(data.access_token);
           Cookies.set('token', data.token_type + ' ' + data.access_token, {
             expires: data.expires_in,
             path: '/',
@@ -58,7 +67,6 @@ const Otp = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: stri
       },
     );
   };
-
   const { mutate: reSend } = useLoginInit();
   const clickResend = () => {
     reSend(
