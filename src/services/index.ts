@@ -9,6 +9,8 @@ import {
   loginOtpBodyType,
   loginOtpTypeOut,
 } from '@/models/auth.model';
+import { invoiceDetail } from '@/models/transaction.model';
+import { kycBodyType } from '@/models/userManagement.model';
 
 export const postLoginInit = (data: loginInitTypeIn) =>
   httpPostRequest<loginInitTypeOut>(
@@ -24,8 +26,16 @@ export const postLoginOtp = async (data: loginOtpBodyType) => {
   return res.data;
 };
 export const getInvoicesDetails = async (id: string) => {
-  const res: { data: { data: loginOtpTypeOut } } = await httpGetRequest(
+  const res: { data: { data: invoiceDetail } } = await httpGetRequest(
     APIUrlGenerator(API_ROUTES.GET_INVOICES_DETAIL(id), BACKEND_SERVICE.TRANSACTION),
+  );
+  return res.data;
+};
+
+export const postKyc = async (data: kycBodyType) => {
+  const res: { data: { data: invoiceDetail } } = await httpPostRequest(
+    APIUrlGenerator(API_ROUTES.POST_KYC, BACKEND_SERVICE.USER_MANAGEMENT),
+    data,
   );
   return res.data;
 };

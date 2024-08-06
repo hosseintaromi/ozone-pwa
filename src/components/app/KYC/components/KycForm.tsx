@@ -10,6 +10,7 @@ import { useState } from 'react';
 import CalenderDialog from './CalenderDialog';
 import InlineInfo from './InlineInfo';
 import Link from 'next/link';
+import { useKyc } from '@/services/hooks';
 
 const KycForm = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<number>> }) => {
   const {
@@ -19,6 +20,15 @@ const KycForm = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<num
   const [show, setShow] = useState(false);
   const [id, setId] = useState('');
   const [date, setDate] = useState('');
+
+  const { mutate } = useKyc();
+
+  const sendReq = () => {
+    mutate({
+      birth_date: date,
+      national_code: id,
+    });
+  };
 
   return (
     <Container className='flex h-dvh flex-col justify-between px-5'>
@@ -63,19 +73,18 @@ const KycForm = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<num
         <Button
           className='mb-5 w-full  py-6'
           disabled={!date || !id || id.length < 10}
-          onClick={() => setStep(1)}
+          onClick={sendReq}
         >
           <Text>{common.record}</Text>
         </Button>
-        <Link href={ROUTES.SETTING}>
-          <Button
-            variant={VARIANT_ENUM.OUTLINED}
-            className='mb-11 w-full py-6'
-            color={COLOR_ENUM.LIGHT_GRAY}
-          >
-            <Text color={COLOR_ENUM.LIGHT_GRAY}>{kyc.backToApp}</Text>
-          </Button>
-        </Link>
+        <Button
+          variant={VARIANT_ENUM.OUTLINED}
+          className='mb-11 w-full py-6'
+          color={COLOR_ENUM.LIGHT_GRAY}
+          onClick={() => setStep(1)}
+        >
+          <Text color={COLOR_ENUM.LIGHT_GRAY}>{kyc.backToApp}</Text>
+        </Button>
       </Container>
       <CalenderDialog show={show} setShow={setShow} setValue={setDate} />
     </Container>
