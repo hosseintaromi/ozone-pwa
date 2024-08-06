@@ -9,6 +9,7 @@ export async function middleware(request: NextRequest) {
     if (hasToken) {
       return NextResponse.redirect(new URL(ROUTES.HOME, url));
     }
+
     return NextResponse.next();
   }
   if (!hasToken) {
@@ -17,5 +18,5 @@ export async function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 export const config = {
-  matcher: ['/', `/login/`, '/home', '/wallet'],
+  matcher: ['/', '/home/', '/login/', '/wallet/'],
 };

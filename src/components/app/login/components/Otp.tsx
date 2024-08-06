@@ -46,13 +46,13 @@ const Otp = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: stri
         code: otp,
       },
       {
-        onSuccess: (e) => {
-          Cookies.set('token', e.data.token_type + ' ' + e.data.access_token, {
-            expires: e.data.expires_in,
+        onSuccess: ({ data }) => {
+          Cookies.set('token', data.token_type + ' ' + data.access_token, {
+            expires: data.expires_in,
             path: '/',
           });
-          Cookies.set('expires_in', e.data.expires_in);
-          Cookies.set('refresh_token', e.data.refresh_token);
+          Cookies.set('expires_in', data.expires_in);
+          Cookies.set('refresh_token', data.refresh_token);
           router.push(ROUTES.HOME);
         },
       },

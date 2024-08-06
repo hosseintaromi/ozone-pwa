@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import { KeenSliderOptions, TrackDetails, useKeenSlider } from 'keen-slider/react';
-import _ from 'lodash';
 export default function Wheel(props: {
   initIdx?: number;
   label?: string;
@@ -48,7 +47,7 @@ export default function Wheel(props: {
       setSliderState(s.track.details);
       props.setCurrentVal(s.track.details.abs);
     },
-    dragEnded: (s) => {},
+    dragEnded: () => {},
     rubberband: !props.loop,
     mode: 'free-snap',
   });

@@ -115,11 +115,11 @@ const PhoneNumber = ({
       <form onSubmit={handleSubmit} className='mb-20 flex w-full flex-col px-5 xs:pt-5'>
         <Input
           name='phoneNumber'
-          errorMessage={errors.phoneNumber}
           label={common.phoneNumber}
+          className='text-right'
           type={INPUT_TYPES.TEL}
           inputMode='numeric'
-          className='text-right'
+          errorMessage={errors.phoneNumber}
           maxLength={11}
           value={values.phoneNumber}
           onChange={isIos ? persianNumToEnNumChange : handleChange}

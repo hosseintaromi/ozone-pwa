@@ -3,9 +3,7 @@ export enum LOGIN_ROLES {
   BUSINESS = 'BUSINESS',
   BACKOFFICE = 'BACKOFFICE',
 }
-export enum BACKEND_SERVICE {
-  AUTH = 'auth',
-}
+
 interface loginBaseType {
   cellphone: string;
   clients: LOGIN_ROLES[];
@@ -18,7 +16,7 @@ export interface loginInitTypeOut {
   has_password: boolean;
 }
 
-export interface loginOtpTypeIn extends loginBaseType {
+export interface loginOtpBodyType extends loginBaseType {
   code: string;
 }
 

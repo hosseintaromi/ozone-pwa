@@ -1,26 +1,26 @@
-import { COLOR_ENUM, SIZE_ENUM, Text } from 'ozone-uikit';
-import React, { useState } from 'react';
+'use client';
 
-import Container from '@/components/share/container';
+import { Text } from '@/components/share/typography';
 import { RadioGroup } from '@/components/share/input/radio';
 import Circular from '@/components/share/input/radio/circular';
-import RadioOption from '@/components/share/input/radio/option';
 import XImage from '@/components/share/x-image';
+import RadioOption from '@/components/share/input/radio/option';
 
 import locale from '@/locale';
+import { Container, SIZE_ENUM } from 'ozone-uikit';
+import React, { useState } from 'react';
+import Button from '@/components/share/button';
+import { BUTTON_TYPE } from '@/@types';
 
-import { PayInDialogType } from '../../wallet/type';
-import Modal, { ModalBody, ModalHead } from '../../../share/modal';
-
-const ChooseWallet = (props: PayInDialogType) => {
-  const [selectedItem, setSelectedItem] = useState('test');
-
-  const { show, setShow } = props;
-
+const AddWalletStep1 = ({
+  setActive,
+}: {
+  setActive: React.Dispatch<React.SetStateAction<number>>;
+}) => {
   const {
-    app: { chooseWallet },
+    app: { addWallet },
   } = locale;
-
+  const [selectedItem, setSelectedItem] = useState('test');
   const handleChange = (value) => {
     setSelectedItem(value);
   };
@@ -37,18 +37,10 @@ const ChooseWallet = (props: PayInDialogType) => {
       id: 2,
     },
   ];
-
   return (
-    <Modal show={show} onClose={() => setShow(false)} dialogPanelClassName='bg-neutral-900'>
-      <ModalHead setShow={() => setShow((pre) => !pre)}>
-        <Text size={SIZE_ENUM.LG} medium>
-          {chooseWallet.title}
-        </Text>
-        <Text size={SIZE_ENUM.SM} medium color={COLOR_ENUM.XLIGHT_GRAY} className='mt-4'>
-          {chooseWallet.subTitle}
-        </Text>
-      </ModalHead>
-      <ModalBody className='mx-5 flex flex-col gap-2.5 text-white'>
+    <Container className='flex h-full flex-col justify-between'>
+      <Container>
+        <Text className='my-6 text-sm text-neutral-200'>{addWallet.step1SubTitle}</Text>
         <RadioGroup value={selectedItem} onChange={(value) => handleChange(value)}>
           {data.map((item) => (
             <RadioOption value={item.name}>
@@ -64,16 +56,29 @@ const ChooseWallet = (props: PayInDialogType) => {
                         height={1000}
                       />
                     </Container>
-                    {item.name}
+                    <Text className='text-white ' bold>
+                      {item.name}
+                    </Text>
                   </Container>
                 </Circular>
               )}
             </RadioOption>
           ))}
         </RadioGroup>
-      </ModalBody>
-    </Modal>
+      </Container>
+
+      <Button
+        onClick={() => {
+          setActive((pre) => pre + 1);
+        }}
+        type={BUTTON_TYPE.SUBMIT}
+        size={SIZE_ENUM.XL}
+        className='mt-5 w-full'
+      >
+        {addWallet.confirm}
+      </Button>
+    </Container>
   );
 };
 
-export default ChooseWallet;
+export default AddWalletStep1;

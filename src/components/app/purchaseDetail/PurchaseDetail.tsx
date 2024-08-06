@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/constant/routes';
 import Button from '@/components/share/button';
 import PurchaseDialog from './PurchaseDialog';
+import { usePurchaseDetail } from '@/services/hooks';
 
 const PurchaseDetail = () => {
   const {
@@ -18,6 +19,9 @@ const PurchaseDetail = () => {
   } = locale;
   const router = useRouter();
   const [show, setShow] = useState(false);
+
+  const { data } = usePurchaseDetail('1');
+
   return (
     <>
       <PurchaseDialog setShow={setShow} show={show} />

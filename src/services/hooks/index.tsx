@@ -1,9 +1,9 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 import { QUERY_KEYS } from '@/constant/query-key';
 
-import { postLoginInit, postLoginOtp } from '..';
-import { loginInitTypeIn, loginOtpTypeIn } from '../types';
+import { getInvoicesDetails, postLoginInit, postLoginOtp } from '..';
+import { loginInitTypeIn, loginOtpBodyType } from '@/models/login.model';
 
 export const useLoginInit = () => {
   return useMutation({
@@ -15,6 +15,13 @@ export const useLoginInit = () => {
 export const useLoginOtp = () => {
   return useMutation({
     mutationKey: [QUERY_KEYS.POST_LOGIN_OTP],
-    mutationFn: (data: loginOtpTypeIn) => postLoginOtp(data),
+    mutationFn: (data: loginOtpBodyType) => postLoginOtp(data),
+  });
+};
+
+export const usePurchaseDetail = (id: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.POST_LOGIN_OTP],
+    queryFn: () => getInvoicesDetails(id),
   });
 };

@@ -1,0 +1,33 @@
+input[type='radio'] {
+  transition: all 0.2;
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  font: inherit;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #7c7f82;
+  border-radius: 50%;
+  transform: translateY(-0.075em);
+  background: transparent;
+  display: grid;
+  place-content: center;
+}
+
+input[type='radio']::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  background-color: #24c8b0;
+}
+
+input[type='radio']:checked::before {
+  transform: scale(1);
+}
+
+input[type='radio']:checked {
+  border: 1px solid #24c8b0;
+}
