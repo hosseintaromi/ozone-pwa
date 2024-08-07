@@ -3,8 +3,7 @@
 import { Text } from '@/components/share/typography';
 
 import { Container, SIZE_ENUM } from 'ozone-uikit';
-import React, { useState } from 'react';
-import { useLoginInit } from '@/services/hooks';
+import React from 'react';
 import locale from '@/locale';
 import { BUTTON_TYPE } from '@/@types';
 import Button from '@/components/share/button';

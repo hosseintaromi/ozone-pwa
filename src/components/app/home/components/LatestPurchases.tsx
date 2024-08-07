@@ -20,7 +20,7 @@ const LatestPurchases = () => {
       <Text color={COLOR_ENUM.WHITE} size={SIZE_ENUM.MD}>
         {app.latestPurchases}
       </Text>
-      {[1, 2, 3, 4, 5].map((x) => (
+      {[1, 2, 3, 4, 5].map(() => (
         <div className='mt-2 border-b-[1px] border-gray-700'>
           <Link href={ROUTES.PurchaseDetail}>
             <Container center className='justify-between'>

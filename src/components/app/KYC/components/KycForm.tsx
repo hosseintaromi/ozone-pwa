@@ -1,7 +1,6 @@
 import { Text } from '@/components/share/typography';
 import XImage from '@/components/share/x-image';
 import ICON_SIZE from '@/constant/icon-size-color';
-import { ROUTES } from '@/constant/routes';
 import { convertRfcToJalali } from '@/lib/date';
 import locale from '@/locale';
 import { Calendar } from 'iconsax-react';
@@ -9,7 +8,6 @@ import { Container, SIZE_ENUM, COLOR_ENUM, Input, Button, VARIANT_ENUM } from 'o
 import { useState } from 'react';
 import CalenderDialog from './CalenderDialog';
 import InlineInfo from './InlineInfo';
-import Link from 'next/link';
 import { useKyc } from '@/services/hooks';
 
 const KycForm = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<number>> }) => {
