@@ -19,7 +19,7 @@ import { useGetWallet } from '@/services/hooks';
 import { Wallets } from '@/models/digitalWallet';
 import {
   SkeletonLoader,
-  SkeletonLoaderAvatar,
+  SkeletonLoaderDonut,
 } from '@/components/share/skeleton/SkeletonLoader';
 
 const Home = () => {
@@ -30,6 +30,42 @@ const Home = () => {
     { id: 'weekly', label: app.weekly },
     { id: 'monthly', label: app.monthly },
   ];
+
+  function formatDate(date) {
+    const pad = (num) => num.toString().padStart(2, '0');
+    return (
+      date.getUTCFullYear() +
+      '-' +
+      pad(date.getUTCMonth() + 1) +
+      '-' +
+      pad(date.getUTCDate()) +
+      'T' +
+      pad(date.getUTCHours()) +
+      ':' +
+      pad(date.getUTCMinutes()) +
+      ':' +
+      pad(date.getUTCSeconds()) +
+      'Z'
+    );
+  }
+
+  // Today's date
+  const today = new Date();
+  const formattedToday = formatDate(today);
+
+  // Date 7 days ago
+  const last7Days = new Date();
+  last7Days.setDate(today.getDate() - 7);
+  const formattedLast7Days = formatDate(last7Days);
+
+  // Date 30 days ago
+  const last30Days = new Date();
+  last30Days.setDate(today.getDate() - 30);
+  const formattedLast30Days = formatDate(last30Days);
+
+  // console.log('Today:', formattedToday);
+  // console.log('Last 7 days:', formattedLast7Days);
+  // console.log('Last 30 days:', formattedLast30Days);
 
   const { data: wallets } = useGetWallet();
 
@@ -89,6 +125,7 @@ const Home = () => {
           <ArrowDown2 className='flow' size={ICON_SIZE.lg} color={ICON_COLOR.light_gray} />
         </Container>
         <Container className='mt-5'>
+          <SkeletonLoaderDonut />
           <DonutChart />
         </Container>
       </Container>
