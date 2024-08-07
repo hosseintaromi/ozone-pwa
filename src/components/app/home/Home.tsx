@@ -1,6 +1,6 @@
 'use client';
 import { ArrowDown2, InfoCircle } from 'iconsax-react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 
 import Container from '@/components/share/container';
@@ -15,6 +15,12 @@ import ChooseWallet from './components/ChooseWallet';
 import LatestPurchases from './components/LatestPurchases';
 import { AnimatedTabs } from '../../share/animatedTabs';
 import DonutChart from '../../share/charts/PieChart';
+import { useGetWallet } from '@/services/hooks';
+import { Wallets } from '@/models/digitalWallet';
+import {
+  SkeletonLoader,
+  SkeletonLoaderAvatar,
+} from '@/components/share/skeleton/SkeletonLoader';
 
 const Home = () => {
   const { app } = locale;
@@ -24,6 +30,15 @@ const Home = () => {
     { id: 'weekly', label: app.weekly },
     { id: 'monthly', label: app.monthly },
   ];
+
+  const { data: wallets } = useGetWallet();
+
+  const [activeWallet, setActiveWallet] = useState<Wallets | undefined>();
+
+  useEffect(() => {
+    wallets && setActiveWallet(wallets[0]);
+  }, [wallets]);
+
   return (
     <>
       <Navbar>
@@ -48,15 +63,27 @@ const Home = () => {
           }}
         >
           <Container center className='gap-3'>
-            <Container className='w-6'>
-              <XImage
-                src='/images/logo/SmallLogo.svg'
-                alt='Picture of the author'
-                width={1000}
-                height={1000}
-              />
-            </Container>
-            <Text>وضعیت حساب اوزون</Text>
+            {activeWallet ? (
+              <>
+                <Container className='w-6'>
+                  <XImage
+                    src={activeWallet?.wallet.logo_base_url + activeWallet?.wallet.logo_path}
+                    alt='Picture of the author'
+                    width={1000}
+                    height={1000}
+                  />
+                </Container>
+                <Text>
+                  {locale.common.accountStatus}
+                  {activeWallet?.name}
+                </Text>
+              </>
+            ) : (
+              <Container className='flex items-center gap-4'>
+                <SkeletonLoader width='w-7' height='h-7' className='rounded-full' />
+                <SkeletonLoader width='w-36' height='h-5' className='w-36' />
+              </Container>
+            )}
           </Container>
 
           <ArrowDown2 className='flow' size={ICON_SIZE.lg} color={ICON_COLOR.light_gray} />
@@ -65,7 +92,13 @@ const Home = () => {
           <DonutChart />
         </Container>
       </Container>
-      <ChooseWallet show={show} setShow={setShow} />
+      <ChooseWallet
+        show={show}
+        setShow={setShow}
+        data={wallets}
+        activeWallet={activeWallet}
+        setActiveWallet={setActiveWallet}
+      />
       {/* <PhysicalCard /> */}
       <LatestPurchases />
     </>

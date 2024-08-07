@@ -16,6 +16,7 @@ import {
   kycVerifyBodyType,
   userMe,
 } from '@/models/userManagement.model';
+import { Wallets } from '@/models/digitalWallet';
 
 export const postLoginInit = (data: loginInitTypeIn) =>
   httpPostRequest<loginInitTypeOut>(
@@ -56,6 +57,13 @@ export const postKycVerify = async (data: kycVerifyBodyType) => {
 export const getUserMe = async () => {
   const res: { data: { data: userMe } } = await httpGetRequest(
     APIUrlGenerator(API_ROUTES.GET_USER_ME, BACKEND_SERVICE.USER_MANAGEMENT),
+  );
+  return res.data.data;
+};
+
+export const getWallets = async () => {
+  const res: { data: { data: Wallets[] } } = await httpGetRequest(
+    APIUrlGenerator(API_ROUTES.GET_WALLETS, BACKEND_SERVICE.DIGITAL_WALLET),
   );
   return res.data.data;
 };

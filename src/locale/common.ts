@@ -7,5 +7,6 @@ const common = {
   entree: 'ورود',
   rial: 'ریال',
   confirm: 'تایید',
+  accountStatus: 'وضعیت حساب ',
 };
 export default common;
