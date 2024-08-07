@@ -15,7 +15,7 @@ import ChooseWallet from './components/ChooseWallet';
 import LatestPurchases from './components/LatestPurchases';
 import { AnimatedTabs } from '../../share/animatedTabs';
 import DonutChart from '../../share/charts/PieChart';
-import { useGetWallet } from '@/services/hooks';
+import { useGetDonut, useGetWallet } from '@/services/hooks';
 import { Wallets } from '@/models/digitalWallet';
 import {
   SkeletonLoader,
@@ -71,6 +71,12 @@ const Home = () => {
 
   const [activeWallet, setActiveWallet] = useState<Wallets | undefined>();
 
+  const { isLoading, data } = useGetDonut({
+    account_wallet_id: activeWallet?.id.toString(),
+    from_date: formattedLast7Days,
+    to_date: formattedToday,
+  });
+
   useEffect(() => {
     wallets && setActiveWallet(wallets[0]);
   }, [wallets]);
@@ -125,8 +131,7 @@ const Home = () => {
           <ArrowDown2 className='flow' size={ICON_SIZE.lg} color={ICON_COLOR.light_gray} />
         </Container>
         <Container className='mt-5'>
-          <SkeletonLoaderDonut />
-          <DonutChart />
+          {isLoading || !activeWallet?.id ? <SkeletonLoaderDonut /> : <DonutChart />}
         </Container>
       </Container>
       <ChooseWallet

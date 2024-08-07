@@ -105,7 +105,7 @@ api.interceptors.response.use(
     const num = error.response.status;
 
     if (num === 401) {
-      window.location.href = '/login';
+      // window.location.href = '/login';
     } else if (num === 404) {
       window.location.href = '/404';
     } else if (num === 422) {

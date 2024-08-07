@@ -40,7 +40,7 @@ const SkeletonLoaderAvatar: React.FC = () => {
 
 const SkeletonLoaderDonut: React.FC = () => {
   return (
-    <div className='flex items-center justify-center'>
+    <div className='flex h-60 items-center justify-center'>
       <div className='relative'>
         <div className='h-52 w-52 animate-pulse rounded-full bg-neutral-700'></div>
         <div className='absolute inset-8 h-36 w-36 rounded-full bg-neutral-800'></div>

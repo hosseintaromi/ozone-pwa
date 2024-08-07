@@ -66,3 +66,9 @@ type accountWalletType = {
   type: string;
   inquiry_available: boolean;
 };
+
+export type DonutChartParams = {
+  account_wallet_id?: string | undefined | boolean;
+  from_date?: string;
+  to_date?: string;
+};
