@@ -1,3 +1,4 @@
+import { invoiceDetail } from '@/models/transaction.model';
 import React, { ReactNode } from 'react';
 
 export type HorizontalCardType = {
@@ -10,6 +11,12 @@ export type HorizontalCardType = {
 export type PayInDialogType = {
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   show: boolean;
+};
+
+export type PurchaseDetailType = {
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  show: boolean;
+  data: invoiceDetail | undefined;
 };
 
 export type OfferPriceType = {

@@ -34,7 +34,7 @@ export const getInvoicesDetails = async (id: string) => {
   const res: { data: { data: invoiceDetail } } = await httpGetRequest(
     APIUrlGenerator(API_ROUTES.GET_INVOICES_DETAIL(id), BACKEND_SERVICE.TRANSACTION),
   );
-  return res.data;
+  return res.data.data;
 };
 
 export const postKyc = async (data: kycBodyType) => {

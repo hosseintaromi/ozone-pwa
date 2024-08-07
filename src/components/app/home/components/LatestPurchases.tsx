@@ -22,7 +22,7 @@ const LatestPurchases = () => {
       </Text>
       {[1, 2, 3, 4, 5].map(() => (
         <div className='mt-2 border-b-[1px] border-gray-700'>
-          <Link href={ROUTES.PurchaseDetail}>
+          <Link href={`${ROUTES.PurchaseDetail}/20`}>
             <Container center className='justify-between'>
               <Container className=' w-8'>
                 <XImage

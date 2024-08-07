@@ -1,39 +1,37 @@
 export type invoiceDetail = {
-  data: {
-    status: 'PENDING';
-    order_id: string;
-    business_account_id: number;
-    customer_account_id: number;
-    ref_number: string;
-    amount: number;
-    items: [
-      {
-        name: string;
-        amount: number;
-        count: number;
-      },
-      {
-        name: string;
-        amount: number;
-        count: number;
-      },
-    ];
-    transactions: transactionsType[];
-    account_wallet: accountWalletType[];
-    logo: string;
-    vouchers: [
-      {
-        name: string;
-        amount: number;
-      },
-      {
-        name: string;
-        amount: number;
-      },
-    ];
-    paid_amount: number;
-    invoice_number: string;
-  };
+  status: 'PENDING';
+  order_id: string;
+  business_account_id: number;
+  customer_account_id: number;
+  ref_number: string;
+  amount: number;
+  items: [
+    {
+      name: string;
+      amount: number;
+      count: number;
+    },
+    {
+      name: string;
+      amount: number;
+      count: number;
+    },
+  ];
+  transactions: transactionsType[];
+  account_wallet: accountWalletType[];
+  logo: string;
+  vouchers: [
+    {
+      name: string;
+      amount: number;
+    },
+    {
+      name: string;
+      amount: number;
+    },
+  ];
+  paid_amount: number;
+  invoice_number: string;
 };
 type transactionsType = {
   id: number;
