@@ -112,6 +112,8 @@ api.interceptors.response.use(
       throw error;
     } else if (num >= 400 && num <= 499) {
       showToast(error.response.data.message);
+    } else if (num >= 500) {
+      showToast(error.response.data.error_message);
     }
   },
 );
