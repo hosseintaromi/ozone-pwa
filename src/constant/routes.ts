@@ -9,6 +9,7 @@ export const API_ROUTES = {
   POST_KYC: '/users/kyc',
   GET_USER_ME: '/users/me',
   POST_KYC_VERIFY: '/users/kyc/verify',
+  GET_WALLETS: '/account-wallets',
 };
 
 export const ROUTES = {

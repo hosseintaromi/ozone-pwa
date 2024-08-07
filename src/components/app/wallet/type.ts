@@ -1,3 +1,5 @@
+import { Wallets } from '@/models/digitalWallet';
+import { invoiceDetail } from '@/models/transaction.model';
 import React, { ReactNode } from 'react';
 
 export type HorizontalCardType = {
@@ -10,6 +12,15 @@ export type HorizontalCardType = {
 export type PayInDialogType = {
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   show: boolean;
+  data: Wallets[] | undefined;
+  activeWallet: Wallets | undefined;
+  setActiveWallet: React.Dispatch<React.SetStateAction<Wallets | undefined>>;
+};
+
+export type PurchaseDetailType = {
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  show: boolean;
+  data: invoiceDetail | undefined;
 };
 
 export type OfferPriceType = {

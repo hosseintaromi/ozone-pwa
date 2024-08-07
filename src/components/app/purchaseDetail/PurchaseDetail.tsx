@@ -12,19 +12,25 @@ import { ROUTES } from '@/constant/routes';
 import Button from '@/components/share/button';
 import PurchaseDialog from './PurchaseDialog';
 import { usePurchaseDetail } from '@/services/hooks';
+import { formatNumberWithCommas } from '@/lib/helper';
+import {
+  SkeletonLoaderAvatar,
+  SkeletonLoaderText,
+  SkeletonLoader,
+} from '@/components/share/skeleton/SkeletonLoader';
 
-const PurchaseDetail = () => {
+const PurchaseDetail = ({ params }: { params: string }) => {
   const {
     app: { purchaseDetail },
   } = locale;
   const router = useRouter();
   const [show, setShow] = useState(false);
 
-  const { data } = usePurchaseDetail('1');
+  const { data, isLoading } = usePurchaseDetail(params);
 
   return (
     <>
-      <PurchaseDialog setShow={setShow} show={show} />
+      <PurchaseDialog setShow={setShow} show={show} data={data} />
       <Container className='relative my-7 flex justify-center'>
         <ArrowRight
           size='28'
@@ -39,19 +45,37 @@ const PurchaseDetail = () => {
         className='mx-auto w-full max-w-[950px] flex-col
        gap-3 rounded-xl bg-neutral-800 p-5 pb-2 '
       >
-        <Container className=' w-10'>
-          <XImage
-            src='/images/mock/filmeNet.svg'
-            alt='Picture of the author'
-            width={1000}
-            height={1000}
-          />
-        </Container>
-        <Text size={SIZE_ENUM.XMD}>خرید از اٌکالا</Text>
-        <Text className='mt-1 text-neutral-500'>سه شنبه 16 اردیبهشت 1402- 15:20</Text>
+        {isLoading ? (
+          <SkeletonLoaderAvatar />
+        ) : (
+          <Container className=' w-10'>
+            <XImage
+              src='/images/mock/filmeNet.svg'
+              alt='Picture of the author'
+              width={1000}
+              height={1000}
+            />
+          </Container>
+        )}
+
+        {isLoading ? (
+          <>
+            <SkeletonLoader width='w-24' height='h-6' />
+            <SkeletonLoader width='w-2/3' height='h-4' className='mt-3' />
+          </>
+        ) : (
+          <>
+            <Text size={SIZE_ENUM.XMD}>خرید از اٌکالا</Text>
+            <Text className='mt-1 text-neutral-500'>سه شنبه 16 اردیبهشت 1402- 15:20</Text>
+          </>
+        )}
         <Container className='flex w-full justify-between'>
           <Text className='text-neutral-300'>{purchaseDetail.totalAmount}</Text>
-          <Text>5,000,000 ریال</Text>
+          {isLoading ? (
+            <SkeletonLoader width='w-1/3' height='h-3' className='mt-2' />
+          ) : (
+            <Text>{`${locale.common.rial} ${data && formatNumberWithCommas(data.amount)}`}</Text>
+          )}
         </Container>
         <Container
           center
@@ -70,7 +94,7 @@ const PurchaseDetail = () => {
             }
           />
         </Container>
-        <PurchaseBill />
+        <PurchaseBill data={data} isLoading={isLoading} />
 
         <Button
           onClick={() => setShow((pre) => !pre)}

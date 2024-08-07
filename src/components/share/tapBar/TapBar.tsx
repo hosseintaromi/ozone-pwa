@@ -40,7 +40,6 @@ const TapBar = () => {
       text: 'تنظیمات',
     },
   ];
-
   return (
     <div
       className={cn(
@@ -56,7 +55,7 @@ const TapBar = () => {
         <Link href={item.id} key={index} className='w flex flex-col items-center'>
           <Container>
             {item.icon({
-              className: pathname.includes(item.id) ? 'text-primary' : '',
+              className: pathname === item.id ? 'text-primary' : '',
               variant: 'Bold',
               size: '28',
             })}
@@ -64,8 +63,8 @@ const TapBar = () => {
           <Container
             className={cn(
               `invisible mt-1 text-xs font-bold`,
-              pathname.includes(item.id) && 'text-primary',
-              pathname.includes(item.id) && 'visible',
+              pathname === item.id && 'text-primary',
+              pathname === item.id && 'visible',
             )}
           >
             {item.text}
