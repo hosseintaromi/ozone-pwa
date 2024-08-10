@@ -6,4 +6,5 @@ export const QUERY_KEYS = {
   GET_USER_ME: 'get_user_me',
   GET_WALLET: 'get_wallet',
   GET_DONUT: 'get_donut',
+  GET_INVOICES: 'get_invoices',
 };

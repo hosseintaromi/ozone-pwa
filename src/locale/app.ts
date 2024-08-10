@@ -44,6 +44,7 @@ const app = {
   weekly: 'هفتگی',
   getPhysicalCard: 'درخواست اوزون‌کارت فیزیکی',
   latestPurchases: 'آخرین خرید ها',
+  withdrawalNotAvailable: 'واریز و برداشت موجود نیست',
   setting: {
     title: 'تنظیمات',
     identityCompletionVerification: 'هویت تکمیل احراز',

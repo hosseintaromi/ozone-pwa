@@ -1,17 +1,20 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 
 import cn from '@/lib/clsxm';
+import { DATE_SCOPE } from '@/models/transaction.model';
 
 export function AnimatedTabs({
   tabData,
+  activeTab,
+  setActiveTab,
 }: {
+  activeTab: string;
+  setActiveTab: React.Dispatch<React.SetStateAction<DATE_SCOPE>>;
   tabData: {
-    id: string;
+    id: DATE_SCOPE;
     label: string;
   }[];
 }) {
-  const [activeTab, setActiveTab] = useState(tabData[0].id);
   return (
     <div
       className='flex h-12 w-full items-center 

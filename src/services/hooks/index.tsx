@@ -4,6 +4,7 @@ import { QUERY_KEYS } from '@/constant/query-key';
 
 import {
   getDonutChart,
+  getInvoices,
   getInvoicesDetails,
   getUserMe,
   getWallets,
@@ -14,7 +15,7 @@ import {
 } from '..';
 import { loginInitTypeIn, loginOtpBodyType } from '@/models/auth.model';
 import { kycBodyType } from '@/models/userManagement.model';
-import { DonutChartParams } from '@/models/transaction.model';
+import { DonutChartParams, invoicesListParams } from '@/models/transaction.model';
 
 export const useLoginInit = () => {
   return useMutation({
@@ -63,10 +64,16 @@ export const useGetWallet = () => {
   });
 };
 
-export const useGetDonut = (params: DonutChartParams) => {
-  return useQuery({
-    queryFn: () => getDonutChart(params),
-    queryKey: [QUERY_KEYS.GET_DONUT],
-    enabled: !!params.account_wallet_id,
+export const useGetInvoices = () => {
+  return useMutation({
+    mutationFn: (data: invoicesListParams) => getInvoices(data),
+    mutationKey: [QUERY_KEYS.GET_WALLET],
+  });
+};
+
+export const useGetDonut = () => {
+  return useMutation({
+    mutationFn: (data: DonutChartParams) => getDonutChart(data),
+    mutationKey: [QUERY_KEYS.GET_INVOICES],
   });
 };

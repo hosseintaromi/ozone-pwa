@@ -11,6 +11,7 @@ export const API_ROUTES = {
   POST_KYC_VERIFY: '/users/kyc/verify',
   GET_WALLETS: '/account-wallets',
   GET_DONUT: '/transactions',
+  GET_INVOICES: '/invoices',
 };
 
 export const ROUTES = {

@@ -9,7 +9,14 @@ import {
   loginOtpBodyType,
   loginOtpTypeOut,
 } from '@/models/auth.model';
-import { DonutChartParams, invoiceDetail } from '@/models/transaction.model';
+import {
+  DonutChartBody,
+  DonutChartParams,
+  invoiceDetail,
+  invoicesListBody,
+  invoicesListParams,
+  meta,
+} from '@/models/transaction.model';
 import {
   kycBodyType,
   kycVerify,
@@ -70,8 +77,16 @@ export const getWallets = async () => {
 };
 
 export const getDonutChart = async (params: DonutChartParams) => {
-  const res: { data: { data: any } } = await httpGetRequest(
+  const res: { data: { data: DonutChartBody } } = await httpGetRequest(
     APIUrlGenerator(API_ROUTES.GET_DONUT, BACKEND_SERVICE.TRANSACTION, params),
   );
+  return res.data.data;
+};
+
+export const getInvoices = async (params: invoicesListParams) => {
+  const res: { data: { data: invoicesListBody[]; meta: meta } } = await httpGetRequest(
+    APIUrlGenerator(API_ROUTES.GET_INVOICES, BACKEND_SERVICE.TRANSACTION, params),
+  );
+  console.log(res);
   return res.data.data;
 };

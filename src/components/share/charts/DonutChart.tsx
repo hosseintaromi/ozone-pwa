@@ -2,10 +2,17 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import React from 'react';
 
-import './PieChart.css';
+import './DonutChart.css';
 
 import Container from '../container';
-const PieChart = () => {
+const PieChart = ({
+  data,
+}: {
+  data: {
+    name: string;
+    y: number | undefined;
+  }[];
+}) => {
   const options = {
     chart: {
       with: '25px',
@@ -53,16 +60,7 @@ const PieChart = () => {
         colorByPoint: true,
         innerSize: '60%',
         size: '220px',
-        data: [
-          {
-            name: 'برداشت',
-            y: 23.9,
-          },
-          {
-            name: 'واریز',
-            y: 12.6,
-          },
-        ],
+        data: data,
       },
     ],
   };

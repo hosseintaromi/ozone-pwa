@@ -72,3 +72,66 @@ export type DonutChartParams = {
   from_date?: string;
   to_date?: string;
 };
+
+export type DonutChartBody = {
+  deposit: number;
+  deposit_percentages: number;
+  withdraw: number;
+  withdraw_percentages: number;
+};
+
+export type invoicesListParams = {
+  rom_date?: string;
+  to_date?: string;
+  business_id?: string;
+  page: string;
+};
+
+export type invoicesListBody = {
+  invoice: {
+    id: number;
+    status: 'SUCCESS';
+    order_id: string;
+    branch_code: string;
+    type: 'ONLINE';
+    business_account_id: number;
+    customer_account_id: number;
+    amount: number;
+    mobile: string;
+    items: [
+      {
+        name: string;
+        amount: number;
+        count: number;
+      },
+      {
+        name: string;
+        amount: number;
+        count: number;
+      },
+    ];
+    created_at: string;
+    updated_at: null;
+    ref_number: string;
+  };
+  business: {
+    name: string;
+    logo_base_url: string;
+    logo_path: string;
+  };
+};
+export type meta = {
+  pagination: {
+    total: number;
+    count: number;
+    per_page: number;
+    current_page: number;
+    total_pages: number;
+  };
+};
+
+export enum DATE_SCOPE {
+  DAILY = 'daily',
+  WEEKLY = 'weekly',
+  MONTHLY = 'monthly',
+}

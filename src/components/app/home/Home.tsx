@@ -14,22 +14,24 @@ import locale from '@/locale';
 import ChooseWallet from './components/ChooseWallet';
 import LatestPurchases from './components/LatestPurchases';
 import { AnimatedTabs } from '../../share/animatedTabs';
-import DonutChart from '../../share/charts/PieChart';
-import { useGetDonut, useGetWallet } from '@/services/hooks';
+import DonutChart from '../../share/charts/DonutChart';
+import { useGetDonut, useGetInvoices, useGetWallet } from '@/services/hooks';
 import { Wallets } from '@/models/digitalWallet';
 import {
   SkeletonLoader,
   SkeletonLoaderDonut,
 } from '@/components/share/skeleton/SkeletonLoader';
+import { DATE_SCOPE } from '@/models/transaction.model';
 
 const Home = () => {
   const { app } = locale;
   const [show, setShow] = useState(false);
   const tabData = [
-    { id: 'daily', label: app.daily },
-    { id: 'weekly', label: app.weekly },
-    { id: 'monthly', label: app.monthly },
+    { id: DATE_SCOPE.DAILY, label: app.daily },
+    { id: DATE_SCOPE.WEEKLY, label: app.weekly },
+    { id: DATE_SCOPE.MONTHLY, label: app.monthly },
   ];
+  const [activeTab, setActiveTab] = useState(tabData[0].id);
 
   function formatDate(date) {
     const pad = (num) => num.toString().padStart(2, '0');
@@ -63,19 +65,40 @@ const Home = () => {
   last30Days.setDate(today.getDate() - 30);
   const formattedLast30Days = formatDate(last30Days);
 
-  // console.log('Today:', formattedToday);
-  // console.log('Last 7 days:', formattedLast7Days);
-  // console.log('Last 30 days:', formattedLast30Days);
-
   const { data: wallets } = useGetWallet();
 
   const [activeWallet, setActiveWallet] = useState<Wallets | undefined>();
 
-  const { isLoading, data } = useGetDonut({
-    account_wallet_id: activeWallet?.id.toString(),
-    from_date: formattedLast7Days,
-    to_date: formattedToday,
-  });
+  const { isPending, mutate, data } = useGetDonut();
+  const showChart = data?.deposit_percentages || data?.withdraw_percentages;
+  const chartData = [
+    {
+      name: 'برداشت',
+      y: data?.deposit_percentages,
+    },
+    {
+      name: 'واریز',
+      y: data?.withdraw_percentages,
+    },
+  ];
+
+  const { data: invoices, mutate: getInvoices } = useGetInvoices();
+  useEffect(() => {
+    if (!activeWallet?.id) return;
+    getInvoices({
+      page: '1',
+    });
+    mutate({
+      account_wallet_id: activeWallet?.id.toString(),
+      from_date:
+        activeTab === DATE_SCOPE.DAILY
+          ? formattedToday
+          : activeTab === DATE_SCOPE.WEEKLY
+            ? formattedLast7Days
+            : formattedLast30Days,
+      to_date: formattedToday,
+    });
+  }, [activeTab, activeWallet?.id]);
 
   useEffect(() => {
     wallets && setActiveWallet(wallets[0]);
@@ -85,7 +108,7 @@ const Home = () => {
     <>
       <Navbar>
         <InfoCircle color='#fff' size={24} />
-        <Container className='w-44 '>
+        <Container className='w-44'>
           <XImage
             src='/images/logo/Name.svg'
             alt='Picture of the author'
@@ -97,7 +120,7 @@ const Home = () => {
       </Navbar>
 
       <Container className='m-5 rounded-xl bg-neutral-800/90 p-5'>
-        <AnimatedTabs tabData={tabData} />
+        <AnimatedTabs tabData={tabData} activeTab={activeTab} setActiveTab={setActiveTab} />
         <Container
           className='mx-auto mt-6 flex w-[262px] justify-between rounded-2xl bg-neutral-900 px-4 py-3'
           onClick={() => {
@@ -130,8 +153,24 @@ const Home = () => {
 
           <ArrowDown2 className='flow' size={ICON_SIZE.lg} color={ICON_COLOR.light_gray} />
         </Container>
-        <Container className='mt-5'>
-          {isLoading || !activeWallet?.id ? <SkeletonLoaderDonut /> : <DonutChart />}
+        <Container center className='mt-5 flex w-full flex-col'>
+          {isPending || !activeWallet?.id ? (
+            <SkeletonLoaderDonut />
+          ) : showChart ? (
+            <DonutChart data={chartData} />
+          ) : (
+            <Container center className='h-60 flex-col gap-3'>
+              <Container className='w-28'>
+                <XImage
+                  src='/images/image/emptyStates/ChartEmpty.svg'
+                  alt='Picture of the author'
+                  width={1000}
+                  height={1000}
+                />
+              </Container>
+              <Text className='text-neutral-500'>{app.withdrawalNotAvailable}</Text>
+            </Container>
+          )}
         </Container>
       </Container>
       <ChooseWallet
@@ -142,7 +181,7 @@ const Home = () => {
         setActiveWallet={setActiveWallet}
       />
       {/* <PhysicalCard /> */}
-      <LatestPurchases />
+      <LatestPurchases invoices={invoices} />
     </>
   );
 };
