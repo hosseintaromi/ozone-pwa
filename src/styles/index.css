@@ -62,3 +62,24 @@ input::-webkit-inner-spin-button {
 ::-webkit-scrollbar {
   width: 0;
 }
+/* target the active bullet */
+span.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background-color: #24c8b0 !important;
+  border-radius: 10px !important;
+  width: 20px;
+}
+
+/* target all bullets */
+.swiper-pagination-bullet {
+  background-color: #acaeaf !important;
+  opacity: 1 !important;
+}
+
+.swiper-pagination-horizontal {
+  margin-top: -40px;
+}
+
+.swiper-custom-pagination {
+  text-align: center;
+  margin-top: 10px;
+}

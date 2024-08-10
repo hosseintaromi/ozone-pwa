@@ -8,6 +8,7 @@ import {
   getInvoicesDetails,
   getUserMe,
   getWallets,
+  getWalletTransactions,
   postKyc,
   postKycVerify,
   postLoginInit,
@@ -75,5 +76,11 @@ export const useGetDonut = () => {
   return useMutation({
     mutationFn: (data: DonutChartParams) => getDonutChart(data),
     mutationKey: [QUERY_KEYS.GET_INVOICES],
+  });
+};
+export const useGetWalletTransactions = (id: number) => {
+  return useQuery({
+    queryFn: () => getWalletTransactions(id),
+    queryKey: [QUERY_KEYS.GET_WALLET_TRANSACTIONS],
   });
 };

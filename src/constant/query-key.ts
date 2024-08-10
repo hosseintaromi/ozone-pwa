@@ -7,4 +7,5 @@ export const QUERY_KEYS = {
   GET_WALLET: 'get_wallet',
   GET_DONUT: 'get_donut',
   GET_INVOICES: 'get_invoices',
+  GET_WALLET_TRANSACTIONS: 'get_wallet_transactions',
 };

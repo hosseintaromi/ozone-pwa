@@ -90,3 +90,9 @@ export const getInvoices = async (params: invoicesListParams) => {
   console.log(res);
   return res.data.data;
 };
+export const getWalletTransactions = async (id: number) => {
+  const res: { data: { data: Wallets[] } } = await httpGetRequest(
+    APIUrlGenerator(API_ROUTES.GET_WALLET_TRANSACTIONS(id), BACKEND_SERVICE.DIGITAL_WALLET),
+  );
+  return res.data.data;
+};
