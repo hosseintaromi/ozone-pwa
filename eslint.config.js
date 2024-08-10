@@ -25,7 +25,6 @@ export default [
     },
     rules: {
       'no-var': 'error',
-      'no-console': 'error',
       'prefer-const': 'off',
       'no-unused-vars': 'off',
       'no-irregular-whitespace': 'off',

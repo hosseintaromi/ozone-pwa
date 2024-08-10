@@ -17,6 +17,7 @@ import {
   userMe,
 } from '@/models/userManagement.model';
 import { Wallets } from '@/models/digitalWallet';
+import axios from 'axios';
 
 export const postLoginInit = (data: loginInitTypeIn) =>
   httpPostRequest<loginInitTypeOut>(

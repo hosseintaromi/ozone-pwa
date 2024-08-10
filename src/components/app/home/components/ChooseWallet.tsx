@@ -9,10 +9,10 @@ import XImage from '@/components/share/x-image';
 
 import locale from '@/locale';
 
-import { PayInDialogType } from '../../wallet/type';
+import { ChooseWalletType } from '../../wallet/type';
 import Modal, { ModalBody, ModalHead } from '../../../share/modal';
 
-const ChooseWallet = (props: PayInDialogType) => {
+const ChooseWallet = (props: ChooseWalletType) => {
   const [selectedItem, setSelectedItem] = useState(0);
 
   const { show, setShow, data, setActiveWallet, activeWallet } = props;

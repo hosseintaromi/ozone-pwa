@@ -11,8 +11,10 @@ import 'swiper/css/pagination';
 import '../styles.css';
 
 import NormalCard from './NormalCard';
+import { useGetWallet } from '@/services/hooks';
 
 export default function App() {
+  const { data: wallets } = useGetWallet();
   return (
     <Container className='h-44'>
       <Swiper
