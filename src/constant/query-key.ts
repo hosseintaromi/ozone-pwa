@@ -5,4 +5,5 @@ export const QUERY_KEYS = {
   GET_INVOICES_DETAILS: 'get_invoices_details',
   GET_USER_ME: 'get_user_me',
   GET_WALLET: 'get_wallet',
+  GET_WALLET_TRANSACTIONS: 'get_wallet_transactions',
 };

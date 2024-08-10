@@ -6,6 +6,7 @@ import {
   getInvoicesDetails,
   getUserMe,
   getWallets,
+  getWalletTransactions,
   postKyc,
   postKycVerify,
   postLoginInit,
@@ -58,5 +59,12 @@ export const useGetWallet = () => {
   return useQuery({
     queryFn: getWallets,
     queryKey: [QUERY_KEYS.GET_WALLET],
+  });
+};
+
+export const useGetWalletTransactions = (id: number) => {
+  return useQuery({
+    queryFn: () => getWalletTransactions(id),
+    queryKey: [QUERY_KEYS.GET_WALLET_TRANSACTIONS],
   });
 };

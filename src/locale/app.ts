@@ -32,6 +32,12 @@ const app = {
     step2Desc: (tell) => `کد تایید به شماره موبایل ${tell} ارسال شد.`,
     step3Subtitle: 'برای افزودن حساب های اعتباری زیر، روی دکمه تایید حساب بزنید.',
   },
+  wallets: {
+    title: 'حساب ها',
+    walletName: (name: string) => `حساب ${name} `,
+    discountRebon: (dis: number) => ` ${dis} ٪ تخفیف `,
+    inventoryIncrease: 'افزایش موجودی',
+  },
   payDialog: {
     title: 'افزایش موجودی',
     subTitle: 'مبلغ مورد نظر را جهت افزایش موجودی اوزون کارت مشخص کنید.',

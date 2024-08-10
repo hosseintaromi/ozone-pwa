@@ -11,6 +11,7 @@ import Navbar from '../../share/navbar/Navbar';
 import locale from '../../../locale';
 import Link from 'next/link';
 import { ROUTES } from '@/constant/routes';
+import { useGetWalletTransactions } from '@/services/hooks';
 
 const data: HorizontalCardType[] = [
   {
@@ -40,12 +41,16 @@ const data: HorizontalCardType[] = [
 ];
 
 export default function Wallet() {
-  const { app } = locale;
+  const {
+    app: { transactions },
+    wallet: { title },
+  } = locale;
+  const { data: transaction } = useGetWalletTransactions(22);
   return (
-    <div className='h-full bg-neutral-800'>
+    <div className='h-dvh bg-neutral-800'>
       <Navbar>
         <InfoCircle color='#fff' size={30} />
-        <Text>حساب ها</Text>
+        <Text>{title} </Text>
 
         <Link href={ROUTES.AddWALLET}>
           <CardAdd color='#fff' size={30} />
@@ -57,16 +62,16 @@ export default function Wallet() {
         blocking={false}
         header
         snapPoints={({ maxHeight }) => {
-          if (maxHeight > 800) return [maxHeight / 1.4, maxHeight];
-          else if (maxHeight > 700) return [maxHeight / 1.5, maxHeight];
-          else if (maxHeight > 600) return [maxHeight / 1.6, maxHeight];
-          else if (maxHeight > 500) return [maxHeight / 1.7, maxHeight];
-          else return [maxHeight / 1.5, maxHeight];
+          if (maxHeight > 800) return [maxHeight / 1.6, maxHeight];
+          else if (maxHeight > 700) return [maxHeight / 1.8, maxHeight];
+          else if (maxHeight > 600) return [maxHeight / 1.8, maxHeight];
+          else if (maxHeight > 500) return [maxHeight / 1.9, maxHeight];
+          else return [maxHeight / 1.7, maxHeight];
         }}
         className='text-white'
       >
         <Container className='mb-20  px-5'>
-          <Text className='text-lg'>{app.transactions}</Text>
+          <Text className='text-lg'>{transactions}</Text>
           <Container>
             {data.map((item, index) => (
               <Link href={ROUTES.PurchaseDetail}>

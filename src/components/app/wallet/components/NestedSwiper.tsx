@@ -1,7 +1,7 @@
 import { Container } from 'ozone-uikit';
 import React from 'react';
 // import required modules
-import { EffectCreative } from 'swiper/modules';
+import { EffectCreative, Pagination } from 'swiper/modules';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
@@ -16,16 +16,16 @@ import { useGetWallet } from '@/services/hooks';
 export default function App() {
   const { data: wallets } = useGetWallet();
   return (
-    <Container className='h-44'>
+    <Container className='h-48'>
       <Swiper
         className='mySwiper swiper-h '
-        spaceBetween={50}
-        loop
-        slidesPerView={1.3}
+        spaceBetween={0}
+        // loop
+        slidesPerView={1.1}
         centeredSlides
-        // pagination={{
-        //   clickable: true,
-        // }}
+        pagination={{
+          el: '.swiper-custom-pagination',
+        }}
         grabCursor={true}
         effect='creative'
         creativeEffect={{
@@ -38,18 +38,15 @@ export default function App() {
             translate: ['110%', 0, 0],
           },
         }}
-        // modules={[Pagination, EffectCreative]}
-        modules={[EffectCreative]}
+        modules={[Pagination, EffectCreative]}
+        // modules={[EffectCreative]}
       >
-        <SwiperSlide>
-          <NormalCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <NormalCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <NormalCard />
-        </SwiperSlide>
+        {wallets?.map((w) => (
+          <SwiperSlide key={w.id}>
+            <NormalCard data={w} />
+          </SwiperSlide>
+        ))}
+
         {/* <SwiperSlide>
           <Swiper
             className='mySwiper2 swiper-v'
@@ -71,6 +68,7 @@ export default function App() {
         <SwiperSlide>Horizontal Slide 3</SwiperSlide>
         <SwiperSlide>Horizontal Slide 4</SwiperSlide> */}
       </Swiper>
+      <div className='swiper-custom-pagination' />
     </Container>
   );
 }
