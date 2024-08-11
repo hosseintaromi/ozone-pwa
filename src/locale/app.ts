@@ -71,5 +71,9 @@ const app = {
     doneTitle: 'احراز هویت شما با موفقیت انجام شد',
     backToApp: 'بازگشت به برنامه',
   },
+  voucher: {
+    title: 'کوپن‌ها',
+    selectStore: 'انتخاب فروشگاه',
+  },
 };
 export default app;

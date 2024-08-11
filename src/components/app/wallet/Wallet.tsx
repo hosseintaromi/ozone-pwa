@@ -8,7 +8,7 @@ import HorizontalCard from './components/HorizontalCard';
 import NestedSwiper from './components/NestedSwiper';
 import { HorizontalCardType } from './type';
 import Navbar from '../../share/navbar/Navbar';
-import locale from '../../../locale';
+import locale from '@/locale';
 import Link from 'next/link';
 import { ROUTES } from '@/constant/routes';
 import { useGetWalletTransactions } from '@/services/hooks';
