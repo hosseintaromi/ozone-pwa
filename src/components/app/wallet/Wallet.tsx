@@ -12,40 +12,49 @@ import locale from '../../../locale';
 import Link from 'next/link';
 import { ROUTES } from '@/constant/routes';
 import { useGetWalletTransactions } from '@/services/hooks';
+import Spinner from '@/components/share/spinner/Spinner';
+import { Virtuoso } from 'react-virtuoso';
+import cn from '@/lib/clsxm';
 
-const data: HorizontalCardType[] = [
-  {
-    title: 'افزایش موجودی',
-    date: 'چهارشنبه۲۴ اردیبهشت 1402- 15:20',
-    amount: '150,000,000',
-    isPayIn: true,
-  },
-  {
-    title: 'افزایش موجودی',
-    date: 'چهارشنبه۲۴ اردیبهشت 1402- 15:20',
-    amount: '150,000,000',
-    isPayIn: false,
-  },
-  {
-    title: 'افزایش موجودی',
-    date: 'چهارشنبه۲۴ اردیبهشت 1402- 15:20',
-    amount: '150,000,000',
-    isPayIn: true,
-  },
-  {
-    title: 'افزایش ',
-    date: 'چهارشنبه۲۴ اردیبهشت 1402- 15:20',
-    amount: '150,000,000',
-    isPayIn: true,
-  },
-];
+// const data: HorizontalCardType[] = [
+//   {
+//     title: 'افزایش موجودی',
+//     date: 'چهارشنبه۲۴ اردیبهشت 1402- 15:20',
+//     amount: '150,000,000',
+//     isPayIn: true,
+//   },
+//   {
+//     title: 'افزایش موجودی',
+//     date: 'چهارشنبه۲۴ اردیبهشت 1402- 15:20',
+//     amount: '150,000,000',
+//     isPayIn: false,
+//   },
+//   {
+//     title: 'افزایش موجودی',
+//     date: 'چهارشنبه۲۴ اردیبهشت 1402- 15:20',
+//     amount: '150,000,000',
+//     isPayIn: true,
+//   },
+//   {
+//     title: 'افزایش ',
+//     date: 'چهارشنبه۲۴ اردیبهشت 1402- 15:20',
+//     amount: '150,000,000',
+//     isPayIn: true,
+//   },
+// ];
 
 export default function Wallet() {
   const {
     app: { transactions },
     wallet: { title },
   } = locale;
-  const { data: transaction } = useGetWalletTransactions(22);
+  const {
+    data: transaction,
+    isPending,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+  } = useGetWalletTransactions(22);
   return (
     <div className='h-dvh bg-neutral-800'>
       <Navbar>
@@ -72,13 +81,30 @@ export default function Wallet() {
       >
         <Container className='mb-20  px-5'>
           <Text className='text-lg'>{transactions}</Text>
-          <Container>
-            {data.map((item, index) => (
-              <Link href={ROUTES.PurchaseDetail}>
-                <HorizontalCard key={index} data={item} />
-              </Link>
-            ))}
-          </Container>
+          {!isPending && (
+            <Virtuoso
+              className={cn('pb-30 mb-[60px] w-full flex-1 gap-3')}
+              endReached={() =>
+                hasNextPage && !isFetchingNextPage && !isPending && fetchNextPage()
+              }
+              fixedItemHeight={150}
+              overscan={200}
+              data={transaction}
+              components={{
+                Header: () => <Container className='pt-5' />,
+                Footer: () => (
+                  <Container className='pb-20'>
+                    {isFetchingNextPage && (
+                      <Container center>
+                        <Spinner />
+                      </Container>
+                    )}
+                  </Container>
+                ),
+              }}
+              itemContent={(index, item) => <HorizontalCard key={index} data={item} />}
+            />
+          )}
 
           {/* <Container center className='mt-24 flex-col gap-4'>
             <XImage

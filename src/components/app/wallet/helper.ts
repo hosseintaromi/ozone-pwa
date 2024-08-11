@@ -1,4 +1,4 @@
-import { Wallets } from '@/models/digitalWallet';
+import { Wallets } from '@/models/digitalWallet.model';
 import { getQueryData } from '@/lib/get-query-client';
 import { QUERY_KEYS } from '@/constant/query-key';
 

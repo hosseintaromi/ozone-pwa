@@ -13,7 +13,7 @@ import ICON_SIZE from '@/constant/icon-size-color';
 import PayInDialog from './PayInDialog';
 
 import whiteShadow from '~/images/image/whiteShadowCircle.svg';
-import { Wallets } from '@/models/digitalWallet';
+import { Wallets } from '@/models/digitalWallet.model';
 import locale from '@/locale';
 import { rialCurrency } from '@/lib/helper';
 

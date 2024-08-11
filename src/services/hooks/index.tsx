@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 
 import { QUERY_KEYS } from '@/constant/query-key';
 
@@ -62,9 +62,14 @@ export const useGetWallet = () => {
   });
 };
 
-export const useGetWalletTransactions = (id: number) => {
-  return useQuery({
-    queryFn: () => getWalletTransactions(id),
+export const useGetWalletTransactions = (id: number, enabled = true) => {
+  return useInfiniteQuery({
+    queryFn: ({ pageParam }) => getWalletTransactions(id, pageParam),
     queryKey: [QUERY_KEYS.GET_WALLET_TRANSACTIONS],
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    getPreviousPageParam: (firstPage) => firstPage.previousCursor,
+    gcTime: 0,
+    enabled,
   });
 };

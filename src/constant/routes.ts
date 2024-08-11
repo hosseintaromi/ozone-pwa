@@ -10,7 +10,7 @@ export const API_ROUTES = {
   GET_USER_ME: '/users/me',
   POST_KYC_VERIFY: '/users/kyc/verify',
   GET_WALLETS: '/account-wallets',
-  GET_WALLET_TRANSACTIONS: (id: number) => `/account-wallets/${id}?page=1`,
+  GET_WALLET_TRANSACTIONS: (id: number, page: number) => `/account-wallets/${id}?page=${page}`,
 };
 
 export const ROUTES = {

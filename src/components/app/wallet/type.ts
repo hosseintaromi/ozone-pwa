@@ -1,4 +1,4 @@
-import { Wallets } from '@/models/digitalWallet';
+import { Wallets } from '@/models/digitalWallet.model';
 import { invoiceDetail } from '@/models/transaction.model';
 import React, { ReactNode } from 'react';
 
