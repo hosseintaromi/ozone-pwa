@@ -53,7 +53,7 @@ const app = {
   withdrawalNotAvailable: 'واریز و برداشت موجود نیست',
   setting: {
     title: 'تنظیمات',
-    identityCompletionVerification: 'هویت تکمیل احراز',
+    identityCompletionVerification: 'تکمیل احراز هویت',
     profile: 'پروفایل',
     changeCardPass: 'تغییر رمز کارت',
     changePass: 'تغییر رمز عبور ',

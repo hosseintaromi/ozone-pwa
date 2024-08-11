@@ -74,12 +74,12 @@ const Home = () => {
   const showChart = data?.deposit_percentages || data?.withdraw_percentages;
   const chartData = [
     {
-      name: 'برداشت',
-      y: data?.deposit_percentages,
+      name: 'واریز',
+      y: data?.deposit,
     },
     {
-      name: 'واریز',
-      y: data?.withdraw_percentages,
+      name: 'برداشت',
+      y: data?.withdraw,
     },
   ];
 
