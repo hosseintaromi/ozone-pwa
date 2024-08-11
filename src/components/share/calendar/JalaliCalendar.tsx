@@ -40,6 +40,7 @@ const JalaliCalendar = ({
     setSelectedMonth(e);
   };
   const setDay = (e: number) => {
+    e = e + 1;
     setSelectedDay(e);
   };
   const days = jalaali.jalaaliMonthLength(selectedYear, selectedMonth);
