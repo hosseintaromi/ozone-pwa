@@ -12,7 +12,7 @@ export const API_ROUTES = {
   GET_WALLETS: '/account-wallets',
   GET_DONUT: '/transactions',
   GET_INVOICES: '/invoices',
-  GET_WALLET_TRANSACTIONS: (id: number) => `/account-wallets/${id}?page=1`,
+  GET_WALLET_TRANSACTIONS: (id: number, page: number) => `/account-wallets/${id}?page=${page}`,
 };
 
 export const ROUTES = {

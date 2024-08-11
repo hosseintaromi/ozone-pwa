@@ -23,8 +23,7 @@ import {
   kycVerifyBodyType,
   userMe,
 } from '@/models/userManagement.model';
-import { Wallets } from '@/models/digitalWallet';
-import axios from 'axios';
+import { Wallets, WalletTransactionListReturnResult } from '@/models/digitalWallet.model';
 
 export const postLoginInit = (data: loginInitTypeIn) =>
   httpPostRequest<loginInitTypeOut>(
@@ -70,10 +69,12 @@ export const getUserMe = async () => {
 };
 
 export const getWallets = async () => {
-  const res: { data: { data: Wallets[] } } = await httpGetRequest(
+  const {
+    data: { data },
+  }: { data: { data: Wallets[] } } = await httpGetRequest(
     APIUrlGenerator(API_ROUTES.GET_WALLETS, BACKEND_SERVICE.DIGITAL_WALLET),
   );
-  return res.data.data;
+  return data;
 };
 
 export const getDonutChart = async (params: DonutChartParams) => {
@@ -89,9 +90,19 @@ export const getInvoices = async (params: invoicesListParams) => {
   );
   return res.data.data;
 };
-export const getWalletTransactions = async (id: number) => {
-  const res: { data: { data: Wallets[] } } = await httpGetRequest(
-    APIUrlGenerator(API_ROUTES.GET_WALLET_TRANSACTIONS(id), BACKEND_SERVICE.DIGITAL_WALLET),
+export const getWalletTransactions = async (id: number, page: number) => {
+  const {
+    data: { data },
+  }: { data: { data: WalletTransactionListReturnResult<Wallets> } } = await httpGetRequest(
+    APIUrlGenerator(
+      API_ROUTES.GET_WALLET_TRANSACTIONS(id, page),
+      BACKEND_SERVICE.DIGITAL_WALLET,
+    ),
   );
-  return res.data.data;
+  return {
+    data: data,
+    previousCursor: data.meta.current_page - 1,
+    nextCursor:
+      data.meta.current_page === data.meta.last_page ? null : data.meta.current_page + 1,
+  };
 };

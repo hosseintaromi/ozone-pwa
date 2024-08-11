@@ -16,7 +16,8 @@ import LatestPurchases from './components/LatestPurchases';
 import { AnimatedTabs } from '../../share/animatedTabs';
 import DonutChart from '../../share/charts/DonutChart';
 import { useGetDonut, useGetInvoices, useGetWallet } from '@/services/hooks';
-import { Wallets } from '@/models/digitalWallet';
+import { Wallets } from '@/models/digitalWallet.model';
+
 import {
   SkeletonLoader,
   SkeletonLoaderDonut,
