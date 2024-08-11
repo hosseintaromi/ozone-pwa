@@ -96,13 +96,15 @@ export const getWalletTransactions = async (id: number, page: number) => {
   }: { data: { data: WalletTransactionListReturnResult<Wallets> } } = await httpGetRequest(
     APIUrlGenerator(
       API_ROUTES.GET_WALLET_TRANSACTIONS(id, page),
-      BACKEND_SERVICE.DIGITAL_WALLET,
+      // BACKEND_SERVICE.DIGITAL_WALLET,
     ),
   );
   return {
-    data: data,
-    previousCursor: data.meta.current_page - 1,
+    data: data.data,
+    previousCursor: data.meta.pagination.current_page - 1,
     nextCursor:
-      data.meta.current_page === data.meta.last_page ? null : data.meta.current_page + 1,
+      data.meta.pagination.current_page === data.meta.pagination.last_page
+        ? null
+        : data.meta.pagination.current_page + 1,
   };
 };
