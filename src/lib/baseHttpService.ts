@@ -105,13 +105,18 @@ api.interceptors.response.use(
     const num = error.response.status;
 
     if (num === 401) {
-      // window.location.href = '/login';
+      Cookies.remove('token');
+      Cookies.remove('expires_in');
+      Cookies.remove('refresh_token');
+      Cookies.remove('user');
+      window.location.href = '/login';
     } else if (num === 404) {
-      window.location.href = '/404';
+      console.log('not found url');
+      throw error;
     } else if (num === 422) {
       throw error;
     } else if (num >= 400 && num <= 499) {
-      showToast(error.response.data.message);
+      showToast(error.response.data.error_message);
     } else if (num >= 500) {
       showToast(error.response.data.error_message);
     }

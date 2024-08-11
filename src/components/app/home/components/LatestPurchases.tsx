@@ -16,14 +16,10 @@ import { invoicesListBody } from '@/models/transaction.model';
 import { formatNumberWithCommas } from '@/lib/helper';
 import { convertRfcToJalaliWithClock } from '@/lib/date';
 import cn from '@/lib/clsxm';
-import {
-  SkeletonLoader,
-  SkeletonLoaderAvatar,
-} from '@/components/share/skeleton/SkeletonLoader';
+import { SkeletonLoader } from '@/components/share/skeleton/SkeletonLoader';
 
 const LatestPurchases = ({ invoices }: { invoices: invoicesListBody[] | undefined }) => {
   const { app, common } = locale;
-  console.log('first', invoices);
   return (
     <Container className='mx-5 mt-5 cursor-pointer rounded-xl bg-neutral-800 p-5'>
       <Text color={COLOR_ENUM.WHITE} size={SIZE_ENUM.MD}>
@@ -33,12 +29,13 @@ const LatestPurchases = ({ invoices }: { invoices: invoicesListBody[] | undefine
         invoices.length > 0 &&
         invoices.map((item, index) => (
           <Container
+            key={'invoice' + item.invoice.id + index}
             className={cn(
               'mt-2',
               invoices.length > index + 1 && 'border-b-[1px] border-gray-700',
             )}
           >
-            <Link href={`${ROUTES.PurchaseDetail}/20`}>
+            <Link href={`${ROUTES.PurchaseDetail}/${item.invoice.id}`}>
               <Container center className='justify-between'>
                 <Container className=' w-8'>
                   <XImage
@@ -64,8 +61,11 @@ const LatestPurchases = ({ invoices }: { invoices: invoicesListBody[] | undefine
         ))
       ) : (
         <Container>
-          {[1, 1].map(() => (
-            <Container className='border-b-[1px] border-gray-700 pb-2'>
+          {[1, 2].map((item) => (
+            <Container
+              key={'invoice' + 'loading' + item}
+              className='border-b-[1px] border-gray-700 pb-2'
+            >
               <SkeletonLoader width='w-8' height='h-8' className='mt-3 rounded-full' />
               <Container className='flex w-full justify-between'>
                 <SkeletonLoader width='w-20' height='h-3' className='mt-2' />

@@ -44,7 +44,7 @@ const ChooseWallet = (props: ChooseWalletType) => {
       <ModalBody className='mx-5 flex flex-col gap-2.5 text-white'>
         <RadioGroup value={selectedItem} onChange={(value) => handleChange(value)}>
           {data?.map((item) => (
-            <RadioOption value={item.id}>
+            <RadioOption value={item.id} key={item.id + 'chooseWallet'}>
               {({ checked }) => (
                 <Circular checked={checked} size={SIZE_ENUM.LG}>
                   <Container center className='my-3 gap-4'>

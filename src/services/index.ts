@@ -87,7 +87,6 @@ export const getInvoices = async (params: invoicesListParams) => {
   const res: { data: { data: invoicesListBody[]; meta: meta } } = await httpGetRequest(
     APIUrlGenerator(API_ROUTES.GET_INVOICES, BACKEND_SERVICE.TRANSACTION, params),
   );
-  console.log(res);
   return res.data.data;
 };
 export const getWalletTransactions = async (id: number) => {

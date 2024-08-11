@@ -24,6 +24,7 @@ export function AnimatedTabs({
     >
       {tabData.map((tab, index) => (
         <div
+          key={index + 'tabData'}
           className={cn(
             'w-full text-center ',
             index === 1 &&
