@@ -83,3 +83,7 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
   text-align: center;
   margin-top: 10px;
 }
+
+.ltr {
+  direction: ltr;
+}

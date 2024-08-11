@@ -238,3 +238,10 @@ export const convertPhoneNumber = (number) => {
 export const rialCurrency = (rialInput: number) => {
   return `${rialInput.toLocaleString()} ${rial}`;
 };
+
+export const formatPhoneNumber = (phoneNumber) => {
+  if (phoneNumber.startsWith('+98')) {
+    return '0' + phoneNumber.slice(3);
+  }
+  return phoneNumber;
+};
