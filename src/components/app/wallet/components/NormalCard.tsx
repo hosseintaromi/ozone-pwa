@@ -12,20 +12,33 @@ import ICON_SIZE from '@/constant/icon-size-color';
 
 import PayInDialog from './PayInDialog';
 
-import ozoneLogo from '~/images/image/ozoneLogo.svg';
 import whiteShadow from '~/images/image/whiteShadowCircle.svg';
+import { Wallets } from '@/models/digitalWallet.model';
+import locale from '@/locale';
+import { rialCurrency } from '@/lib/helper';
 
-const NormalCard = () => {
+const NormalCard = ({ data }: { data: Wallets }) => {
+  const {
+    name,
+    discount,
+    balance,
+    wallet: { logo_path, logo_base_url },
+  } = data;
+  console.log(data);
   const [show, setShow] = useState(false);
-
+  const {
+    app: {
+      wallets: { walletName, discountRebon, inventoryIncrease },
+    },
+  } = locale;
   return (
     <Container className='relative h-full bg-primary-300'>
       <PayInDialog show={show} setShow={setShow} />
       <XImage
         src={whiteShadow}
         alt='222'
-        width={120}
-        height={120}
+        width={150}
+        height={160}
         className='absolute right-0 top-0 opacity-20'
       />
       <Container className='px-7 py-7'>
@@ -39,19 +52,25 @@ const NormalCard = () => {
               <Add size={ICON_SIZE.lg} color={colors.primary} className='' />
             </Container>
 
-            <Text className='text-white' size={SIZE_ENUM.SM}>
-              افزایش موجودی
+            <Text className='text-primary-100' size={SIZE_ENUM.SM}>
+              {inventoryIncrease}
             </Text>
           </Container>
           <Container className='h-3'>
-            <XImage src={ozoneLogo} alt='222' width={40} height={10} />
+            <XImage
+              src={`${logo_base_url}${logo_path}`}
+              alt='222'
+              width={40}
+              height={10}
+              className='rounded-full'
+            />
           </Container>
         </Container>
-        <Container className='mt-2'>
+        <Container className='mt-[34px] flex flex-col gap-2'>
           <Text className='leading-7' size={SIZE_ENUM.LG}>
-            5,000,000 ریال
+            {rialCurrency(balance)}
           </Text>
-          <Text size={SIZE_ENUM.SM}>حساب اوزون کارت</Text>
+          <Text size={SIZE_ENUM.SM}>{walletName(name)}</Text>
         </Container>
       </Container>
       <Container
@@ -64,7 +83,7 @@ const NormalCard = () => {
         style={{ backgroundImage: `url('/images/image/discountBg.svg')` }}
       >
         <Text size={SIZE_ENUM.SM} color={COLOR_ENUM.WHITE} className='rotate-180'>
-          ۳ ٪ تخفیف
+          {discountRebon(discount)}
         </Text>
       </Container>
     </Container>

@@ -5,10 +5,14 @@ import { convertRfcToJalali } from '@/lib/date';
 import locale from '@/locale';
 import { Calendar } from 'iconsax-react';
 import { Container, SIZE_ENUM, COLOR_ENUM, Input, Button, VARIANT_ENUM } from 'ozone-uikit';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useKyc } from '@/services/hooks';
 import CalenderDialog from './CalenderDialog';
 import InlineInfo from './InlineInfo';
-import { useKyc } from '@/services/hooks';
+import { userMe } from '@/models/userManagement.model';
+import { formatPhoneNumber } from '@/lib/helper';
+import Link from 'next/link';
+import { ROUTES } from '@/constant/routes';
 
 const KycForm = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<number>> }) => {
   const {
@@ -22,11 +26,37 @@ const KycForm = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<num
   const { mutate } = useKyc();
 
   const sendReq = () => {
-    mutate({
-      birth_date: date,
-      national_code: id,
-    });
+    mutate(
+      {
+        birth_date: date,
+        national_code: id,
+      },
+      {
+        onSuccess: () => {
+          setStep((pre) => pre + 1);
+        },
+      },
+    );
   };
+
+  const [cookieValue, setCookieValue] = useState<userMe | undefined>(undefined);
+
+  useEffect(() => {
+    try {
+      const cookies = document.cookie
+        .split('; ')
+        .find((row) => row.startsWith('user='))
+        ?.split('=')[1];
+
+      if (cookies) {
+        const parsedCookie = JSON.parse(decodeURIComponent(cookies));
+        parsedCookie.mobile = formatPhoneNumber(parsedCookie.mobile);
+        setCookieValue(parsedCookie);
+      }
+    } catch (error) {
+      console.error('Error parsing cookie:', error);
+    }
+  }, []);
 
   return (
     <Container className='flex h-dvh flex-col justify-between px-5'>
@@ -65,7 +95,7 @@ const KycForm = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<num
             LeftIcon={() => <Calendar color='#96A5AE' size={ICON_SIZE.lg} />}
           />
         </Container>
-        <InlineInfo text={kyc.tip('09393023301')} />
+        <InlineInfo text={kyc.tip(cookieValue?.mobile || '')} />
       </Container>
       <Container>
         <Button
@@ -75,14 +105,15 @@ const KycForm = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<num
         >
           <Text>{common.record}</Text>
         </Button>
-        <Button
-          variant={VARIANT_ENUM.OUTLINED}
-          className='mb-11 w-full py-6'
-          color={COLOR_ENUM.LIGHT_GRAY}
-          onClick={() => setStep(1)}
-        >
-          <Text color={COLOR_ENUM.LIGHT_GRAY}>{kyc.backToApp}</Text>
-        </Button>
+        <Link href={ROUTES.SETTING}>
+          <Button
+            variant={VARIANT_ENUM.OUTLINED}
+            className='mb-11 w-full py-6'
+            color={COLOR_ENUM.LIGHT_GRAY}
+          >
+            <Text color={COLOR_ENUM.LIGHT_GRAY}>{kyc.backToApp}</Text>
+          </Button>
+        </Link>
       </Container>
       <CalenderDialog show={show} setShow={setShow} setValue={setDate} />
     </Container>

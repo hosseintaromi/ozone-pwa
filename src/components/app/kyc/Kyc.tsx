@@ -4,9 +4,9 @@ import React, { useState } from 'react';
 import KycDone from './components/KycDone';
 import KycForm from './components/KycForm';
 
-const KYC = () => {
+const Kyc = () => {
   const [step, setStep] = useState(0);
   return <Container>{step === 0 ? <KycForm setStep={setStep} /> : <KycDone />}</Container>;
 };
 
-export default KYC;
+export default Kyc;

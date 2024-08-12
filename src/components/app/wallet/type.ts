@@ -1,4 +1,4 @@
-import { Wallets } from '@/models/digitalWallet';
+import { Wallets } from '@/models/digitalWallet.model';
 import { invoiceDetail } from '@/models/transaction.model';
 import React, { ReactNode } from 'react';
 
@@ -12,11 +12,13 @@ export type HorizontalCardType = {
 export type PayInDialogType = {
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   show: boolean;
+};
+
+export interface ChooseWalletType extends PayInDialogType {
   data: Wallets[] | undefined;
   activeWallet: Wallets | undefined;
   setActiveWallet: React.Dispatch<React.SetStateAction<Wallets | undefined>>;
-};
-
+}
 export type PurchaseDetailType = {
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   show: boolean;

@@ -43,3 +43,6 @@
 rect {
   fill: 'red';
 }
+.tooltip {
+  background-color: red;
+}

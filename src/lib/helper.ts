@@ -4,6 +4,10 @@ import { ReadonlyURLSearchParams } from 'next/navigation';
 
 import { API_GATE_WAY, STORAGE_URL } from '@/constant/routes';
 import StorageKey from '@/constant/storage-key';
+import locale from '@/locale';
+const {
+  common: { rial },
+} = locale;
 
 export function APIUrlGenerator(route: string, service?: string, qry?: object): string {
   const query = qry || {};
@@ -229,4 +233,15 @@ export const formatNumberWithCommas = (number) => {
 
 export const convertPhoneNumber = (number) => {
   return '+98' + String(number).substr(1);
+};
+
+export const rialCurrency = (rialInput: number) => {
+  return `${rialInput.toLocaleString()} ${rial}`;
+};
+
+export const formatPhoneNumber = (phoneNumber) => {
+  if (phoneNumber.startsWith('+98')) {
+    return '0' + phoneNumber.slice(3);
+  }
+  return phoneNumber;
 };

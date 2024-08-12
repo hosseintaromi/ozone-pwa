@@ -1,10 +1,10 @@
-import KYC from '@/components/app/KYC/KYC';
+import Kyc from '@/components/app/kyc/Kyc';
 import React from 'react';
 
 const KYC_Page = () => {
   return (
     <div>
-      <KYC />
+      <Kyc />
     </div>
   );
 };

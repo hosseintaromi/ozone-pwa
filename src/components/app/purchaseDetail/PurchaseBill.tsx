@@ -71,7 +71,7 @@ const SeeMorePurchase = ({
                 size={data?.account_wallet.length > 0 ? SIZE_ENUM.SM : SIZE_ENUM.SM}
                 className={cn('flex gap-2 text-neutral-200')}
               >
-                <Card color='#7C7F82' />
+                <Card className='text-neutral-500' />
                 {`${purchaseDetail.withdraw}  ${formatNumberWithCommas(accountWalletTotal)} ${common.rial}`}
               </Text>
               <Container center className='gap-1'>
@@ -129,7 +129,7 @@ const SeeMorePurchase = ({
                 size={data.vouchers.length > 0 ? SIZE_ENUM.SM : SIZE_ENUM.SM}
                 className={cn('flex gap-2 text-neutral-200')}
               >
-                <TicketDiscount color='#7C7F82' />
+                <TicketDiscount className='text-neutral-500' />
 
                 {`${purchaseDetail.useCoupon}  ${formatNumberWithCommas(vouchersTotal)} ${common.rial}`}
               </Text>

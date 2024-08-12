@@ -1,11 +1,14 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 
 import { QUERY_KEYS } from '@/constant/query-key';
 
 import {
+  getDonutChart,
+  getInvoices,
   getInvoicesDetails,
   getUserMe,
   getWallets,
+  getWalletTransactions,
   postKyc,
   postKycVerify,
   postLoginInit,
@@ -13,6 +16,7 @@ import {
 } from '..';
 import { loginInitTypeIn, loginOtpBodyType } from '@/models/auth.model';
 import { kycBodyType } from '@/models/userManagement.model';
+import { DonutChartParams, invoicesListParams } from '@/models/transaction.model';
 
 export const useLoginInit = () => {
   return useMutation({
@@ -58,5 +62,30 @@ export const useGetWallet = () => {
   return useQuery({
     queryFn: getWallets,
     queryKey: [QUERY_KEYS.GET_WALLET],
+  });
+};
+
+export const useGetInvoices = () => {
+  return useMutation({
+    mutationFn: (data: invoicesListParams) => getInvoices(data),
+    mutationKey: [QUERY_KEYS.GET_WALLET],
+  });
+};
+
+export const useGetDonut = () => {
+  return useMutation({
+    mutationFn: (data: DonutChartParams) => getDonutChart(data),
+    mutationKey: [QUERY_KEYS.GET_INVOICES],
+  });
+};
+export const useGetWalletTransactions = (id: number, enabled = true) => {
+  return useInfiniteQuery({
+    queryFn: ({ pageParam }) => getWalletTransactions(id, pageParam),
+    queryKey: [QUERY_KEYS.GET_WALLET_TRANSACTIONS],
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    getPreviousPageParam: (firstPage) => firstPage.previousCursor,
+    gcTime: 0,
+    enabled,
   });
 };

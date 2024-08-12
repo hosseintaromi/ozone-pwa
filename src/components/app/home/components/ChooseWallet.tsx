@@ -9,10 +9,10 @@ import XImage from '@/components/share/x-image';
 
 import locale from '@/locale';
 
-import { PayInDialogType } from '../../wallet/type';
+import { ChooseWalletType } from '../../wallet/type';
 import Modal, { ModalBody, ModalHead } from '../../../share/modal';
 
-const ChooseWallet = (props: PayInDialogType) => {
+const ChooseWallet = (props: ChooseWalletType) => {
   const [selectedItem, setSelectedItem] = useState(0);
 
   const { show, setShow, data, setActiveWallet, activeWallet } = props;
@@ -44,7 +44,7 @@ const ChooseWallet = (props: PayInDialogType) => {
       <ModalBody className='mx-5 flex flex-col gap-2.5 text-white'>
         <RadioGroup value={selectedItem} onChange={(value) => handleChange(value)}>
           {data?.map((item) => (
-            <RadioOption value={item.id}>
+            <RadioOption value={item.id} key={item.id + 'chooseWallet'}>
               {({ checked }) => (
                 <Circular checked={checked} size={SIZE_ENUM.LG}>
                   <Container center className='my-3 gap-4'>

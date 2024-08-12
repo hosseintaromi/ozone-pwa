@@ -9,7 +9,7 @@ const InlineInfo = ({ text }: { text: string }) => {
     <Container center className='w-full rounded-xl bg-primary-900 p-3 '>
       <Container className='flex gap-2'>
         <InfoCircle color={ICON_COLOR.primary} />
-        <Text size={SIZE_ENUM.XS} semiBold className='text-primary'>
+        <Text size={SIZE_ENUM.XS} semiBold className='text-primary '>
           {text}
         </Text>
       </Container>

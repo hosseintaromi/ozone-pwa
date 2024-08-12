@@ -32,6 +32,12 @@ const app = {
     step2Desc: (tell) => `کد تایید به شماره موبایل ${tell} ارسال شد.`,
     step3Subtitle: 'برای افزودن حساب های اعتباری زیر، روی دکمه تایید حساب بزنید.',
   },
+  wallets: {
+    title: 'حساب ها',
+    walletName: (name: string) => `حساب ${name} `,
+    discountRebon: (dis: number) => ` ${dis} ٪ تخفیف `,
+    inventoryIncrease: 'افزایش موجودی',
+  },
   payDialog: {
     title: 'افزایش موجودی',
     subTitle: 'مبلغ مورد نظر را جهت افزایش موجودی اوزون کارت مشخص کنید.',
@@ -44,9 +50,10 @@ const app = {
   weekly: 'هفتگی',
   getPhysicalCard: 'درخواست اوزون‌کارت فیزیکی',
   latestPurchases: 'آخرین خرید ها',
+  withdrawalNotAvailable: 'واریز و برداشت موجود نیست',
   setting: {
     title: 'تنظیمات',
-    identityCompletionVerification: 'هویت تکمیل احراز',
+    identityCompletionVerification: 'تکمیل احراز هویت',
     profile: 'پروفایل',
     changeCardPass: 'تغییر رمز کارت',
     changePass: 'تغییر رمز عبور ',
@@ -63,6 +70,10 @@ const app = {
     tip: (val: string) => `تاریخ تولد و کد ملی باید متعلق به مالک شماره موبایل ${val} باشد.`,
     doneTitle: 'احراز هویت شما با موفقیت انجام شد',
     backToApp: 'بازگشت به برنامه',
+  },
+  voucher: {
+    title: 'کوپن‌ها',
+    selectStore: 'انتخاب فروشگاه',
   },
 };
 export default app;

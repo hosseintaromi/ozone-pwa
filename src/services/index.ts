@@ -9,14 +9,21 @@ import {
   loginOtpBodyType,
   loginOtpTypeOut,
 } from '@/models/auth.model';
-import { invoiceDetail } from '@/models/transaction.model';
+import {
+  DonutChartBody,
+  DonutChartParams,
+  invoiceDetail,
+  invoicesListBody,
+  invoicesListParams,
+  meta,
+} from '@/models/transaction.model';
 import {
   kycBodyType,
   kycVerify,
   kycVerifyBodyType,
   userMe,
 } from '@/models/userManagement.model';
-import { Wallets } from '@/models/digitalWallet';
+import { Wallets, WalletTransactionListReturnResult } from '@/models/digitalWallet.model';
 
 export const postLoginInit = (data: loginInitTypeIn) =>
   httpPostRequest<loginInitTypeOut>(
@@ -62,8 +69,42 @@ export const getUserMe = async () => {
 };
 
 export const getWallets = async () => {
-  const res: { data: { data: Wallets[] } } = await httpGetRequest(
+  const {
+    data: { data },
+  }: { data: { data: Wallets[] } } = await httpGetRequest(
     APIUrlGenerator(API_ROUTES.GET_WALLETS, BACKEND_SERVICE.DIGITAL_WALLET),
   );
+  return data;
+};
+
+export const getDonutChart = async (params: DonutChartParams) => {
+  const res: { data: { data: DonutChartBody } } = await httpGetRequest(
+    APIUrlGenerator(API_ROUTES.GET_DONUT, BACKEND_SERVICE.TRANSACTION, params),
+  );
   return res.data.data;
+};
+
+export const getInvoices = async (params: invoicesListParams) => {
+  const res: { data: { data: invoicesListBody[]; meta: meta } } = await httpGetRequest(
+    APIUrlGenerator(API_ROUTES.GET_INVOICES, BACKEND_SERVICE.TRANSACTION, params),
+  );
+  return res.data.data;
+};
+export const getWalletTransactions = async (id: number, page: number) => {
+  const {
+    data: { data },
+  }: { data: { data: WalletTransactionListReturnResult<Wallets> } } = await httpGetRequest(
+    APIUrlGenerator(
+      API_ROUTES.GET_WALLET_TRANSACTIONS(id, page),
+      // BACKEND_SERVICE.DIGITAL_WALLET,
+    ),
+  );
+  return {
+    data: data.data,
+    previousCursor: data.meta.pagination.current_page - 1,
+    nextCursor:
+      data.meta.pagination.current_page === data.meta.pagination.last_page
+        ? null
+        : data.meta.pagination.current_page + 1,
+  };
 };
