@@ -13,6 +13,7 @@ import {
   postKycVerify,
   postLoginInit,
   postLoginOtp,
+  postLogout,
 } from '..';
 import { loginInitTypeIn, loginOtpBodyType } from '@/models/auth.model';
 import { kycBodyType } from '@/models/userManagement.model';
@@ -78,6 +79,13 @@ export const useGetDonut = () => {
     mutationKey: [QUERY_KEYS.GET_INVOICES],
   });
 };
+
+export const usePostLogout = (p0: { onSuccess: ({}: {}) => void }) => {
+  return useMutation({
+    mutationFn: () => postLogout(),
+  });
+};
+
 export const useGetWalletTransactions = (id: number, enabled = true) => {
   return useInfiniteQuery({
     queryFn: ({ pageParam }) => getWalletTransactions(id, pageParam),

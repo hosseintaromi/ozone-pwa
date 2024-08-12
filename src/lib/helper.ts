@@ -9,12 +9,23 @@ const {
   common: { rial },
 } = locale;
 
-export function APIUrlGenerator(route: string, service?: string, qry?: object): string {
+export function APIUrlGenerator({
+  route,
+  service,
+  qry,
+  scope = '/app',
+}: {
+  route: string;
+  service?: string;
+  qry?: object;
+  scope?: string;
+}): string {
   const query = qry || {};
   const queryKeys = Object.keys(query);
   const version = 'v1';
-  const scope = 'app';
-  let apiUrl = `${API_GATE_WAY}${service}/${version}/${scope}${route}`;
+  let apiUrl = `${API_GATE_WAY}${service}/${version}${scope}${route}`;
+
+  // const scope = 'app';
 
   queryKeys.map((item, index) => {
     if (index === 0) {

@@ -16,9 +16,15 @@ import {
 import React from 'react';
 import ProfileInfo from './ProfileInfo';
 import { logout } from '@/lib/helper';
+import { usePostLogout } from '@/services/hooks';
 
 const Settings = () => {
   const { app } = locale;
+  const { mutate: logoutReq } = usePostLogout({
+    onSuccess: (e) => {
+      logout();
+    },
+  });
 
   const settingList = [
     {
@@ -26,10 +32,6 @@ const Settings = () => {
       icon: <Profile color={ICON_COLOR.light_gray} size={ICON_SIZE.lg} />,
       action: () => {},
     },
-    // {
-    //   title: app.setting.changeCardPass,
-    //   icon: <CardEdit color={ICON_COLOR.light_gray} size={ICON_SIZE.lg} />,
-    // },
     {
       title: app.setting.changePass,
       icon: <Lock1 color={ICON_COLOR.light_gray} size={ICON_SIZE.lg} />,
@@ -48,7 +50,8 @@ const Settings = () => {
     {
       title: app.setting.exit,
       icon: <LogoutCurve color={ICON_COLOR.light_gray} size={ICON_SIZE.lg} />,
-      action: () => logout(),
+      // action: () => logout(),
+      action: () => logoutReq(),
     },
   ];
   return (
