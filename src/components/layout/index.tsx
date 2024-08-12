@@ -9,6 +9,7 @@ import cn from '@/lib/clsxm';
 import { isIOS } from '@/lib/helper';
 
 import DisableZoom from './disable-zoom';
+import CommonModal from '@/components/share/commen-modal';
 type Props = {
   children: ReactNode;
 };
@@ -63,6 +64,7 @@ export default async function Layout({ children }: Props) {
       )}
     >
       <DisableZoom />
+      <CommonModal />
       <ToastContainer
         position='top-center'
         autoClose={3000}

@@ -8,5 +8,8 @@ const common = {
   rial: 'ریال',
   confirm: 'تایید',
   accountStatus: 'وضعیت حساب ',
+  filter: 'فیلتر',
+  all: 'همه',
+  cancelFilter: 'لغو فیلتر',
 };
 export default common;

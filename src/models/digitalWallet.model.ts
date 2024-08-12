@@ -33,12 +33,14 @@ export interface Wallets {
 export type WalletTransactionListReturnResult<Data> = {
   data: Data[];
   meta: {
-    current_page: number;
-    from: number;
-    last_page: number;
-    per_page: number;
-    to: number;
-    count: number;
-    total_pages: number;
+    pagination: {
+      current_page: number;
+      from: number;
+      last_page: number;
+      per_page: number;
+      to: number;
+      count: number;
+      total_pages: number;
+    };
   };
 };

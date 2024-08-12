@@ -8,40 +8,13 @@ import HorizontalCard from './components/HorizontalCard';
 import NestedSwiper from './components/NestedSwiper';
 import { HorizontalCardType } from './type';
 import Navbar from '../../share/navbar/Navbar';
-import locale from '../../../locale';
+import locale from '@/locale';
 import Link from 'next/link';
 import { ROUTES } from '@/constant/routes';
 import { useGetWalletTransactions } from '@/services/hooks';
 import Spinner from '@/components/share/spinner/Spinner';
 import { Virtuoso } from 'react-virtuoso';
 import cn from '@/lib/clsxm';
-
-// const data: HorizontalCardType[] = [
-//   {
-//     title: 'افزایش موجودی',
-//     date: 'چهارشنبه۲۴ اردیبهشت 1402- 15:20',
-//     amount: '150,000,000',
-//     isPayIn: true,
-//   },
-//   {
-//     title: 'افزایش موجودی',
-//     date: 'چهارشنبه۲۴ اردیبهشت 1402- 15:20',
-//     amount: '150,000,000',
-//     isPayIn: false,
-//   },
-//   {
-//     title: 'افزایش موجودی',
-//     date: 'چهارشنبه۲۴ اردیبهشت 1402- 15:20',
-//     amount: '150,000,000',
-//     isPayIn: true,
-//   },
-//   {
-//     title: 'افزایش ',
-//     date: 'چهارشنبه۲۴ اردیبهشت 1402- 15:20',
-//     amount: '150,000,000',
-//     isPayIn: true,
-//   },
-// ];
 
 export default function Wallet() {
   const {
@@ -81,7 +54,7 @@ export default function Wallet() {
       >
         <Container className='mb-20  px-5'>
           <Text className='text-lg'>{transactions}</Text>
-          {!isPending && (
+          {!isPending && transaction && (
             <Virtuoso
               className={cn('pb-30 mb-[60px] w-full flex-1 gap-3')}
               endReached={() =>

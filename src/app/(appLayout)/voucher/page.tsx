@@ -1,7 +1,8 @@
 import React from 'react';
+import Voucher from '@/components/app/voucher/Voucher';
 
 const voucher = () => {
-  return <div>voucher</div>;
+  return <Voucher />;
 };
 
 export default voucher;
