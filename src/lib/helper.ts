@@ -70,7 +70,13 @@ export function deleteFromLocalStorage(key: string): void {
   }
   return;
 }
-
+export const logout = () => {
+  Cookies.remove('token');
+  Cookies.remove('expires_in');
+  Cookies.remove('refresh_token');
+  Cookies.remove('user');
+  window.location.href = '/login';
+};
 export function createPathQueryString(
   currentPath: string,
   params: {
