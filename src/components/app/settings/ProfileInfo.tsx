@@ -6,6 +6,7 @@ import { ROUTES } from '@/constant/routes';
 import { formatPhoneNumber } from '@/lib/helper';
 import locale from '@/locale';
 import { userMe } from '@/models/userManagement.model';
+import { Verify } from 'iconsax-react';
 import Link from 'next/link';
 import { Container, SIZE_ENUM, COLOR_ENUM, Button, VARIANT_ENUM } from 'ozone-uikit';
 import React, { useEffect, useState } from 'react';
@@ -43,18 +44,21 @@ const ProfileInfo = () => {
               height={90}
             />
           </Container>
-          <Container>
-            <Text size={SIZE_ENUM.SM} className='mb-2'>
+          <Container className='flex h-[120px] flex-col justify-center'>
+            <Text size={SIZE_ENUM.SM} className='mb-2 flex items-center gap-1'>
               {`${cookieValue?.first_name} ${cookieValue?.last_name}`}
+              {cookieValue.national_code_kyc && <Verify size='16' className='text-primary' />}
             </Text>
             <Text size={SIZE_ENUM.SM} color={COLOR_ENUM.LIGHT_GRAY} className='ltr'>
               {cookieValue?.mobile}
             </Text>
-            <Link href={ROUTES.KYC}>
-              <Button variant={VARIANT_ENUM.OUTLINED} className='mt-4 h-10 px-4'>
-                {app.setting.identityCompletionVerification}
-              </Button>
-            </Link>
+            {!cookieValue.national_code_kyc && (
+              <Link href={ROUTES.KYC}>
+                <Button variant={VARIANT_ENUM.OUTLINED} className='mt-4 h-10 px-4'>
+                  {app.setting.identityCompletionVerification}
+                </Button>
+              </Link>
+            )}
           </Container>
         </>
       ) : (

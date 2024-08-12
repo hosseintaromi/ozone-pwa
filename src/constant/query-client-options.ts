@@ -4,8 +4,8 @@ export const queryClientOptions = {
   defaultOptions: {
     errorType: AxiosError,
     queries: {
-      keepPreviousData: true,
-      refetchOnMount: false,
+      keepPreviousData: false,
+      refetchOnMount: true,
       refetchOnWindowFocus: false,
       retry: false,
       retryOnMount: false,

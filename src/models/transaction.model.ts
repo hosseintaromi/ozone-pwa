@@ -5,6 +5,11 @@ export type invoiceDetail = {
   customer_account_id: number;
   ref_number: string;
   amount: number;
+  business: {
+    name: string;
+    logo_base_url: string;
+    logo_path: string;
+  };
   items: [
     {
       name: string;
@@ -32,6 +37,7 @@ export type invoiceDetail = {
   ];
   paid_amount: number;
   invoice_number: string;
+  created_at: string;
 };
 type transactionsType = {
   id: number;

@@ -15,6 +15,7 @@ const app = {
     row: 'ردیف',
     product: 'کالا',
     price: 'قیمت',
+    buyFrom: 'خرید از ',
   },
   chooseWallet: {
     title: 'انتخاب حساب',
