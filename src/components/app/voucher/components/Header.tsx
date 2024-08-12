@@ -1,16 +1,16 @@
 'use client';
 import Navbar from '@/components/share/navbar/Navbar';
 import { CloseCircle, InfoCircle, Setting4 } from 'iconsax-react';
-import { Button, Container, SIZE_ENUM, Text, VARIANT_ENUM } from 'ozone-uikit';
+import { Container, SIZE_ENUM, Text } from 'ozone-uikit';
 import locale from '@/locale';
 import useCommonModalStore from '@/store/common-modal-store';
-import SelectOption from '@/components/@base/select-option';
+import Filter from '@/components/app/voucher/components/Filter';
 
 const Header = () => {
   const {
-    common: { filter, cancelFilter },
+    common: { filter },
     app: {
-      voucher: { title, selectStore },
+      voucher: { title },
     },
   } = locale;
   const { setShow } = useCommonModalStore();
@@ -24,23 +24,7 @@ const Header = () => {
           <CloseCircle size='32' className='text-neutral-200' onClick={() => setShow(false)} />
         </Container>
       ),
-      Body: () => (
-        <Container className='mt-6 h-[70dvh]'>
-          <SelectOption title={selectStore} />
-          <Container center className='mt-6 justify-between gap-4 '>
-            <Button size={SIZE_ENUM.XXL} className='w-full p-1'>
-              {filter}
-            </Button>
-            <Button
-              size={SIZE_ENUM.XXL}
-              variant={VARIANT_ENUM.OUTLINED}
-              className='w-full border-[1px] border-neutral-500 p-1 text-neutral-500'
-            >
-              {cancelFilter}
-            </Button>
-          </Container>
-        </Container>
-      ),
+      Body: () => <Filter />,
     });
   };
   return (

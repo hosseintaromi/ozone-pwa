@@ -11,5 +11,13 @@ const common = {
   filter: 'فیلتر',
   all: 'همه',
   cancelFilter: 'لغو فیلتر',
+  active: 'فعال',
+  inActive: 'غیرفعال',
+  gift: 'هدیه',
+  promotion: 'پروموشن',
+  isSell: 'خریداری شده',
+  usable: 'قابل‌استفاده',
+  used: 'استفاده‌شده',
+  expired: 'منقضی‌شده',
 };
 export default common;

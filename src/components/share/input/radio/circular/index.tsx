@@ -1,15 +1,17 @@
 import './style.css';
-
 import Props from './type';
-import Container from '../../../container/index';
+import cn from '@/lib/clsxm';
 
-export default function Circular({ children, checked }: Props) {
+export default function Circular({ children, checked, className, justLabel }: Props) {
   return (
-    <Container center className='w-full justify-between'>
+    <label
+      className={cn(
+        'form-control flex w-full items-center justify-between',
+        className && className,
+      )}
+    >
       {children}
-      <label className='form-control'>
-        <input checked={checked} type='radio' name='radio' />
-      </label>
-    </Container>
+      {!justLabel && <input checked={checked} type='radio' name='radio' />}
+    </label>
   );
 }
