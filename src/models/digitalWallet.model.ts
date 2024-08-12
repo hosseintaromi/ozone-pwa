@@ -7,8 +7,12 @@ export interface Wallets {
   type: string;
   available: boolean;
   inquiry_available: boolean;
+  discount: number;
   wallet: {
     id: number;
+    chargeable: boolean;
+    is_master: boolean;
+    color: string;
     contract: {
       id: number;
       status: string;
@@ -28,7 +32,6 @@ export interface Wallets {
     logo_base_url: string;
     logo_path: string;
   };
-  discount: number;
 }
 export type WalletTransactionListReturnResult<Data> = {
   data: Data[];
