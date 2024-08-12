@@ -74,6 +74,11 @@ const app = {
   voucher: {
     title: 'کوپن‌ها',
     selectStore: 'انتخاب فروشگاه',
+    couponSituation: 'وضعیت کوپن',
+    couponType: 'نوع کوپن',
+    couponCanDisable:
+      'کوپن های را که می خواهید در خرید حضوری خرج نشود را می توانید غیر فعال کنید.',
+    couponUnavailable: 'کوپن موجود نیست',
   },
 };
 export default app;
