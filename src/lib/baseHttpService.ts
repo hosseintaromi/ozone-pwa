@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 import { API_GATE_WAY } from '@/constant/routes';
 
 import { showToast } from './toast';
+import { logout } from './helper';
 const baseURL = API_GATE_WAY,
   isServer = typeof window === 'undefined';
 const api = axios.create({
@@ -105,11 +106,7 @@ api.interceptors.response.use(
     const num = error.response.status;
 
     if (num === 401) {
-      Cookies.remove('token');
-      Cookies.remove('expires_in');
-      Cookies.remove('refresh_token');
-      Cookies.remove('user');
-      window.location.href = '/login';
+      logout();
     } else if (num === 404) {
       console.log('not found url');
       throw error;

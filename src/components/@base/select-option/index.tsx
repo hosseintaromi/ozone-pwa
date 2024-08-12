@@ -116,7 +116,7 @@ export default function SelectOption({ title }: { title: string }) {
   const [selected, setSelected] = useState(people[1]);
   return (
     <Container className='relative'>
-      <Text size={SIZE_ENUM.LG} className='mb-6 text-white'>
+      <Text size={SIZE_ENUM.MD} className='mb-4 text-white'>
         {title}
       </Text>
       <Listbox value={selected} onChange={setSelected}>
@@ -124,7 +124,7 @@ export default function SelectOption({ title }: { title: string }) {
           <>
             <ListboxButton
               className={cn(
-                'relative flex h-14 w-full items-center gap-2 rounded-xl border-[1px] p-2 text-right text-base text-white',
+                'relative flex h-14 w-full items-center gap-2 rounded-[10px] border-[1px] border-neutral-500 p-2 pr-3 text-right text-base text-white',
                 open && 'border-primary',
               )}
             >
@@ -140,7 +140,7 @@ export default function SelectOption({ title }: { title: string }) {
             </ListboxButton>
             <ListboxOptions
               className={cn(
-                'absolute mx-auto mt-3 max-h-[220px] w-full overflow-auto rounded-xl border-[1px] border-neutral-700 bg-neutral-900 p-2',
+                'absolute z-50 mx-auto mt-3 max-h-[220px] w-full overflow-auto rounded-xl border-[1px] border-neutral-700 bg-neutral-900 p-2',
                 'opacity-100 transition duration-100 ease-in',
                 !open && 'opacity-0',
               )}

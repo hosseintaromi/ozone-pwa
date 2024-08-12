@@ -1,3 +1,4 @@
+'use client';
 import { SIZE_ENUM } from '@/@types';
 import Container from '@/components/share/container';
 import { Text } from '@/components/share/typography';
@@ -14,34 +15,43 @@ import {
 } from 'iconsax-react';
 import React from 'react';
 import ProfileInfo from './ProfileInfo';
+import { logout } from '@/lib/helper';
+import { usePostLogout } from '@/services/hooks';
 
 const Settings = () => {
   const { app } = locale;
+  const { mutate: logoutReq } = usePostLogout({
+    onSuccess: (e) => {
+      logout();
+    },
+  });
 
   const settingList = [
     {
       title: app.setting.profile,
       icon: <Profile color={ICON_COLOR.light_gray} size={ICON_SIZE.lg} />,
-    },
-    {
-      title: app.setting.changeCardPass,
-      icon: <CardEdit color={ICON_COLOR.light_gray} size={ICON_SIZE.lg} />,
+      action: () => {},
     },
     {
       title: app.setting.changePass,
       icon: <Lock1 color={ICON_COLOR.light_gray} size={ICON_SIZE.lg} />,
+      action: () => {},
     },
     {
       title: app.setting.help,
       icon: <InfoCircle color={ICON_COLOR.light_gray} size={ICON_SIZE.lg} />,
+      action: () => {},
     },
     {
       title: app.setting.call,
       icon: <Call color={ICON_COLOR.light_gray} size={ICON_SIZE.lg} />,
+      action: () => window.open('tel:09123013301', '_self'),
     },
     {
       title: app.setting.exit,
       icon: <LogoutCurve color={ICON_COLOR.light_gray} size={ICON_SIZE.lg} />,
+      // action: () => logout(),
+      action: () => logoutReq(),
     },
   ];
   return (
@@ -50,8 +60,12 @@ const Settings = () => {
         {app.setting.title}
       </Text>
       <ProfileInfo />
-      {settingList.map((item) => (
-        <Container key={item.title} className='mt-10 flex w-full justify-between'>
+      {settingList.map((item, index) => (
+        <Container
+          key={item.title}
+          className='mt-10 flex w-full justify-between'
+          onClick={item.action}
+        >
           <Container center className='gap-5'>
             {item.icon}
             <Text size={SIZE_ENUM.MD}>{item.title}</Text>

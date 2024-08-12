@@ -12,6 +12,7 @@ export const API_ROUTES = {
   GET_WALLETS: '/account-wallets',
   GET_DONUT: '/transactions',
   GET_INVOICES: '/invoices',
+  POST_LOGOUT: '/logout',
   GET_WALLET_TRANSACTIONS: (id: number, page: number) => `/account-wallets/${id}?page=${page}`,
 };
 
