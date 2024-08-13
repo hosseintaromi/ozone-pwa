@@ -38,6 +38,7 @@ export type WalletTransactionListReturnResult<Data> = {
   transactions: {
     amount: number;
     deleted_at: string;
+    created_at: string;
     destination_id: number;
     id: number;
     ref_number: string;
