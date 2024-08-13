@@ -1,10 +1,7 @@
 import { Container } from 'ozone-uikit';
 import React from 'react';
-// import required modules
 import { EffectCreative, Pagination } from 'swiper/modules';
-// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 
@@ -20,7 +17,7 @@ export default function App() {
       <Swiper
         className='mySwiper swiper-h '
         spaceBetween={0}
-        // loop
+        loop
         slidesPerView={1.1}
         centeredSlides
         pagination={{

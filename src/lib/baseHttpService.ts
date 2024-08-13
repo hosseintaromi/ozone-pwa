@@ -104,13 +104,10 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     const num = error.response.status;
-
     if (num === 401) {
       logout();
     } else if (num === 404) {
       console.log('not found url');
-      throw error;
-    } else if (num === 422) {
       throw error;
     } else if (num >= 400 && num <= 499) {
       showToast(error.response.data.error_message);

@@ -15,10 +15,20 @@ const app = {
     row: 'ردیف',
     product: 'کالا',
     price: 'قیمت',
+    buyFrom: 'خرید از ',
   },
   chooseWallet: {
     title: 'انتخاب حساب',
     subTitle: 'برای اطلاع از وضعیت واریز و برداشت، حساب مورد نظر را انتخاب کنید.',
+  },
+  profileDialog: {
+    title: 'پروفایل',
+    nameAndLastname: 'نام و نام‌خانوادگی',
+    birthDate: 'تاریخ تولد',
+    nationalCode: 'کدملی',
+    phone: 'شماره موبایل',
+    closeButton: 'بستن',
+    kycButton: 'تکمیل احراز هویت',
   },
   addWallet: {
     title: 'افزودن حساب',

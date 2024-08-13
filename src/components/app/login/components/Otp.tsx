@@ -21,11 +21,12 @@ import { BUTTON_TYPE, COLOR_ENUM, INPUT_TYPES, SIZE_ENUM, VARIANT_ENUM } from '@
 import ICON_SIZE, { ICON_COLOR } from '@/constant/icon-size-color';
 import { ROUTES } from '@/constant/routes';
 import locale from '@/locale';
-import { useGetUser, useLoginInit, useLoginOtp } from '@/services/hooks';
+import { useGetUser, useLoginInit, useLoginOtp, usePostPasswordInit } from '@/services/hooks';
 
 import { LOGIN_STEPS, SetStepType } from '../Login.module';
 import { LOGIN_ROLES } from '@/models/auth.model';
 import useUserStore from '@/store/user-store';
+import useLoginStore from '@/store/login-store';
 
 const Otp = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: string }) => {
   const { login } = locale;
@@ -40,6 +41,16 @@ const Otp = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: stri
   });
   const { token, setToken } = useUserStore();
   const { isSuccess, data } = useGetUser(token);
+  const { isForget } = useLoginStore();
+  const { isSuccess: sendOtp, data: isForgetData } = usePostPasswordInit(
+    isForget,
+    phoneNumber,
+  );
+
+  useEffect(() => {
+    if (!sendOtp) return;
+    console.log('first');
+  }, [sendOtp]);
 
   useEffect(() => {
     if (!isSuccess) return;

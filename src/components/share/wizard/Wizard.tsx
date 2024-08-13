@@ -22,7 +22,7 @@ const Wizard = ({
       {data.map((item, index) => (
         <div>
           {}
-          <Container center className='flex-col gap-2'>
+          <Container center className='w-[75px] flex-col gap-2'>
             <Container
               className={cn(
                 `relative z-10
@@ -33,7 +33,10 @@ const Wizard = ({
               {item.icon}
             </Container>
             <Text
-              className={cn(index <= activeItem ? 'text-primary' : 'text-neutral-300')}
+              className={cn(
+                'whitespace-nowrap',
+                index <= activeItem ? 'text-primary' : 'text-neutral-300',
+              )}
               size={SIZE_ENUM.SM}
             >
               {item.title}
@@ -43,8 +46,8 @@ const Wizard = ({
             className={cn(
               `absolute  top-[20px]  border-b-[1px]`,
               index < activeItem ? 'border-primary' : 'border-neutral-700',
-              index === 0 && 'right-[22%]  w-[80px]',
-              index === 1 && 'left-[18%] w-[72px]',
+              index === 0 && 'right-[19%]  w-[80px]',
+              index === 1 && 'left-[19%] w-[80px]',
               index > 1 && 'hidden',
             )}
           />

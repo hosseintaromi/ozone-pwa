@@ -9,13 +9,21 @@ import {
   getUserMe,
   getWallets,
   getWalletTransactions,
+  postInitPassword,
   postKyc,
   postKycVerify,
   postLoginInit,
   postLoginOtp,
+  postLoginPassword,
   postLogout,
+  postSetPassword,
 } from '..';
-import { loginInitTypeIn, loginOtpBodyType } from '@/models/auth.model';
+import {
+  loginInitTypeIn,
+  loginOtpBodyType,
+  loginPasswordBody,
+  setPasswordBody,
+} from '@/models/auth.model';
 import { kycBodyType } from '@/models/userManagement.model';
 import { DonutChartParams, invoicesListParams } from '@/models/transaction.model';
 
@@ -30,6 +38,12 @@ export const useLoginOtp = () => {
   return useMutation({
     mutationKey: [QUERY_KEYS.POST_LOGIN_OTP],
     mutationFn: (data: loginOtpBodyType) => postLoginOtp(data),
+  });
+};
+
+export const useLoginPassword = () => {
+  return useMutation({
+    mutationFn: (data: loginPasswordBody) => postLoginPassword(data),
   });
 };
 
@@ -58,6 +72,13 @@ export const useGetUser = (token: string | null) => {
     enabled: !!token,
   });
 };
+export const usePostPasswordInit = (isForget: boolean, data: string) => {
+  return useQuery({
+    queryFn: () => postInitPassword(data),
+    queryKey: [QUERY_KEYS.GET_INIT_PASSWORD],
+    enabled: !!isForget,
+  });
+};
 
 export const useGetWallet = () => {
   return useQuery({
@@ -80,9 +101,15 @@ export const useGetDonut = () => {
   });
 };
 
-export const usePostLogout = (p0: { onSuccess: ({}: {}) => void }) => {
+export const usePostLogout = (data: any) => {
   return useMutation({
     mutationFn: () => postLogout(),
+  });
+};
+
+export const usePostSetPassword = () => {
+  return useMutation({
+    mutationFn: (data: setPasswordBody) => postSetPassword(data),
   });
 };
 

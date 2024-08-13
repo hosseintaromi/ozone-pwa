@@ -19,5 +19,12 @@ const common = {
   usable: 'قابل‌استفاده',
   used: 'استفاده‌شده',
   expired: 'منقضی‌شده',
+  withdraw: 'برداشت',
+  payIn: 'واریز',
+  transactionDetails: 'جز‌ئیات تراکنش',
+  amount: 'مبلغ',
+  time: 'زمان',
+  descriptions: 'توضیحات',
+  trackingNumber: 'شماره پیگیری',
 };
 export default common;

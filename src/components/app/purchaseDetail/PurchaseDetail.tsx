@@ -18,6 +18,7 @@ import {
   SkeletonLoaderText,
   SkeletonLoader,
 } from '@/components/share/skeleton/SkeletonLoader';
+import { convertRfcToJalaliWithClock } from '@/lib/date';
 
 const PurchaseDetail = ({ params }: { params: string }) => {
   const {
@@ -27,7 +28,6 @@ const PurchaseDetail = ({ params }: { params: string }) => {
   const [show, setShow] = useState(false);
 
   const { data, isLoading } = usePurchaseDetail(params);
-
   return (
     <>
       <PurchaseDialog setShow={setShow} show={show} data={data} />
@@ -49,12 +49,14 @@ const PurchaseDetail = ({ params }: { params: string }) => {
           <SkeletonLoaderAvatar />
         ) : (
           <Container className=' w-10'>
-            <XImage
-              src='/images/mock/filmeNet.svg'
-              alt='Picture of the author'
-              width={1000}
-              height={1000}
-            />
+            {data?.business.logo_base_url && data?.business.logo_path && (
+              <XImage
+                src={data?.business.logo_base_url + data?.business.logo_path}
+                alt='Picture of the author'
+                width={1000}
+                height={1000}
+              />
+            )}
           </Container>
         )}
 
@@ -65,8 +67,15 @@ const PurchaseDetail = ({ params }: { params: string }) => {
           </>
         ) : (
           <>
-            <Text size={SIZE_ENUM.XMD}>خرید از اٌکالا</Text>
-            <Text className='mt-1 text-neutral-500'>سه شنبه 16 اردیبهشت 1402- 15:20</Text>
+            <Text size={SIZE_ENUM.XMD}>
+              {purchaseDetail.buyFrom}
+              {data?.business.name}
+            </Text>
+
+            <Text className='mt-1 text-neutral-500'>
+              {' '}
+              {convertRfcToJalaliWithClock(data?.created_at || '')}
+            </Text>
           </>
         )}
         <Container className='flex w-full justify-between'>

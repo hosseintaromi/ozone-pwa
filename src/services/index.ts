@@ -8,6 +8,8 @@ import {
   loginInitTypeOut,
   loginOtpBodyType,
   loginOtpTypeOut,
+  loginPasswordBody,
+  setPasswordBody,
 } from '@/models/auth.model';
 import {
   DonutChartBody,
@@ -25,15 +27,25 @@ import {
 } from '@/models/userManagement.model';
 import { Wallets, WalletTransactionListReturnResult } from '@/models/digitalWallet.model';
 
-export const postLoginInit = (data: loginInitTypeIn) =>
-  httpPostRequest<loginInitTypeOut>(
+export const postLoginInit = async (data: loginInitTypeIn) => {
+  const res: { data: { data: loginInitTypeOut } } = await httpPostRequest(
     APIUrlGenerator({ route: API_ROUTES.POST_LOGIN_INIT, service: BACKEND_SERVICE.AUTH }),
     data,
   );
+  return res.data;
+};
 
 export const postLoginOtp = async (data: loginOtpBodyType) => {
   const res: { data: { data: loginOtpTypeOut } } = await httpPostRequest(
     APIUrlGenerator({ route: API_ROUTES.POST_LOGIN_OTP, service: BACKEND_SERVICE.AUTH }),
+    data,
+  );
+  return res.data;
+};
+
+export const postLoginPassword = async (data: loginPasswordBody) => {
+  const res: { data: { data: loginOtpTypeOut } } = await httpPostRequest(
+    APIUrlGenerator({ route: API_ROUTES.POST_Login_PASSWORD, service: BACKEND_SERVICE.AUTH }),
     data,
   );
   return res.data;
@@ -75,6 +87,19 @@ export const getUserMe = async () => {
     }),
   );
   return res.data.data;
+};
+
+export const postInitPassword = async (data: any) => {
+  const res: { data: any } = await httpPostRequest(
+    APIUrlGenerator({
+      route: API_ROUTES.POST_FORGET_INIT,
+      service: BACKEND_SERVICE.AUTH,
+    }),
+    {
+      mobile: data,
+    },
+  );
+  return res.data;
 };
 
 export const getWallets = async () => {
@@ -122,6 +147,16 @@ export const postLogout = async () => {
   );
   return res.data;
 };
+export const postSetPassword = async (data: setPasswordBody) => {
+  const res: { data: any } = await httpPostRequest(
+    APIUrlGenerator({
+      route: API_ROUTES.POST_SET_PASSWORD,
+      service: BACKEND_SERVICE.AUTH,
+    }),
+    data,
+  );
+  return res;
+};
 
 export const getWalletTransactions = async (id: number, page: number) => {
   const {
@@ -133,10 +168,10 @@ export const getWalletTransactions = async (id: number, page: number) => {
     }),
   );
   return {
-    data: data.data,
+    data: data.transactions,
     previousCursor: data.meta.pagination.current_page - 1,
     nextCursor:
-      data.meta.pagination.current_page === data.meta.pagination.last_page
+      data.meta.pagination.current_page === data.meta.pagination.total_pages
         ? null
         : data.meta.pagination.current_page + 1,
   };

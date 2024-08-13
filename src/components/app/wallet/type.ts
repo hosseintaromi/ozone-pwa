@@ -2,11 +2,17 @@ import { Wallets } from '@/models/digitalWallet.model';
 import { invoiceDetail } from '@/models/transaction.model';
 import React, { ReactNode } from 'react';
 
-export type HorizontalCardType = {
-  title: string;
-  date: string;
-  amount: string;
-  isPayIn: boolean;
+export type WalletTransactionCardType = {
+  amount: number;
+  deleted_at: string;
+  destination_id: number;
+  id: number;
+  ref_number: string;
+  request_id: number;
+  source_id: number;
+  status: 'SUCCESS';
+  type: 'WITHDRAW';
+  updated_at: string;
 };
 
 export type PayInDialogType = {
