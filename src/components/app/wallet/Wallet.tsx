@@ -1,12 +1,11 @@
 'use client';
 import { CardAdd, InfoCircle } from 'iconsax-react';
 import { Container, Text } from 'ozone-uikit';
-import React from 'react';
+import React, { useState } from 'react';
 import { BottomSheet } from 'react-spring-bottom-sheet';
 
-import HorizontalCard from './components/HorizontalCard';
+import HorizontalCard from './components/WalletTransactionCard';
 import NestedSwiper from './components/NestedSwiper';
-import { HorizontalCardType } from './type';
 import Navbar from '../../share/navbar/Navbar';
 import locale from '@/locale';
 import Link from 'next/link';
@@ -15,10 +14,12 @@ import { useGetWalletTransactions } from '@/services/hooks';
 import Spinner from '@/components/share/spinner/Spinner';
 import { Virtuoso } from 'react-virtuoso';
 import cn from '@/lib/clsxm';
+import XImage from '@/components/share/x-image';
 
 export default function Wallet() {
+  const [sheetHeight, setSheetHeight] = useState(500);
   const {
-    app: { transactions },
+    app: { transactions, emptyTransactions },
     wallet: { title },
   } = locale;
   const {
@@ -28,6 +29,8 @@ export default function Wallet() {
     fetchNextPage,
     hasNextPage,
   } = useGetWalletTransactions(22);
+  const flatTransactions = transaction?.pages.flatMap((data) => data.data);
+
   return (
     <div className='h-dvh bg-neutral-800'>
       <Navbar>
@@ -50,19 +53,27 @@ export default function Wallet() {
           else if (maxHeight > 500) return [maxHeight / 1.9, maxHeight];
           else return [maxHeight / 1.7, maxHeight];
         }}
-        className='text-white'
+        defaultSnap={({ lastSnap, snapPoints }) => {
+          lastSnap && setSheetHeight(lastSnap);
+          return lastSnap ? lastSnap : 500;
+        }}
+        className='!overflow-hidden text-white'
       >
-        <Container className='mb-20  px-5'>
-          <Text className='text-lg'>{transactions}</Text>
-          {!isPending && transaction && (
+        <Container className='relative mb-20 overflow-hidden px-5 pt-8'>
+          <Text className='absolute top-3 z-10 w-full bg-neutral-900 pb-3 text-lg'>
+            {transactions}
+          </Text>
+
+          {flatTransactions && (
             <Virtuoso
-              className={cn('pb-30 mb-[60px] w-full flex-1 gap-3')}
+              // style={{ height: '300px' }}
+              className={cn('pb-30 mb-[60px]')}
+              style={{ height: `${sheetHeight - 70}px` }}
               endReached={() =>
                 hasNextPage && !isFetchingNextPage && !isPending && fetchNextPage()
               }
-              fixedItemHeight={150}
+              fixedItemHeight={110}
               overscan={200}
-              data={transaction}
               components={{
                 Header: () => <Container className='pt-5' />,
                 Footer: () => (
@@ -75,22 +86,22 @@ export default function Wallet() {
                   </Container>
                 ),
               }}
-              itemContent={(index, item) => <HorizontalCard key={index} data={item} />}
+              data={flatTransactions}
+              itemContent={(index, item) => <HorizontalCard data={item} />}
             />
           )}
-
-          {/* <Container center className='mt-24 flex-col gap-4'>
-            <XImage
-              placeholder
-              src='/images/image/emptyState.svg'
-              alt='Picture of the author'
-              width={140}
-              height={70}
-            />
-            <Text className='text-neutral-500 text-bold text-sm' >
-              {app.emptyTransactions}
-            </Text>
-          </Container> */}
+          {flatTransactions?.length === 0 && !isPending && (
+            <Container center className='mt-24 flex-col gap-4'>
+              <XImage
+                placeholder
+                src='/images/image/emptyState.svg'
+                alt='Picture of the author'
+                width={140}
+                height={70}
+              />
+              <Text className='text-bold text-sm text-neutral-500'>{emptyTransactions}</Text>
+            </Container>
+          )}
         </Container>
       </BottomSheet>
     </div>

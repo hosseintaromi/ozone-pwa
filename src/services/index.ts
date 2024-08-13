@@ -168,10 +168,10 @@ export const getWalletTransactions = async (id: number, page: number) => {
     }),
   );
   return {
-    data: data.data,
+    data: data.transactions,
     previousCursor: data.meta.pagination.current_page - 1,
     nextCursor:
-      data.meta.pagination.current_page === data.meta.pagination.last_page
+      data.meta.pagination.current_page === data.meta.pagination.total_pages
         ? null
         : data.meta.pagination.current_page + 1,
   };

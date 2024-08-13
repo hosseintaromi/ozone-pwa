@@ -12557,10 +12557,10 @@ react-use-gesture@^8.0.1:
   resolved "https://registry.yarnpkg.com/react-use-gesture/-/react-use-gesture-8.0.1.tgz#4360c0f7c9e26baf9fbe58f63fc9de7ef699c17f"
   integrity sha512-CXzUNkulUdgouaAlvAsC5ZVo0fi9KGSBSk81WrE4kOIcJccpANe9zZkAYr5YZZhqpicIFxitsrGVS4wmoMun9A==
 
-react-virtuoso@4.7.10:
-  version "4.7.10"
-  resolved "https://registry.yarnpkg.com/react-virtuoso/-/react-virtuoso-4.7.10.tgz#6d4e951d4a62b57f012e411fbb8a16ff84d3732b"
-  integrity sha512-l+fnBf/G1Fp6pHCnhFq2Ra4lkZtT6c5XrS9rCS0OA6de7WGLZviCo0y61CUZZG79TeAw3L7O4czeNPiqh9CIrg==
+react-virtuoso@^4.10.0:
+  version "4.10.0"
+  resolved "https://registry.yarnpkg.com/react-virtuoso/-/react-virtuoso-4.10.0.tgz#1b4bf38671b690661f2fde8c9d974174d80d4913"
+  integrity sha512-CyxU5TYMH4bw2cybH0bNqN/yIg2q2Vd0kbs92tQc5ResZALAIzIVJY4JL6BHgJFQjwrLhCYrFwKq0p+lvBgA0w==
 
 react@18.2.0:
   version "18.2.0"

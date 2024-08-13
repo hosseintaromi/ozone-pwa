@@ -76,7 +76,7 @@ const PayInDialog = (props: PayInDialogType) => {
 
   return (
     <Modal show={show} onClose={() => setShow(false)} dialogPanelClassName='bg-neutral-900'>
-      <ModalHead>
+      <ModalHead setShow={setShow}>
         <Text size={SIZE_ENUM.LG} medium>
           {app.payDialog.title}
         </Text>

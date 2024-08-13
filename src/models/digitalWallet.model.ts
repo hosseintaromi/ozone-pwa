@@ -7,8 +7,12 @@ export interface Wallets {
   type: string;
   available: boolean;
   inquiry_available: boolean;
+  discount: number;
   wallet: {
     id: number;
+    chargeable: boolean;
+    is_master: boolean;
+    color: string;
     contract: {
       id: number;
       status: string;
@@ -28,10 +32,21 @@ export interface Wallets {
     logo_base_url: string;
     logo_path: string;
   };
-  discount: number;
 }
 export type WalletTransactionListReturnResult<Data> = {
-  data: Data[];
+  account_wallet: Data[];
+  transactions: {
+    amount: number;
+    deleted_at: string;
+    destination_id: number;
+    id: number;
+    ref_number: string;
+    request_id: number;
+    source_id: number;
+    status: 'SUCCESS';
+    type: 'WITHDRAW';
+    updated_at: string;
+  }[];
   meta: {
     pagination: {
       current_page: number;

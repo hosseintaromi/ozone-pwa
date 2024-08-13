@@ -5,11 +5,11 @@ import AddWalletStep2 from './AddWalletStep2';
 import Wizard from '@/components/share/wizard/Wizard';
 import { ROUTES } from '@/constant/routes';
 import { ArrowRight, Card, TaskSquare, Verify } from 'iconsax-react';
-import router from 'next/router';
 import { Container, SIZE_ENUM } from 'ozone-uikit';
 import { Text } from '@/components/share/typography';
 import locale from '@/locale';
 import AddWalletStep3 from './AddWalletStep3';
+import Link from 'next/link';
 
 const AddWallet = () => {
   const [active, setActive] = useState(0);
@@ -34,12 +34,10 @@ const AddWallet = () => {
   return (
     <Container className='mx-5 h-calc-100-minus-200'>
       <Container className='relative my-7 flex justify-center '>
-        <ArrowRight
-          size='28'
-          color='white'
-          className='absolute right-0'
-          onClick={() => router.push(ROUTES.HOME)}
-        />
+        <Link href={ROUTES.HOME}>
+          <ArrowRight size='28' color='white' className='absolute right-0' />
+        </Link>
+
         <Text size={SIZE_ENUM.LG}>{addWallet.title}</Text>
       </Container>
 
