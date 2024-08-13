@@ -51,8 +51,8 @@ const PhoneNumber = ({
           clients: [LOGIN_ROLES.CUSTOMER],
         },
         {
-          onSuccess(e) {
-            setStep(e.data.has_password ? LOGIN_STEPS.PASSWORD : LOGIN_STEPS.OTP);
+          onSuccess({ data }) {
+            setStep(data.has_password ? LOGIN_STEPS.PASSWORD : LOGIN_STEPS.OTP);
             setPhoneNumber(phoneNumber);
           },
           // onError(e) {

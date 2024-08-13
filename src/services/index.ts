@@ -26,11 +26,13 @@ import {
 } from '@/models/userManagement.model';
 import { Wallets, WalletTransactionListReturnResult } from '@/models/digitalWallet.model';
 
-export const postLoginInit = (data: loginInitTypeIn) =>
-  httpPostRequest<loginInitTypeOut>(
+export const postLoginInit = async (data: loginInitTypeIn) => {
+  const res: { data: { data: loginInitTypeOut } } = await httpPostRequest(
     APIUrlGenerator({ route: API_ROUTES.POST_LOGIN_INIT, service: BACKEND_SERVICE.AUTH }),
     data,
   );
+  return res.data;
+};
 
 export const postLoginOtp = async (data: loginOtpBodyType) => {
   const res: { data: { data: loginOtpTypeOut } } = await httpPostRequest(
