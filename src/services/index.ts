@@ -8,6 +8,7 @@ import {
   loginInitTypeOut,
   loginOtpBodyType,
   loginOtpTypeOut,
+  setPasswordBody,
 } from '@/models/auth.model';
 import {
   DonutChartBody,
@@ -121,6 +122,16 @@ export const postLogout = async () => {
     {},
   );
   return res.data;
+};
+export const postSetPassword = async (data: setPasswordBody) => {
+  const res: { data: any } = await httpPostRequest(
+    APIUrlGenerator({
+      route: API_ROUTES.POST_SET_PASSWORD,
+      service: BACKEND_SERVICE.AUTH,
+    }),
+    data,
+  );
+  return res;
 };
 
 export const getWalletTransactions = async (id: number, page: number) => {

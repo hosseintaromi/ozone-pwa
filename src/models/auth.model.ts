@@ -26,3 +26,7 @@ export interface loginOtpTypeOut {
   access_token: string;
   refresh_token: string;
 }
+
+export interface setPasswordBody {
+  password: string;
+}

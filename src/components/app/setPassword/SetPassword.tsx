@@ -1,16 +1,7 @@
+'use client';
 import { useFormik } from 'formik';
 import { Eye, EyeSlash } from 'iconsax-react';
-import {
-  Button,
-  BUTTON_TYPE,
-  COLOR_ENUM,
-  Container,
-  Input,
-  INPUT_TYPES,
-  SIZE_ENUM,
-  Text,
-  VARIANT_ENUM,
-} from 'ozone-uikit';
+
 import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import { object } from 'yup';
@@ -19,8 +10,15 @@ import { ICON_COLOR } from '@/constant/icon-size-color';
 import validation from '@/constant/validation-rules';
 import locale from '@/locale';
 
-import CheckFromText from './CheckFromText';
-import { SetStepType } from '../Login.module';
+import CheckFromText from '../login/components/CheckFromText';
+import Container from '@/components/share/container';
+import { BUTTON_TYPE, COLOR_ENUM, INPUT_TYPES, SIZE_ENUM, VARIANT_ENUM } from '@/@types';
+import { Text } from '@/components/share/typography';
+import { Input } from '@/components/share/input';
+import Button from '@/components/share/button';
+import { usePostSetPassword } from '@/services/hooks';
+import { useRouter } from 'next/navigation';
+import { ROUTES } from '@/constant/routes';
 
 const minLength = yup.string().min(8);
 const hasUpperCase = yup.string().matches(/[A-Z]/);
@@ -28,7 +26,7 @@ const hasLowerCase = yup.string().matches(/[a-z]/);
 const hasNumber = yup.string().matches(/[0-9]/);
 const hasSpecialChar = yup.string().matches(/[*&%^$.#@!]/);
 
-const SetPassword = ({}: { setStep: SetStepType; phoneNumber: string }) => {
+const SetPassword = () => {
   const { login, error } = locale;
   const [showPassword, setShowPassword] = useState(false);
   const [showRePassword, setShowRePassword] = useState(false);
@@ -40,6 +38,8 @@ const SetPassword = ({}: { setStep: SetStepType; phoneNumber: string }) => {
     hasSpecialChar: false,
   });
 
+  const { mutate, isPending } = usePostSetPassword();
+  const router = useRouter();
   const { handleSubmit, values, errors, handleChange, touched, handleBlur } = useFormik({
     initialValues: {
       password: '',
@@ -52,8 +52,16 @@ const SetPassword = ({}: { setStep: SetStepType; phoneNumber: string }) => {
         .oneOf([yup.ref('password')], error.passwordsMustMatch)
         .required(error.required),
     }),
-    onSubmit: () => {
-      // console.log(values);
+    onSubmit: (values) => {
+      mutate(
+        { password: values.password },
+        {
+          onSuccess: () => {
+            console.log('first');
+            router.push(ROUTES.HOME);
+          },
+        },
+      );
     },
   });
 
@@ -89,7 +97,7 @@ const SetPassword = ({}: { setStep: SetStepType; phoneNumber: string }) => {
               {login.choosePasswordForAccount}
             </Text>
 
-            <Container className='mt-12 flex w-full flex-col'>
+            <Container className='mt-12 flex w-full flex-col gap-3'>
               <Input
                 name='password'
                 errorMessage={touched.password && errors.password ? errors.password : ''}
@@ -147,7 +155,12 @@ const SetPassword = ({}: { setStep: SetStepType; phoneNumber: string }) => {
         </Container>
 
         <Container className='mb-16 flex-col' center>
-          <Button type={BUTTON_TYPE.SUBMIT} size={SIZE_ENUM.XL} className='w-full'>
+          <Button
+            isLoading={isPending}
+            type={BUTTON_TYPE.SUBMIT}
+            size={SIZE_ENUM.XL}
+            className='w-full'
+          >
             {login.entree}
           </Button>
           <Button variant={VARIANT_ENUM.TEXT} className='m-3'>

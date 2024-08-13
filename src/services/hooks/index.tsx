@@ -14,8 +14,9 @@ import {
   postLoginInit,
   postLoginOtp,
   postLogout,
+  postSetPassword,
 } from '..';
-import { loginInitTypeIn, loginOtpBodyType } from '@/models/auth.model';
+import { loginInitTypeIn, loginOtpBodyType, setPasswordBody } from '@/models/auth.model';
 import { kycBodyType } from '@/models/userManagement.model';
 import { DonutChartParams, invoicesListParams } from '@/models/transaction.model';
 
@@ -80,9 +81,15 @@ export const useGetDonut = () => {
   });
 };
 
-export const usePostLogout = (p0: { onSuccess: ({}: {}) => void }) => {
+export const usePostLogout = () => {
   return useMutation({
     mutationFn: () => postLogout(),
+  });
+};
+
+export const usePostSetPassword = () => {
+  return useMutation({
+    mutationFn: (data: setPasswordBody) => postSetPassword(data),
   });
 };
 
