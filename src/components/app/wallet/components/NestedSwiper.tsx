@@ -17,7 +17,7 @@ export default function App() {
       <Swiper
         className='mySwiper swiper-h '
         spaceBetween={0}
-        // loop
+        loop
         slidesPerView={1.1}
         centeredSlides
         pagination={{

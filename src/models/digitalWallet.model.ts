@@ -34,7 +34,19 @@ export interface Wallets {
   };
 }
 export type WalletTransactionListReturnResult<Data> = {
-  data: Data[];
+  account_wallet: Data[];
+  transactions: {
+    amount: number;
+    deleted_at: string;
+    destination_id: number;
+    id: number;
+    ref_number: string;
+    request_id: number;
+    source_id: number;
+    status: 'SUCCESS';
+    type: 'WITHDRAW';
+    updated_at: string;
+  }[];
   meta: {
     pagination: {
       current_page: number;

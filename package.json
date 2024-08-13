@@ -78,7 +78,7 @@
     "react-spring-bottom-sheet": "^3.4.1",
     "react-timer-hook": "3.0.7",
     "react-toastify": "10.0.5",
-    "react-virtuoso": "4.7.10",
+    "react-virtuoso": "^4.10.0",
     "swiper": "11.1.1",
     "tailwind-merge": "2.3.0",
     "ua-parser-js": "2.0.0-beta.2",
