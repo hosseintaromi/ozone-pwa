@@ -4,33 +4,28 @@ import Container from '@/components/share/container';
 import { Text } from '@/components/share/typography';
 import ICON_SIZE, { ICON_COLOR } from '@/constant/icon-size-color';
 import locale from '@/locale';
-import {
-  ArrowLeft2,
-  Call,
-  CardEdit,
-  InfoCircle,
-  Lock1,
-  LogoutCurve,
-  Profile,
-} from 'iconsax-react';
-import React from 'react';
+import { ArrowLeft2, Call, InfoCircle, Lock1, LogoutCurve, Profile } from 'iconsax-react';
+import React, { useEffect, useState } from 'react';
 import ProfileInfo from './ProfileInfo';
 import { logout } from '@/lib/helper';
 import { usePostLogout } from '@/services/hooks';
+import ProfileDialog from './ProfileDialog';
 
 const Settings = () => {
   const { app } = locale;
-  const { mutate: logoutReq } = usePostLogout({
-    onSuccess: (e) => {
-      logout();
-    },
-  });
+  const { mutate: logoutReq, isSuccess } = usePostLogout({});
+
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    if (!isSuccess) return;
+    logout();
+  }, [isSuccess]);
 
   const settingList = [
     {
       title: app.setting.profile,
       icon: <Profile color={ICON_COLOR.light_gray} size={ICON_SIZE.lg} />,
-      action: () => {},
+      action: () => setShow((pre) => !pre),
     },
     {
       title: app.setting.changePass,
@@ -60,10 +55,11 @@ const Settings = () => {
         {app.setting.title}
       </Text>
       <ProfileInfo />
+      <ProfileDialog show={show} setShow={setShow} />
       {settingList.map((item, index) => (
         <Container
           key={item.title}
-          className='mt-10 flex w-full justify-between'
+          className='mt-10 flex w-full cursor-pointer justify-between'
           onClick={item.action}
         >
           <Container center className='gap-5'>

@@ -24,11 +24,12 @@ import Cookies from 'js-cookie';
 import useUserStore from '@/store/user-store';
 import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/constant/routes';
+import useLoginStore from '@/store/login-store';
 
 const Password = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: string }) => {
   const { login } = locale;
   const { mutate, isPending } = useLoginPassword();
-
+  const { setIsForget } = useLoginStore();
   const { token, setToken } = useUserStore();
   const { isSuccess, data } = useGetUser(token);
 
@@ -55,7 +56,6 @@ const Password = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber:
         },
         {
           onSuccess: ({ data }) => {
-            console.log(data);
             setToken(data.access_token);
             Cookies.set('token', data.token_type + ' ' + data.access_token, {
               expires: data.expires_in,
@@ -109,15 +109,33 @@ const Password = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber:
             </Container>
           </Container>
           <Container className='mt-3 flex justify-end'>
-            <Button variant={VARIANT_ENUM.TEXT}>{login.forgetPasswordButton}</Button>
+            <Button
+              onClick={() => {
+                setIsForget(true);
+                setStep(LOGIN_STEPS.OTP);
+              }}
+              variant={VARIANT_ENUM.TEXT}
+            >
+              {login.forgetPasswordButton}
+            </Button>
           </Container>
         </Container>
 
         <Container className='mb-16 flex-col' center>
-          <Button type={BUTTON_TYPE.SUBMIT} size={SIZE_ENUM.XL} className='w-full'>
+          <Button
+            disabled={isPending}
+            type={BUTTON_TYPE.SUBMIT}
+            size={SIZE_ENUM.XL}
+            className='w-full'
+          >
             {login.entree}
           </Button>
-          <Button variant={VARIANT_ENUM.TEXT} className='m-3'>
+          <Button
+            disabled={isPending}
+            variant={VARIANT_ENUM.TEXT}
+            className='m-3'
+            onClick={() => console.log('first')}
+          >
             {login.loginWithOtp}
           </Button>
         </Container>

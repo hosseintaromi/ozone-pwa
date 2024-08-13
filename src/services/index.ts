@@ -89,6 +89,19 @@ export const getUserMe = async () => {
   return res.data.data;
 };
 
+export const postInitPassword = async (data: any) => {
+  const res: { data: any } = await httpPostRequest(
+    APIUrlGenerator({
+      route: API_ROUTES.POST_FORGET_INIT,
+      service: BACKEND_SERVICE.AUTH,
+    }),
+    {
+      mobile: data,
+    },
+  );
+  return res.data;
+};
+
 export const getWallets = async () => {
   const {
     data: { data },

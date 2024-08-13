@@ -15,6 +15,7 @@ export const API_ROUTES = {
   POST_LOGOUT: '/logout',
   POST_SET_PASSWORD: '/password/set',
   POST_Login_PASSWORD: '/login/password',
+  POST_FORGET_INIT: '/password/init',
   GET_WALLET_TRANSACTIONS: (id: number, page: number) => `/account-wallets/${id}?page=${page}`,
 };
 

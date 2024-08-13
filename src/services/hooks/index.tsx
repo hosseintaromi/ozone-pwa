@@ -9,6 +9,7 @@ import {
   getUserMe,
   getWallets,
   getWalletTransactions,
+  postInitPassword,
   postKyc,
   postKycVerify,
   postLoginInit,
@@ -71,6 +72,13 @@ export const useGetUser = (token: string | null) => {
     enabled: !!token,
   });
 };
+export const usePostPasswordInit = (isForget: boolean, data: string) => {
+  return useQuery({
+    queryFn: () => postInitPassword(data),
+    queryKey: [QUERY_KEYS.GET_INIT_PASSWORD],
+    enabled: !!isForget,
+  });
+};
 
 export const useGetWallet = () => {
   return useQuery({
@@ -93,7 +101,7 @@ export const useGetDonut = () => {
   });
 };
 
-export const usePostLogout = () => {
+export const usePostLogout = (data: any) => {
   return useMutation({
     mutationFn: () => postLogout(),
   });
