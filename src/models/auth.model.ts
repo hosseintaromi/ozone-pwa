@@ -30,3 +30,5 @@ export interface loginOtpTypeOut {
 export interface setPasswordBody {
   password: string;
 }
+
+export interface loginPasswordBody {}

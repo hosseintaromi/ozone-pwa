@@ -8,6 +8,7 @@ import {
   loginInitTypeOut,
   loginOtpBodyType,
   loginOtpTypeOut,
+  loginPasswordBody,
   setPasswordBody,
 } from '@/models/auth.model';
 import {
@@ -37,6 +38,14 @@ export const postLoginInit = async (data: loginInitTypeIn) => {
 export const postLoginOtp = async (data: loginOtpBodyType) => {
   const res: { data: { data: loginOtpTypeOut } } = await httpPostRequest(
     APIUrlGenerator({ route: API_ROUTES.POST_LOGIN_OTP, service: BACKEND_SERVICE.AUTH }),
+    data,
+  );
+  return res.data;
+};
+
+export const postLoginPassword = async (data: loginPasswordBody) => {
+  const res: { data: { data: loginOtpTypeOut } } = await httpPostRequest(
+    APIUrlGenerator({ route: API_ROUTES.POST_Login_PASSWORD, service: BACKEND_SERVICE.AUTH }),
     data,
   );
   return res.data;

@@ -13,10 +13,16 @@ import {
   postKycVerify,
   postLoginInit,
   postLoginOtp,
+  postLoginPassword,
   postLogout,
   postSetPassword,
 } from '..';
-import { loginInitTypeIn, loginOtpBodyType, setPasswordBody } from '@/models/auth.model';
+import {
+  loginInitTypeIn,
+  loginOtpBodyType,
+  loginPasswordBody,
+  setPasswordBody,
+} from '@/models/auth.model';
 import { kycBodyType } from '@/models/userManagement.model';
 import { DonutChartParams, invoicesListParams } from '@/models/transaction.model';
 
@@ -31,6 +37,12 @@ export const useLoginOtp = () => {
   return useMutation({
     mutationKey: [QUERY_KEYS.POST_LOGIN_OTP],
     mutationFn: (data: loginOtpBodyType) => postLoginOtp(data),
+  });
+};
+
+export const useLoginPassword = () => {
+  return useMutation({
+    mutationFn: (data: loginPasswordBody) => postLoginPassword(data),
   });
 };
 
