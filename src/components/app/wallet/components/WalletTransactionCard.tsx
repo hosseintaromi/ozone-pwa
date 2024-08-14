@@ -10,6 +10,7 @@ import common from '@/locale/common';
 
 import { WalletTransactionCardType } from '../type';
 import useCommonModalStore from '@/store/common-modal-store';
+import { persianDateGenerator, rialCurrency } from '@/lib/helper';
 
 const WalletTransactionCard = ({ data }: { data: WalletTransactionCardType }) => {
   const { setShow } = useCommonModalStore();
@@ -20,29 +21,54 @@ const WalletTransactionCard = ({ data }: { data: WalletTransactionCardType }) =>
     },
     {
       title: common.time,
-      value: 'چهارشنبه 16 تیر 1402- 15:20',
+      value: persianDateGenerator(new Date(data.created_at)),
     },
     {
       title: common.trackingNumber,
-      value: data.ref_number,
+      value: '98797987666',
     },
     {
       title: common.descriptions,
-      value: 'واریز از کالارسان هستی بابت بن ارزاق کارکنان',
+      value:
+        'واریز از کالارسان هستی بابت بن ارزاق کارکنان از کالارسان هستی بابت بن ارزاق کارکنان',
     },
   ];
   const showDetail = () => {
     setShow(true, {
       Head: () => (
-        <Container center className='w-full justify-between'>
+        <Container center className='w-full justify-between pb-8 pt-4'>
           <Text size={SIZE_ENUM.LG}>{common.transactionDetails}</Text>
           <CloseCircle size='27' className='text-neutral-200' onClick={() => setShow(false)} />
         </Container>
       ),
+      Body: () => (
+        <>
+          {detailsList.map((l, index) => (
+            <Container
+              center
+              className={cn(
+                'mb-4 w-full items-start justify-between',
+                index === 0 && 'mb-3 border-b-[1px] border-neutral-700',
+              )}
+            >
+              <Text semiBold>{l.title}</Text>
+              {index === 0 ? (
+                <Text bold size={SIZE_ENUM.MD} className='mb-4'>
+                  {rialCurrency(+l.value)}
+                </Text>
+              ) : (
+                <Text semiBold className='max-w-[70%]'>
+                  {l.value}
+                </Text>
+              )}
+            </Container>
+          ))}
+        </>
+      ),
     });
   };
   return (
-    <Container className='flex flex-col border-b-[1px] border-neutral-500 pb-5 pt-5'>
+    <Container className='flex flex-col border-b-[1px] border-neutral-700 pb-5 pt-5'>
       <Container center className='w-full gap-3'>
         <Container
           className={cn(
@@ -67,7 +93,7 @@ const WalletTransactionCard = ({ data }: { data: WalletTransactionCardType }) =>
           </Container>
           <Container center className='w-full justify-between'>
             <Text className='mt-2 text-sm text-neutral-500'>
-              چهارشنبه۲۴ اردیبهشت 1402- 15:20
+              {persianDateGenerator(new Date(data.created_at))}
             </Text>
             <ArrowLeft2
               size={ICON_SIZE.sm}

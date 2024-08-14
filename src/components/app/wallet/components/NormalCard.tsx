@@ -17,7 +17,7 @@ import whiteShadow2 from '~/images/image/ellipse2.svg';
 import { Wallets } from '@/models/digitalWallet.model';
 import locale from '@/locale';
 import { rialCurrency } from '@/lib/helper';
-const WHITE_COLOR = '#ffffff';
+const WHITE_COLOR = colors['neutral-0'];
 const NormalCard = ({ data }: { data: Wallets }) => {
   const {
     name,
@@ -52,7 +52,7 @@ const NormalCard = ({ data }: { data: Wallets }) => {
             bg-white px-1 py-1 shadow'
                 onClick={() => setShow((pre) => !pre)}
               >
-                <Add size={ICON_SIZE.lg} color={colors.primary} className='' />
+                <Add size={ICON_SIZE.lg} color={colors.primary} />
               </Container>
 
               <Text className='text-primary-100' size={SIZE_ENUM.SM}>

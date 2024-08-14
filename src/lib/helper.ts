@@ -139,7 +139,9 @@ export function persianDateGenerator(date: Date) {
   const month = persianDate[2].value;
   const day = persianDate[4].value;
   const weekday = persianDate[6].value;
-  return `${weekday} ${day} ${month} ${year}`;
+  const hour = persianDate[8].value;
+  const minute = persianDate[10].value;
+  return `${weekday} ${day} ${month} ${year} - ${hour}:${minute}`;
 }
 
 export function isIOS(): boolean {

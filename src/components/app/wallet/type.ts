@@ -5,6 +5,7 @@ import React, { ReactNode } from 'react';
 export type WalletTransactionCardType = {
   amount: number;
   deleted_at: string;
+  created_at: string;
   destination_id: number;
   id: number;
   ref_number: string;

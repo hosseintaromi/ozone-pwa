@@ -1,8 +1,9 @@
 import { useFormik } from 'formik';
 import { CloseCircle } from 'iconsax-react';
-import Num2persian from 'num2persian';
+import { toPersianLetterCurrency } from 'to-persian-letter-currency';
 import {
   Button,
+  BUTTON_TYPE,
   COLOR_ENUM,
   Container,
   Input,
@@ -21,6 +22,7 @@ import locale from '@/locale';
 
 import { OfferPriceType, PayInDialogType } from '../type';
 import Modal, { ModalBody, ModalHead } from '../../../share/modal';
+import { usePostChargeWallet } from '@/services/hooks';
 
 const OfferedPrice = ({ children, isActive, setVal, value }: OfferPriceType) => {
   return (
@@ -28,7 +30,7 @@ const OfferedPrice = ({ children, isActive, setVal, value }: OfferPriceType) => 
       size={SIZE_ENUM.XS}
       className={cn(
         'w-full rounded-xl border-[1px] border-solid border-neutral-500 px-2 py-3 text-center text-white',
-        isActive && 'bg-primary-400 border-primary',
+        isActive && 'border-primary bg-primary/10',
       )}
       onClick={() => {
         setVal?.(value);
@@ -55,6 +57,7 @@ const offerList = [
 ];
 
 const PayInDialog = (props: PayInDialogType) => {
+  const { mutate: mutateChargeWallet } = usePostChargeWallet(18);
   const { show, setShow } = props;
   const { app } = locale;
 
@@ -67,7 +70,17 @@ const PayInDialog = (props: PayInDialogType) => {
         amount: validation.amountCheck,
       }),
       onSubmit: () => {
-        // console.log('call api', values, action);
+        console.log('call api', values);
+        mutateChargeWallet(
+          {
+            amount: values.amount,
+          },
+          {
+            onSuccess: (res) => {
+              if (res?.payment_link) window.location.href = res.payment_link;
+            },
+          },
+        );
       },
     });
   const setValue = (val) => {
@@ -86,61 +99,57 @@ const PayInDialog = (props: PayInDialogType) => {
       </ModalHead>
       <ModalBody className='flex flex-col gap-2.5 text-white '>
         <form onSubmit={handleSubmit}>
-          <Input
-            name='amount'
-            errorMessage={errors.amount}
-            size={SIZE_ENUM.XL}
-            label={app.payDialog.inputTitle}
-            hint={
-              values.amount
-                ? `${Num2persian(Math.round(+String(values.amount).replaceAll(',', '') / 10))} تومان`
-                : ''
-            }
-            labelClassName='text-md text-bold'
-            type={INPUT_TYPES.TEL}
-            inputMode='numeric'
-            className='rtl text-right'
-            maxLength={13}
-            onBlur={handleBlur}
-            onChange={(e) => {
-              const value = e.target.value.replace(/,/g, '');
-              if (!isNaN(+value)) {
-                setFieldValue('amount', Number(value));
+          <Container className='relative'>
+            <Input
+              name='amount'
+              errorMessage={values?.amount > 0 ? errors.amount : undefined}
+              label={app.payDialog.inputTitle}
+              hint={
+                values.amount
+                  ? `${toPersianLetterCurrency(+String(values.amount).replaceAll(',', ''))}`
+                  : ''
               }
-            }}
-            value={formatNumberWithCommas(values.amount)}
-            LeftIcon={() => (
-              <CloseCircle
-                color={COLOR_ENUM.WHITE}
-                className='size-7'
-                onClick={() => setValues({ amount: 0 })}
-              />
-            )}
-          />
+              labelClassName='text-md text-bold'
+              type={INPUT_TYPES.TEL}
+              inputMode='numeric'
+              className='rtl text-right'
+              maxLength={13}
+              onBlur={handleBlur}
+              onChange={(e) => {
+                const value = e.target.value.replace(/,/g, '');
+                if (!isNaN(+value)) {
+                  setFieldValue('amount', Number(value));
+                }
+              }}
+              value={values.amount > 0 ? formatNumberWithCommas(values.amount) : ''}
+            />
+            <CloseCircle
+              color={COLOR_ENUM.WHITE}
+              className='absolute left-3 top-3 size-7'
+              onClick={() => setValues({ amount: 0 })}
+            />
+          </Container>
+          <Container center className='mt-8 gap-4'>
+            {offerList.map((item) => (
+              <OfferedPrice
+                isActive={values.amount === item.value}
+                setVal={setValue}
+                value={item.value}
+              >
+                {item.title}
+              </OfferedPrice>
+            ))}
+          </Container>
+          <Button
+            type={BUTTON_TYPE.SUBMIT}
+            disabled={!isValid}
+            color={COLOR_ENUM.PRIMARY}
+            size={SIZE_ENUM.XXL}
+            className='mt-8 w-full'
+          >
+            {app.payDialog.button}
+          </Button>
         </form>
-
-        <Container center className='mt-8 gap-4'>
-          {offerList.map((item) => (
-            <OfferedPrice
-              isActive={values.amount === item.value}
-              setVal={setValue}
-              value={item.value}
-            >
-              {item.title}
-            </OfferedPrice>
-          ))}
-        </Container>
-        <Button
-          onClick={() => {
-            setFieldValue('amount', 10);
-          }}
-          disabled={!isValid}
-          color={COLOR_ENUM.PRIMARY}
-          size={SIZE_ENUM.XXL}
-          className='mt-8'
-        >
-          {app.payDialog.button}
-        </Button>
       </ModalBody>
     </Modal>
   );
