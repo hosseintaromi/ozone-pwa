@@ -86,14 +86,14 @@ export const usePostPasswordInit = (isForget: boolean, data: string) => {
 export const useGetWallet = () => {
   return useQuery({
     queryFn: getWallets,
-    queryKey: [QUERY_KEYS.GET_WALLET],
+    queryKey: [QUERY_KEYS.GET_WALLETS],
   });
 };
 
 export const useGetInvoices = () => {
   return useMutation({
     mutationFn: (data: invoicesListParams) => getInvoices(data),
-    mutationKey: [QUERY_KEYS.GET_WALLET],
+    mutationKey: [QUERY_KEYS.GET_WALLETS],
   });
 };
 

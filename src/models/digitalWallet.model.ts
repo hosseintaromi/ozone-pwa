@@ -2,7 +2,7 @@ export interface Wallets {
   id: number;
   balance: number;
   account_id: number;
-  status: string;
+  status: 'ACTIVE' | 'INACTIVE';
   name: string;
   type: string;
   available: boolean;

@@ -28,7 +28,7 @@ export default function Wallet() {
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
-  } = useGetWalletTransactions(22);
+  } = useGetWalletTransactions(18);
   const flatTransactions = transaction?.pages.flatMap((data) => data.data);
 
   return (

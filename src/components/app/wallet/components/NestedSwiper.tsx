@@ -1,5 +1,5 @@
 import { Container } from 'ozone-uikit';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { EffectCreative, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -9,15 +9,26 @@ import '../styles.css';
 
 import NormalCard from './NormalCard';
 import { useGetWallet } from '@/services/hooks';
+import { SkeletonLoader } from '@/components/share/skeleton/SkeletonLoader';
 
-export default function App() {
-  const { data: wallets } = useGetWallet();
+export default function NestedSwiper() {
+  const { data: wallets, isLoading } = useGetWallet();
+  const [active, setActive] = useState(0);
+  const handleSlideChange = (swiper) => {
+    setActive(swiper.activeIndex);
+  };
+  useEffect(() => {
+    console.log(active);
+  }, [active]);
   return (
     <Container className='h-48'>
       <Swiper
+        initialSlide={0}
+        onActiveIndexChange={handleSlideChange}
         className='mySwiper swiper-h '
         spaceBetween={0}
         loop
+        dir='rtl'
         slidesPerView={1.1}
         centeredSlides
         pagination={{
@@ -43,27 +54,13 @@ export default function App() {
             <NormalCard data={w} />
           </SwiperSlide>
         ))}
-
-        {/* <SwiperSlide>
-          <Swiper
-            className='mySwiper2 swiper-v'
-            direction='vertical'
-            spaceBetween={50}
-            pagination={{
-              clickable: true,
-            }}
-            loop
-            modules={[Pagination]}
-          >
-            <SwiperSlide>Vertical Slide 1</SwiperSlide>
-            <SwiperSlide>Vertical Slide 2</SwiperSlide>
-            <SwiperSlide>Vertical Slide 3</SwiperSlide>
-            <SwiperSlide>Vertical Slide 4</SwiperSlide>
-            <SwiperSlide>Vertical Slide 5</SwiperSlide>
-          </Swiper>
-        </SwiperSlide>
-        <SwiperSlide>Horizontal Slide 3</SwiperSlide>
-        <SwiperSlide>Horizontal Slide 4</SwiperSlide> */}
+        {isLoading ||
+          (!wallets &&
+            [1, 2, 3].map((i) => (
+              <SwiperSlide key={i} className='rounded-2xl'>
+                <SkeletonLoader width='w-[100%]' height='h-full' />
+              </SwiperSlide>
+            )))}
       </Swiper>
       <div className='swiper-custom-pagination' />
     </Container>
