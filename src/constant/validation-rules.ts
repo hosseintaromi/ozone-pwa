@@ -9,7 +9,7 @@ const require = Yup.string().required(error.required);
 const mobile = Yup.string().matches(/^09[0-9]{9}$/, error.wrongPhoneNumber);
 const digit = Yup.string().matches(/^([۰-۹]|[0-9])+$/, error.digits);
 const amountCheck = Yup.number()
-  .min(50000, error.amountMin)
+  .min(500000, error.amountMin)
   .max(99900000000, error.amountMax)
   .required(error.required);
 

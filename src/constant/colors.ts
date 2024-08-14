@@ -31,7 +31,7 @@ const colors = {
   'neutral-200': '#C0C1C2',
   'neutral-100': '#D8DADB',
   'neutral-50': '#EBECED',
-  'neutral-0': '#FFFFFF',
+  'neutral-0': '#ffffff',
 
   success: '#2CB21D',
   'success-800': '#0A5907',

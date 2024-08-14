@@ -39,6 +39,7 @@ const LatestPurchases = ({ invoices }: { invoices: invoicesListBody[] | undefine
               <Container center className='justify-between'>
                 <Container className=' w-8'>
                   <XImage
+                    className='rounded-full'
                     src={item.business.logo_base_url + item.business.logo_path}
                     alt='Picture of the author'
                     width={1000}

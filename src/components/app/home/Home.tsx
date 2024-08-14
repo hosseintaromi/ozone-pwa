@@ -85,10 +85,6 @@ const Home = () => {
 
   const { data: invoices, mutate: getInvoices } = useGetInvoices();
   useEffect(() => {
-    if (!activeWallet?.id) return;
-    getInvoices({
-      page: '1',
-    });
     mutate({
       account_wallet_id: activeWallet?.id.toString(),
       from_date:
@@ -100,6 +96,12 @@ const Home = () => {
       to_date: formattedToday,
     });
   }, [activeTab, activeWallet?.id]);
+  useEffect(() => {
+    if (!activeWallet?.id) return;
+    getInvoices({
+      page: '1',
+    });
+  }, [activeWallet?.id]);
 
   useEffect(() => {
     wallets && setActiveWallet(wallets[0]);
@@ -120,7 +122,7 @@ const Home = () => {
         <span className='w-6' />
       </Navbar>
 
-      <Container className='m-5 rounded-xl bg-neutral-800/90 p-5'>
+      <Container className='m-5 mt-0 rounded-xl bg-neutral-800/90 p-5'>
         <AnimatedTabs tabData={tabData} activeTab={activeTab} setActiveTab={setActiveTab} />
         <Container
           className='mx-auto mt-6 flex w-[262px] justify-between rounded-2xl bg-neutral-900 px-4 py-3'

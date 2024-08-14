@@ -3,35 +3,17 @@ import { SkeletonLoader } from '@/components/share/skeleton/SkeletonLoader';
 import { Text } from '@/components/share/typography';
 import XImage from '@/components/share/x-image';
 import { ROUTES } from '@/constant/routes';
-import { formatPhoneNumber } from '@/lib/helper';
+import useUserManagement from '@/hooks/useUserManagement';
 import locale from '@/locale';
-import { userMe } from '@/models/userManagement.model';
 import { Verify } from 'iconsax-react';
 import Link from 'next/link';
 import { Container, SIZE_ENUM, COLOR_ENUM, Button, VARIANT_ENUM } from 'ozone-uikit';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 const ProfileInfo = () => {
   const { app } = locale;
-  const [cookieValue, setCookieValue] = useState<userMe | undefined>(undefined);
+  const { cookieValue } = useUserManagement();
 
-  useEffect(() => {
-    try {
-      const cookies = document.cookie
-        .split('; ')
-        .find((row) => row.startsWith('user='))
-        ?.split('=')[1];
-
-      if (cookies) {
-        const parsedCookie = JSON.parse(decodeURIComponent(cookies));
-        parsedCookie.mobile = formatPhoneNumber(parsedCookie.mobile);
-
-        setCookieValue(parsedCookie);
-      }
-    } catch (error) {
-      console.error('Error parsing cookie:', error);
-    }
-  }, []);
   return (
     <Container className='mt-12 flex gap-5 border-b-[1px] border-b-[#42474B] pb-8'>
       {cookieValue ? (

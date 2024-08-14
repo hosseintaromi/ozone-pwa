@@ -38,6 +38,7 @@ export type WalletTransactionListReturnResult<Data> = {
   transactions: {
     amount: number;
     deleted_at: string;
+    created_at: string;
     destination_id: number;
     id: number;
     ref_number: string;
@@ -59,3 +60,12 @@ export type WalletTransactionListReturnResult<Data> = {
     };
   };
 };
+
+export type ChargeWalletResponseType = {
+  bank_amount: number;
+  payment_link: string;
+  redirect_url: string;
+};
+
+export type walletStatusBody = { status: 'INACTIVE' | 'ACTIVE' };
+export type chargeWalletBody = { amount: number };

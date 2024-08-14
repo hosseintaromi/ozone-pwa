@@ -87,3 +87,10 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
 .ltr {
   direction: ltr;
 }
+.rtl {
+  direction: rtl !important;
+}
+
+.Toastify__toast-theme--light {
+  box-shadow: none !important;
+}

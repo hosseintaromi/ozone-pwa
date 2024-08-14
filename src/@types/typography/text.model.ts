@@ -1,6 +1,6 @@
-import { HTMLAttributes, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
-import Base, { COLOR_ENUM, SIZE_ENUM } from '../types';
+import { COLOR_ENUM, SIZE_ENUM } from '../types';
 
 export enum TEXT_TYPE {
   SPAN = 'span',

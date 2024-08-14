@@ -25,16 +25,11 @@ export type invoiceDetail = {
   transactions: transactionsType[];
   account_wallet: accountWalletType[];
   logo: string;
-  vouchers: [
-    {
-      name: string;
-      amount: number;
-    },
-    {
-      name: string;
-      amount: number;
-    },
-  ];
+  vouchers: {
+    name: string;
+    amount: number;
+  }[];
+
   paid_amount: number;
   invoice_number: string;
   created_at: string;
@@ -71,6 +66,13 @@ type accountWalletType = {
   name: string;
   type: string;
   inquiry_available: boolean;
+  wallet: {
+    name: string;
+    legal_name: string;
+    type: string;
+    logo_base_url: string;
+    logo_path: string;
+  };
 };
 
 export type DonutChartParams = {

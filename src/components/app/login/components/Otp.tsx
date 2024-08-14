@@ -1,7 +1,5 @@
 import { AxiosError } from 'axios';
 import { Clock } from 'iconsax-react';
-import Cookies from 'js-cookie';
-import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import OTPInput from 'react-otp-input';
 import { useTimer } from 'react-timer-hook';
@@ -19,43 +17,36 @@ import XImage from '@/components/share/x-image';
 
 import { BUTTON_TYPE, COLOR_ENUM, INPUT_TYPES, SIZE_ENUM, VARIANT_ENUM } from '@/@types';
 import ICON_SIZE, { ICON_COLOR } from '@/constant/icon-size-color';
-import { ROUTES } from '@/constant/routes';
 import locale from '@/locale';
-import { useGetUser, useLoginInit, useLoginOtp, usePostPasswordInit } from '@/services/hooks';
+import { useLoginInit, useLoginOtp, usePostPasswordInit } from '@/services/hooks';
 
 import { LOGIN_STEPS, SetStepType } from '../Login.module';
 import { LOGIN_ROLES } from '@/models/auth.model';
-import useUserStore from '@/store/user-store';
 import useLoginStore from '@/store/login-store';
+import useUserManagement from '@/hooks/useUserManagement';
 
 const Otp = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: string }) => {
   const { login } = locale;
   const [otp, setOtp] = useState('');
   const [active, setActive] = useState(false);
   const otpInputLength = 5;
-  const router = useRouter();
   const { mutate } = useLoginOtp();
   const { minutes, seconds } = useTimer({
     expiryTimestamp: addToTime(new Date(), 2, { unit: 'MINUTES' }),
     onExpire: () => !active && setActive(true),
   });
-  const { token, setToken } = useUserStore();
-  const { isSuccess, data } = useGetUser(token);
   const { isForget } = useLoginStore();
   const { isSuccess: sendOtp, data: isForgetData } = usePostPasswordInit(
     isForget,
     phoneNumber,
   );
 
+  const { setUserToken } = useUserManagement();
+
   useEffect(() => {
     if (!sendOtp) return;
     console.log('first');
   }, [sendOtp]);
-
-  useEffect(() => {
-    if (!isSuccess) return;
-    Cookies.set('user', JSON.stringify(data));
-  }, [isSuccess]);
 
   const submit = () => {
     mutate(
@@ -66,14 +57,7 @@ const Otp = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: stri
       },
       {
         onSuccess: ({ data }) => {
-          setToken(data.access_token);
-          Cookies.set('token', data.token_type + ' ' + data.access_token, {
-            expires: data.expires_in,
-            path: '/',
-          });
-          Cookies.set('expires_in', data.expires_in);
-          Cookies.set('refresh_token', data.refresh_token);
-          router.push(ROUTES.HOME);
+          setUserToken(data);
         },
       },
     );
