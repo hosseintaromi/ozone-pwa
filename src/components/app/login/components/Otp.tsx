@@ -1,9 +1,7 @@
-import { AxiosError } from 'axios';
 import { Clock } from 'iconsax-react';
 import React, { useEffect, useState } from 'react';
 import OTPInput from 'react-otp-input';
 import { useTimer } from 'react-timer-hook';
-import { toast } from 'react-toastify';
 
 import { addToTime } from '@/lib/date';
 import { addZeroIfUnder10 } from '@/lib/helper';
@@ -11,7 +9,6 @@ import { addZeroIfUnder10 } from '@/lib/helper';
 import Button from '@/components/share/button';
 import Container from '@/components/share/container';
 import { Input } from '@/components/share/input';
-import { ErrorMsg } from '@/components/share/toast/toast';
 import { Text } from '@/components/share/typography';
 import XImage from '@/components/share/x-image';
 
@@ -31,10 +28,12 @@ const Otp = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: stri
   const [active, setActive] = useState(false);
   const otpInputLength = 5;
   const { mutate } = useLoginOtp();
-  const { minutes, seconds } = useTimer({
+
+  const { minutes, seconds, restart } = useTimer({
     expiryTimestamp: addToTime(new Date(), 2, { unit: 'MINUTES' }),
     onExpire: () => !active && setActive(true),
   });
+
   const { isForget } = useLoginStore();
   const { isSuccess: sendOtp, data: isForgetData } = usePostPasswordInit(
     isForget,
@@ -63,15 +62,19 @@ const Otp = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: stri
     );
   };
   const { mutate: reSend } = useLoginInit();
+
   const clickResend = () => {
     reSend(
       {
         cellphone: phoneNumber,
         clients: [LOGIN_ROLES.CUSTOMER],
+        send_otp: true,
       },
       {
-        onError(e) {
-          if (e instanceof AxiosError) toast(<ErrorMsg text={e.response?.data?.message} />);
+        onSuccess: () => {
+          const time = addToTime(new Date(), 2, { unit: 'MINUTES' });
+          restart(time);
+          setActive(false);
         },
       },
     );

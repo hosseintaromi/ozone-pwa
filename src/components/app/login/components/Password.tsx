@@ -19,9 +19,12 @@ import validation from '@/constant/validation-rules';
 import locale from '@/locale';
 
 import { LOGIN_STEPS, SetStepType } from '../Login.module';
-import { useLoginPassword } from '@/services/hooks';
+import { useLoginInit, useLoginPassword } from '@/services/hooks';
 import useLoginStore from '@/store/login-store';
 import useUserManagement from '@/hooks/useUserManagement';
+import { LOGIN_ROLES } from '@/models/auth.model';
+import { useRouter } from 'next/navigation';
+import { ROUTES } from '@/constant/routes';
 
 const Password = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: string }) => {
   const { login } = locale;
@@ -51,6 +54,21 @@ const Password = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber:
       );
     },
   });
+  const { mutate: reSend } = useLoginInit();
+
+  const clickResend = () => {
+    reSend(
+      {
+        cellphone: phoneNumber,
+        clients: [LOGIN_ROLES.CUSTOMER],
+      },
+      {
+        onSuccess: () => {
+          setStep(LOGIN_STEPS.OTP);
+        },
+      },
+    );
+  };
   return (
     <form onSubmit={handleSubmit}>
       <Container className='flex min-h-screen flex-col justify-between  p-4'>
@@ -58,7 +76,6 @@ const Password = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber:
           <Container center className='flex-col'>
             <Container className='mt-14 w-44'>
               <XImage
-                placeholder
                 src='/images/logo/LogoWithName.svg'
                 alt='Picture of the author'
                 width={1000}
@@ -93,8 +110,8 @@ const Password = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber:
           <Container className='mt-3 flex justify-end'>
             <Button
               onClick={() => {
+                clickResend();
                 setIsForget(true);
-                setStep(LOGIN_STEPS.OTP);
               }}
               variant={VARIANT_ENUM.TEXT}
             >
@@ -116,7 +133,7 @@ const Password = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber:
             disabled={isPending}
             variant={VARIANT_ENUM.TEXT}
             className='m-3'
-            onClick={() => console.log('first')}
+            onClick={clickResend}
           >
             {login.loginWithOtp}
           </Button>

@@ -49,10 +49,11 @@ const PhoneNumber = ({
         {
           cellphone: phoneNumber,
           clients: [LOGIN_ROLES.CUSTOMER],
+          send_otp: false,
         },
         {
           onSuccess({ data }) {
-            setStep(!data.has_password ? LOGIN_STEPS.PASSWORD : LOGIN_STEPS.OTP);
+            setStep(data.has_password ? LOGIN_STEPS.PASSWORD : LOGIN_STEPS.OTP);
             setPhoneNumber(phoneNumber);
           },
         },
