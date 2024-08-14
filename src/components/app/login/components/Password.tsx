@@ -19,26 +19,15 @@ import validation from '@/constant/validation-rules';
 import locale from '@/locale';
 
 import { LOGIN_STEPS, SetStepType } from '../Login.module';
-import { useGetUser, useLoginPassword } from '@/services/hooks';
-import Cookies from 'js-cookie';
-import useUserStore from '@/store/user-store';
-import { useRouter } from 'next/navigation';
-import { ROUTES } from '@/constant/routes';
+import { useLoginPassword } from '@/services/hooks';
 import useLoginStore from '@/store/login-store';
+import useUserManagement from '@/hooks/useUserManagement';
 
 const Password = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: string }) => {
   const { login } = locale;
   const { mutate, isPending } = useLoginPassword();
   const { setIsForget } = useLoginStore();
-  const { token, setToken } = useUserStore();
-  const { isSuccess, data } = useGetUser(token);
-
-  useEffect(() => {
-    if (!isSuccess) return;
-    Cookies.set('user', JSON.stringify(data));
-  }, [isSuccess]);
-
-  const router = useRouter();
+  const { setUserToken } = useUserManagement();
 
   const { handleSubmit, values, errors, handleChange } = useFormik({
     initialValues: {
@@ -56,14 +45,7 @@ const Password = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber:
         },
         {
           onSuccess: ({ data }) => {
-            setToken(data.access_token);
-            Cookies.set('token', data.token_type + ' ' + data.access_token, {
-              expires: data.expires_in,
-              path: '/',
-            });
-            Cookies.set('expires_in', data.expires_in);
-            Cookies.set('refresh_token', data.refresh_token);
-            router.push(ROUTES.HOME);
+            setUserToken(data);
           },
         },
       );

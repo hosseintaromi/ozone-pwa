@@ -15,7 +15,6 @@ import { usePurchaseDetail } from '@/services/hooks';
 import { formatNumberWithCommas } from '@/lib/helper';
 import {
   SkeletonLoaderAvatar,
-  SkeletonLoaderText,
   SkeletonLoader,
 } from '@/components/share/skeleton/SkeletonLoader';
 import { convertRfcToJalaliWithClock } from '@/lib/date';
@@ -31,7 +30,7 @@ const PurchaseDetail = ({ params }: { params: string }) => {
   return (
     <>
       <PurchaseDialog setShow={setShow} show={show} data={data} />
-      <Container className='relative my-7 flex justify-center'>
+      <Container className='relative my-5 flex justify-center'>
         <ArrowRight
           size='28'
           color='white'
@@ -55,6 +54,7 @@ const PurchaseDetail = ({ params }: { params: string }) => {
                 alt='Picture of the author'
                 width={1000}
                 height={1000}
+                className='rounded-full'
               />
             )}
           </Container>
@@ -88,20 +88,10 @@ const PurchaseDetail = ({ params }: { params: string }) => {
         </Container>
         <Container
           center
-          className='gray-down-dash-border relative w-full max-w-[420px] flex-col gap-3 from-[#32373B] from-30% to-[#7C7F82FF] to-0% pb-3 md:pb-6 dark:bg-gradient-to-r'
+          className='gray-down-dash-border relative w-full max-w-[420px] flex-col gap-3 bg-gradient-to-r from-[#32373B] from-30% to-[#7C7F82FF] to-0%  pb-3'
         >
-          <span
-            className={
-              'absolute -bottom-2.5 -right-[20px] h-5 w-[10px] rounded-bl-full rounded-tl-full' +
-              ' bg-neutral-50 md:hidden dark:bg-neutral-900'
-            }
-          />
-          <span
-            className={
-              'absolute -bottom-2.5 -left-[20px] h-5 w-[10px] rounded-br-full rounded-tr-full' +
-              ' bg-neutral-50 md:hidden dark:bg-neutral-900'
-            }
-          />
+          <span className='absolute -bottom-2.5 -right-[20px] h-5 w-[10px] rounded-bl-full rounded-tl-full bg-neutral-900' />
+          <span className='absolute -bottom-2.5 -left-[20px] h-5 w-[10px] rounded-br-full rounded-tr-full bg-neutral-900' />
         </Container>
         <PurchaseBill data={data} isLoading={isLoading} />
 

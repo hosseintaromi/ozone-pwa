@@ -11,7 +11,6 @@ import { SkeletonLoader } from '@/components/share/skeleton/SkeletonLoader';
 
 const SeeMorePurchase = ({
   data,
-  isLoading,
 }: {
   data: invoiceDetail | undefined;
   isLoading: boolean;
@@ -53,17 +52,15 @@ const SeeMorePurchase = ({
     <>
       <Container
         center
-        className={cn(
-          'dark:bg-neutral-850 mb-4 w-full flex-col rounded-xl border-[1px] border-neutral-50 md:pb-2 md:pt-6 dark:border-none',
-        )}
+        className={cn('bg-neutral-850 mb-4 w-full flex-col rounded-xl   border-none')}
       >
         {data ? (
-          <Container className='w-full md:max-h-[330px] md:overflow-y-auto'>
+          <Container className='w-full '>
             <Container
               center
               className={cn(
                 'my-2 w-full cursor-pointer justify-between px-4',
-                data.account_wallet.length > 0 && 'bg-neutral-75 py-3 dark:bg-neutral-700/40',
+                data.account_wallet.length > 0 && 'bg-neutral-700/40 py-3',
               )}
               onClick={() => setWithdrawOpen((prev) => !prev)}
             >
@@ -79,7 +76,7 @@ const SeeMorePurchase = ({
                   <ArrowDown2
                     size={ICON_SIZE.md}
                     className={cn(
-                      'mr-1 rotate-0 text-neutral-700 transition duration-300 dark:text-white',
+                      'mr-1 rotate-0 text-white transition duration-300',
                       isWithdrawOpen && 'rotate-180 ',
                     )}
                   />
@@ -96,12 +93,8 @@ const SeeMorePurchase = ({
                 <Container center className={cn(`flex-col gap-1 overflow-hidden px-4`)}>
                   {data?.account_wallet.map((item, index) => (
                     <Container center className='my-2 w-full justify-between' key={index}>
-                      <Text
-                        bold
-                        size={SIZE_ENUM.SM}
-                        className='text-neutral-200 dark:text-neutral-500'
-                      >
-                        {item.name}
+                      <Text bold size={SIZE_ENUM.SM} className='text-neutral-500'>
+                        {item.wallet.name}
                       </Text>
                       <Container center className='gap-1'>
                         <Text size={SIZE_ENUM.SM} bold className='text-neutral-500'>
@@ -113,7 +106,7 @@ const SeeMorePurchase = ({
                       </Container>
                     </Container>
                   ))}
-                  <hr className='my-1 w-full border-b-[1px] border-neutral-50 dark:border-neutral-700' />
+                  <hr className='my-1 w-full border-b-[1px] border-neutral-700' />
                 </Container>
               </Container>
             )}
@@ -121,7 +114,7 @@ const SeeMorePurchase = ({
               center
               className={cn(
                 'my-2 w-full cursor-pointer justify-between px-4',
-                data.vouchers.length > 0 && 'bg-neutral-75 py-3 dark:bg-neutral-700/40',
+                data.vouchers.length > 0 && 'bg-neutral-700/40 py-3',
               )}
               onClick={() => setIsCouponOpen((prev) => !prev)}
             >
@@ -138,7 +131,7 @@ const SeeMorePurchase = ({
                   <ArrowDown2
                     size={ICON_SIZE.md}
                     className={cn(
-                      'mr-1 rotate-0 text-neutral-700 transition duration-300 dark:text-white',
+                      'mr-1 rotate-0  text-white transition duration-300',
                       isCouponOpen && 'rotate-180 ',
                     )}
                   />
@@ -155,11 +148,7 @@ const SeeMorePurchase = ({
                 <Container center className={cn(`flex-col gap-1 overflow-hidden px-4`)}>
                   {data?.vouchers.map((item, index) => (
                     <Container center className='my-2 w-full justify-between' key={index}>
-                      <Text
-                        bold
-                        size={SIZE_ENUM.SM}
-                        className='text-neutral-200 dark:text-neutral-500'
-                      >
+                      <Text bold size={SIZE_ENUM.SM} className='text-neutral-500'>
                         {item.name}
                       </Text>
                       <Container center className='gap-1'>
@@ -172,7 +161,7 @@ const SeeMorePurchase = ({
                       </Container>
                     </Container>
                   ))}
-                  <hr className='my-1 w-full border-b-[1px] border-neutral-50 dark:border-neutral-700' />
+                  <hr className='my-1 w-full border-neutral-700' />
                 </Container>
               </Container>
             )}
@@ -181,10 +170,7 @@ const SeeMorePurchase = ({
                 <Text
                   bold
                   size={SIZE_ENUM.SM}
-                  className={cn(
-                    'text-neutral-500 dark:text-neutral-200',
-                    index === 3 && 'text-neutral-800 dark:text-neutral-0',
-                  )}
+                  className={cn('text-neutral-200', index === 3 && 'text-neutral-0')}
                 >
                   {item.name}
                 </Text>
@@ -192,20 +178,14 @@ const SeeMorePurchase = ({
                   <Text
                     bold
                     size={index < 3 ? SIZE_ENUM.MD : SIZE_ENUM.XMD}
-                    className={cn(
-                      'text-neutral-800 dark:text-neutral-200',
-                      index === 3 && 'text-primary',
-                    )}
+                    className={cn('text-neutral-200', index === 3 && 'text-primary')}
                   >
                     {formatNumberWithCommas(item.amount)}
                   </Text>
                   <Text
                     bold
                     size={SIZE_ENUM.SM}
-                    className={cn(
-                      'text-neutral-800 dark:text-neutral-200',
-                      index === 3 && 'text-primary',
-                    )}
+                    className={cn('text-neutral-200', index === 3 && 'text-primary')}
                   >
                     {common.rial}
                   </Text>
@@ -214,7 +194,7 @@ const SeeMorePurchase = ({
             ))}
           </Container>
         ) : (
-          <Container className='w-full md:max-h-[330px] md:overflow-y-auto'>
+          <Container className='w-full'>
             <SkeletonLoader width='w-full' height='h-14' className='mt-2' />
             <SkeletonLoader width='w-full' height='h-14' className='mt-6' />
             <SkeletonLoader width='w-full' height='h-6' className='mt-3' />

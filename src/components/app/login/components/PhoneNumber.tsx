@@ -52,12 +52,9 @@ const PhoneNumber = ({
         },
         {
           onSuccess({ data }) {
-            setStep(data.has_password ? LOGIN_STEPS.PASSWORD : LOGIN_STEPS.OTP);
+            setStep(!data.has_password ? LOGIN_STEPS.PASSWORD : LOGIN_STEPS.OTP);
             setPhoneNumber(phoneNumber);
           },
-          // onError(e) {
-          //   if (e instanceof AxiosError) toast(<ErrorMsg text={e.response?.data?.message} />);
-          // },
         },
       );
     },

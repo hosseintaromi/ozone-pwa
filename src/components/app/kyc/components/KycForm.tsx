@@ -5,14 +5,13 @@ import { convertRfcToJalali } from '@/lib/date';
 import locale from '@/locale';
 import { Calendar } from 'iconsax-react';
 import { Container, SIZE_ENUM, COLOR_ENUM, Input, Button, VARIANT_ENUM } from 'ozone-uikit';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useKyc } from '@/services/hooks';
 import CalenderDialog from './CalenderDialog';
 import InlineInfo from './InlineInfo';
-import { userMe } from '@/models/userManagement.model';
-import { formatPhoneNumber } from '@/lib/helper';
 import Link from 'next/link';
 import { ROUTES } from '@/constant/routes';
+import useUserManagement from '@/hooks/useUserManagement';
 
 const KycForm = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<number>> }) => {
   const {
@@ -22,6 +21,7 @@ const KycForm = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<num
   const [show, setShow] = useState(false);
   const [id, setId] = useState('');
   const [date, setDate] = useState('');
+  const { cookieValue } = useUserManagement();
 
   const { mutate } = useKyc();
 
@@ -38,25 +38,6 @@ const KycForm = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<num
       },
     );
   };
-
-  const [cookieValue, setCookieValue] = useState<userMe | undefined>(undefined);
-
-  useEffect(() => {
-    try {
-      const cookies = document.cookie
-        .split('; ')
-        .find((row) => row.startsWith('user='))
-        ?.split('=')[1];
-
-      if (cookies) {
-        const parsedCookie = JSON.parse(decodeURIComponent(cookies));
-        parsedCookie.mobile = formatPhoneNumber(parsedCookie.mobile);
-        setCookieValue(parsedCookie);
-      }
-    } catch (error) {
-      console.error('Error parsing cookie:', error);
-    }
-  }, []);
 
   return (
     <Container className='flex h-dvh flex-col justify-between px-5'>

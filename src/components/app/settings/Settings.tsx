@@ -7,18 +7,19 @@ import locale from '@/locale';
 import { ArrowLeft2, Call, InfoCircle, Lock1, LogoutCurve, Profile } from 'iconsax-react';
 import React, { useEffect, useState } from 'react';
 import ProfileInfo from './ProfileInfo';
-import { logout } from '@/lib/helper';
 import { usePostLogout } from '@/services/hooks';
 import ProfileDialog from './ProfileDialog';
+import useUserManagement from '@/hooks/useUserManagement';
 
 const Settings = () => {
   const { app } = locale;
   const { mutate: logoutReq, isSuccess } = usePostLogout({});
+  const { removeUserData } = useUserManagement();
 
   const [show, setShow] = useState(false);
   useEffect(() => {
     if (!isSuccess) return;
-    logout();
+    removeUserData();
   }, [isSuccess]);
 
   const settingList = [

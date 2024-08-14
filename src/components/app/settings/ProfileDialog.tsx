@@ -1,15 +1,14 @@
 import { Button, COLOR_ENUM, Input, SIZE_ENUM, Text } from 'ozone-uikit';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import locale from '@/locale';
 
 import { PayInDialogType } from '../wallet/type';
 import Modal, { ModalBody, ModalHead } from '../../share/modal';
-import { userMe } from '@/models/userManagement.model';
-import { formatPhoneNumber } from '@/lib/helper';
 import { convertRfcToJalali } from '@/lib/date';
 import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/constant/routes';
+import useUserManagement from '@/hooks/useUserManagement';
 
 const ProfileDialog = (props: PayInDialogType) => {
   const { show, setShow } = props;
@@ -18,25 +17,7 @@ const ProfileDialog = (props: PayInDialogType) => {
   } = locale;
 
   const router = useRouter();
-  const [cookieValue, setCookieValue] = useState<userMe | undefined>(undefined);
-  //FIXME: create hook from this
-  useEffect(() => {
-    try {
-      const cookies = document.cookie
-        .split('; ')
-        .find((row) => row.startsWith('user='))
-        ?.split('=')[1];
-
-      if (cookies) {
-        const parsedCookie = JSON.parse(decodeURIComponent(cookies));
-        parsedCookie.mobile = formatPhoneNumber(parsedCookie.mobile);
-
-        setCookieValue(parsedCookie);
-      }
-    } catch (error) {
-      console.error('Error parsing cookie:', error);
-    }
-  }, []);
+  const { cookieValue } = useUserManagement();
 
   return (
     <Modal show={show} onClose={() => setShow(false)} dialogPanelClassName='bg-neutral-900'>
