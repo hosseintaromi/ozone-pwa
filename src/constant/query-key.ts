@@ -9,4 +9,6 @@ export const QUERY_KEYS = {
   GET_INVOICES: 'get_invoices',
   GET_WALLET_TRANSACTIONS: 'get_wallet_transactions',
   GET_INIT_PASSWORD: 'get_init_password',
+  POST_CHARGE_WALLET: 'post_charge_wallet',
+  PATH_WALLET_STATUS: 'patch_wallet_status',
 };

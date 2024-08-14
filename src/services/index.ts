@@ -1,4 +1,4 @@
-import { httpGetRequest, httpPostRequest } from '@/lib/baseHttpService';
+import { httpGetRequest, httpPatchRequest, httpPostRequest } from '@/lib/baseHttpService';
 import { APIUrlGenerator } from '@/lib/helper';
 
 import { API_ROUTES } from '@/constant/routes';
@@ -25,7 +25,13 @@ import {
   kycVerifyBodyType,
   userMe,
 } from '@/models/userManagement.model';
-import { Wallets, WalletTransactionListReturnResult } from '@/models/digitalWallet.model';
+import {
+  chargeWalletBody,
+  ChargeWalletResponseType,
+  Wallets,
+  walletStatusBody,
+  WalletTransactionListReturnResult,
+} from '@/models/digitalWallet.model';
 
 export const postLoginInit = async (data: loginInitTypeIn) => {
   const res: { data: { data: loginInitTypeOut } } = await httpPostRequest(
@@ -147,15 +153,15 @@ export const postLogout = async () => {
   );
   return res.data;
 };
-export const postSetPassword = async (data: setPasswordBody) => {
-  const res: { data: any } = await httpPostRequest(
+export const postSetPassword = async (body: setPasswordBody) => {
+  const data: { data: any } = await httpPostRequest(
     APIUrlGenerator({
       route: API_ROUTES.POST_SET_PASSWORD,
       service: BACKEND_SERVICE.AUTH,
     }),
-    data,
+    body,
   );
-  return res;
+  return data;
 };
 
 export const getWalletTransactions = async (id: number, page: number) => {
@@ -175,4 +181,28 @@ export const getWalletTransactions = async (id: number, page: number) => {
         ? null
         : data.meta.pagination.current_page + 1,
   };
+};
+
+export const postChargeWallet = async (body: chargeWalletBody, id: number) => {
+  const {
+    data: { data },
+  }: { data: { data: ChargeWalletResponseType } } = await httpPostRequest(
+    APIUrlGenerator({
+      route: API_ROUTES.POST_CHARGE_WALLET(id),
+      service: BACKEND_SERVICE.DIGITAL_WALLET,
+    }),
+    body,
+  );
+  return data;
+};
+
+export const patchWalletStatus = async (body: walletStatusBody, id: number) => {
+  const data = await httpPatchRequest(
+    APIUrlGenerator({
+      route: API_ROUTES.PATCH_WALLET_STATUS(id),
+      service: BACKEND_SERVICE.DIGITAL_WALLET,
+    }),
+    body,
+  );
+  return data;
 };

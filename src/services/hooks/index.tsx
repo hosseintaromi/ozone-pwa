@@ -9,6 +9,8 @@ import {
   getUserMe,
   getWallets,
   getWalletTransactions,
+  patchWalletStatus,
+  postChargeWallet,
   postInitPassword,
   postKyc,
   postKycVerify,
@@ -26,6 +28,7 @@ import {
 } from '@/models/auth.model';
 import { kycBodyType } from '@/models/userManagement.model';
 import { DonutChartParams, invoicesListParams } from '@/models/transaction.model';
+import { chargeWalletBody, walletStatusBody } from '@/models/digitalWallet.model';
 
 export const useLoginInit = () => {
   return useMutation({
@@ -122,5 +125,19 @@ export const useGetWalletTransactions = (id: number, enabled = true) => {
     getPreviousPageParam: (firstPage) => firstPage.previousCursor,
     gcTime: 0,
     enabled,
+  });
+};
+
+export const usePostChargeWallet = (id: number) => {
+  return useMutation({
+    mutationFn: (body: chargeWalletBody) => postChargeWallet(body, id),
+    mutationKey: [QUERY_KEYS.POST_CHARGE_WALLET],
+  });
+};
+
+export const usePatchWalletStatus = (id: number) => {
+  return useMutation({
+    mutationFn: (body: walletStatusBody) => patchWalletStatus(body, id),
+    mutationKey: [QUERY_KEYS.PATH_WALLET_STATUS],
   });
 };

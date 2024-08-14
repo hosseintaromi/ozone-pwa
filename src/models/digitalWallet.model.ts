@@ -60,3 +60,12 @@ export type WalletTransactionListReturnResult<Data> = {
     };
   };
 };
+
+export type ChargeWalletResponseType = {
+  bank_amount: number;
+  payment_link: string;
+  redirect_url: string;
+};
+
+export type walletStatusBody = { status: 'INACTIVE' | 'ACTIVE' };
+export type chargeWalletBody = { amount: number };

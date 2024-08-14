@@ -14415,6 +14415,11 @@ to-object-path@^0.3.0:
   dependencies:
     kind-of "^3.0.2"
 
+to-persian-letter-currency@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/to-persian-letter-currency/-/to-persian-letter-currency-0.0.9.tgz#60a61b52052e1471cf932fe8a808d09fb714b001"
+  integrity sha512-9lIXP0PGnpdmJUJFdF/GGoRiswAHAndQ2sLebt0FkkVSPWceWg4AVOYc7iFBDXY6uBBB4zyFknhdA+Wc7pvWpA==
+
 to-regex-range@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/to-regex-range/-/to-regex-range-2.1.1.tgz#7c80c17b9dfebe599e27367e0d4dd5590141db38"

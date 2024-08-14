@@ -68,7 +68,7 @@ const WalletTransactionCard = ({ data }: { data: WalletTransactionCardType }) =>
     });
   };
   return (
-    <Container className='flex flex-col border-b-[1px] border-neutral-500 pb-5 pt-5'>
+    <Container className='flex flex-col border-b-[1px] border-neutral-700 pb-5 pt-5'>
       <Container center className='w-full gap-3'>
         <Container
           className={cn(
