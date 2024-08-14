@@ -9,7 +9,9 @@ interface loginBaseType {
   clients: LOGIN_ROLES[];
 }
 
-export interface loginInitTypeIn extends loginBaseType {}
+export interface loginInitTypeIn extends loginBaseType {
+  send_otp?: boolean;
+}
 
 export interface loginInitTypeOut {
   is_registered: boolean;

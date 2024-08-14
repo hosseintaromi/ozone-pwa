@@ -30,6 +30,7 @@ export const ROUTES = {
   LOGIN: '/login/',
   WALLET: '/wallet/',
   KYC: '/kyc/',
-  PurchaseDetail: '/purchase-detail/',
-  AddWALLET: '/add-wallet',
+  PURCHASE_DETAIL: '/purchase-detail/',
+  Add_WALLET: '/add-wallet',
+  SET_PASSWORD: '/set-password',
 };
