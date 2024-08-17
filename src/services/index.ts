@@ -35,6 +35,7 @@ import {
   WalletType,
   walletInquiryBody,
   walletInquiry,
+  verifyWalletInquiryBody,
 } from '@/models/digitalWallet.model';
 
 export const postLoginInit = async (data: loginInitTypeIn) => {
@@ -245,6 +246,19 @@ export const postWalletInquiry = async (body: walletInquiryBody) => {
   }: { data: { data: walletInquiry } } = await httpPostRequest(
     APIUrlGenerator({
       route: API_ROUTES.POST_INQUIRY_WALLETS,
+      service: BACKEND_SERVICE.DIGITAL_WALLET,
+    }),
+    body,
+  );
+  return data;
+};
+
+export const postVerifyWalletInquiry = async (body: verifyWalletInquiryBody) => {
+  const {
+    data: { data },
+  }: { data: { data: any } } = await httpPostRequest(
+    APIUrlGenerator({
+      route: API_ROUTES.POST_VERIFY_INQUIRY_WALLETS,
       service: BACKEND_SERVICE.DIGITAL_WALLET,
     }),
     body,

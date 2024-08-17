@@ -21,6 +21,7 @@ import {
   postSetPassword,
   getWallets,
   postWalletInquiry,
+  postVerifyWalletInquiry,
 } from '..';
 import {
   loginInitTypeIn,
@@ -32,6 +33,7 @@ import { kycBodyType } from '@/models/userManagement.model';
 import { DonutChartParams, invoicesListParams } from '@/models/transaction.model';
 import {
   chargeWalletBody,
+  verifyWalletInquiryBody,
   walletInquiry,
   walletInquiryBody,
   walletStatusBody,
@@ -158,6 +160,13 @@ export const useGetWallets = () => {
 export const usePostWalletInquiry = () => {
   return useMutation({
     mutationFn: (body: walletInquiryBody) => postWalletInquiry(body),
+    mutationKey: [QUERY_KEYS.POST_CHARGE_WALLET],
+  });
+};
+
+export const usePostVerifyWalletInquiry = () => {
+  return useMutation({
+    mutationFn: (body: verifyWalletInquiryBody) => postVerifyWalletInquiry(body),
     mutationKey: [QUERY_KEYS.POST_CHARGE_WALLET],
   });
 };

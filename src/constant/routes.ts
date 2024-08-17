@@ -23,6 +23,7 @@ export const API_ROUTES = {
   PATCH_WALLET_STATUS: (id: number) => `/account-wallets/${id}/status`,
   POST_INQUIRY_WALLETS: '/account-wallets/inquiry',
   GET_WALLETS: '/wallets',
+  POST_VERIFY_INQUIRY_WALLETS: '/account-wallets/verify',
 };
 
 export const ROUTES = {
