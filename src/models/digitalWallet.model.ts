@@ -1,8 +1,8 @@
-export interface Wallets {
+export interface WalletType {
   id: number;
   balance: number;
   account_id: number;
-  status: string;
+  status: 'ACTIVE' | 'INACTIVE';
   name: string;
   type: string;
   available: boolean;

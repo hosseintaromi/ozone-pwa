@@ -47,6 +47,8 @@ const app = {
     walletName: (name: string) => `حساب ${name} `,
     discountRebon: (dis: number) => ` ${dis} ٪ تخفیف `,
     inventoryIncrease: 'افزایش موجودی',
+    walletInactive: 'حساب غیر قابل استفاده برای خرید در فروشگاه است',
+    walletActive: 'حساب قابل استفاده برای خرید در فروشگاه است',
   },
   payDialog: {
     title: 'افزایش موجودی',

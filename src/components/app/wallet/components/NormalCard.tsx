@@ -1,5 +1,5 @@
 import { Add } from 'iconsax-react';
-import { COLOR_ENUM, Container, Text } from 'ozone-uikit';
+import { Button, COLOR_ENUM, Container, Text } from 'ozone-uikit';
 import React, { useState } from 'react';
 
 import cn from '@/lib/clsxm';
@@ -14,25 +14,54 @@ import PayInDialog from './PayInDialog';
 
 import whiteShadow from '~/images/image/whiteShadowCircle.svg';
 import whiteShadow2 from '~/images/image/ellipse2.svg';
-import { Wallets } from '@/models/digitalWallet.model';
+import { WalletType } from '@/models/digitalWallet.model';
 import locale from '@/locale';
 import { rialCurrency } from '@/lib/helper';
+import { usePatchWalletStatus } from '@/services/hooks';
+import { useQueryClient } from '@tanstack/react-query';
+import { QUERY_KEYS } from '@/constant/query-key';
+import { toast } from 'react-toastify';
+import { ErrorMsg, SuccessMsg } from '@/components/share/toast/toast';
 const WHITE_COLOR = colors['neutral-0'];
-const NormalCard = ({ data }: { data: Wallets }) => {
+const NormalCard = ({ data }: { data: WalletType }) => {
+  const queryClient = useQueryClient();
   const {
     name,
     discount,
     balance,
+    status,
+    id,
     wallet: { color, logo_path, logo_base_url, is_master },
   } = data;
   const [show, setShow] = useState(false);
+  const { mutate: mutateChangeWalletStatus, isPending } = usePatchWalletStatus(id);
   const {
+    common: { active, inActive },
     app: {
-      wallets: { walletName, discountRebon, inventoryIncrease },
+      wallets: { walletName, discountRebon, inventoryIncrease, walletInactive, walletActive },
     },
   } = locale;
+
+  const changeWalletStatus = () => {
+    mutateChangeWalletStatus(
+      {
+        status: status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE',
+      },
+      {
+        onSuccess: () => {
+          queryClient.refetchQueries({ queryKey: [QUERY_KEYS.GET_WALLETS] });
+          status === 'ACTIVE'
+            ? toast(<ErrorMsg text={walletInactive} />)
+            : toast(<SuccessMsg text={walletActive} />);
+        },
+      },
+    );
+  };
   return (
-    <Container className='relative h-full' style={{ backgroundColor: color }}>
+    <Container className='relative h-full rounded-[14px]' style={{ backgroundColor: color }}>
+      {status === 'INACTIVE' && (
+        <Container className='absolute inset-0 z-[100] rounded-[14px] bg-neutral-700/50' />
+      )}
       <PayInDialog show={show} setShow={setShow} />
       <XImage
         src={color === WHITE_COLOR ? whiteShadow2 : whiteShadow}
@@ -85,19 +114,41 @@ const NormalCard = ({ data }: { data: Wallets }) => {
           </Text>
         </Container>
       </Container>
-      <Container
-        center
-        className={cn(
-          `absolute -left-[1px] bottom-8 z-10 h-[23px] 
+      {is_master && (
+        <Container
+          center
+          className={cn(
+            `absolute -left-[1px] bottom-8 z-10 h-[23px] 
           
           w-[90px] rotate-180 justify-end gap-1  pl-4`,
-        )}
-        style={{ backgroundImage: `url('/images/image/discountBg.svg')` }}
-      >
-        <Text size={SIZE_ENUM.SM} color={COLOR_ENUM.WHITE} className='rotate-180'>
-          {discountRebon(discount)}
-        </Text>
-      </Container>
+          )}
+          style={{ backgroundImage: `url('/images/image/discountBg.svg')` }}
+        >
+          <Text size={SIZE_ENUM.SM} color={COLOR_ENUM.WHITE} className='rotate-180'>
+            {discountRebon(discount)}
+          </Text>
+        </Container>
+      )}
+      {!is_master && (
+        <Container
+          center
+          className='absolute bottom-0 left-[17px] z-[110] h-[42px] w-[113px] px-[16px] pt-[4px]'
+          style={{ backgroundImage: `url('/images/image/subtract.svg')` }}
+        >
+          <Button
+            style={{ backgroundColor: color }}
+            className={cn(
+              'h-[36px] w-full text-xs text-primary',
+              status === 'INACTIVE' && '!bg-primary text-white',
+            )}
+            onClick={changeWalletStatus}
+            disabled={isPending}
+            isLoading={isPending}
+          >
+            {status === 'ACTIVE' ? inActive : active}
+          </Button>
+        </Container>
+      )}
     </Container>
   );
 };

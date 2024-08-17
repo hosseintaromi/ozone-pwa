@@ -15,9 +15,11 @@ import Spinner from '@/components/share/spinner/Spinner';
 import { Virtuoso } from 'react-virtuoso';
 import cn from '@/lib/clsxm';
 import XImage from '@/components/share/x-image';
+import useWalletStore from '@/store/wallet-store';
 
 export default function Wallet() {
   const [sheetHeight, setSheetHeight] = useState(500);
+  const { selectedWallet } = useWalletStore();
   const {
     app: { transactions, emptyTransactions },
     wallet: { title },
@@ -28,9 +30,9 @@ export default function Wallet() {
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
-  } = useGetWalletTransactions(22);
+  } = useGetWalletTransactions(selectedWallet?.id);
   const flatTransactions = transaction?.pages.flatMap((data) => data.data);
-
+  console.log({ flatTransactions });
   return (
     <div className='h-dvh bg-neutral-800'>
       <Navbar>
@@ -64,7 +66,7 @@ export default function Wallet() {
             {transactions}
           </Text>
 
-          {flatTransactions && (
+          {flatTransactions && flatTransactions.length > 0 && (
             <Virtuoso
               // style={{ height: '300px' }}
               className={cn('pb-30 mb-[60px]')}
