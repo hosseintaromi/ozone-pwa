@@ -32,7 +32,7 @@ export default function Wallet() {
     hasNextPage,
   } = useGetWalletTransactions(selectedWallet?.id);
   const flatTransactions = transaction?.pages.flatMap((data) => data.data);
-  console.log({ flatTransactions });
+
   return (
     <div className='h-dvh bg-neutral-800'>
       <Navbar>
@@ -77,7 +77,6 @@ export default function Wallet() {
               fixedItemHeight={110}
               overscan={200}
               components={{
-                Header: () => <Container className='pt-5' />,
                 Footer: () => (
                   <Container className='pb-20'>
                     {isFetchingNextPage && (
@@ -95,13 +94,17 @@ export default function Wallet() {
           {flatTransactions?.length === 0 && !isPending && (
             <Container center className='mt-24 flex-col gap-4'>
               <XImage
-                placeholder
                 src='/images/image/emptyState.svg'
                 alt='Picture of the author'
                 width={140}
                 height={70}
               />
               <Text className='text-bold text-sm text-neutral-500'>{emptyTransactions}</Text>
+            </Container>
+          )}
+          {isPending && (
+            <Container center className='mt-[25%]'>
+              <Spinner />
             </Container>
           )}
         </Container>

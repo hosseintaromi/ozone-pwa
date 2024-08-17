@@ -14,7 +14,7 @@ import PayInDialog from './PayInDialog';
 
 import whiteShadow from '~/images/image/whiteShadowCircle.svg';
 import whiteShadow2 from '~/images/image/ellipse2.svg';
-import { WalletType } from '@/models/digitalWallet.model';
+import { AccountWalletType } from '@/models/digitalWallet.model';
 import locale from '@/locale';
 import { rialCurrency } from '@/lib/helper';
 import { usePatchWalletStatus } from '@/services/hooks';
@@ -23,7 +23,7 @@ import { QUERY_KEYS } from '@/constant/query-key';
 import { toast } from 'react-toastify';
 import { ErrorMsg, SuccessMsg } from '@/components/share/toast/toast';
 const WHITE_COLOR = colors['neutral-0'];
-const NormalCard = ({ data }: { data: WalletType }) => {
+const NormalCard = ({ data }: { data: AccountWalletType }) => {
   const queryClient = useQueryClient();
   const {
     name,

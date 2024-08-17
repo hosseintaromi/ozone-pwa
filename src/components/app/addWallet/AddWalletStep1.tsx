@@ -11,6 +11,8 @@ import { Container, SIZE_ENUM } from 'ozone-uikit';
 import React, { useState } from 'react';
 import Button from '@/components/share/button';
 import { BUTTON_TYPE } from '@/@types';
+import { useGetWallets, usePostWalletInquiry } from '@/services/hooks';
+import Spinner from '@/components/share/spinner/Spinner';
 
 const AddWalletStep1 = ({
   setActive,
@@ -20,60 +22,68 @@ const AddWalletStep1 = ({
   const {
     app: { addWallet },
   } = locale;
-  const [selectedItem, setSelectedItem] = useState('test');
+  const { data: wallets, isPending } = useGetWallets();
+  const { mutate: walletInquiryMutation } = usePostWalletInquiry();
+  const [selectedItem, setSelectedItem] = useState();
   const handleChange = (value) => {
     setSelectedItem(value);
   };
-
-  const data = [
-    {
-      name: 'test',
-      image: '/images/logo/SmallLogo.svg',
-      id: 1,
-    },
-    {
-      name: 'test1',
-      image: '/images/logo/SmallLogo.svg',
-      id: 2,
-    },
-  ];
+  const handleConfirm = () => {
+    walletInquiryMutation(
+      { wallet_id: `${selectedItem}` },
+      {
+        onSuccess: () => {
+          setActive((pre) => pre + 1);
+        },
+        onError: (err) => {
+          console.log(err);
+        },
+      },
+    );
+  };
+  if (isPending)
+    return (
+      <Container center className='mt-[25%]'>
+        <Spinner />
+      </Container>
+    );
   return (
     <Container className='flex h-full flex-col justify-between'>
       <Container>
         <Text className='my-6 text-sm text-neutral-200'>{addWallet.step1SubTitle}</Text>
         <RadioGroup value={selectedItem} onChange={(value) => handleChange(value)}>
-          {data.map((item) => (
-            <RadioOption value={item.name}>
-              {({ checked }) => (
-                <Circular checked={checked} size={SIZE_ENUM.LG}>
-                  <Container center className='my-3 gap-4'>
-                    <Container className=' w-11 rounded-full bg-white p-2'>
-                      <XImage
-                        className=''
-                        src={item.image}
-                        alt='Picture of the author'
-                        width={1000}
-                        height={1000}
-                      />
+          {wallets &&
+            wallets.map((item) => (
+              <RadioOption value={item.id} key={item.id}>
+                {({ checked }) => (
+                  <Circular checked={checked} size={SIZE_ENUM.LG}>
+                    <Container center className='my-3 gap-4'>
+                      <Container className=' w-11 rounded-full bg-white p-1'>
+                        <XImage
+                          className='rounded-full'
+                          src={`${item.logo_base_url}${item.logo_path}`}
+                          alt='Picture of the author'
+                          width={1000}
+                          height={1000}
+                        />
+                      </Container>
+                      <Text className='text-white ' bold>
+                        {item.name}
+                      </Text>
                     </Container>
-                    <Text className='text-white ' bold>
-                      {item.name}
-                    </Text>
-                  </Container>
-                </Circular>
-              )}
-            </RadioOption>
-          ))}
+                  </Circular>
+                )}
+              </RadioOption>
+            ))}
         </RadioGroup>
       </Container>
 
       <Button
-        onClick={() => {
-          setActive((pre) => pre + 1);
-        }}
+        onClick={handleConfirm}
         type={BUTTON_TYPE.SUBMIT}
         size={SIZE_ENUM.XL}
         className='mt-5 w-full'
+        disabled={!selectedItem}
       >
         {addWallet.confirm}
       </Button>

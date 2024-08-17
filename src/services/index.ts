@@ -28,9 +28,12 @@ import {
 import {
   chargeWalletBody,
   ChargeWalletResponseType,
-  WalletType,
+  AccountWalletType,
   walletStatusBody,
   WalletTransactionListReturnResult,
+  WalletType,
+  walletInquiryBody,
+  walletInquiry,
 } from '@/models/digitalWallet.model';
 
 export const postLoginInit = async (data: loginInitTypeIn) => {
@@ -108,12 +111,12 @@ export const postInitPassword = async (data: any) => {
   return res.data;
 };
 
-export const getWallets = async () => {
+export const getAccountWallets = async () => {
   const {
     data: { data },
-  }: { data: { data: WalletType[] } } = await httpGetRequest(
+  }: { data: { data: AccountWalletType[] } } = await httpGetRequest(
     APIUrlGenerator({
-      route: API_ROUTES.GET_WALLETS,
+      route: API_ROUTES.GET_ACCOUNT_WALLETS,
       service: BACKEND_SERVICE.DIGITAL_WALLET,
     }),
   );
@@ -167,12 +170,13 @@ export const postSetPassword = async (body: setPasswordBody) => {
 export const getWalletTransactions = async (id: number | null, page: number) => {
   const {
     data: { data },
-  }: { data: { data: WalletTransactionListReturnResult<WalletType> } } = await httpGetRequest(
-    APIUrlGenerator({
-      route: API_ROUTES.GET_WALLET_TRANSACTIONS(id, page),
-      service: BACKEND_SERVICE.DIGITAL_WALLET,
-    }),
-  );
+  }: { data: { data: WalletTransactionListReturnResult<AccountWalletType> } } =
+    await httpGetRequest(
+      APIUrlGenerator({
+        route: API_ROUTES.GET_WALLET_TRANSACTIONS(id, page),
+        service: BACKEND_SERVICE.DIGITAL_WALLET,
+      }),
+    );
   return {
     data: data.transactions,
     previousCursor: data.meta.pagination.current_page - 1,
@@ -200,6 +204,35 @@ export const patchWalletStatus = async (body: walletStatusBody, id: number) => {
   const data = await httpPatchRequest(
     APIUrlGenerator({
       route: API_ROUTES.PATCH_WALLET_STATUS(id),
+      service: BACKEND_SERVICE.DIGITAL_WALLET,
+    }),
+    body,
+  );
+  return data;
+};
+
+export const getWallets = async () => {
+  const {
+    data: { data },
+  }: {
+    data: {
+      data: WalletType[];
+    };
+  } = await httpGetRequest(
+    APIUrlGenerator({
+      route: API_ROUTES.GET_WALLETS,
+      service: BACKEND_SERVICE.DIGITAL_WALLET,
+    }),
+  );
+  return data;
+};
+
+export const postWalletInquiry = async (body: walletInquiryBody) => {
+  const {
+    data: { data },
+  }: { data: { data: walletInquiry } } = await httpPostRequest(
+    APIUrlGenerator({
+      route: API_ROUTES.POST_INQUIRY_WALLETS,
       service: BACKEND_SERVICE.DIGITAL_WALLET,
     }),
     body,

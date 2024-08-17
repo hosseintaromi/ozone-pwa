@@ -7,7 +7,7 @@ import {
   getInvoices,
   getInvoicesDetails,
   getUserMe,
-  getWallets,
+  getAccountWallets,
   getWalletTransactions,
   patchWalletStatus,
   postChargeWallet,
@@ -19,6 +19,8 @@ import {
   postLoginPassword,
   postLogout,
   postSetPassword,
+  getWallets,
+  postWalletInquiry,
 } from '..';
 import {
   loginInitTypeIn,
@@ -28,7 +30,12 @@ import {
 } from '@/models/auth.model';
 import { kycBodyType } from '@/models/userManagement.model';
 import { DonutChartParams, invoicesListParams } from '@/models/transaction.model';
-import { chargeWalletBody, walletStatusBody } from '@/models/digitalWallet.model';
+import {
+  chargeWalletBody,
+  walletInquiry,
+  walletInquiryBody,
+  walletStatusBody,
+} from '@/models/digitalWallet.model';
 
 export const useLoginInit = () => {
   return useMutation({
@@ -83,9 +90,9 @@ export const usePostPasswordInit = (isForget: boolean, data: string) => {
   });
 };
 
-export const useGetWallet = () => {
+export const useGetAccountWallet = () => {
   return useQuery({
-    queryFn: getWallets,
+    queryFn: getAccountWallets,
     queryKey: [QUERY_KEYS.GET_WALLETS],
   });
 };
@@ -139,5 +146,19 @@ export const usePatchWalletStatus = (id: number) => {
   return useMutation({
     mutationFn: (body: walletStatusBody) => patchWalletStatus(body, id),
     mutationKey: [QUERY_KEYS.PATH_WALLET_STATUS],
+  });
+};
+
+export const useGetWallets = () => {
+  return useQuery({
+    queryFn: getWallets,
+    queryKey: [QUERY_KEYS.GET_WALLETS_INQUIRY],
+  });
+};
+
+export const usePostWalletInquiry = () => {
+  return useMutation({
+    mutationFn: (body: walletInquiryBody) => postWalletInquiry(body),
+    mutationKey: [QUERY_KEYS.POST_CHARGE_WALLET],
   });
 };
