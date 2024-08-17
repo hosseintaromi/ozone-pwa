@@ -11,7 +11,6 @@ import {
   getWalletTransactions,
   patchWalletStatus,
   postChargeWallet,
-  postInitPassword,
   postKyc,
   postKycVerify,
   postLoginInit,
@@ -73,13 +72,6 @@ export const useGetUser = (token: string | null) => {
     queryFn: getUserMe,
     queryKey: [QUERY_KEYS.GET_USER_ME],
     enabled: !!token,
-  });
-};
-export const usePostPasswordInit = (isForget: boolean, data: string) => {
-  return useQuery({
-    queryFn: () => postInitPassword(data),
-    queryKey: [QUERY_KEYS.GET_INIT_PASSWORD],
-    enabled: !!isForget,
   });
 };
 

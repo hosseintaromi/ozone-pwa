@@ -10,7 +10,7 @@ import {
   Text,
   VARIANT_ENUM,
 } from 'ozone-uikit';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { object } from 'yup';
 
 import XImage from '@/components/share/x-image';
@@ -23,8 +23,6 @@ import { useLoginInit, useLoginPassword } from '@/services/hooks';
 import useLoginStore from '@/store/login-store';
 import useUserManagement from '@/hooks/useUserManagement';
 import { LOGIN_ROLES } from '@/models/auth.model';
-import { useRouter } from 'next/navigation';
-import { ROUTES } from '@/constant/routes';
 
 const Password = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: string }) => {
   const { login } = locale;

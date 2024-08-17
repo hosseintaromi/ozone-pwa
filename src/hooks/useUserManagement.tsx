@@ -8,8 +8,6 @@ import { ROUTES } from '@/constant/routes';
 import { formatPhoneNumber } from '@/lib/helper';
 import { userMe } from '@/models/userManagement.model';
 
-type actionType = 'setUser' | 'removeUser' | 'setToken';
-
 const useUserManagement = () => {
   const { token, setToken } = useUserStore();
   const router = useRouter();
@@ -26,7 +24,7 @@ const useUserManagement = () => {
     getUserDataFromCookies();
   }, []);
 
-  const setUserToken = (data: loginOtpTypeOut) => {
+  const setUserToken = (data: loginOtpTypeOut, route?: string) => {
     console.log(data);
     setToken(data.access_token);
     Cookies.set('token', data.token_type + ' ' + data.access_token, {
@@ -36,7 +34,7 @@ const useUserManagement = () => {
     Cookies.set('expires_in', data.expires_in);
     Cookies.set('refresh_token', data.refresh_token);
     getUserDataFromCookies();
-    router.push(ROUTES.HOME);
+    router.push(route ? route : ROUTES.HOME);
   };
 
   const removeUserData = () => {

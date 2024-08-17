@@ -12,7 +12,7 @@ import locale from '@/locale';
 
 import CheckFromText from '../login/components/CheckFromText';
 import Container from '@/components/share/container';
-import { BUTTON_TYPE, COLOR_ENUM, INPUT_TYPES, SIZE_ENUM, VARIANT_ENUM } from '@/@types';
+import { BUTTON_TYPE, COLOR_ENUM, INPUT_TYPES, SIZE_ENUM } from '@/@types';
 import { Text } from '@/components/share/typography';
 import { Input } from '@/components/share/input';
 import Button from '@/components/share/button';
@@ -162,9 +162,6 @@ const SetPassword = () => {
             className='w-full'
           >
             {login.entree}
-          </Button>
-          <Button variant={VARIANT_ENUM.TEXT} className='m-3'>
-            {login.loginWithOtp}
           </Button>
         </Container>
       </form>
