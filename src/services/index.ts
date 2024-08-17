@@ -20,6 +20,7 @@ import {
   meta,
 } from '@/models/transaction.model';
 import {
+  changePasswordBody,
   kycBodyType,
   kycVerify,
   kycVerifyBodyType,
@@ -79,6 +80,17 @@ export const postKycVerify = async (data: kycVerifyBodyType) => {
     APIUrlGenerator({
       route: API_ROUTES.POST_KYC_VERIFY,
       service: BACKEND_SERVICE.USER_MANAGEMENT,
+    }),
+    data,
+  );
+  return res.data;
+};
+
+export const postChangePassword = async (data: changePasswordBody) => {
+  const res: { data: { data: kycVerify } } = await httpPostRequest(
+    APIUrlGenerator({
+      route: API_ROUTES.POST_CHANGE_PASSWORD,
+      service: BACKEND_SERVICE.AUTH,
     }),
     data,
   );

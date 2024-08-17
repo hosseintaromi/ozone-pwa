@@ -3,6 +3,11 @@ export interface kycBodyType {
   national_code: string;
 }
 
+export interface changePasswordBody {
+  new_password: string;
+  old_password: string;
+}
+
 export interface kycVerifyBodyType {
   token: string;
 }

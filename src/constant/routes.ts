@@ -9,6 +9,7 @@ export const API_ROUTES = {
   POST_KYC: '/users/kyc',
   GET_USER_ME: '/users/me',
   POST_KYC_VERIFY: '/users/kyc/verify',
+  POST_CHANGE_PASSWORD: '/password/reset',
   GET_WALLETS: '/account-wallets',
   GET_DONUT: '/transactions',
   GET_INVOICES: '/invoices',
@@ -32,6 +33,6 @@ export const ROUTES = {
   WALLET: '/wallet/',
   KYC: '/kyc/',
   PURCHASE_DETAIL: '/purchase-detail/',
-  Add_WALLET: '/add-wallet',
+  ADD_WALLET: '/add-wallet',
   SET_PASSWORD: '/set-password',
 };

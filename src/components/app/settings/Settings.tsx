@@ -10,12 +10,14 @@ import ProfileInfo from './ProfileInfo';
 import { usePostLogout } from '@/services/hooks';
 import ProfileDialog from './ProfileDialog';
 import useUserManagement from '@/hooks/useUserManagement';
+import ChangePassword from './ChangePassword';
 
 const Settings = () => {
   const { app } = locale;
   const { mutate: logoutReq, isSuccess } = usePostLogout({});
   const { removeUserData } = useUserManagement();
 
+  const [showLock, setShowLock] = useState(false);
   const [show, setShow] = useState(false);
   useEffect(() => {
     if (!isSuccess) return;
@@ -31,7 +33,7 @@ const Settings = () => {
     {
       title: app.setting.changePass,
       icon: <Lock1 color={ICON_COLOR.light_gray} size={ICON_SIZE.lg} />,
-      action: () => {},
+      action: () => setShowLock((pre) => !pre),
     },
     {
       title: app.setting.help,
@@ -56,6 +58,7 @@ const Settings = () => {
         {app.setting.title}
       </Text>
       <ProfileInfo />
+      <ChangePassword show={showLock} setShow={setShowLock} />
       <ProfileDialog show={show} setShow={setShow} />
       {settingList.map((item, index) => (
         <Container

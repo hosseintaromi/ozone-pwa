@@ -34,7 +34,13 @@ const useUserManagement = () => {
     Cookies.set('expires_in', data.expires_in);
     Cookies.set('refresh_token', data.refresh_token);
     getUserDataFromCookies();
-    router.push(route ? route : ROUTES.HOME);
+
+    if (route && route === ROUTES.KYC) {
+    } else if (route) {
+      router.push(route);
+    } else {
+      router.push(ROUTES.HOME);
+    }
   };
 
   const removeUserData = () => {

@@ -5,16 +5,16 @@ import React, { useEffect } from 'react';
 import Spinner from '@/components/share/spinner/Spinner';
 import useUserManagement from '@/hooks/useUserManagement';
 
-const DrinkPage = ({ params }) => {
+const KycVerify = ({ params }) => {
   const { mutate } = usePostKycVerify();
-  const { setUserToken } = useUserManagement();
 
   useEffect(() => {
     mutate(
       { token: params.slug },
       {
         onSuccess: ({ data }) => {
-          setUserToken(data);
+          console.log(data);
+          // setUserToken(data, ROUTES.KYC);
         },
       },
     );
@@ -26,4 +26,4 @@ const DrinkPage = ({ params }) => {
   );
 };
 
-export default DrinkPage;
+export default KycVerify;

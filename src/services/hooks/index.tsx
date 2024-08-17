@@ -10,6 +10,7 @@ import {
   getWallets,
   getWalletTransactions,
   patchWalletStatus,
+  postChangePassword,
   postChargeWallet,
   postKyc,
   postKycVerify,
@@ -59,6 +60,12 @@ export const usePurchaseDetail = (id: string) => {
 export const useKyc = () => {
   return useMutation({
     mutationFn: (data: kycBodyType) => postKyc(data),
+  });
+};
+
+export const useChangePassword = () => {
+  return useMutation({
+    mutationFn: postChangePassword,
   });
 };
 
