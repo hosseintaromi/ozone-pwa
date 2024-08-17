@@ -116,15 +116,15 @@ export const usePostSetPassword = () => {
   });
 };
 
-export const useGetWalletTransactions = (id: number, enabled = true) => {
+export const useGetWalletTransactions = (id: number | null) => {
   return useInfiniteQuery({
     queryFn: ({ pageParam }) => getWalletTransactions(id, pageParam),
-    queryKey: [QUERY_KEYS.GET_WALLET_TRANSACTIONS],
+    queryKey: [QUERY_KEYS.GET_WALLET_TRANSACTIONS, id],
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     getPreviousPageParam: (firstPage) => firstPage.previousCursor,
     gcTime: 0,
-    enabled,
+    enabled: !!id,
   });
 };
 

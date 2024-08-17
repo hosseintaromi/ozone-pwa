@@ -1,4 +1,4 @@
-export interface Wallets {
+export interface WalletType {
   id: number;
   balance: number;
   account_id: number;

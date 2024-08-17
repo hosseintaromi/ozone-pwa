@@ -1,4 +1,4 @@
-import { Wallets } from '@/models/digitalWallet.model';
+import { WalletType } from '@/models/digitalWallet.model';
 import { invoiceDetail } from '@/models/transaction.model';
 import React, { ReactNode } from 'react';
 
@@ -22,9 +22,9 @@ export type PayInDialogType = {
 };
 
 export interface ChooseWalletType extends PayInDialogType {
-  data: Wallets[] | undefined;
-  activeWallet: Wallets | undefined;
-  setActiveWallet: React.Dispatch<React.SetStateAction<Wallets | undefined>>;
+  data: WalletType[] | undefined;
+  activeWallet: WalletType | undefined;
+  setActiveWallet: React.Dispatch<React.SetStateAction<WalletType | undefined>>;
 }
 export type PurchaseDetailType = {
   setShow: React.Dispatch<React.SetStateAction<boolean>>;

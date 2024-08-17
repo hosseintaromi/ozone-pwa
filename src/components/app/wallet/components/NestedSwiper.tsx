@@ -1,7 +1,6 @@
 import { Container } from 'ozone-uikit';
 import React, { useEffect, useState } from 'react';
 import { EffectCreative, Pagination } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
@@ -10,32 +9,38 @@ import '../styles.css';
 import NormalCard from './NormalCard';
 import { useGetWallet } from '@/services/hooks';
 import { SkeletonLoader } from '@/components/share/skeleton/SkeletonLoader';
+import Carousel, { CarouselItem } from '@/components/@base/carousel';
+import useWalletStore from '@/store/wallet-store';
 
 export default function NestedSwiper() {
   const { data: wallets, isLoading } = useGetWallet();
   const [active, setActive] = useState(0);
+  const { setSelectedWallet } = useWalletStore();
   const handleSlideChange = (swiper) => {
     setActive(swiper.activeIndex);
   };
   useEffect(() => {
-    console.log(active);
-  }, [active]);
+    if (wallets && wallets.length > 0) {
+      setSelectedWallet(wallets[active]);
+      console.log(wallets[active]);
+    }
+  }, [active, wallets]);
   return (
     <Container className='h-48'>
-      <Swiper
-        initialSlide={0}
+      <Carousel
+        slidesPerView='auto'
+        className='!px-5'
+        centeredSlidesBounds
+        // loop
         onActiveIndexChange={handleSlideChange}
-        className='mySwiper swiper-h '
-        spaceBetween={0}
-        loop
+        spaceBetween={10}
         dir='rtl'
-        slidesPerView={1.1}
+        // slidesPerView={1.1}
         centeredSlides
         pagination={{
           el: '.swiper-custom-pagination',
         }}
-        grabCursor={true}
-        effect='creative'
+        // grabCursor={true}
         creativeEffect={{
           next: {
             shadow: true,
@@ -46,22 +51,21 @@ export default function NestedSwiper() {
             translate: ['110%', 0, 0],
           },
         }}
-        modules={[Pagination, EffectCreative]}
-        // modules={[EffectCreative]}
+        modules={[Pagination]}
       >
         {wallets?.map((w) => (
-          <SwiperSlide key={w.id}>
+          <CarouselItem key={w.id}>
             <NormalCard data={w} />
-          </SwiperSlide>
+          </CarouselItem>
         ))}
         {isLoading ||
           (!wallets &&
             [1, 2, 3].map((i) => (
-              <SwiperSlide key={i} className='rounded-2xl'>
+              <CarouselItem key={i} className='rounded-2xl'>
                 <SkeletonLoader width='w-[100%]' height='h-full' />
-              </SwiperSlide>
+              </CarouselItem>
             )))}
-      </Swiper>
+      </Carousel>
       <div className='swiper-custom-pagination' />
     </Container>
   );

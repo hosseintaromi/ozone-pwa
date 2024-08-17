@@ -9,7 +9,6 @@ import { convertPhoneNumber, convertToEnglishNumber } from '@/lib/helper';
 import useDeviceDetection from '@/hooks/useDeviceDetection';
 
 import Button from '@/components/share/button';
-import Carousel, { CarouselItem } from '@/components/share/carousel';
 import { Input } from '@/components/share/input';
 import { Text } from '@/components/share/typography';
 import XImage from '@/components/share/x-image';
@@ -20,6 +19,7 @@ import { useLoginInit } from '@/services/hooks';
 
 import { LOGIN_STEPS, SetPhoneType, SetStepType } from '../Login.module';
 import { LOGIN_ROLES } from '@/models/auth.model';
+import Carousel, { CarouselItem } from '@/components/@base/carousel';
 
 const PhoneNumber = ({
   setStep,

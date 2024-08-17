@@ -16,7 +16,7 @@ import LatestPurchases from './components/LatestPurchases';
 import { AnimatedTabs } from '../../share/animatedTabs';
 import DonutChart from '../../share/charts/DonutChart';
 import { useGetDonut, useGetInvoices, useGetWallet } from '@/services/hooks';
-import { Wallets } from '@/models/digitalWallet.model';
+import { WalletType } from '@/models/digitalWallet.model';
 
 import {
   SkeletonLoader,
@@ -68,7 +68,7 @@ const Home = () => {
 
   const { data: wallets } = useGetWallet();
 
-  const [activeWallet, setActiveWallet] = useState<Wallets | undefined>();
+  const [activeWallet, setActiveWallet] = useState<WalletType | undefined>();
 
   const { isPending, mutate, data } = useGetDonut();
   const showChart = data?.deposit_percentages || data?.withdraw_percentages;

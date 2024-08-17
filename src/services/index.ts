@@ -28,7 +28,7 @@ import {
 import {
   chargeWalletBody,
   ChargeWalletResponseType,
-  Wallets,
+  WalletType,
   walletStatusBody,
   WalletTransactionListReturnResult,
 } from '@/models/digitalWallet.model';
@@ -111,7 +111,7 @@ export const postInitPassword = async (data: any) => {
 export const getWallets = async () => {
   const {
     data: { data },
-  }: { data: { data: Wallets[] } } = await httpGetRequest(
+  }: { data: { data: WalletType[] } } = await httpGetRequest(
     APIUrlGenerator({
       route: API_ROUTES.GET_WALLETS,
       service: BACKEND_SERVICE.DIGITAL_WALLET,
@@ -164,10 +164,10 @@ export const postSetPassword = async (body: setPasswordBody) => {
   return data;
 };
 
-export const getWalletTransactions = async (id: number, page: number) => {
+export const getWalletTransactions = async (id: number | null, page: number) => {
   const {
     data: { data },
-  }: { data: { data: WalletTransactionListReturnResult<Wallets> } } = await httpGetRequest(
+  }: { data: { data: WalletTransactionListReturnResult<WalletType> } } = await httpGetRequest(
     APIUrlGenerator({
       route: API_ROUTES.GET_WALLET_TRANSACTIONS(id, page),
       service: BACKEND_SERVICE.DIGITAL_WALLET,
