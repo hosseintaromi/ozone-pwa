@@ -10,7 +10,7 @@ export const API_ROUTES = {
   GET_USER_ME: '/users/me',
   POST_KYC_VERIFY: '/users/kyc/verify',
   POST_CHANGE_PASSWORD: '/password/reset',
-  GET_WALLETS: '/account-wallets',
+  GET_ACCOUNT_WALLETS: '/account-wallets',
   GET_DONUT: '/transactions',
   GET_INVOICES: '/invoices',
   POST_LOGOUT: '/logout',
@@ -21,6 +21,8 @@ export const API_ROUTES = {
     `/account-wallets/${id}?page=${page}`,
   POST_CHARGE_WALLET: (id: number) => `/account-wallets/${id}/charge`,
   PATCH_WALLET_STATUS: (id: number) => `/account-wallets/${id}/status`,
+  POST_INQUIRY_WALLETS: '/account-wallets/inquiry',
+  GET_WALLETS: '/wallets',
 };
 
 export const ROUTES = {

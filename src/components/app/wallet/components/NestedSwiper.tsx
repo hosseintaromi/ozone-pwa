@@ -7,13 +7,13 @@ import 'swiper/css/pagination';
 import '../styles.css';
 
 import NormalCard from './NormalCard';
-import { useGetWallet } from '@/services/hooks';
+import { useGetAccountWallet } from '@/services/hooks';
 import { SkeletonLoader } from '@/components/share/skeleton/SkeletonLoader';
 import Carousel, { CarouselItem } from '@/components/@base/carousel';
 import useWalletStore from '@/store/wallet-store';
 
 export default function NestedSwiper() {
-  const { data: wallets, isLoading } = useGetWallet();
+  const { data: wallets, isLoading } = useGetAccountWallet();
   const [active, setActive] = useState(0);
   const { setSelectedWallet } = useWalletStore();
   const handleSlideChange = (swiper) => {
@@ -22,7 +22,6 @@ export default function NestedSwiper() {
   useEffect(() => {
     if (wallets && wallets.length > 0) {
       setSelectedWallet(wallets[active]);
-      console.log(wallets[active]);
     }
   }, [active, wallets]);
   return (

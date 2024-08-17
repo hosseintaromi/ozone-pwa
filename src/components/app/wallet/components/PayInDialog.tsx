@@ -70,7 +70,6 @@ const PayInDialog = (props: PayInDialogType) => {
         amount: validation.amountCheck,
       }),
       onSubmit: () => {
-        console.log('call api', values);
         mutateChargeWallet(
           {
             amount: values.amount,
@@ -135,6 +134,7 @@ const PayInDialog = (props: PayInDialogType) => {
                 isActive={values.amount === item.value}
                 setVal={setValue}
                 value={item.value}
+                key={item.title}
               >
                 {item.title}
               </OfferedPrice>

@@ -1,9 +1,9 @@
 import { create } from 'zustand';
-import { WalletType } from '@/models/digitalWallet.model';
+import { AccountWalletType } from '@/models/digitalWallet.model';
 
 interface WalletStore {
-  selectedWallet: WalletType | { id: null };
-  setSelectedWallet: (wallet: WalletType) => void;
+  selectedWallet: AccountWalletType | { id: null };
+  setSelectedWallet: (wallet: AccountWalletType) => void;
 }
 
 const useWalletStore = create<WalletStore>((set) => ({
