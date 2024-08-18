@@ -34,7 +34,7 @@ const AddWallet = () => {
   return (
     <Container className='mx-5 h-calc-100-minus-200'>
       <Container className='relative my-7 flex justify-center '>
-        <Link href={ROUTES.HOME}>
+        <Link href={ROUTES.WALLET}>
           <ArrowRight size='28' color='white' className='absolute right-0' />
         </Link>
 
@@ -48,7 +48,7 @@ const AddWallet = () => {
         ) : active === 1 ? (
           <AddWalletStep2 setActive={setActive} />
         ) : (
-          <AddWalletStep3 setActive={setActive} />
+          <AddWalletStep3 />
         )}
       </Container>
     </Container>

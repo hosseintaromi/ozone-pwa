@@ -23,7 +23,7 @@ import { QUERY_KEYS } from '@/constant/query-key';
 import { toast } from 'react-toastify';
 import { ErrorMsg, SuccessMsg } from '@/components/share/toast/toast';
 const WHITE_COLOR = colors['neutral-0'];
-const NormalCard = ({ data }: { data: AccountWalletType }) => {
+const NormalCard = ({ data, addWallet }: { data: AccountWalletType; addWallet?: boolean }) => {
   const queryClient = useQueryClient();
   const {
     name,
@@ -58,7 +58,10 @@ const NormalCard = ({ data }: { data: AccountWalletType }) => {
     );
   };
   return (
-    <Container className='relative h-full rounded-[14px]' style={{ backgroundColor: color }}>
+    <Container
+      className='relative h-full max-h-[200px] rounded-[14px]'
+      style={{ backgroundColor: color }}
+    >
       {status === 'INACTIVE' && (
         <Container className='absolute inset-0 z-[100] rounded-[14px] bg-neutral-700/50' />
       )}
@@ -129,7 +132,7 @@ const NormalCard = ({ data }: { data: AccountWalletType }) => {
           </Text>
         </Container>
       )}
-      {!is_master && (
+      {!is_master && !addWallet && (
         <Container
           center
           className='absolute bottom-0 left-[17px] z-[110] h-[42px] w-[113px] px-[16px] pt-[4px]'

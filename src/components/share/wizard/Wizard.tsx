@@ -12,17 +12,24 @@ type wizardDataType = {
 const Wizard = ({
   data,
   activeItem,
+  setActiveNumber,
 }: {
   data: wizardDataType[];
   activeItem: number;
   setActiveNumber: any;
 }) => {
+  const handleSelectWizardItem = (itemIndex: number) => {
+    if (itemIndex < activeItem) setActiveNumber(itemIndex);
+  };
   return (
     <Container className=' relative flex w-full justify-between'>
       {data.map((item, index) => (
-        <div>
-          {}
-          <Container center className='w-[75px] flex-col gap-2'>
+        <>
+          <Container
+            center
+            className='w-[75px] flex-col gap-2'
+            onClick={() => handleSelectWizardItem(index)}
+          >
             <Container
               className={cn(
                 `relative z-10
@@ -51,7 +58,7 @@ const Wizard = ({
               index > 1 && 'hidden',
             )}
           />
-        </div>
+        </>
       ))}
     </Container>
   );

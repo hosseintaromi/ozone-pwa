@@ -13,6 +13,7 @@ import Button from '@/components/share/button';
 import { BUTTON_TYPE } from '@/@types';
 import { useGetWallets, usePostWalletInquiry } from '@/services/hooks';
 import Spinner from '@/components/share/spinner/Spinner';
+import useWalletStore from '@/store/wallet-store';
 
 const AddWalletStep1 = ({
   setActive,
@@ -23,17 +24,20 @@ const AddWalletStep1 = ({
     app: { addWallet },
   } = locale;
   const { data: wallets, isPending } = useGetWallets();
-  const { mutate: walletInquiryMutation } = usePostWalletInquiry();
+
   const [selectedItem, setSelectedItem] = useState();
+  const { mutate: walletInquiryMutation } = usePostWalletInquiry();
   const handleChange = (value) => {
     setSelectedItem(value);
   };
+  const { setAddWalletId } = useWalletStore();
   const handleConfirm = () => {
     walletInquiryMutation(
       { wallet_id: `${selectedItem}` },
       {
         onSuccess: () => {
           setActive((pre) => pre + 1);
+          setAddWalletId(selectedItem!);
         },
         onError: (err) => {
           console.log(err);
