@@ -264,3 +264,73 @@ export const formatPhoneNumber = (phoneNumber) => {
   }
   return phoneNumber;
 };
+export function convertToPersianAlphabetic(number: number): string {
+  const persianDigits = '۰۱۲۳۴۵۶۷۸۹';
+
+  // Convert the number to a string for processing
+  const numberStr = number.toString();
+
+  // Extract the last digit as the 'rial' part
+  const rialPart = parseInt(numberStr.slice(-1));
+
+  // The rest of the number represents the 'toman' part
+  const tomanPart = parseInt(numberStr.slice(0, -1));
+
+  // Handle billions, millions, and thousands
+  const billions = Math.floor(tomanPart / 1000000000);
+  const remainingAfterBillions = tomanPart % 1000000000;
+
+  const millions = Math.floor(remainingAfterBillions / 1000000);
+  const remainingAfterMillions = remainingAfterBillions % 1000000;
+
+  const thousands = Math.floor(remainingAfterMillions / 1000);
+  const hundreds = remainingAfterMillions % 1000;
+
+  // Convert the numbers to Persian numerals
+  const persianBillions =
+    billions > 0 ? `${convertNumberToPersian(billions, persianDigits)} میلیارد` : '';
+  const persianMillions =
+    millions > 0 ? `${convertNumberToPersian(millions, persianDigits)} میلیون` : '';
+  const persianThousands =
+    thousands > 0 ? `${convertNumberToPersian(thousands, persianDigits)} هزار` : '';
+  const persianHundreds = hundreds > 0 ? convertNumberToPersian(hundreds, persianDigits) : '';
+  const persianRial = rialPart > 0 ? `${persianDigits[rialPart]} ریال` : '';
+
+  // Construct the final string
+  let result = '';
+  if (persianBillions) {
+    result += persianBillions;
+  }
+  if (persianMillions) {
+    if (result) result += ' و ';
+    result += persianMillions;
+  }
+  if (persianThousands) {
+    if (result) result += ' و ';
+    result += persianThousands;
+  }
+  if (persianHundreds) {
+    if (result) result += ' و ';
+    result += `${persianHundreds} تومان`;
+  } else if (result) {
+    result += ' تومان';
+  }
+
+  if (persianRial) {
+    result += ` و ${persianRial}`;
+  }
+
+  return result || 'صفر تومان';
+}
+
+function convertNumberToPersian(number: number, persianDigits: string): string {
+  return number
+    .toString()
+    .split('')
+    .map((digit) => persianDigits[parseInt(digit)])
+    .join('');
+}
+
+// Example usage
+console.log(convertToPersianAlphabetic(1000000000)); // Output: 1 میلیارد تومان
+console.log(convertToPersianAlphabetic(234568999999)); // Output: 234 میلیارد و 568 میلیون و 999 هزار و 999 تومان و 9 ریال

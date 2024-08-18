@@ -10,7 +10,7 @@ import { SIZE_ENUM } from '@/@types';
 import colors from '@/constant/colors';
 import ICON_SIZE from '@/constant/icon-size-color';
 
-import PayInDialog from './PayInDialog';
+import IncreaseCredit from './IncreaseCredit';
 
 import whiteShadow from '~/images/image/whiteShadowCircle.svg';
 import whiteShadow2 from '~/images/image/ellipse2.svg';
@@ -65,7 +65,7 @@ const NormalCard = ({ data, addWallet }: { data: AccountWalletType; addWallet?: 
       {status === 'INACTIVE' && (
         <Container className='absolute inset-0 z-[100] rounded-[14px] bg-neutral-700/50' />
       )}
-      <PayInDialog show={show} setShow={setShow} />
+      <IncreaseCredit show={show} setShow={setShow} />
       <XImage
         src={color === WHITE_COLOR ? whiteShadow2 : whiteShadow}
         alt='222'
