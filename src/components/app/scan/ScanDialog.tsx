@@ -15,7 +15,12 @@ const ScanDialog = (props: PayInDialogType) => {
   } = locale;
 
   return (
-    <Modal show={show} onClose={() => setShow(false)} dialogPanelClassName='bg-neutral-900'>
+    <Modal
+      center
+      show={show}
+      onClose={() => setShow(false)}
+      dialogPanelClassName='bg-neutral-900'
+    >
       <ModalBody className='flex w-full  flex-col items-center justify-center text-white'>
         <Scan size='28' className='mt-7' />
         <Text size={SIZE_ENUM.LG} medium className='mt-4'>
