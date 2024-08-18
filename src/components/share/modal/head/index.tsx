@@ -11,9 +11,12 @@ export default function ModalHead({ isCustomHead, children, setShow }: Props) {
     children
   ) : (
     <Dialog.Title className='relative mb-8 text-right'>
-      <Container className='absolute left-0' onClick={() => setShow && setShow((pre) => !pre)}>
-        <CloseCircle size='26' color={colors['neutral-0']} />
-      </Container>
+      {setShow && (
+        <Container className='absolute left-0' onClick={() => setShow((pre) => !pre)}>
+          <CloseCircle size='26' color={colors['neutral-0']} />
+        </Container>
+      )}
+
       {children}
     </Dialog.Title>
   );

@@ -47,6 +47,8 @@ const app = {
     walletName: (name: string) => `حساب ${name} `,
     discountRebon: (dis: number) => ` ${dis} ٪ تخفیف `,
     inventoryIncrease: 'افزایش موجودی',
+    walletInactive: 'حساب غیر قابل استفاده برای خرید در فروشگاه است',
+    walletActive: 'حساب قابل استفاده برای خرید در فروشگاه است',
   },
   payDialog: {
     title: 'افزایش موجودی',
@@ -80,6 +82,19 @@ const app = {
     tip: (val: string) => `تاریخ تولد و کد ملی باید متعلق به مالک شماره موبایل ${val} باشد.`,
     doneTitle: 'احراز هویت شما با موفقیت انجام شد',
     backToApp: 'بازگشت به برنامه',
+  },
+  changePass: {
+    title: 'تغییر رمز عبور',
+    desc: 'رمز عبور جدید خود را وارد کنید.',
+    input1: 'رمز عبور فعلی',
+    input2: 'رمز عبور جدید',
+    input3: 'تکرار رمز عبور جدید',
+    button: 'تغییر رمز عبور',
+  },
+  scan: {
+    title: 'صفحه اسکن',
+    desc: ' اسکن به زودی اضافه می شود',
+    button: 'متوجه شدم',
   },
   voucher: {
     title: 'کوپن‌ها',

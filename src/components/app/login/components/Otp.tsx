@@ -15,12 +15,13 @@ import XImage from '@/components/share/x-image';
 import { BUTTON_TYPE, COLOR_ENUM, INPUT_TYPES, SIZE_ENUM, VARIANT_ENUM } from '@/@types';
 import ICON_SIZE, { ICON_COLOR } from '@/constant/icon-size-color';
 import locale from '@/locale';
-import { useLoginInit, useLoginOtp, usePostPasswordInit } from '@/services/hooks';
+import { useLoginInit, useLoginOtp } from '@/services/hooks';
 
 import { LOGIN_STEPS, SetStepType } from '../Login.module';
 import { LOGIN_ROLES } from '@/models/auth.model';
 import useLoginStore from '@/store/login-store';
 import useUserManagement from '@/hooks/useUserManagement';
+import { ROUTES } from '@/constant/routes';
 
 const Otp = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: string }) => {
   const { login } = locale;
@@ -34,18 +35,9 @@ const Otp = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: stri
     onExpire: () => !active && setActive(true),
   });
 
-  const { isForget } = useLoginStore();
-  const { isSuccess: sendOtp, data: isForgetData } = usePostPasswordInit(
-    isForget,
-    phoneNumber,
-  );
+  const { goToSetPassword } = useLoginStore();
 
   const { setUserToken } = useUserManagement();
-
-  useEffect(() => {
-    if (!sendOtp) return;
-    console.log('first');
-  }, [sendOtp]);
 
   const submit = () => {
     mutate(
@@ -56,7 +48,7 @@ const Otp = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: stri
       },
       {
         onSuccess: ({ data }) => {
-          setUserToken(data);
+          goToSetPassword ? setUserToken(data, ROUTES.SET_PASSWORD) : setUserToken(data);
         },
       },
     );

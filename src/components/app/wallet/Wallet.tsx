@@ -15,9 +15,11 @@ import Spinner from '@/components/share/spinner/Spinner';
 import { Virtuoso } from 'react-virtuoso';
 import cn from '@/lib/clsxm';
 import XImage from '@/components/share/x-image';
+import useWalletStore from '@/store/wallet-store';
 
 export default function Wallet() {
   const [sheetHeight, setSheetHeight] = useState(500);
+  const { selectedWallet } = useWalletStore();
   const {
     app: { transactions, emptyTransactions },
     wallet: { title },
@@ -28,7 +30,7 @@ export default function Wallet() {
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
-  } = useGetWalletTransactions(22);
+  } = useGetWalletTransactions(selectedWallet?.id);
   const flatTransactions = transaction?.pages.flatMap((data) => data.data);
 
   return (
@@ -37,7 +39,7 @@ export default function Wallet() {
         <InfoCircle color='#fff' size={30} />
         <Text>{title} </Text>
 
-        <Link href={ROUTES.AddWALLET}>
+        <Link href={ROUTES.ADD_WALLET}>
           <CardAdd color='#fff' size={30} />
         </Link>
       </Navbar>
@@ -64,7 +66,7 @@ export default function Wallet() {
             {transactions}
           </Text>
 
-          {flatTransactions && (
+          {flatTransactions && flatTransactions.length > 0 && (
             <Virtuoso
               // style={{ height: '300px' }}
               className={cn('pb-30 mb-[60px]')}
@@ -75,7 +77,6 @@ export default function Wallet() {
               fixedItemHeight={110}
               overscan={200}
               components={{
-                Header: () => <Container className='pt-5' />,
                 Footer: () => (
                   <Container className='pb-20'>
                     {isFetchingNextPage && (
@@ -93,13 +94,17 @@ export default function Wallet() {
           {flatTransactions?.length === 0 && !isPending && (
             <Container center className='mt-24 flex-col gap-4'>
               <XImage
-                placeholder
                 src='/images/image/emptyState.svg'
                 alt='Picture of the author'
                 width={140}
                 height={70}
               />
               <Text className='text-bold text-sm text-neutral-500'>{emptyTransactions}</Text>
+            </Container>
+          )}
+          {isPending && (
+            <Container center className='mt-[25%]'>
+              <Spinner />
             </Container>
           )}
         </Container>

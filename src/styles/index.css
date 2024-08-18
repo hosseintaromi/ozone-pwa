@@ -93,4 +93,11 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
 
 .Toastify__toast-theme--light {
   box-shadow: none !important;
+  background: transparent;
+  font-family: 'Yekan Bakh', serif !important;
+}
+div[data-rsbs-scroll] {
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  will-change: transform;
 }

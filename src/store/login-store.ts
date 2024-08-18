@@ -1,12 +1,12 @@
 import { create } from 'zustand';
 
 interface LoginStore {
-  isForget: boolean;
-  setIsForget: (val: boolean) => void;
+  goToSetPassword: boolean;
+  setGoToSetPassword: (val: boolean) => void;
 }
 
 const useLoginStore = create<LoginStore>((set) => ({
-  isForget: false,
-  setIsForget: (isForget) => set({ isForget }),
+  goToSetPassword: false,
+  setGoToSetPassword: (goToSetPassword) => set({ goToSetPassword }),
 }));
 export default useLoginStore;

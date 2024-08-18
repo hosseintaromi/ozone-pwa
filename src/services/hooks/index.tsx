@@ -7,11 +7,11 @@ import {
   getInvoices,
   getInvoicesDetails,
   getUserMe,
-  getWallets,
+  getAccountWallets,
   getWalletTransactions,
   patchWalletStatus,
+  postChangePassword,
   postChargeWallet,
-  postInitPassword,
   postKyc,
   postKycVerify,
   postLoginInit,
@@ -19,6 +19,10 @@ import {
   postLoginPassword,
   postLogout,
   postSetPassword,
+  getWallets,
+  postWalletInquiry,
+  postVerifyWalletInquiry,
+  postVerifyAddWallet,
 } from '..';
 import {
   loginInitTypeIn,
@@ -28,7 +32,13 @@ import {
 } from '@/models/auth.model';
 import { kycBodyType } from '@/models/userManagement.model';
 import { DonutChartParams, invoicesListParams } from '@/models/transaction.model';
-import { chargeWalletBody, walletStatusBody } from '@/models/digitalWallet.model';
+import {
+  chargeWalletBody,
+  verifyWalletInquiryBody,
+  walletInquiry,
+  walletInquiryBody,
+  walletStatusBody,
+} from '@/models/digitalWallet.model';
 
 export const useLoginInit = () => {
   return useMutation({
@@ -63,6 +73,12 @@ export const useKyc = () => {
   });
 };
 
+export const useChangePassword = () => {
+  return useMutation({
+    mutationFn: postChangePassword,
+  });
+};
+
 export const usePostKycVerify = () => {
   return useMutation({
     mutationFn: postKycVerify,
@@ -75,25 +91,18 @@ export const useGetUser = (token: string | null) => {
     enabled: !!token,
   });
 };
-export const usePostPasswordInit = (isForget: boolean, data: string) => {
-  return useQuery({
-    queryFn: () => postInitPassword(data),
-    queryKey: [QUERY_KEYS.GET_INIT_PASSWORD],
-    enabled: !!isForget,
-  });
-};
 
-export const useGetWallet = () => {
+export const useGetAccountWallet = () => {
   return useQuery({
-    queryFn: getWallets,
-    queryKey: [QUERY_KEYS.GET_WALLET],
+    queryFn: getAccountWallets,
+    queryKey: [QUERY_KEYS.GET_WALLETS],
   });
 };
 
 export const useGetInvoices = () => {
   return useMutation({
     mutationFn: (data: invoicesListParams) => getInvoices(data),
-    mutationKey: [QUERY_KEYS.GET_WALLET],
+    mutationKey: [QUERY_KEYS.GET_WALLETS],
   });
 };
 
@@ -116,15 +125,15 @@ export const usePostSetPassword = () => {
   });
 };
 
-export const useGetWalletTransactions = (id: number, enabled = true) => {
+export const useGetWalletTransactions = (id: number | null) => {
   return useInfiniteQuery({
     queryFn: ({ pageParam }) => getWalletTransactions(id, pageParam),
-    queryKey: [QUERY_KEYS.GET_WALLET_TRANSACTIONS],
+    queryKey: [QUERY_KEYS.GET_WALLET_TRANSACTIONS, id],
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     getPreviousPageParam: (firstPage) => firstPage.previousCursor,
     gcTime: 0,
-    enabled,
+    enabled: !!id,
   });
 };
 
@@ -139,5 +148,33 @@ export const usePatchWalletStatus = (id: number) => {
   return useMutation({
     mutationFn: (body: walletStatusBody) => patchWalletStatus(body, id),
     mutationKey: [QUERY_KEYS.PATH_WALLET_STATUS],
+  });
+};
+
+export const useGetWallets = () => {
+  return useQuery({
+    queryFn: getWallets,
+    queryKey: [QUERY_KEYS.GET_WALLETS_INQUIRY],
+  });
+};
+
+export const usePostWalletInquiry = () => {
+  return useMutation({
+    mutationFn: (body: walletInquiryBody) => postWalletInquiry(body),
+    mutationKey: [QUERY_KEYS.POST_WALLET_INQUIRY],
+  });
+};
+
+export const usePostVerifyWalletInquiry = () => {
+  return useMutation({
+    mutationFn: (body: verifyWalletInquiryBody) => postVerifyWalletInquiry(body),
+    mutationKey: [QUERY_KEYS.POST_VERIFY_WALLET_INQUIRY],
+  });
+};
+
+export const usePostVerifyAddWallet = () => {
+  return useMutation({
+    mutationFn: (body: walletInquiryBody) => postVerifyAddWallet(body),
+    mutationKey: [QUERY_KEYS.POST_VERIFY_ADD_WALLET],
   });
 };

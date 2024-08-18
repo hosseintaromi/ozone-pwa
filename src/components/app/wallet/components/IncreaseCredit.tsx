@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import { CloseCircle } from 'iconsax-react';
-import { toPersianLetterCurrency } from 'to-persian-letter-currency';
+import { toPersianNumberic } from 'to-persian-letter-currency';
 import {
   Button,
   BUTTON_TYPE,
@@ -56,7 +56,7 @@ const offerList = [
   },
 ];
 
-const PayInDialog = (props: PayInDialogType) => {
+const IncreaseCredit = (props: PayInDialogType) => {
   const { mutate: mutateChargeWallet } = usePostChargeWallet(18);
   const { show, setShow } = props;
   const { app } = locale;
@@ -70,7 +70,6 @@ const PayInDialog = (props: PayInDialogType) => {
         amount: validation.amountCheck,
       }),
       onSubmit: () => {
-        console.log('call api', values);
         mutateChargeWallet(
           {
             amount: values.amount,
@@ -104,15 +103,17 @@ const PayInDialog = (props: PayInDialogType) => {
               name='amount'
               errorMessage={values?.amount > 0 ? errors.amount : undefined}
               label={app.payDialog.inputTitle}
+              hintClass='text-right -bottom-8'
+              errorMessageClass='-bottom-8'
               hint={
                 values.amount
-                  ? `${toPersianLetterCurrency(+String(values.amount).replaceAll(',', ''))}`
+                  ? `${toPersianNumberic(+String(values.amount).replaceAll(',', ''))}`
                   : ''
               }
               labelClassName='text-md text-bold'
               type={INPUT_TYPES.TEL}
               inputMode='numeric'
-              className='rtl text-right'
+              className='rtl pb-2 text-right'
               maxLength={13}
               onBlur={handleBlur}
               onChange={(e) => {
@@ -129,12 +130,13 @@ const PayInDialog = (props: PayInDialogType) => {
               onClick={() => setValues({ amount: 0 })}
             />
           </Container>
-          <Container center className='mt-8 gap-4'>
+          <Container center className='mt-12 gap-4'>
             {offerList.map((item) => (
               <OfferedPrice
                 isActive={values.amount === item.value}
                 setVal={setValue}
                 value={item.value}
+                key={item.title}
               >
                 {item.title}
               </OfferedPrice>
@@ -155,4 +157,4 @@ const PayInDialog = (props: PayInDialogType) => {
   );
 };
 
-export default PayInDialog;
+export default IncreaseCredit;

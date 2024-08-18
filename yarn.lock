@@ -10977,10 +10977,10 @@ ospath@^1.2.2:
   resolved "https://registry.yarnpkg.com/ospath/-/ospath-1.2.2.tgz#1276639774a3f8ef2572f7fe4280e0ea4550c07b"
   integrity sha512-o6E5qJV5zkAbIDNhGSIlyOhScKXgQrSRMilfph0clDfM0nEnBOlKlH4sWDmG95BW/CvwNz0vmm7dJVtU2KlMiA==
 
-ozone-uikit@^0.0.96:
-  version "0.0.96"
-  resolved "https://registry.yarnpkg.com/ozone-uikit/-/ozone-uikit-0.0.96.tgz#895822085d8199a5d47eaed4f7523ad30217858e"
-  integrity sha512-QIstNpIIAumqZSuxqTJud4WN0oVlE6Bg2RyDDJ6BBtVo7eroDkXOCEAD2xrotJxReNzesMrEyesS2OiWo4zunw==
+ozone-uikit@^0.0.98:
+  version "0.0.98"
+  resolved "https://registry.yarnpkg.com/ozone-uikit/-/ozone-uikit-0.0.98.tgz#93988fb3e82d07588c73fcfb599da999c78b17cc"
+  integrity sha512-LxgVhwzqDOamgOy6O9wnXzuGTcIaMo6IxtokhC0jST/Fh1v5IR+NgRLK5/I4cLMuqRRRQbEUgzskkVo/lYCsyg==
 
 p-each-series@^2.1.0:
   version "2.2.0"
@@ -14415,10 +14415,10 @@ to-object-path@^0.3.0:
   dependencies:
     kind-of "^3.0.2"
 
-to-persian-letter-currency@^0.0.9:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/to-persian-letter-currency/-/to-persian-letter-currency-0.0.9.tgz#60a61b52052e1471cf932fe8a808d09fb714b001"
-  integrity sha512-9lIXP0PGnpdmJUJFdF/GGoRiswAHAndQ2sLebt0FkkVSPWceWg4AVOYc7iFBDXY6uBBB4zyFknhdA+Wc7pvWpA==
+to-persian-letter-currency@^0.0.12:
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/to-persian-letter-currency/-/to-persian-letter-currency-0.0.12.tgz#c2d26c2a47891857d4782270ac597937cce6b6b1"
+  integrity sha512-XQjDGkKmmRZevtMiXwZlDnplsMxi7ySteJDuMcwHKKlqcRoDdDEHxRKW7wDXvUdnvQ/ppImg/RoL1tLUWS8nbg==
 
 to-regex-range@^2.1.0:
   version "2.1.1"

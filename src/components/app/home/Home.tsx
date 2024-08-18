@@ -15,8 +15,8 @@ import ChooseWallet from './components/ChooseWallet';
 import LatestPurchases from './components/LatestPurchases';
 import { AnimatedTabs } from '../../share/animatedTabs';
 import DonutChart from '../../share/charts/DonutChart';
-import { useGetDonut, useGetInvoices, useGetWallet } from '@/services/hooks';
-import { Wallets } from '@/models/digitalWallet.model';
+import { useGetDonut, useGetInvoices, useGetAccountWallet } from '@/services/hooks';
+import { AccountWalletType } from '@/models/digitalWallet.model';
 
 import {
   SkeletonLoader,
@@ -66,9 +66,9 @@ const Home = () => {
   last30Days.setDate(today.getDate() - 30);
   const formattedLast30Days = formatDate(last30Days);
 
-  const { data: wallets } = useGetWallet();
+  const { data: wallets } = useGetAccountWallet();
 
-  const [activeWallet, setActiveWallet] = useState<Wallets | undefined>();
+  const [activeWallet, setActiveWallet] = useState<AccountWalletType | undefined>();
 
   const { isPending, mutate, data } = useGetDonut();
   const showChart = data?.deposit_percentages || data?.withdraw_percentages;

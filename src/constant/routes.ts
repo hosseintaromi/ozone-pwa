@@ -9,16 +9,22 @@ export const API_ROUTES = {
   POST_KYC: '/users/kyc',
   GET_USER_ME: '/users/me',
   POST_KYC_VERIFY: '/users/kyc/verify',
-  GET_WALLETS: '/account-wallets',
+  POST_CHANGE_PASSWORD: '/password/reset',
+  GET_ACCOUNT_WALLETS: '/account-wallets',
   GET_DONUT: '/transactions',
   GET_INVOICES: '/invoices',
   POST_LOGOUT: '/logout',
   POST_SET_PASSWORD: '/password/set',
   POST_Login_PASSWORD: '/login/password',
   POST_FORGET_INIT: '/password/init',
-  GET_WALLET_TRANSACTIONS: (id: number, page: number) => `/account-wallets/${id}?page=${page}`,
+  GET_WALLET_TRANSACTIONS: (id: number | null, page: number) =>
+    `/account-wallets/${id}?page=${page}`,
   POST_CHARGE_WALLET: (id: number) => `/account-wallets/${id}/charge`,
   PATCH_WALLET_STATUS: (id: number) => `/account-wallets/${id}/status`,
+  POST_INQUIRY_WALLETS: '/account-wallets/inquiry',
+  GET_WALLETS: '/wallets',
+  POST_VERIFY_INQUIRY_WALLETS: '/account-wallets/verify',
+  POST_ADD_WALLET: '/account-wallets',
 };
 
 export const ROUTES = {
@@ -31,6 +37,6 @@ export const ROUTES = {
   WALLET: '/wallet/',
   KYC: '/kyc/',
   PURCHASE_DETAIL: '/purchase-detail/',
-  Add_WALLET: '/add-wallet',
+  ADD_WALLET: '/add-wallet',
   SET_PASSWORD: '/set-password',
 };
