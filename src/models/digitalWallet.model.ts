@@ -96,3 +96,4 @@ export type walletInquiry = {
 export type walletStatusBody = { status: 'INACTIVE' | 'ACTIVE' };
 export type chargeWalletBody = { amount: number }; //TODO atefe said this most be string => tell mehdi to fix it
 export type walletInquiryBody = { wallet_id: string };
+export type verifyWalletInquiryBody = { wallet_id: string; code: string };
