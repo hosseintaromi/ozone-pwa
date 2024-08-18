@@ -10,7 +10,7 @@ import common from '@/locale/common';
 
 import { WalletTransactionCardType } from '../type';
 import useCommonModalStore from '@/store/common-modal-store';
-import { persianDateGenerator, rialCurrency } from '@/lib/helper';
+import { formatNumberWithCommas, persianDateGenerator, rialCurrency } from '@/lib/helper';
 
 const WalletTransactionCard = ({ data }: { data: WalletTransactionCardType }) => {
   const { setShow } = useCommonModalStore();
@@ -88,7 +88,7 @@ const WalletTransactionCard = ({ data }: { data: WalletTransactionCardType }) =>
               {data.type === 'WITHDRAW' ? common.withdraw : common.payIn}
             </Text>
             <Text className='text-sm'>
-              {data.amount} {' ' + common.rial}
+              {formatNumberWithCommas(data.amount)} {' ' + common.rial}
             </Text>
           </Container>
           <Container center className='w-full justify-between'>
