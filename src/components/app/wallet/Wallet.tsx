@@ -39,7 +39,7 @@ export default function Wallet() {
         <InfoCircle color='#fff' size={30} />
         <Text>{title} </Text>
 
-        <Link href={ROUTES.AddWALLET}>
+        <Link href={ROUTES.ADD_WALLET}>
           <CardAdd color='#fff' size={30} />
         </Link>
       </Navbar>

@@ -12,6 +12,7 @@ import InlineInfo from './InlineInfo';
 import Link from 'next/link';
 import { ROUTES } from '@/constant/routes';
 import useUserManagement from '@/hooks/useUserManagement';
+import Cookies from 'js-cookie';
 
 const KycForm = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<number>> }) => {
   const {
@@ -23,6 +24,7 @@ const KycForm = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<num
   const [date, setDate] = useState('');
   const { cookieValue } = useUserManagement();
 
+  const kycToken = Cookies.get('kyc_token');
   const { mutate } = useKyc();
 
   const sendReq = () => {
@@ -30,6 +32,7 @@ const KycForm = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<num
       {
         birth_date: date,
         national_code: id,
+        token: kycToken,
       },
       {
         onSuccess: () => {

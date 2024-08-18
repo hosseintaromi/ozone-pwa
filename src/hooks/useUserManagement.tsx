@@ -25,7 +25,6 @@ const useUserManagement = () => {
   }, []);
 
   const setUserToken = (data: loginOtpTypeOut, route?: string) => {
-    console.log(data);
     setToken(data.access_token);
     Cookies.set('token', data.token_type + ' ' + data.access_token, {
       expires: data.expires_in,
@@ -36,6 +35,7 @@ const useUserManagement = () => {
     getUserDataFromCookies();
 
     if (route && route === ROUTES.KYC) {
+      router.push(ROUTES.KYC);
     } else if (route) {
       router.push(route);
     } else {
