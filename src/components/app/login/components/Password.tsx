@@ -27,7 +27,7 @@ import { LOGIN_ROLES } from '@/models/auth.model';
 const Password = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: string }) => {
   const { login } = locale;
   const { mutate, isPending } = useLoginPassword();
-  const { setIsForget } = useLoginStore();
+  const { setGoToSetPassword } = useLoginStore();
   const { setUserToken } = useUserManagement();
 
   const { handleSubmit, values, errors, handleChange } = useFormik({
@@ -109,7 +109,7 @@ const Password = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber:
             <Button
               onClick={() => {
                 clickResend();
-                setIsForget(true);
+                setGoToSetPassword(true);
               }}
               variant={VARIANT_ENUM.TEXT}
             >

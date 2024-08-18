@@ -35,7 +35,7 @@ const LatestPurchases = ({ invoices }: { invoices: invoicesListBody[] | undefine
               invoices.length > index + 1 && 'border-b-[1px] border-gray-700',
             )}
           >
-            <Link href={`${ROUTES.PurchaseDetail}/${item.invoice.id}`}>
+            <Link href={`${ROUTES.PURCHASE_DETAIL}/${item.invoice.id}`}>
               <Container center className='justify-between'>
                 <Container className=' w-8'>
                   <XImage

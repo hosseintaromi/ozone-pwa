@@ -4,14 +4,16 @@ import { Card, Home, Scan, Setting2, TicketDiscount } from 'iconsax-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Container } from 'ozone-uikit';
-import React from 'react';
+import React, { useState } from 'react';
 
 import cn from '@/lib/clsxm';
 
 import { ROUTES } from '@/constant/routes';
+import ScanDialog from '@/components/app/scan/ScanDialog';
 
 const TapBar = () => {
   const pathname = usePathname();
+  const [showScanDialog, setShowScanDialog] = useState(false);
 
   const navList = [
     {
@@ -30,7 +32,8 @@ const TapBar = () => {
       text: 'کوپن',
     },
     {
-      id: ROUTES.SCAN,
+      action: () => setShowScanDialog(true),
+      id: null,
       icon: (props) => <Scan {...props} />,
       text: 'اسکن',
     },
@@ -51,8 +54,14 @@ const TapBar = () => {
         // isIos && 'mb-3'
       )}
     >
+      <ScanDialog setShow={setShowScanDialog} show={showScanDialog} />
       {navList.map((item, index) => (
-        <Link href={item.id} key={index} className='w flex flex-col items-center'>
+        <Link
+          href={item.id ? item.id : ''}
+          onClick={item.action}
+          key={index}
+          className='w flex flex-col items-center'
+        >
           <Container>
             {item.icon({
               className: pathname === item.id ? 'text-primary' : '',

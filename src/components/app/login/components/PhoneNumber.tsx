@@ -20,6 +20,7 @@ import { useLoginInit } from '@/services/hooks';
 import { LOGIN_STEPS, SetPhoneType, SetStepType } from '../Login.module';
 import { LOGIN_ROLES } from '@/models/auth.model';
 import Carousel, { CarouselItem } from '@/components/@base/carousel';
+import useLoginStore from '@/store/login-store';
 
 const PhoneNumber = ({
   setStep,
@@ -33,7 +34,7 @@ const PhoneNumber = ({
   const { login, common } = locale;
   const [open, setOpen] = useState(false);
   const { mutate, isPending } = useLoginInit();
-
+  const { setGoToSetPassword } = useLoginStore();
   const { handleSubmit, values, errors, handleChange, dirty, resetForm } = useFormik({
     initialValues: {
       phoneNumber: '',
@@ -54,6 +55,7 @@ const PhoneNumber = ({
         {
           onSuccess({ data }) {
             setStep(data.has_password ? LOGIN_STEPS.PASSWORD : LOGIN_STEPS.OTP);
+            setGoToSetPassword(!data.has_password);
             setPhoneNumber(phoneNumber);
           },
         },

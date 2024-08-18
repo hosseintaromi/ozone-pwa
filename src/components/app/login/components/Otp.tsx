@@ -35,7 +35,7 @@ const Otp = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: stri
     onExpire: () => !active && setActive(true),
   });
 
-  const { isForget } = useLoginStore();
+  const { goToSetPassword } = useLoginStore();
 
   const { setUserToken } = useUserManagement();
 
@@ -48,7 +48,7 @@ const Otp = ({ phoneNumber, setStep }: { setStep: SetStepType; phoneNumber: stri
       },
       {
         onSuccess: ({ data }) => {
-          isForget ? setUserToken(data, ROUTES.SET_PASSWORD) : setUserToken(data);
+          goToSetPassword ? setUserToken(data, ROUTES.SET_PASSWORD) : setUserToken(data);
         },
       },
     );
