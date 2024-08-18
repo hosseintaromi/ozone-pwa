@@ -1,11 +1,10 @@
 'use client';
 
 import { Text } from '@/components/share/typography';
-
 import { Container, SIZE_ENUM } from 'ozone-uikit';
 import React, { useState } from 'react';
 import { addZeroIfUnder10, convertToEnglishNumber } from '@/lib/helper';
-import { usePostVerifyWalletInquiry } from '@/services/hooks';
+import { usePostVerifyWalletInquiry, usePostWalletInquiry } from '@/services/hooks';
 import { useFormik } from 'formik';
 import locale from '@/locale';
 import { BUTTON_TYPE, COLOR_ENUM, INPUT_TYPES } from '@/@types';
@@ -16,6 +15,11 @@ import { addToTime } from '@/lib/date';
 import Button from '@/components/share/button';
 import { Input } from '@/components/share/input';
 import useDeviceDetection from '@/hooks/useDeviceDetection';
+import useUserManagement from '@/hooks/useUserManagement';
+import useWalletStore from '@/store/wallet-store';
+import { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
+import { ErrorMsg } from '@/components/share/toast/toast';
 
 const AddWalletStep2 = ({
   setActive: setActiveTab,
@@ -32,6 +36,9 @@ const AddWalletStep2 = ({
   const { mutate } = usePostVerifyWalletInquiry();
   const [active, setActive] = useState(false);
   const isIos = useDeviceDetection();
+  const { cookieValue } = useUserManagement();
+  const { mutate: walletInquiryMutation } = usePostWalletInquiry();
+  const { addWalletId, setForAddWallet } = useWalletStore();
   const persianNumToEnNumChange = (e) => {
     e.target.value = convertToEnglishNumber(e.target.value);
     handleChange(e);
@@ -45,22 +52,36 @@ const AddWalletStep2 = ({
     onSubmit: (e) => {
       mutate(
         {
-          wallet_id: '',
-          code: '3454343',
+          wallet_id: `${addWalletId}`,
+          code: e.verifyCode,
         },
         {
-          onSuccess() {},
-          // onError(e) {
-          //   if (e instanceof AxiosError) toast(<ErrorMsg text={e.response?.data?.message} />);
-          // },
+          onSuccess(res) {
+            if (res[0]) {
+              setForAddWallet(res[0]);
+              setActiveTab((pre) => pre + 1);
+            }
+          },
+          onError(e) {
+            if (e instanceof AxiosError) toast(<ErrorMsg text={e.response?.data?.message} />);
+          },
         },
       );
     },
   });
   const handleResendOtp = () => {
-    console.log('resend otp');
-    restart(addToTime(new Date(), 2, { unit: 'MINUTES' }));
-    // setActiveTab((pre) => pre + 1);
+    walletInquiryMutation(
+      { wallet_id: `${addWalletId}` },
+      {
+        onSuccess: () => {
+          restart(addToTime(new Date(), 2, { unit: 'MINUTES' }));
+          setActive(false);
+        },
+        onError: (err) => {
+          console.log(err);
+        },
+      },
+    );
   };
   return (
     <form onSubmit={handleSubmit} className='flex h-full flex-col justify-between'>
@@ -69,7 +90,7 @@ const AddWalletStep2 = ({
           {addWallet.step2SubTitle}
         </Text>
         <Text size={SIZE_ENUM.SM} className='mb-6 mt-4 text-sm text-neutral-200'>
-          {addWallet.step2Desc('09393023301')}
+          {addWallet.step2Desc(cookieValue?.mobile)}
         </Text>
 
         <Input

@@ -22,6 +22,7 @@ import {
   getWallets,
   postWalletInquiry,
   postVerifyWalletInquiry,
+  postVerifyAddWallet,
 } from '..';
 import {
   loginInitTypeIn,
@@ -160,13 +161,20 @@ export const useGetWallets = () => {
 export const usePostWalletInquiry = () => {
   return useMutation({
     mutationFn: (body: walletInquiryBody) => postWalletInquiry(body),
-    mutationKey: [QUERY_KEYS.POST_CHARGE_WALLET],
+    mutationKey: [QUERY_KEYS.POST_WALLET_INQUIRY],
   });
 };
 
 export const usePostVerifyWalletInquiry = () => {
   return useMutation({
     mutationFn: (body: verifyWalletInquiryBody) => postVerifyWalletInquiry(body),
-    mutationKey: [QUERY_KEYS.POST_CHARGE_WALLET],
+    mutationKey: [QUERY_KEYS.POST_VERIFY_WALLET_INQUIRY],
+  });
+};
+
+export const usePostVerifyAddWallet = () => {
+  return useMutation({
+    mutationFn: (body: walletInquiryBody) => postVerifyAddWallet(body),
+    mutationKey: [QUERY_KEYS.POST_VERIFY_ADD_WALLET],
   });
 };

@@ -265,3 +265,15 @@ export const postVerifyWalletInquiry = async (body: verifyWalletInquiryBody) => 
   );
   return data;
 };
+export const postVerifyAddWallet = async (body: walletInquiryBody) => {
+  const {
+    data: { data },
+  }: { data: { data: walletInquiry } } = await httpPostRequest(
+    APIUrlGenerator({
+      route: API_ROUTES.POST_ADD_WALLET,
+      service: BACKEND_SERVICE.DIGITAL_WALLET,
+    }),
+    body,
+  );
+  return data;
+};
