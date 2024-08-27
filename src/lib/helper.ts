@@ -9,6 +9,30 @@ const {
   common: { rial },
 } = locale;
 
+export function dateUntilFutureDate(
+  futureDateStr: string,
+  mode: 'day' | 'minute' | 'second',
+  type: 'max' | 'min',
+): number {
+  const futureDate = new Date(futureDateStr);
+  const now = new Date();
+  const differenceInMillis = futureDate.getTime() - now.getTime();
+  let divider = 1; // 24 * 60 * 60 * 1000;
+  switch (mode) {
+    case 'day':
+      divider = 24 * 60 * 60 * 1000;
+      break;
+    case 'minute':
+      divider = 60 * 1000;
+      break;
+    case 'second':
+      divider = 1000;
+  }
+  if (type === 'max') {
+    return Math.ceil(differenceInMillis / divider);
+  } else return Math.floor(differenceInMillis / divider);
+}
+
 export function APIUrlGenerator({
   route,
   service,

@@ -1,44 +1,55 @@
-import { Button, COLOR_ENUM, SIZE_ENUM, Text } from 'ozone-uikit';
-import React from 'react';
-
+'use client';
+import { VARIANT_ENUM } from '@/@types';
+import Button from '@/components/share/button';
+import Container from '@/components/share/container';
+import { Text } from '@/components/share/typography';
+import XImage from '@/components/share/x-image';
 import locale from '@/locale';
+import { SIZE_ENUM } from 'ozone-uikit';
+import React, { useState } from 'react';
+import ProfileDialog from './QrDialog';
 
-import { PayInDialogType } from '../wallet/type';
-import Modal, { ModalBody, ModalHead } from '../../share/modal';
-import { ROUTES } from '@/constant/routes';
-import { Scan } from 'iconsax-react';
-
-const ScanDialog = (props: PayInDialogType) => {
-  const { show, setShow } = props;
+const ScanDialog = () => {
   const {
     app: { scan },
   } = locale;
+  const [show, setShow] = useState(false);
 
   return (
-    <Modal
-      center
-      show={show}
-      onClose={() => setShow(false)}
-      dialogPanelClassName='bg-neutral-900'
-    >
-      <ModalBody className='flex w-full  flex-col items-center justify-center text-white'>
-        <Scan size='28' className='mt-7' />
-        <Text size={SIZE_ENUM.LG} medium className='mt-4'>
-          {scan.title}
+    <Container className='flex h-dvh flex-col items-center justify-between px-5 pb-32 text-center'>
+      <Text size={SIZE_ENUM.LG} className='mt-4'>
+        {scan.title}
+      </Text>
+      <Container>
+        <Container center className='h-60 flex-col gap-3'>
+          <XImage
+            src='/images/image/scanPage.svg'
+            alt='Picture of the author'
+            width={250}
+            height={250}
+            className='text'
+          />
+        </Container>
+        <Text size={SIZE_ENUM.LG} className='mb-7 w-full'>
+          {scan.subTitle}
         </Text>
-        <Text size={SIZE_ENUM.MD} medium className='mt-4 text-neutral-500'>
-          {scan.desc}
-        </Text>
+        <Text className='max-w-80 text-neutral-500'>{scan.desc}</Text>
+      </Container>
+      <Container className='w-full'>
         <Button
-          onClick={() => setShow(false)}
-          color={COLOR_ENUM.PRIMARY}
-          size={SIZE_ENUM.XXL}
-          className='mb-4 mt-8 w-full'
+          className='mb-5 h-14 w-full'
+          onClick={() => {
+            setShow(true);
+          }}
         >
           {scan.button}
         </Button>
-      </ModalBody>
-    </Modal>
+        <Button className='h-14  w-full' variant={VARIANT_ENUM.TEXT}>
+          {scan.guideButton}
+        </Button>
+      </Container>
+      <ProfileDialog show={show} setShow={setShow} />
+    </Container>
   );
 };
 

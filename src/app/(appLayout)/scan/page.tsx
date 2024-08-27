@@ -1,7 +1,8 @@
+import ScanDialog from '@/components/app/scan/ScanDialog';
 import React from 'react';
 
 const scan = () => {
-  return <div>scan</div>;
+  return <ScanDialog />;
 };
 
 export default scan;

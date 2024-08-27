@@ -17,7 +17,6 @@ import { Text } from '@/components/share/typography';
 import { Input } from '@/components/share/input';
 import Button from '@/components/share/button';
 import { useChangePassword } from '@/services/hooks';
-import { useRouter } from 'next/navigation';
 import Modal, { ModalBody, ModalHead } from '../../share/modal';
 
 const minLength = yup.string().min(8);
@@ -40,7 +39,6 @@ const ChangePassword = (props: any) => {
   });
 
   const { mutate, isPending } = useChangePassword();
-  const router = useRouter();
   const { handleSubmit, values, errors, handleChange, touched, handleBlur } = useFormik({
     initialValues: {
       oldPassword: '',
