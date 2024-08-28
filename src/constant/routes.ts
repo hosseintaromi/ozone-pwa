@@ -26,6 +26,7 @@ export const API_ROUTES = {
   POST_VERIFY_INQUIRY_WALLETS: '/account-wallets/verify',
   POST_ADD_WALLET: '/account-wallets',
   GET_QR_CODE: '/barcode',
+  GET_VOUCHER_LIST: '/list',
 };
 
 export const ROUTES = {

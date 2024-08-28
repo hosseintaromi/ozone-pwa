@@ -109,5 +109,19 @@ const app = {
       'کوپن های را که می خواهید در خرید حضوری خرج نشود را می توانید غیر فعال کنید.',
     couponUnavailable: 'کوپن موجود نیست',
   },
+  cards: {
+    minimumPurchase: (amount: number) => `حداقل سبد خرید ${amount.toLocaleString('fa')} ریال `,
+    disposable: 'یکبار مصرف',
+    useCouponTime: (days: number) => `قابل استفاده تا ${days} روز دیگر`,
+    canNotUseCoupon: 'این کوپن قابل خرج با بعضی کوپن ها نیست',
+    selected: 'انتخاب شده',
+    selectCoupon: 'انتخاب کوپن',
+    disposableCount: (c: number) => `${c} بار استفاده `,
+
+    couponValue: (amount: number, percent?: number) =>
+      percent
+        ? ` کوپن ${percent} % به ارزش ${amount.toLocaleString('fa')} ریال`
+        : `ارزش کوپن ${amount.toLocaleString('fa')} ریال `,
+  },
 };
 export default app;
