@@ -1,0 +1,36 @@
+import { Container } from 'ozone-uikit';
+import XImage from '@/components/share/x-image';
+
+const Logos = ({ logos }: any) => {
+  return (
+    <Container center className='relative min-h-20 w-[56px] justify-end'>
+      {logos.length === 1 ? (
+        <XImage
+          src={`${logos[0].logo_base_url}${logos[0].logo_path}`}
+          alt={logos[0].legal_name}
+          width={40}
+          height={40}
+          className={
+            'rounded-full border-2 border-neutral-300 bg-white dark:border-neutral-700 dark:bg-neutral-800'
+          }
+        />
+      ) : (
+        logos
+          .slice(0, 3)
+          .map((itm, index) => (
+            <XImage
+              src={`${itm.logo_base_url}${itm.logo_path}`}
+              alt={itm.legal_name}
+              width={40}
+              height={40}
+              className={
+                'absolute rounded-full border-2 border-neutral-100 bg-white dark:border-neutral dark:bg-neutral-700'
+              }
+              style={{ top: ` ${20 * index}px`, zIndex: 10 - index }}
+            />
+          ))
+      )}
+    </Container>
+  );
+};
+export default Logos;

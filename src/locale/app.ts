@@ -108,6 +108,11 @@ const app = {
     couponCanDisable:
       'کوپن های را که می خواهید در خرید حضوری خرج نشود را می توانید غیر فعال کنید.',
     couponUnavailable: 'کوپن موجود نیست',
+    couponDetails: 'جزئیات کوپن',
+    discountType: 'نوع تخفیف',
+    couponAmount: 'مبلغ خرید کوپن',
+    couponCode: 'کد کوپن',
+    minimumCart: 'حداقل سبد خرید',
   },
   cards: {
     minimumPurchase: (amount: number) => `حداقل سبد خرید ${amount.toLocaleString('fa')} ریال `,
