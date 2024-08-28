@@ -120,3 +120,15 @@ div[data-rsbs-scroll] {
   background-size: 1px 10px;
   background-repeat: repeat-y;
 }
+.gray-down-dash-border-light {
+  background-image: linear-gradient(to right, #fff 33%, #7c7f82ff 0%);
+  background-position: bottom;
+  background-size: 15px 1px;
+  background-repeat: repeat-x;
+}
+.gray-down-dash-border {
+  background-image: linear-gradient(to right, #32373b 33%, #7c7f82ff 0%);
+  background-position: bottom;
+  background-size: 15px 1px;
+  background-repeat: repeat-x;
+}

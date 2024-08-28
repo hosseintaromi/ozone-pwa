@@ -26,5 +26,7 @@ const common = {
   time: 'زمان',
   descriptions: 'توضیحات',
   trackingNumber: 'شماره پیگیری',
+  canBeUsedIn: 'قابل استفاده در',
+  expirationDate: 'تاریخ انقضا',
 };
 export default common;
