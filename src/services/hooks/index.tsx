@@ -24,6 +24,8 @@ import {
   postVerifyWalletInquiry,
   postVerifyAddWallet,
   getQrCode,
+  getVouchers,
+  postChangeVoucherStatus,
 } from '..';
 import {
   loginInitTypeIn,
@@ -36,6 +38,8 @@ import { DonutChartParams, invoicesListParams } from '@/models/transaction.model
 import {
   chargeWalletBody,
   verifyWalletInquiryBody,
+  voucherChangeBody,
+  voucherParams,
   walletInquiryBody,
   walletStatusBody,
 } from '@/models/digitalWallet.model';
@@ -113,7 +117,7 @@ export const useGetDonut = () => {
   });
 };
 
-export const usePostLogout = (data: any) => {
+export const usePostLogout = () => {
   return useMutation({
     mutationFn: () => postLogout(),
   });
@@ -183,5 +187,18 @@ export const useGetQr = () => {
   return useQuery({
     queryFn: () => getQrCode(),
     queryKey: [QUERY_KEYS.GET_QR_CODE],
+  });
+};
+
+export const useGetVoucher = (params?: voucherParams) => {
+  return useQuery({
+    queryFn: () => getVouchers(params),
+    queryKey: [QUERY_KEYS.GET_VOUCHER],
+  });
+};
+
+export const usePostVoucherChange = () => {
+  return useMutation({
+    mutationFn: (data: voucherChangeBody) => postChangeVoucherStatus(data),
   });
 };

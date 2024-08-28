@@ -5,6 +5,8 @@ import TabGroup, { TabPanel, TabPanels, Tabs } from '@/components/@base/tab';
 import { TabDefault } from '@/components/@base/tab/stylish';
 import locale from '@/locale';
 import XImage from '@/components/share/x-image';
+import Card from '@/components/share/card';
+import { useGetVoucher } from '@/services/hooks';
 
 const Voucher = () => {
   const {
@@ -13,6 +15,9 @@ const Voucher = () => {
       voucher: { couponCanDisable, couponUnavailable },
     },
   } = locale;
+
+  const { data } = useGetVoucher();
+
   return (
     <Container>
       <Header />
@@ -27,6 +32,7 @@ const Voucher = () => {
             <Text size={SIZE_ENUM.SM} bold className='text-neutral-200'>
               {couponCanDisable}
             </Text>
+            {data ? data?.map((c) => <Card data={c} />) : 'no data'}
           </TabPanel>
           <TabPanel>
             <Container center className='h-[calc(100dvh-220px)] flex-col gap-3'>

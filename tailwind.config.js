@@ -11,6 +11,9 @@ export default {
         'calc-100-minus-200': 'calc(100% - 200px)',
       },
       colors: colors,
+      grayscale: {
+        50: '50%',
+      },
       screens: {
         xs: '380px',
         sm: '640px',

@@ -102,3 +102,52 @@ export type qrBody = {
   serial: string;
   expire_at: string;
 };
+export type voucherBusinesses = {
+  id: number;
+  voucher_id: number;
+  account_id: number;
+  name: string;
+  legal_name: string;
+  logo_base_url: string;
+  logo_path: string;
+};
+export type voucherType = {
+  voucher_id: number;
+  account_id: number;
+  id: number;
+  code: string;
+  status: VOUCHER_STATUS;
+  expired_at: string;
+  voucher: {
+    amount: number;
+    amount_type: 'PRICE' | 'PERCENT';
+    type: 'NORMAL' | 'PURCHASABLE' | 'SELECTABLE' | 'PROMOTION';
+    max_percent_amount: number;
+    purchase_amount: number;
+    min_invoice_amount: number;
+    usage_count: number;
+    usage_count_per_account: number;
+    start_at: string;
+    end_at: string;
+    expire_day_count: number;
+    status: 'ACTIVE';
+    voucher_accounts: null;
+    voucher_businesses: voucherBusinesses[];
+  };
+};
+
+export type voucherParams = {
+  status?: string;
+  type?: string;
+  business_account_id?: string;
+};
+
+export type voucherChangeBody = {
+  status?: VOUCHER_STATUS;
+  id: string;
+};
+
+export enum VOUCHER_STATUS {
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
+}

@@ -37,6 +37,9 @@ import {
   walletInquiry,
   verifyWalletInquiryBody,
   qrBody,
+  voucherType,
+  voucherParams,
+  voucherChangeBody,
 } from '@/models/digitalWallet.model';
 
 export const postLoginInit = async (data: loginInitTypeIn) => {
@@ -287,6 +290,31 @@ export const getQrCode = async () => {
       route: API_ROUTES.GET_QR_CODE,
       service: BACKEND_SERVICE.TRANSACTION,
     }),
+  );
+  return data;
+};
+
+export const getVouchers = async (params?: voucherParams) => {
+  const {
+    data: { data },
+  }: { data: { data: voucherType[] } } = await httpGetRequest(
+    APIUrlGenerator({
+      route: API_ROUTES.GET_VOUCHER_LIST,
+      service: BACKEND_SERVICE.VOUCHER,
+      qry: params,
+    }),
+  );
+  return data;
+};
+export const postChangeVoucherStatus = async (body: voucherChangeBody) => {
+  const {
+    data: { data },
+  }: { data: { data: voucherType[] } } = await httpPatchRequest(
+    APIUrlGenerator({
+      route: API_ROUTES.POST_CHANGE_VOUCHER_STATUS(body.id),
+      service: BACKEND_SERVICE.VOUCHER,
+    }),
+    { status: body.status },
   );
   return data;
 };
