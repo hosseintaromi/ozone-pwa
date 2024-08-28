@@ -80,6 +80,7 @@
     "react-timer-hook": "3.0.7",
     "react-toastify": "10.0.5",
     "react-virtuoso": "^4.10.0",
+    "stories-react": "^1.1.2",
     "swiper": "11.1.1",
     "tailwind-merge": "2.3.0",
     "to-persian-letter-currency": "^0.0.12",
