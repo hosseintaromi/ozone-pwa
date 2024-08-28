@@ -59,7 +59,7 @@ const NormalCard = ({ data, addWallet }: { data: AccountWalletType; addWallet?: 
   };
   return (
     <Container
-      className='relative h-full max-h-[200px] rounded-[14px]'
+      className='relative h-full max-h-[200px] w-full rounded-[14px]'
       style={{ backgroundColor: color }}
     >
       {status === 'INACTIVE' && (
@@ -68,7 +68,7 @@ const NormalCard = ({ data, addWallet }: { data: AccountWalletType; addWallet?: 
       <IncreaseCredit show={show} setShow={setShow} />
       <XImage
         src={color === WHITE_COLOR ? whiteShadow2 : whiteShadow}
-        alt='222'
+        alt=''
         width={150}
         height={160}
         className='absolute right-0 top-0 opacity-20'
@@ -95,7 +95,7 @@ const NormalCard = ({ data, addWallet }: { data: AccountWalletType; addWallet?: 
           <Container className='h-3'>
             <XImage
               src={`${logo_base_url}${logo_path}`}
-              alt='222'
+              alt=''
               width={40}
               height={10}
               className='rounded-full'
