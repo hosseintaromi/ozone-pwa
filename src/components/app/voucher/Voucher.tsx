@@ -17,7 +17,7 @@ const Voucher = () => {
   } = locale;
 
   const { data } = useGetVoucher();
-  console.log(data);
+
   return (
     <Container>
       <Header />

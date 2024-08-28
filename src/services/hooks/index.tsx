@@ -25,6 +25,7 @@ import {
   postVerifyAddWallet,
   getQrCode,
   getVouchers,
+  postChangeVoucherStatus,
 } from '..';
 import {
   loginInitTypeIn,
@@ -37,6 +38,7 @@ import { DonutChartParams, invoicesListParams } from '@/models/transaction.model
 import {
   chargeWalletBody,
   verifyWalletInquiryBody,
+  voucherChangeBody,
   voucherParams,
   walletInquiryBody,
   walletStatusBody,
@@ -192,5 +194,11 @@ export const useGetVoucher = (params?: voucherParams) => {
   return useQuery({
     queryFn: () => getVouchers(params),
     queryKey: [QUERY_KEYS.GET_VOUCHER],
+  });
+};
+
+export const usePostVoucherChange = () => {
+  return useMutation({
+    mutationFn: (data: voucherChangeBody) => postChangeVoucherStatus(data),
   });
 };

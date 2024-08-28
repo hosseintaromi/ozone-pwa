@@ -7,10 +7,13 @@ import { dateUntilFutureDate } from '@/lib/helper';
 
 import locale from '@/locale';
 import Logos from './logos';
-import { voucherType } from '@/models/digitalWallet.model';
+import { VOUCHER_STATUS, voucherType } from '@/models/digitalWallet.model';
 import XImage from '../x-image';
+import { usePostVoucherChange } from '@/services/hooks';
+import { useQueryClient } from '@tanstack/react-query';
+import { QUERY_KEYS } from '@/constant/query-key';
 
-export type Props = {
+type Props = {
   data: voucherType;
 };
 
@@ -24,7 +27,9 @@ const Card = ({ data }: Props) => {
       voucher_businesses,
     },
     expired_at,
+    status,
   } = data;
+  const queryClient = useQueryClient();
 
   const {
     app: { cards },
@@ -32,16 +37,31 @@ const Card = ({ data }: Props) => {
 
   let disabled = false;
   const couponIsSelected = false;
-  const handleSelect = () => {};
+  const { mutate, isPending } = usePostVoucherChange();
+  const handleSelect = () => {
+    mutate(
+      {
+        id: data.id + '',
+        status:
+          data.status === VOUCHER_STATUS.ACTIVE
+            ? VOUCHER_STATUS.INACTIVE
+            : VOUCHER_STATUS.ACTIVE,
+      },
+      {
+        onSuccess: () => {
+          queryClient.refetchQueries({ queryKey: [QUERY_KEYS.GET_VOUCHER] });
+        },
+      },
+    );
+  };
   return (
-    <Container className='mb-5 last-of-type:mb-28'>
+    <Container className='mb-5 last-of-type:mb-28 '>
       <Container
         className={cn(
           'relative flex h-[168px] w-full cursor-pointer justify-between rounded-xl border-[1px] border-neutral-100 bg-white px-3 py-5 dark:border-neutral-700 dark:bg-neutral-800',
           couponIsSelected && '!border-primary-300',
           disabled && 'cursor-not-allowed border-neutral-200',
         )}
-        onClick={handleSelect}
       >
         {couponIsSelected && (
           <XImage
@@ -69,9 +89,20 @@ const Card = ({ data }: Props) => {
           <Container
             center
             className='mt-3 gap-2 rounded-2xl bg-neutral-50 px-4 py-1 dark:bg-neutral-500/30'
+            onClick={handleSelect}
           >
-            <Text className={cn('text-primary')}>{locale.common.active}</Text>{' '}
-            <span className='h-5 border-r-[1px] border-neutral-500' />{' '}
+            <Text
+              className={cn(
+                'w-12',
+                status === VOUCHER_STATUS.ACTIVE ? 'text-primary' : 'text-neutral-500',
+              )}
+            >
+              {status === VOUCHER_STATUS.ACTIVE
+                ? locale.common.active
+                : locale.common.inActive}
+            </Text>
+            <span className='h-5 border-r-[1px] border-neutral-500' />
+
             <Text size={SIZE_ENUM.XS} medium className=' text-neutral-800  dark:text-white'>
               {cards.useCouponTime(dateUntilFutureDate(expired_at, 'day', 'max'))}
             </Text>
@@ -94,7 +125,12 @@ const Card = ({ data }: Props) => {
             )}
           />
         </Container>
-        <Container className='absolute left-0 top-0  h-full w-[10px] rounded-l-xl bg-primary' />
+        <Container
+          className={cn(
+            'absolute left-0 top-0  h-full w-[10px] rounded-l-xl',
+            status === VOUCHER_STATUS.ACTIVE ? 'bg-primary' : 'bg-neutral-500',
+          )}
+        />
         <Container className='absolute  right-0 top-0  h-[33px] w-[33px] rounded-bl-md rounded-tr-xl bg-secondary/10 p-1'>
           <Gift className='text-secondary' />
         </Container>

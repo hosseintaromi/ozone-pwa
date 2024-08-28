@@ -116,7 +116,7 @@ export type voucherType = {
   account_id: number;
   id: number;
   code: string;
-  status: 'ACTIVE';
+  status: VOUCHER_STATUS;
   expired_at: string;
   voucher: {
     amount: number;
@@ -141,3 +141,13 @@ export type voucherParams = {
   type?: string;
   business_account_id?: string;
 };
+
+export type voucherChangeBody = {
+  status?: VOUCHER_STATUS;
+  id: string;
+};
+
+export enum VOUCHER_STATUS {
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
+}
