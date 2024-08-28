@@ -23,6 +23,7 @@ import {
   postWalletInquiry,
   postVerifyWalletInquiry,
   postVerifyAddWallet,
+  getQrCode,
 } from '..';
 import {
   loginInitTypeIn,
@@ -35,7 +36,6 @@ import { DonutChartParams, invoicesListParams } from '@/models/transaction.model
 import {
   chargeWalletBody,
   verifyWalletInquiryBody,
-  walletInquiry,
   walletInquiryBody,
   walletStatusBody,
 } from '@/models/digitalWallet.model';
@@ -176,5 +176,12 @@ export const usePostVerifyAddWallet = () => {
   return useMutation({
     mutationFn: (body: walletInquiryBody) => postVerifyAddWallet(body),
     mutationKey: [QUERY_KEYS.POST_VERIFY_ADD_WALLET],
+  });
+};
+
+export const useGetQr = () => {
+  return useQuery({
+    queryFn: () => getQrCode(),
+    queryKey: [QUERY_KEYS.GET_QR_CODE],
   });
 };

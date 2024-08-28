@@ -1,6 +1,6 @@
 import { Container } from 'ozone-uikit';
 import React, { useEffect, useState } from 'react';
-import { EffectCreative, Pagination } from 'swiper/modules';
+import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 

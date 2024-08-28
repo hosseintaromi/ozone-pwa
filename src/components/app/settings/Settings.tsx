@@ -60,7 +60,7 @@ const Settings = () => {
       <ProfileInfo />
       <ChangePassword show={showLock} setShow={setShowLock} />
       <ProfileDialog show={show} setShow={setShow} />
-      {settingList.map((item, index) => (
+      {settingList.map((item) => (
         <Container
           key={item.title}
           className='mt-10 flex w-full cursor-pointer justify-between'

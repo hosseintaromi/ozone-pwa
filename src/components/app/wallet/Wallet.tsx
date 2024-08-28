@@ -55,7 +55,7 @@ export default function Wallet() {
           else if (maxHeight > 500) return [maxHeight / 1.9, maxHeight];
           else return [maxHeight / 1.7, maxHeight];
         }}
-        defaultSnap={({ lastSnap, snapPoints }) => {
+        defaultSnap={({ lastSnap }) => {
           lastSnap && setSheetHeight(lastSnap);
           return lastSnap ? lastSnap : 500;
         }}

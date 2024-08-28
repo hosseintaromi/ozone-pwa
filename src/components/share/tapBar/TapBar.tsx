@@ -1,19 +1,17 @@
 'use client';
 
-import { Card, Home, Scan, Setting2, TicketDiscount } from 'iconsax-react';
+import { Barcode, Card, Home, Setting2, TicketDiscount } from 'iconsax-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Container } from 'ozone-uikit';
-import React, { useState } from 'react';
+import React from 'react';
 
 import cn from '@/lib/clsxm';
 
 import { ROUTES } from '@/constant/routes';
-import ScanDialog from '@/components/app/scan/ScanDialog';
 
 const TapBar = () => {
   const pathname = usePathname();
-  const [showScanDialog, setShowScanDialog] = useState(false);
 
   const navList = [
     {
@@ -23,23 +21,24 @@ const TapBar = () => {
     },
     {
       id: ROUTES.WALLET,
-      icon: (props) => <Card {...props} />,
+      icon: (props) => <Card {...props} variant='Outline' />,
       text: 'کارت ها',
     },
     {
+      // action: () => setShowScanDialog(true),
+      id: ROUTES.SCAN,
+      icon: (props) => <Barcode {...props} variant='Outline' />,
+      text: 'بارکد خرید',
+    },
+    {
       id: ROUTES.VOUCHER,
-      icon: (props) => <TicketDiscount {...props} />,
+      icon: (props) => <TicketDiscount {...props} variant='Outline' />,
       text: 'کوپن',
     },
-    {
-      action: () => setShowScanDialog(true),
-      id: null,
-      icon: (props) => <Scan {...props} />,
-      text: 'اسکن',
-    },
+
     {
       id: ROUTES.SETTING,
-      icon: (props) => <Setting2 {...props} />,
+      icon: (props) => <Setting2 {...props} variant='Outline' />,
       text: 'تنظیمات',
     },
   ];
@@ -54,11 +53,9 @@ const TapBar = () => {
         // isIos && 'mb-3'
       )}
     >
-      <ScanDialog setShow={setShowScanDialog} show={showScanDialog} />
       {navList.map((item, index) => (
         <Link
           href={item.id ? item.id : ''}
-          onClick={item.action}
           key={index}
           className='w flex flex-col items-center'
         >

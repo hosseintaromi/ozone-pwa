@@ -36,6 +36,7 @@ import {
   walletInquiryBody,
   walletInquiry,
   verifyWalletInquiryBody,
+  qrBody,
 } from '@/models/digitalWallet.model';
 
 export const postLoginInit = async (data: loginInitTypeIn) => {
@@ -274,6 +275,18 @@ export const postVerifyAddWallet = async (body: walletInquiryBody) => {
       service: BACKEND_SERVICE.DIGITAL_WALLET,
     }),
     body,
+  );
+  return data;
+};
+
+export const getQrCode = async () => {
+  const {
+    data: { data },
+  }: { data: { data: qrBody } } = await httpGetRequest(
+    APIUrlGenerator({
+      route: API_ROUTES.GET_QR_CODE,
+      service: BACKEND_SERVICE.TRANSACTION,
+    }),
   );
   return data;
 };
