@@ -113,6 +113,9 @@ const app = {
     couponAmount: 'مبلغ خرید کوپن',
     couponCode: 'کد کوپن',
     minimumCart: 'حداقل سبد خرید',
+    rialDiscount: 'تخفیف ریالی',
+    percentDiscount: 'تخفیف درصدی',
+    couponCanUseIn: 'کوپن قابل استفاده در فروشگاه های زیر است.',
   },
   cards: {
     minimumPurchase: (amount: number) => `حداقل سبد خرید ${amount.toLocaleString('fa')} ریال `,

@@ -32,7 +32,7 @@ const Voucher = () => {
             <Text size={SIZE_ENUM.SM} bold className='text-neutral-200'>
               {couponCanDisable}
             </Text>
-            {data ? data?.map((c) => <Card data={c} />) : 'no data'}
+            {data && data?.map((c) => <Card data={c} />)}
           </TabPanel>
           <TabPanel>
             <Container center className='h-[calc(100dvh-220px)] flex-col gap-3'>
