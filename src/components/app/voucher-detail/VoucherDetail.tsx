@@ -1,14 +1,43 @@
+'use client';
 import { Container, SIZE_ENUM, Text } from 'ozone-uikit';
 import cn from '@/lib/clsxm';
 import locale from '@/locale';
-import { ArrowRight } from 'iconsax-react';
+import { ArrowRight, Box, Tag } from 'iconsax-react';
 import XImage from '@/components/share/x-image';
+import useVoucherStore from '@/store/voucher-store';
+import { useRouter } from 'next/navigation';
+import Logos from '@/components/app/voucher-detail/components/Logos';
+import { voucherBusinesses } from '@/models/digitalWallet.model';
+import { persianDateGenerator, rialCurrency } from '@/lib/helper';
 // import Logos from '@/components/app/voucher-detail/components/Logos';
 
 const VoucherDetail = () => {
+  const { selectedVoucher } = useVoucherStore();
+  const router = useRouter();
+  const goToVoucherPage = () => {
+    router.push('/voucher');
+  };
+  if (!selectedVoucher?.id) {
+    goToVoucherPage();
+    return null;
+  }
+  console.log(selectedVoucher, selectedVoucher?.id);
   const {
-    common: { canBeUsedIn, expirationDate },
+    status,
+    code,
+    expired_at,
+    voucher: {
+      amount,
+      amount_type,
+      max_percent_amount,
+      voucher_businesses,
+      min_invoice_amount,
+    },
+  } = selectedVoucher;
+  const {
+    common: { canBeUsedIn, expirationDate, active, inActive, expired, influencer },
     app: {
+      cards,
       voucher: {
         couponDetails,
         couponCode,
@@ -16,42 +45,91 @@ const VoucherDetail = () => {
         couponSituation,
         couponAmount,
         discountType,
+        couponType,
+        percentDiscount,
+        rialDiscount,
       },
     },
   } = locale;
-  const items = [
-    {
-      title: couponSituation,
-      amount: 'فعال',
-    },
-    {
-      title: discountType,
-      amount: 'تخفیف درصدی',
-    },
-    {
-      title: couponAmount,
-      amount: '۱۲,000,000 ریال',
-    },
-    {
-      title: minimumCart,
-      amount: 12750000,
-    },
-    {
-      title: couponCode,
-      amount: 12750000,
-    },
-    {
-      title: expirationDate,
-      amount: 'سه شنبه 24 مرداد 18:30',
-    },
-  ];
+  const items =
+    amount_type === 'PERCENT'
+      ? [
+          {
+            title: couponSituation,
+            amount: status === 'ACTIVE' ? active : status === 'INACTIVE' ? inActive : expired,
+          },
+          {
+            title: discountType,
+            amount: percentDiscount,
+          },
+          {
+            title: couponType,
+            amount: 'خریداری شده',
+            icon: <Tag size='20' color='#FF8A65' />,
+          },
+          {
+            title: influencer,
+            amount: 'اوزون سوشیال',
+          },
+          {
+            title: couponAmount,
+            amount: rialCurrency(min_invoice_amount),
+          },
+          {
+            title: minimumCart,
+            amount: rialCurrency(min_invoice_amount),
+          },
+          {
+            title: couponCode,
+            amount: code,
+          },
+          {
+            title: expirationDate,
+            amount: persianDateGenerator(new Date(expired_at)),
+          },
+        ]
+      : [
+          {
+            title: couponSituation,
+            amount: status === 'ACTIVE' ? active : status === 'INACTIVE' ? inActive : expired,
+          },
+          {
+            title: discountType,
+            amount: rialDiscount,
+          },
+          {
+            title: couponType,
+            amount: 'خریداری شده',
+            icon: <Box size='20' color='#FF8A65' />,
+          },
+          {
+            title: couponAmount,
+            amount: rialCurrency(amount),
+          },
+          {
+            title: minimumCart,
+            amount: rialCurrency(min_invoice_amount),
+          },
+          {
+            title: couponCode,
+            amount: code,
+          },
+          {
+            title: expirationDate,
+            amount: persianDateGenerator(new Date(expired_at)),
+          },
+        ];
   return (
     <Container center className='flex-col gap-6 p-5'>
       <Container center className='relative my-4 w-full'>
         <Text bold className='text-[22px]'>
           {couponDetails}
         </Text>
-        <ArrowRight size='28' className='absolute right-0 top-1 text-white' />
+        <ArrowRight
+          size='28'
+          className='absolute right-0 top-1 text-white'
+          onClick={() => goToVoucherPage()}
+        />
       </Container>
       <Container
         center
@@ -62,21 +140,11 @@ const VoucherDetail = () => {
           className='gray-down-dash-border relative w-full flex-col gap-3 pb-3'
         >
           <Text className='text-neutral-500'>{canBeUsedIn}</Text>
-          <Container center className='rounded-full bg-white p-2'>
-            <XImage
-              src='/images/mock/filmeNet.svg'
-              width={35}
-              height={35}
-              alt='success logo'
-            />
-            {/*<Logos />*/}
-          </Container>
+          <Logos logos={voucher_businesses} expired={status === 'EXPIRED'} />
 
-          <Text size={SIZE_ENUM.MD} medium className='text-neutral-500'>
-            افق کوروش
-          </Text>
-          <Text size={SIZE_ENUM.MD} bold className='my-2 text-neutral-0'>
-            کوپن ۲۵ ٪ به ارزش ۳,۰۰۰,۰۰۰ ریال
+          <Text size={SIZE_ENUM.MD} bold className='my-2 text-white'>
+            {amount_type === 'PERCENT' && cards.couponValue(max_percent_amount, amount)}
+            {amount_type === 'PRICE' && cards.couponValue(amount)}
           </Text>
           <span
             className={
@@ -93,17 +161,20 @@ const VoucherDetail = () => {
         </Container>
         <Container center className='w-full max-w-[420px] flex-col pt-2 md:pt-6'>
           {items.map((i, index) => (
-            <Container
-              center
-              className={cn(
-                'mb-4 w-full justify-between',
-                index === 3 && 'border-t-[1px]pt-4 mt-1 border-neutral-700',
-              )}
-            >
-              <Text medium size={SIZE_ENUM.SM} className={'text-neutral-200'}>
+            <Container center className='mb-4 w-full justify-between'>
+              <Text medium size={SIZE_ENUM.SM} className='text-neutral-200'>
                 {i.title}
               </Text>
-              <Text bold size={SIZE_ENUM.SM} className={'text-neutral-0'}>
+              <Text
+                bold
+                size={SIZE_ENUM.SM}
+                className={cn(
+                  'text-white',
+                  (index === 0 || index === 2) &&
+                    'flex items-center gap-2 rounded-3xl bg-neutral-700 px-4 py-2',
+                )}
+              >
+                {i.icon && i.icon}
                 {i.amount}
               </Text>
               {/*<Container center className='gap-1'>*/}

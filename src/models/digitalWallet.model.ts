@@ -130,7 +130,7 @@ export type voucherType = {
     start_at: string;
     end_at: string;
     expire_day_count: number;
-    status: 'ACTIVE';
+    status: VOUCHER_STATUS;
     voucher_accounts: null;
     voucher_businesses: voucherBusinesses[];
   };
@@ -150,4 +150,5 @@ export type voucherChangeBody = {
 export enum VOUCHER_STATUS {
   ACTIVE = 'ACTIVE',
   INACTIVE = 'INACTIVE',
+  EXPIRED = 'EXPIRED',
 }

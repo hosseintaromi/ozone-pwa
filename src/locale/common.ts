@@ -28,5 +28,8 @@ const common = {
   trackingNumber: 'شماره پیگیری',
   canBeUsedIn: 'قابل استفاده در',
   expirationDate: 'تاریخ انقضا',
+  details: 'جزئیات',
+  influencer: 'اینفلوئنسر',
+  stores: 'فروشگاه‌ها',
 };
 export default common;

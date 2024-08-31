@@ -150,7 +150,7 @@ export function clearTokens() {
   Cookies.remove(StorageKey.TOKEN);
 }
 
-export function persianDateGenerator(date: Date) {
+export function persianDateGenerator(date: Date, type?: 'noDash') {
   const persianDate = new Intl.DateTimeFormat('fa', {
     year: 'numeric',
     month: 'long',
@@ -165,7 +165,9 @@ export function persianDateGenerator(date: Date) {
   const weekday = persianDate[6].value;
   const hour = persianDate[8].value;
   const minute = persianDate[10].value;
-  return `${weekday} ${day} ${month} ${year} - ${hour}:${minute}`;
+  if (type === 'noDash') {
+    return `${weekday} ${day} ${month} ${year}  ${hour}:${minute}`;
+  } else return `${weekday} ${day} ${month} ${year} - ${hour}:${minute}`;
 }
 
 export function isIOS(): boolean {
