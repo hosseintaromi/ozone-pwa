@@ -28,6 +28,7 @@ export const API_ROUTES = {
   GET_QR_CODE: '/barcode',
   GET_VOUCHER_LIST: '/list',
   POST_CHANGE_VOUCHER_STATUS: (id: string) => `/status/${id}`,
+  GET_BUSINESSES: '/businesses',
 };
 
 export const ROUTES = {

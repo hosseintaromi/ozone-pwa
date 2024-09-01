@@ -17,4 +17,5 @@ export const QUERY_KEYS = {
   POST_VERIFY_ADD_WALLET: 'post-verify-add-wallet',
   GET_QR_CODE: 'get_qr_code',
   GET_VOUCHER: 'get_voucher',
+  GET_BUSINESSES: 'get_businesses',
 };
