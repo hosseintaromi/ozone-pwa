@@ -76,7 +76,7 @@ type accountWalletType = {
 };
 
 export type DonutChartParams = {
-  account_wallet_id?: string | undefined | boolean;
+  wallet_id?: string | undefined | boolean;
   from_date?: string;
   to_date?: string;
 };

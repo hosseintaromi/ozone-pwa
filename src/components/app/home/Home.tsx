@@ -86,7 +86,7 @@ const Home = () => {
   const { data: invoices, mutate: getInvoices } = useGetInvoices();
   useEffect(() => {
     mutate({
-      account_wallet_id: activeWallet?.id.toString(),
+      wallet_id: activeWallet?.id.toString(),
       from_date:
         activeTab === DATE_SCOPE.DAILY
           ? formattedToday
@@ -135,7 +135,10 @@ const Home = () => {
               <>
                 <Container className='w-6'>
                   <XImage
-                    src={activeWallet?.wallet.logo_base_url + activeWallet?.wallet.logo_path}
+                    src={
+                      activeWallet?.wallet_type.logo_base_url +
+                      activeWallet?.wallet_type.logo_path
+                    }
                     alt='Picture of the author'
                     width={1000}
                     height={1000}
