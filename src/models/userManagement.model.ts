@@ -32,3 +32,13 @@ export interface userMe {
   national_code_kyc: boolean;
   birth_date_kyc: boolean;
 }
+
+export interface businessList {
+  id: number;
+  account_id: number;
+  name: string;
+  legal_name: string;
+  is_active: boolean;
+  logo_base_url: string;
+  logo_path: string;
+}

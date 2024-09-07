@@ -26,6 +26,7 @@ import {
   getQrCode,
   getVouchers,
   postChangeVoucherStatus,
+  getBusinesses,
 } from '..';
 import {
   loginInitTypeIn,
@@ -200,5 +201,12 @@ export const useGetVoucher = (params?: voucherParams) => {
 export const usePostVoucherChange = () => {
   return useMutation({
     mutationFn: (data: voucherChangeBody) => postChangeVoucherStatus(data),
+  });
+};
+
+export const useGetBusinessesList = () => {
+  return useQuery({
+    queryFn: () => getBusinesses(),
+    queryKey: [QUERY_KEYS.GET_BUSINESSES],
   });
 };

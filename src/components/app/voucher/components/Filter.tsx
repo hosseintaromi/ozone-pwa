@@ -3,10 +3,10 @@ import { Button, Container, SIZE_ENUM, Text, VARIANT_ENUM } from 'ozone-uikit';
 import locale from '@/locale';
 import { RadioGroup } from '@/components/share/input/radio';
 import RadioOption from '@/components/share/input/radio/option';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Circular from '@/components/share/input/radio/circular';
 import cn from '@/lib/clsxm';
-import { Box, Gift, Tag } from 'iconsax-react';
+import { Box, Category2, Gift, Tag } from 'iconsax-react';
 
 const Filter = () => {
   const {
@@ -16,6 +16,17 @@ const Filter = () => {
     },
   } = locale;
   const couponSituations = ['all', 'active', 'inActive'];
+  const defaultSelectedStore = {
+    account_id: 0,
+    legal_name: common.all,
+    is_active: true,
+    id: 0,
+    name: common.all,
+    logo_base_url: '',
+    logo_path: '',
+    logo: <Category2 size='30' className='text-white' />,
+  };
+  const [selected, setSelected] = useState(defaultSelectedStore);
   const [couponTypes, setCouponTypes] = useState([
     {
       type: 'gift',
@@ -56,7 +67,11 @@ const Filter = () => {
   };
   return (
     <Container className='mt-6 flex flex-col gap-10'>
-      <SelectOption title={selectStore} />
+      <SelectOption
+        title={selectStore}
+        selected={selected}
+        selectedHandler={(e) => setSelected(e)}
+      />
       <Container>
         <Text size={SIZE_ENUM.MD}>{couponSituation}</Text>
         <RadioGroup

@@ -1,125 +1,35 @@
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react';
-import { useState } from 'react';
-import locale from '@/locale';
-import { ArrowDown2, Category2 } from 'iconsax-react';
+import React, { useEffect, useState } from 'react';
+import { ArrowDown2 } from 'iconsax-react';
 import { Container, SIZE_ENUM, Text } from 'ozone-uikit';
 import cn from '@/lib/clsxm';
 import XImage from '@/components/share/x-image';
-import filmNet from '../../../../public/images/mock/filmeNet.svg';
+import { useGetBusinessesList } from '@/services/hooks';
+import { businessList } from '@/models/userManagement.model';
+type selectedType = businessList & { logo: JSX.Element };
+export default function SelectOption({
+  title,
+  selected,
+  selectedHandler,
+}: {
+  title: string;
+  selected: selectedType;
+  selectedHandler: (data: selectedType) => void;
+}) {
+  const { data } = useGetBusinessesList();
 
-export default function SelectOption({ title }: { title: string }) {
-  const {
-    common: { all },
-  } = locale;
-  const people = [
-    { id: 0, name: all, logo: <Category2 size='20' className='text-white' /> },
-    {
-      id: 1,
-      name: 'Tom Cook',
-      logo: (
-        <Container className='h-7 w-7 rounded-full bg-white p-1'>
-          <XImage src={filmNet} alt='logo' />
-        </Container>
-      ),
-    },
-    {
-      id: 2,
-      name: 'Wade Cooper',
-      logo: (
-        <Container className='h-7 w-7 rounded-full bg-white p-1'>
-          <XImage src={filmNet} alt='logo' />
-        </Container>
-      ),
-    },
-    {
-      id: 3,
-      name: 'Tanya Fox',
-      logo: (
-        <Container className='h-7 w-7 rounded-full bg-white p-1'>
-          <XImage src={filmNet} alt='logo' />
-        </Container>
-      ),
-    },
-    {
-      id: 4,
-      name: 'Arlene Mccoy',
-      logo: (
-        <Container className='h-7 w-7 rounded-full bg-white p-1'>
-          <XImage src={filmNet} alt='logo' />
-        </Container>
-      ),
-    },
-    {
-      id: 5,
-      name: 'Devon Webb',
-      logo: (
-        <Container className='h-7 w-7 rounded-full bg-white p-1'>
-          <XImage src={filmNet} alt='logo' />
-        </Container>
-      ),
-    },
-    {
-      id: 5,
-      name: 'Devon Webb',
-      logo: (
-        <Container className='h-7 w-7 rounded-full bg-white p-1'>
-          <XImage src={filmNet} alt='logo' />
-        </Container>
-      ),
-    },
-    {
-      id: 5,
-      name: 'Devon Webb',
-      logo: (
-        <Container className='h-7 w-7 rounded-full bg-white p-1'>
-          <XImage src={filmNet} alt='logo' />
-        </Container>
-      ),
-    },
-    {
-      id: 5,
-      name: 'Devon Webb',
-      logo: (
-        <Container className='h-7 w-7 rounded-full bg-white p-1'>
-          <XImage src={filmNet} alt='logo' />
-        </Container>
-      ),
-    },
-    {
-      id: 5,
-      name: 'Devon Webb',
-      logo: (
-        <Container className='h-7 w-7 rounded-full bg-white p-1'>
-          <XImage src={filmNet} alt='logo' />
-        </Container>
-      ),
-    },
-    {
-      id: 5,
-      name: 'Devon Webb',
-      logo: (
-        <Container className='h-7 w-7 rounded-full bg-white p-1'>
-          <XImage src={filmNet} alt='logo' />
-        </Container>
-      ),
-    },
-    {
-      id: 5,
-      name: 'Devon Webb',
-      logo: (
-        <Container className='h-7 w-7 rounded-full bg-white p-1'>
-          <XImage src={filmNet} alt='logo' />
-        </Container>
-      ),
-    },
-  ];
-  const [selected, setSelected] = useState(people[1]);
+  const [businesses, setBusinesses] = useState<businessList[]>([]);
+  useEffect(() => {
+    if (data) {
+      setBusinesses([...data]);
+    }
+  }, [data]);
   return (
     <Container className='relative'>
       <Text size={SIZE_ENUM.MD} className='mb-4 text-white'>
         {title}
       </Text>
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox value={selected} onChange={selectedHandler}>
         {({ open }) => (
           <>
             <ListboxButton
@@ -128,7 +38,17 @@ export default function SelectOption({ title }: { title: string }) {
                 open && 'border-primary',
               )}
             >
-              {selected.logo}
+              {selected.logo ? (
+                selected.logo
+              ) : (
+                <XImage
+                  className='rounded-full'
+                  src={selected.logo_base_url + selected.logo_path}
+                  alt={selected.name}
+                  width={30}
+                  height={30}
+                />
+              )}
               <Text size={SIZE_ENUM.LG} className='text-white'>
                 {selected.name}
               </Text>
@@ -145,15 +65,31 @@ export default function SelectOption({ title }: { title: string }) {
                 !open && 'opacity-0',
               )}
             >
-              {people.map((person) => (
+              <ListboxOption
+                key={selected.name}
+                value={selected}
+                className='group flex cursor-default select-none items-center gap-4 rounded-lg px-3 py-2.5 data-[focus]:bg-white/10'
+              >
+                {selected?.logo}
+                <Text size={SIZE_ENUM.LG} className='text-white'>
+                  {selected.name}
+                </Text>
+              </ListboxOption>
+              {businesses.map((business) => (
                 <ListboxOption
-                  key={person.name}
-                  value={person}
-                  className='group flex cursor-default select-none items-center gap-2 rounded-lg px-3 py-2.5 data-[focus]:bg-white/10'
+                  key={business.name}
+                  value={business}
+                  className='group flex cursor-default select-none items-center gap-4 rounded-lg px-3 py-2.5 data-[focus]:bg-white/10'
                 >
-                  {person.logo}
+                  <XImage
+                    className='rounded-full'
+                    src={business.logo_base_url + business.logo_path}
+                    alt={business.name}
+                    width={30}
+                    height={30}
+                  />
                   <Text size={SIZE_ENUM.LG} className='text-white'>
-                    {person.name}
+                    {business.name}
                   </Text>
                 </ListboxOption>
               ))}
