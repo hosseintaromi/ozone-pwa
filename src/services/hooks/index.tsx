@@ -184,10 +184,11 @@ export const usePostVerifyAddWallet = () => {
   });
 };
 
-export const useGetQr = () => {
+export const useGetQr = (data: boolean) => {
   return useQuery({
     queryFn: () => getQrCode(),
     queryKey: [QUERY_KEYS.GET_QR_CODE],
+    enabled: data,
   });
 };
 
