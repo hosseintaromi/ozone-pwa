@@ -13,7 +13,6 @@ import React from 'react';
 const ProfileInfo = () => {
   const { app } = locale;
   const { cookieValue } = useUserManagement();
-
   return (
     <Container className='mt-12 flex gap-5 border-b-[1px] border-b-[#42474B] pb-8'>
       {cookieValue ? (
@@ -28,7 +27,9 @@ const ProfileInfo = () => {
           </Container>
           <Container className='flex h-[120px] flex-col justify-center'>
             <Text size={SIZE_ENUM.SM} className='mb-2 flex items-center gap-1'>
-              {`${cookieValue?.first_name} ${cookieValue?.last_name}`}
+              {!!cookieValue?.first_name &&
+                !!cookieValue?.last_name &&
+                `${cookieValue?.first_name} ${cookieValue?.last_name}`}
               {cookieValue.national_code_kyc && <Verify size='16' className='text-primary' />}
             </Text>
             <Text size={SIZE_ENUM.SM} color={COLOR_ENUM.LIGHT_GRAY} className='ltr'>

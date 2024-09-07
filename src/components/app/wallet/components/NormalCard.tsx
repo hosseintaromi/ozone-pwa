@@ -31,7 +31,7 @@ const NormalCard = ({ data, addWallet }: { data: AccountWalletType; addWallet?: 
     balance,
     status,
     id,
-    wallet: { color, logo_path, logo_base_url, is_master },
+    wallet_type: { color, logo_path, logo_base_url, is_master },
   } = data;
   const [show, setShow] = useState(false);
   const { mutate: mutateChangeWalletStatus, isPending } = usePatchWalletStatus(id);

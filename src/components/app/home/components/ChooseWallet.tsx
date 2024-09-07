@@ -51,7 +51,7 @@ const ChooseWallet = (props: ChooseWalletType) => {
                     <Container className=' w-11'>
                       <XImage
                         className='rounded-full'
-                        src={item.wallet.logo_base_url + item.wallet.logo_path}
+                        src={item.wallet_type.logo_base_url + item.wallet_type.logo_path}
                         alt='Picture of the author'
                         width={1000}
                         height={1000}

@@ -26,7 +26,7 @@ const ProfileDialog = (props: PayInDialogType) => {
 
   const queryClient = useQueryClient();
 
-  const { data, isPending } = useGetQr();
+  const { data, isPending } = useGetQr(show);
 
   const { minutes, seconds, restart } = useTimer({
     expiryTimestamp: new Date(),
