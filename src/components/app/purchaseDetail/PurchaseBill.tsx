@@ -28,7 +28,7 @@ const SeeMorePurchase = ({
     return totalAmount;
   }
 
-  const accountWalletTotal = data && sumAmounts(data.account_wallet, 'amount');
+  const accountWalletTotal = data && sumAmounts(data.wallet, 'amount');
   const vouchersTotal = data && sumAmounts(data.vouchers, 'amount');
 
   const invoicesList = [
@@ -60,19 +60,19 @@ const SeeMorePurchase = ({
               center
               className={cn(
                 'my-2 w-full cursor-pointer justify-between px-4',
-                data.account_wallet.length > 0 && 'bg-neutral-700/40 py-3',
+                data.wallet.length > 0 && 'bg-neutral-700/40 py-3',
               )}
               onClick={() => setWithdrawOpen((prev) => !prev)}
             >
               <Text
-                size={data?.account_wallet.length > 0 ? SIZE_ENUM.SM : SIZE_ENUM.SM}
+                size={data?.wallet.length > 0 ? SIZE_ENUM.SM : SIZE_ENUM.SM}
                 className={cn('flex gap-2 text-neutral-200')}
               >
                 <Card className='text-neutral-500' />
                 {`${purchaseDetail.withdraw}  ${formatNumberWithCommas(accountWalletTotal)} ${common.rial}`}
               </Text>
               <Container center className='gap-1'>
-                {data?.account_wallet.length > 0 && (
+                {data?.wallet.length > 0 && (
                   <ArrowDown2
                     size={ICON_SIZE.md}
                     className={cn(
@@ -83,7 +83,7 @@ const SeeMorePurchase = ({
                 )}
               </Container>
             </Container>
-            {data?.account_wallet.length > 0 && (
+            {data?.wallet.length > 0 && (
               <Container
                 className={cn(
                   'grid w-full grid-rows-[0fr] transition-all duration-200 ',
@@ -91,10 +91,10 @@ const SeeMorePurchase = ({
                 )}
               >
                 <Container center className={cn(`flex-col gap-1 overflow-hidden px-4`)}>
-                  {data?.account_wallet.map((item, index) => (
+                  {data?.wallet.map((item, index) => (
                     <Container center className='my-2 w-full justify-between' key={index}>
                       <Text bold size={SIZE_ENUM.SM} className='text-neutral-500'>
-                        {item.wallet.name}
+                        {item.wallet_type.name}
                       </Text>
                       <Container center className='gap-1'>
                         <Text size={SIZE_ENUM.SM} bold className='text-neutral-500'>
