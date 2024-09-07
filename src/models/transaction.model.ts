@@ -23,7 +23,7 @@ export type invoiceDetail = {
     },
   ];
   transactions: transactionsType[];
-  account_wallet: accountWalletType[];
+  wallet: accountWalletType[];
   logo: string;
   vouchers: {
     name: string;
@@ -37,9 +37,9 @@ export type invoiceDetail = {
 type transactionsType = {
   id: number;
   amount: number;
-  source_type: 'ACCOUNT_WALLET';
+  source_type: 'WALLET';
   source_id: number;
-  destination_type: 'ACCOUNT_WALLET';
+  destination_type: 'WALLET';
   destination_id: number;
   type: 'DEPOSIT';
   status: string;
@@ -66,7 +66,7 @@ type accountWalletType = {
   name: string;
   type: string;
   inquiry_available: boolean;
-  wallet: {
+  wallet_type: {
     name: string;
     legal_name: string;
     type: string;

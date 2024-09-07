@@ -35,7 +35,7 @@ export interface AccountWalletType {
   available: boolean;
   inquiry_available: boolean;
   discount: number;
-  wallet: {
+  wallet_type: {
     id: number;
     chargeable: boolean;
     is_master: boolean;
@@ -49,7 +49,7 @@ export interface AccountWalletType {
   };
 }
 export type WalletTransactionListReturnResult<Data> = {
-  account_wallet: Data[];
+  wallet: Data[];
   transactions: {
     amount: number;
     deleted_at: string;
@@ -90,7 +90,7 @@ export type walletInquiry = {
   type: string;
   available: boolean;
   inquiry_available: boolean;
-  wallet: WalletType;
+  wallet_type: WalletType;
   discount: number;
 };
 export type walletStatusBody = { status: 'INACTIVE' | 'ACTIVE' };
