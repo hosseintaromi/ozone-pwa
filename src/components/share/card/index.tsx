@@ -61,7 +61,7 @@ const Card = ({ data }: Props) => {
     router.push('/voucher-detail');
   };
   return (
-    <Container className='mb-5 last-of-type:mb-28 '>
+    <Container className='mb-5 '>
       <Container
         className={cn(
           'relative flex h-[168px] w-full cursor-pointer justify-between rounded-xl border-[1px]  border-neutral-700 bg-neutral-800 px-3 py-5',

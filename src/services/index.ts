@@ -41,6 +41,8 @@ import {
   voucherType,
   voucherParams,
   voucherChangeBody,
+  metaType,
+  voucherListResult,
 } from '@/models/digitalWallet.model';
 
 export const postLoginInit = async (data: loginInitTypeIn) => {
@@ -184,7 +186,24 @@ export const postSetPassword = async (body: setPasswordBody) => {
   );
   return data;
 };
-
+export const getVouchers = async (page: number, params?: voucherParams) => {
+  const { data }: { data: voucherListResult } = await httpGetRequest(
+    APIUrlGenerator({
+      route: API_ROUTES.GET_VOUCHER_LIST(page),
+      service: BACKEND_SERVICE.VOUCHER,
+      qry: params,
+    }),
+  );
+  console.log(data);
+  return {
+    data: data.data,
+    previousCursor: data.meta.pagination.current_page - 1,
+    nextCursor:
+      data.meta.pagination.current_page === data.meta.pagination.total_pages
+        ? null
+        : data.meta.pagination.current_page + 1,
+  };
+};
 export const getWalletTransactions = async (id: number | null, page: number) => {
   const {
     data: { data },
@@ -295,18 +314,6 @@ export const getQrCode = async () => {
   return data;
 };
 
-export const getVouchers = async (params?: voucherParams) => {
-  const {
-    data: { data },
-  }: { data: { data: voucherType[] } } = await httpGetRequest(
-    APIUrlGenerator({
-      route: API_ROUTES.GET_VOUCHER_LIST,
-      service: BACKEND_SERVICE.VOUCHER,
-      qry: params,
-    }),
-  );
-  return data;
-};
 export const postChangeVoucherStatus = async (body: voucherChangeBody) => {
   const {
     data: { data },

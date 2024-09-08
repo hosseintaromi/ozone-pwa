@@ -5,7 +5,7 @@ import TapBar from '@/components/share/tapBar/TapBar';
 
 const layout = ({ children }: { children: ReactNode }) => {
   return (
-    <Container className='pb-20'>
+    <Container className='overflow-hidden pb-20'>
       {children}
       <TapBar />
     </Container>

@@ -63,16 +63,22 @@ export type WalletTransactionListReturnResult<Data> = {
     type: 'WITHDRAW';
     updated_at: string;
   }[];
-  meta: {
-    pagination: {
-      current_page: number;
-      from: number;
-      last_page: number;
-      per_page: number;
-      to: number;
-      count: number;
-      total_pages: number;
-    };
+  meta: metaType;
+};
+export type voucherListResult = {
+  data: voucherType[];
+  meta: metaType;
+};
+
+export type metaType = {
+  pagination: {
+    current_page: number;
+    from: number;
+    last_page: number;
+    per_page: number;
+    to: number;
+    count: number;
+    total_pages: number;
   };
 };
 
