@@ -21,6 +21,7 @@ const Logos = ({ logos }: Props) => {
           .slice(0, 3)
           .map((itm, index) => (
             <XImage
+              key={`logos${itm.legal_name}${index}`}
               src={`${itm.logo_base_url}${itm.logo_path}`}
               alt={itm.legal_name}
               width={40}

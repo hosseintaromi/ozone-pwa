@@ -31,7 +31,7 @@ const Logos = ({ logos, expired }: { logos: voucherBusinesses[]; expired: boolea
           <Text bold className='mb-4 text-sm text-neutral-200'>
             {couponCanUseIn}
           </Text>
-          {logos.map((l) => (
+          {logos?.map((l) => (
             <Container
               center
               className='h-[58px] w-full justify-start gap-4 rounded-xl bg-neutral-800 px-4 py-2'
@@ -56,9 +56,9 @@ const Logos = ({ logos, expired }: { logos: voucherBusinesses[]; expired: boolea
     });
   };
   useEffect(() => {
-    if (logos.length > 1) {
+    if (logos?.length > 1) {
       const theTitles: string[] = [];
-      logos.slice(0, 4).map((itm) => {
+      logos?.slice(0, 4).map((itm) => {
         theTitles.push(itm.name);
       });
       setTitles(theTitles.join(','));
@@ -69,12 +69,12 @@ const Logos = ({ logos, expired }: { logos: voucherBusinesses[]; expired: boolea
       center
       className={cn(
         'relative min-h-20 justify-end',
-        logos.length > 1 && 'w-[70px]',
-        logos.length > 2 && 'w-[110px]',
-        logos.length > 3 && 'w-[140px]',
+        logos?.length > 1 && 'w-[70px]',
+        logos?.length > 2 && 'w-[110px]',
+        logos?.length > 3 && 'w-[140px]',
       )}
     >
-      {logos.length === 1 ? (
+      {logos?.length === 1 ? (
         <Container center className='flex-col gap-3'>
           <XImage
             src={`${logos[0].logo_base_url}${logos[0].logo_path}`}
@@ -91,7 +91,7 @@ const Logos = ({ logos, expired }: { logos: voucherBusinesses[]; expired: boolea
           </Text>
         </Container>
       ) : (
-        logos.slice(0, 4).map((itm, index) => {
+        logos?.slice(0, 4).map((itm, index) => {
           return (
             <XImage
               src={`${itm.logo_base_url}${itm.logo_path}`}
@@ -108,7 +108,7 @@ const Logos = ({ logos, expired }: { logos: voucherBusinesses[]; expired: boolea
           );
         })
       )}
-      {logos.length > 3 && (
+      {logos?.length > 3 && (
         <ArrowDown2
           size='22'
           className='absolute -left-7 top-2 text-primary'

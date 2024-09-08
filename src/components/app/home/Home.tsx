@@ -108,7 +108,7 @@ const Home = () => {
   }, [wallets]);
 
   return (
-    <>
+    <Container className='h-[calc(100dvh-90px)] overflow-auto'>
       <Navbar>
         <InfoCircle color='#fff' size={24} />
         <Container className='w-44'>
@@ -188,7 +188,7 @@ const Home = () => {
       />
       {/* <PhysicalCard /> */}
       <LatestPurchases invoices={invoices} />
-    </>
+    </Container>
   );
 };
 

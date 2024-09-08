@@ -142,6 +142,17 @@ export const useGetWalletTransactions = (id: number | null) => {
   });
 };
 
+export const useGetVoucher = (params?: voucherParams) => {
+  return useInfiniteQuery({
+    queryFn: ({ pageParam }) => getVouchers(pageParam, params),
+    queryKey: [QUERY_KEYS.GET_VOUCHER],
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    getPreviousPageParam: (firstPage) => firstPage.previousCursor,
+    gcTime: 0,
+  });
+};
+
 export const usePostChargeWallet = (id: number) => {
   return useMutation({
     mutationFn: (body: chargeWalletBody) => postChargeWallet(body, id),
@@ -189,13 +200,6 @@ export const useGetQr = (data: boolean) => {
     queryFn: () => getQrCode(),
     queryKey: [QUERY_KEYS.GET_QR_CODE],
     enabled: data,
-  });
-};
-
-export const useGetVoucher = (params?: voucherParams) => {
-  return useQuery({
-    queryFn: () => getVouchers(params),
-    queryKey: [QUERY_KEYS.GET_VOUCHER],
   });
 };
 
