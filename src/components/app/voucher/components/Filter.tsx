@@ -68,6 +68,7 @@ const Filter = () => {
   return (
     <Container className='mt-6 flex flex-col gap-10'>
       <SelectOption
+        selectAll={defaultSelectedStore}
         title={selectStore}
         selected={selected}
         selectedHandler={(e) => setSelected(e)}

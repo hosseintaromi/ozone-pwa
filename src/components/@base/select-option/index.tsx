@@ -6,22 +6,24 @@ import cn from '@/lib/clsxm';
 import XImage from '@/components/share/x-image';
 import { useGetBusinessesList } from '@/services/hooks';
 import { businessList } from '@/models/userManagement.model';
-type selectedType = businessList & { logo: JSX.Element };
+type selectedType = businessList & { logo?: JSX.Element };
 export default function SelectOption({
   title,
   selected,
   selectedHandler,
+  selectAll,
 }: {
   title: string;
   selected: selectedType;
   selectedHandler: (data: selectedType) => void;
+  selectAll: businessList;
 }) {
   const { data } = useGetBusinessesList();
 
-  const [businesses, setBusinesses] = useState<businessList[]>([]);
+  const [businesses, setBusinesses] = useState<selectedType[]>([]);
   useEffect(() => {
     if (data) {
-      setBusinesses([...data]);
+      setBusinesses([selectAll, ...data]);
     }
   }, [data]);
   return (
@@ -65,29 +67,23 @@ export default function SelectOption({
                 !open && 'opacity-0',
               )}
             >
-              <ListboxOption
-                key={selected.name}
-                value={selected}
-                className='group flex cursor-default select-none items-center gap-4 rounded-lg px-3 py-2.5 data-[focus]:bg-white/10'
-              >
-                {selected?.logo}
-                <Text size={SIZE_ENUM.LG} className='text-white'>
-                  {selected.name}
-                </Text>
-              </ListboxOption>
               {businesses.map((business) => (
                 <ListboxOption
                   key={business.name}
                   value={business}
                   className='group flex cursor-default select-none items-center gap-4 rounded-lg px-3 py-2.5 data-[focus]:bg-white/10'
                 >
-                  <XImage
-                    className='rounded-full'
-                    src={business.logo_base_url + business.logo_path}
-                    alt={business.name}
-                    width={30}
-                    height={30}
-                  />
+                  {business.logo ? (
+                    business.logo
+                  ) : (
+                    <XImage
+                      className='rounded-full'
+                      src={business.logo_base_url + business.logo_path}
+                      alt={business.name}
+                      width={30}
+                      height={30}
+                    />
+                  )}
                   <Text size={SIZE_ENUM.LG} className='text-white'>
                     {business.name}
                   </Text>

@@ -3,13 +3,10 @@ import { Container, SIZE_ENUM, Text } from 'ozone-uikit';
 import cn from '@/lib/clsxm';
 import locale from '@/locale';
 import { ArrowRight, Box, Tag } from 'iconsax-react';
-import XImage from '@/components/share/x-image';
 import useVoucherStore from '@/store/voucher-store';
 import { useRouter } from 'next/navigation';
 import Logos from '@/components/app/voucher-detail/components/Logos';
-import { voucherBusinesses } from '@/models/digitalWallet.model';
 import { persianDateGenerator, rialCurrency } from '@/lib/helper';
-// import Logos from '@/components/app/voucher-detail/components/Logos';
 
 const VoucherDetail = () => {
   const { selectedVoucher } = useVoucherStore();
