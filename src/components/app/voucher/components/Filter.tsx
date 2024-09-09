@@ -7,8 +7,17 @@ import React, { useEffect, useState } from 'react';
 import Circular from '@/components/share/input/radio/circular';
 import cn from '@/lib/clsxm';
 import { Box, Category2, Gift, Tag } from 'iconsax-react';
-
+import { selectedStore } from '@/models/userManagement.model';
+import useVoucherStore from '@/store/voucher-store';
+import commonModalStore from '@/store/common-modal-store';
+type filterType = {
+  selectedStore: selectedStore;
+  status: 'active' | 'inactive' | 'all';
+  type: 'PROMOTION' | 'PURCHASABLE' | null;
+};
 const Filter = () => {
+  const { setFilter: setFilterStore, filter: filterStore, resetFilter } = useVoucherStore();
+  const { setShow } = commonModalStore();
   const {
     common,
     app: {
@@ -17,67 +26,101 @@ const Filter = () => {
   } = locale;
   const couponSituations = ['all', 'active', 'inActive'];
   const defaultSelectedStore = {
-    account_id: 0,
+    account_id: -1,
     legal_name: common.all,
     is_active: true,
-    id: 0,
+    id: -1,
     name: common.all,
     logo_base_url: '',
     logo_path: '',
     logo: <Category2 size='30' className='text-white' />,
   };
-  const [selected, setSelected] = useState(defaultSelectedStore);
   const [couponTypes, setCouponTypes] = useState([
+    // {
+    //   type: 'gift',
+    //   icon: (checked: boolean) => (
+    //     <Gift size='24' className={cn('text-neutral-500', checked && 'text-primary')} />
+    //   ),
+    //   checked: false,
+    // },
     {
-      type: 'gift',
-      icon: (checked: boolean) => (
-        <Gift size='24' className={cn('text-neutral-500', checked && 'text-primary')} />
-      ),
-      checked: true,
-    },
-    {
-      type: 'promotion',
+      type: 'PROMOTION',
       icon: (checked: boolean) => (
         <Box size='24' className={cn('text-neutral-500', checked && 'text-primary')} />
       ),
       checked: false,
     },
     {
-      type: 'isSell',
+      type: 'PURCHASABLE',
       icon: (checked: boolean) => (
         <Tag size='24' className={cn('text-neutral-500', checked && 'text-primary')} />
       ),
       checked: false,
     },
   ]);
-  const [selectedItem, setSelectedItem] = useState<string>('all');
+  const [filter, setFilter] = useState<filterType>({
+    selectedStore: defaultSelectedStore,
+    status: 'all',
+    type: null,
+  });
   const handleChange = (value) => {
-    setSelectedItem(value);
+    setFilter({ ...filter, status: value });
   };
   const handleSelectCouponType = (item) => {
     const updated = couponTypes.map((c) => {
       if (c.type === item.type) {
+        if (item.checked) {
+          setFilter({ ...filter, type: null });
+        } else {
+          setFilter({
+            ...filter,
+            type: item.type,
+          });
+        }
         return {
           ...c,
           checked: !item.checked,
         };
-      } else return c;
+      } else return { ...c, checked: false };
     });
     setCouponTypes(updated);
   };
+  const handleFilter = () => {
+    setFilterStore(filter);
+    setShow(false);
+  };
+  const cancelFilter = () => {
+    resetFilter();
+    setShow(false);
+  };
+  useEffect(() => {
+    if (filterStore.selectedStore.account_id) {
+      // @ts-ignore
+      setFilter(filterStore);
+      const updated = couponTypes.map((c) => {
+        if (filterStore.type === c.type) {
+          return {
+            ...c,
+            checked: true,
+          };
+        } else return c;
+      });
+      setCouponTypes(updated);
+    }
+  }, []);
   return (
     <Container className='mt-6 flex flex-col gap-10'>
       <SelectOption
         selectAll={defaultSelectedStore}
         title={selectStore}
-        selected={selected}
-        selectedHandler={(e) => setSelected(e)}
+        selected={filter.selectedStore}
+        selectedHandler={(e) => setFilter({ ...filter, selectedStore: e })}
       />
       <Container>
         <Text size={SIZE_ENUM.MD}>{couponSituation}</Text>
         <RadioGroup
-          value={selectedItem}
-          onChange={(value) => handleChange(value)}
+          value={filter.status}
+          onChange={(value: string) => handleChange(value)}
           className='mt-4 flex w-full gap-4'
         >
           {couponSituations.map((item) => (
@@ -122,13 +165,14 @@ const Filter = () => {
         </Container>
       </Container>
       <Container center className='my-6 justify-between gap-4 '>
-        <Button size={SIZE_ENUM.XXL} className='w-full p-1'>
+        <Button size={SIZE_ENUM.XXL} className='w-full p-1' onClick={handleFilter}>
           {common.filter}
         </Button>
         <Button
           size={SIZE_ENUM.XXL}
           variant={VARIANT_ENUM.OUTLINED}
           className='w-full border-[1px] border-neutral-500 p-1 text-neutral-500'
+          onClick={cancelFilter}
         >
           {common.cancelFilter}
         </Button>

@@ -5,8 +5,7 @@ import { Container, SIZE_ENUM, Text } from 'ozone-uikit';
 import cn from '@/lib/clsxm';
 import XImage from '@/components/share/x-image';
 import { useGetBusinessesList } from '@/services/hooks';
-import { businessList } from '@/models/userManagement.model';
-type selectedType = businessList & { logo?: JSX.Element };
+import { businessList, selectedStore } from '@/models/userManagement.model';
 export default function SelectOption({
   title,
   selected,
@@ -14,13 +13,12 @@ export default function SelectOption({
   selectAll,
 }: {
   title: string;
-  selected: selectedType;
-  selectedHandler: (data: selectedType) => void;
+  selected: selectedStore;
+  selectedHandler: (data: selectedStore) => void;
   selectAll: businessList;
 }) {
   const { data } = useGetBusinessesList();
-
-  const [businesses, setBusinesses] = useState<selectedType[]>([]);
+  const [businesses, setBusinesses] = useState<selectedStore[]>([]);
   useEffect(() => {
     if (data) {
       setBusinesses([selectAll, ...data]);

@@ -42,3 +42,5 @@ export interface businessList {
   logo_base_url: string;
   logo_path: string;
 }
+
+export type selectedStore = businessList & { logo?: JSX.Element };
