@@ -31,7 +31,11 @@ const Header = () => {
     <Navbar>
       <InfoCircle size='28' className='text-white' />
       <Text size={SIZE_ENUM.LG}>{title}</Text>
-      <Setting4 size='28' className='text-white' onClick={showFilterModal} />
+      <Setting4
+        size='28'
+        className='invisible text-white'
+        // onClick={showFilterModal}
+      />
     </Navbar>
   );
 };

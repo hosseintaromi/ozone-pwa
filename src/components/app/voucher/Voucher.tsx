@@ -9,6 +9,8 @@ import { useGetVoucher } from '@/services/hooks';
 import { SkeletonLoader } from '@/components/share/skeleton/SkeletonLoader';
 import { Virtuoso } from 'react-virtuoso';
 import { useState } from 'react';
+import useVoucherStore from '@/store/voucher-store';
+import { VOUCHER_STATUS } from '@/models/digitalWallet.model';
 
 const Voucher = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -43,7 +45,12 @@ const VoucherList = ({}: { id: number; activeTab: number }) => {
       voucher: { couponCanDisable },
     },
   } = locale;
-  const { data, isPending, isFetchingNextPage, fetchNextPage, hasNextPage } = useGetVoucher();
+
+  // const { filter } = useVoucherStore();
+
+  const { data, isPending, isFetchingNextPage, fetchNextPage, hasNextPage } = useGetVoucher({
+    status: VOUCHER_STATUS.ACTIVE,
+  });
 
   const flatTransactions = data?.pages.flatMap((data) => data.data);
   return (
