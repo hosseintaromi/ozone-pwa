@@ -142,7 +142,7 @@ export const useGetWalletTransactions = (id: number | null) => {
   });
 };
 
-export const useGetVoucher = (params?: voucherParams) => {
+export const useGetVoucher = (active: boolean, params?: voucherParams) => {
   return useInfiniteQuery({
     queryFn: ({ pageParam }) => getVouchers(pageParam, params),
     queryKey: [QUERY_KEYS.GET_VOUCHER, params],
@@ -150,7 +150,7 @@ export const useGetVoucher = (params?: voucherParams) => {
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     getPreviousPageParam: (firstPage) => firstPage.previousCursor,
     gcTime: 0,
-    enabled: !!params,
+    enabled: !!params && active,
   });
 };
 

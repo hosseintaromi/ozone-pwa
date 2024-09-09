@@ -29,8 +29,8 @@ const Voucher = () => {
         </Tabs>
         <TabPanels className='px-5 pt-5'>
           <VoucherList id={0} activeTab={activeTab} />
-          <VoucherList id={0} activeTab={activeTab} />
-          <VoucherList id={0} activeTab={activeTab} />
+          <VoucherList id={1} activeTab={activeTab} />
+          <VoucherList id={2} activeTab={activeTab} />
         </TabPanels>
       </TabGroup>
     </Container>
@@ -39,7 +39,7 @@ const Voucher = () => {
 
 export default Voucher;
 
-const VoucherList = ({}: { id: number; activeTab: number }) => {
+const VoucherList = ({ activeTab, id }: { id: number; activeTab: number }) => {
   const {
     app: {
       voucher: { couponCanDisable },
@@ -47,10 +47,18 @@ const VoucherList = ({}: { id: number; activeTab: number }) => {
   } = locale;
 
   // const { filter } = useVoucherStore();
-
-  const { data, isPending, isFetchingNextPage, fetchNextPage, hasNextPage } = useGetVoucher({
-    status: VOUCHER_STATUS.ACTIVE,
-  });
+  console.log(activeTab, id);
+  const { data, isPending, isFetchingNextPage, fetchNextPage, hasNextPage } = useGetVoucher(
+    activeTab === id,
+    {
+      status:
+        activeTab === 0
+          ? VOUCHER_STATUS.ACTIVE
+          : activeTab === 1
+            ? VOUCHER_STATUS.INACTIVE
+            : VOUCHER_STATUS.EXPIRED,
+    },
+  );
 
   const flatTransactions = data?.pages.flatMap((data) => data.data);
   return (
