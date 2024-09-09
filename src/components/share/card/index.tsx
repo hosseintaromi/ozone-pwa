@@ -35,7 +35,7 @@ const Card = ({ data }: Props) => {
   const queryClient = useQueryClient();
 
   const {
-    common: { details },
+    common: { details, expired },
     app: { cards },
   } = locale;
 
@@ -68,40 +68,55 @@ const Card = ({ data }: Props) => {
         )}
       >
         <Container className='mt-5 flex  flex-col'>
-          <Container center className='justify-start'>
+          <Container
+            center
+            className={cn('justify-start', status === 'EXPIRED' && 'opacity-30')}
+          >
             <Text size={SIZE_ENUM.MD} className='text-white' bold>
               {amount_type === 'PERCENT' && cards.couponValue(max_percent_amount, amount)}
               {amount_type === 'PRICE' && cards.couponValue(amount)}
             </Text>
           </Container>
 
-          <Text size={SIZE_ENUM.SM} className='mt-1 text-white' medium>
+          <Text
+            size={SIZE_ENUM.SM}
+            className={cn('mt-1 text-white', status === 'EXPIRED' && 'opacity-30')}
+            medium
+          >
             {cards.minimumPurchase(min_invoice_amount)}
           </Text>
-          <Container
-            center
-            className='mt-3 gap-2 rounded-2xl bg-neutral-500/30 px-4 py-1'
-            onClick={handleSelect}
-          >
-            <Text
-              className={cn(
-                'w-12',
-                status === VOUCHER_STATUS.ACTIVE ? 'text-primary' : 'text-neutral-500',
-              )}
+          {status === 'EXPIRED' ? (
+            <Container center className='mt-3 w-fit rounded-3xl bg-neutral-900 px-3 py-1'>
+              <Text bold className='text-danger-200' size={SIZE_ENUM.SM}>
+                {expired}
+              </Text>
+            </Container>
+          ) : (
+            <Container
+              center
+              className='mt-3 gap-2 rounded-2xl bg-neutral-500/30 px-4 py-1'
+              onClick={handleSelect}
             >
-              {status === VOUCHER_STATUS.ACTIVE
-                ? locale.common.active
-                : locale.common.inActive}
-            </Text>
-            <span className='h-5 border-r-[1px] border-neutral-500' />
+              <Text
+                className={cn(
+                  'w-12',
+                  status === VOUCHER_STATUS.ACTIVE ? 'text-primary' : 'text-neutral-500',
+                )}
+              >
+                {status === VOUCHER_STATUS.ACTIVE
+                  ? locale.common.active
+                  : locale.common.inActive}
+              </Text>
+              <span className='h-5 border-r-[1px] border-neutral-500' />
 
-            <Text size={SIZE_ENUM.XS} medium className='text-white'>
-              {cards.useCouponTime(dateUntilFutureDate(expired_at, 'day', 'max'))}
-            </Text>
-          </Container>
+              <Text size={SIZE_ENUM.XS} medium className='text-white'>
+                {cards.useCouponTime(dateUntilFutureDate(expired_at, 'day', 'max'))}
+              </Text>
+            </Container>
+          )}
         </Container>
         <Container center className={cn('gray-right-dash-border relative w-[75px]  pb-3')}>
-          <Logos logos={voucher_businesses} />
+          <Logos logos={voucher_businesses} isExpired={status === 'EXPIRED'} />
           <Scissor
             size={ICON_SIZE.md}
             className={cn(
@@ -115,7 +130,12 @@ const Card = ({ data }: Props) => {
             status === VOUCHER_STATUS.ACTIVE ? 'bg-primary' : 'bg-neutral-500',
           )}
         />
-        <Container className='absolute  right-0 top-0  h-[33px] w-[33px] rounded-bl-md rounded-tr-xl bg-secondary/10 p-1'>
+        <Container
+          className={cn(
+            'absolute  right-0 top-0  h-[33px] w-[33px] rounded-bl-md rounded-tr-xl bg-secondary/10 p-1',
+            status === 'EXPIRED' && 'opacity-30',
+          )}
+        >
           <Gift className='text-secondary' />
         </Container>
         <Text

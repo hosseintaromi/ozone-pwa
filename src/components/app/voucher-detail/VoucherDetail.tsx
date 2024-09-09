@@ -168,6 +168,7 @@ const VoucherDetail = () => {
                   'text-white',
                   (index === 0 || index === 2) &&
                     'flex items-center gap-2 rounded-3xl bg-neutral-700 px-4 py-2',
+                  status === 'EXPIRED' && index === 0 && 'bg-neutral-900 text-danger-200',
                 )}
               >
                 {i.icon && i.icon}

@@ -1,7 +1,8 @@
-import { voucherBusinesses } from '@/services/models/api.models';
+import { voucherBusinesses } from '@/models/digitalWallet.model';
 
 type Props = {
   logos: voucherBusinesses[];
+  isExpired: boolean;
 };
 
 export default Props;
