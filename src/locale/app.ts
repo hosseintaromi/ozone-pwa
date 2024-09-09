@@ -116,6 +116,10 @@ const app = {
     rialDiscount: 'تخفیف ریالی',
     percentDiscount: 'تخفیف درصدی',
     couponCanUseIn: 'کوپن قابل استفاده در فروشگاه های زیر است.',
+    activationCoupon: ' فعالسازی کوپن',
+    activationCouponHint: 'می توانید کوپن را جهت خرج کردن فعال کنید.',
+    inActivationCoupon: 'غیر فعالسازی کوپن',
+    inActivationCouponHint: 'می توانید فعلا کوپن را نگهداری کنید و بعداً خرج کنید.',
   },
   cards: {
     minimumPurchase: (amount: number) => `حداقل سبد خرید ${amount.toLocaleString('fa')} ریال `,

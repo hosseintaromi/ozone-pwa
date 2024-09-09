@@ -31,5 +31,8 @@ const common = {
   details: 'جزئیات',
   influencer: 'اینفلوئنسر',
   stores: 'فروشگاه‌ها',
+  cancel: 'انصراف',
+  activation: 'فعالسازی',
+  inActivation: 'غیر فعالسازی',
 };
 export default common;
