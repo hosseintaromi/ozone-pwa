@@ -1,7 +1,7 @@
 import cn from '@/lib/clsxm';
 import React from 'react';
 import ICON_SIZE from '@/constant/icon-size-color';
-import { Container, SIZE_ENUM, Text } from 'ozone-uikit';
+import { Button, Container, SIZE_ENUM, Text, VARIANT_ENUM } from 'ozone-uikit';
 import { Gift, Scissor } from 'iconsax-react';
 import { dateUntilFutureDate } from '@/lib/helper';
 
@@ -13,6 +13,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/constant/query-key';
 import useVoucherStore from '@/store/voucher-store';
 import { useRouter } from 'next/navigation';
+import useCommonModalStore from '@/store/common-modal-store';
 
 type Props = {
   data: voucherType;
@@ -20,6 +21,7 @@ type Props = {
 
 const Card = ({ data }: Props) => {
   const { setSelectedVoucher } = useVoucherStore();
+  const { setShow } = useCommonModalStore();
   const router = useRouter();
   const {
     voucher: {
@@ -35,15 +37,23 @@ const Card = ({ data }: Props) => {
   const queryClient = useQueryClient();
 
   const {
-    common: { details, expired },
-    app: { cards },
+    common: { details, expired, activation, inActivation, cancel },
+    app: {
+      cards,
+      voucher: {
+        activationCoupon,
+        activationCouponHint,
+        inActivationCoupon,
+        inActivationCouponHint,
+      },
+    },
   } = locale;
 
-  const { mutate } = usePostVoucherChange();
-  const handleSelect = () => {
+  const { mutate, isPending } = usePostVoucherChange();
+  const voucherActivation = () => {
     mutate(
       {
-        id: data.id + '',
+        id: data.id.toString(),
         status:
           data.status === VOUCHER_STATUS.ACTIVE
             ? VOUCHER_STATUS.INACTIVE
@@ -52,9 +62,45 @@ const Card = ({ data }: Props) => {
       {
         onSuccess: () => {
           queryClient.refetchQueries({ queryKey: [QUERY_KEYS.GET_VOUCHER] });
+          setShow(false);
         },
       },
     );
+  };
+  const handleVoucherActivation = () => {
+    setShow(true, {
+      center: true,
+      Body: () => (
+        <Container center className='w-full flex-col gap-4'>
+          <Text bold size={SIZE_ENUM.XMD}>
+            {data.status === VOUCHER_STATUS.ACTIVE ? inActivationCoupon : activationCoupon}
+          </Text>
+          <Text bold size={SIZE_ENUM.MD} className='text-center'>
+            {data.status === VOUCHER_STATUS.ACTIVE
+              ? inActivationCouponHint
+              : activationCouponHint}
+          </Text>
+          <Container center className='mt-6 w-full justify-between gap-4'>
+            <Button
+              size={SIZE_ENUM.XXL}
+              className='w-full whitespace-nowrap'
+              onClick={voucherActivation}
+              isLoading={isPending}
+            >
+              {data.status === VOUCHER_STATUS.ACTIVE ? inActivation : activation}
+            </Button>
+            <Button
+              size={SIZE_ENUM.XXL}
+              variant={VARIANT_ENUM.OUTLINED}
+              className='w-full border-neutral-300 text-neutral-300'
+              onClick={() => setShow(false)}
+            >
+              {cancel}
+            </Button>
+          </Container>
+        </Container>
+      ),
+    });
   };
   const handleShowVoucherDetail = () => {
     setSelectedVoucher(data);
@@ -95,7 +141,7 @@ const Card = ({ data }: Props) => {
             <Container
               center
               className='mt-3 gap-2 rounded-2xl bg-neutral-500/30 px-4 py-1'
-              onClick={handleSelect}
+              onClick={handleVoucherActivation}
             >
               <Text
                 className={cn(
