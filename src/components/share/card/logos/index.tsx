@@ -3,7 +3,7 @@ import Props from './type';
 import cn from '@/lib/clsxm';
 import XImage from '../../x-image';
 
-const Logos = ({ logos }: Props) => {
+const Logos = ({ logos, isExpired }: Props) => {
   return (
     <Container center className='relative ml-3 min-h-20 w-[56px] justify-end'>
       {logos.length === 1 ? (
@@ -12,9 +12,10 @@ const Logos = ({ logos }: Props) => {
           alt={logos[0].legal_name}
           width={40}
           height={40}
-          className={
-            'rounded-full border-2 border-neutral-300 bg-white dark:border-neutral-700 dark:bg-neutral-800'
-          }
+          className={cn(
+            'rounded-full border-2 border-neutral-300 bg-white dark:border-neutral-700 dark:bg-neutral-800',
+            isExpired && 'grayscale',
+          )}
         />
       ) : (
         logos
@@ -29,6 +30,7 @@ const Logos = ({ logos }: Props) => {
               className={cn(
                 index === 2 && 'opacity-60',
                 'absolute rounded-full border-2 border-neutral-100 bg-white dark:border-neutral dark:bg-neutral-700',
+                isExpired && 'grayscale',
               )}
               style={{ top: ` ${20 * index}px`, zIndex: 10 - index }}
             />

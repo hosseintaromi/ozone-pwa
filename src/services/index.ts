@@ -189,12 +189,11 @@ export const postSetPassword = async (body: setPasswordBody) => {
 export const getVouchers = async (page: number, params?: voucherParams) => {
   const { data }: { data: voucherListResult } = await httpGetRequest(
     APIUrlGenerator({
-      route: API_ROUTES.GET_VOUCHER_LIST(page),
+      route: API_ROUTES.GET_VOUCHER_LIST,
       service: BACKEND_SERVICE.VOUCHER,
-      qry: params,
+      qry: { ...params, page },
     }),
   );
-  console.log(data);
   return {
     data: data.data,
     previousCursor: data.meta.pagination.current_page - 1,

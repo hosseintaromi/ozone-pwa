@@ -62,7 +62,6 @@ const ChangePassword = (props: any) => {
         {
           onSuccess: () => {
             setShow(false);
-            // console.log('first');
             // router.push(ROUTES.HOME);
           },
         },

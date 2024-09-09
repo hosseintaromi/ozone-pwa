@@ -55,7 +55,7 @@ export function APIUrlGenerator({
     if (index === 0) {
       apiUrl += '?';
     }
-    if (query[item] !== null) {
+    if (query[item] !== null && query[item] !== undefined) {
       if (queryKeys.length !== index + 1) {
         apiUrl += item + '=' + query[item] + '&';
       } else {

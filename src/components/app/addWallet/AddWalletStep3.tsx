@@ -24,7 +24,6 @@ const AddWalletStep3 = () => {
   const queryClient = useQueryClient();
   const { forAddWallet } = useWalletStore();
   const { mutate } = usePostVerifyAddWallet();
-  console.log(forAddWallet);
   const verifyAndGoBack = () => {
     mutate(
       {

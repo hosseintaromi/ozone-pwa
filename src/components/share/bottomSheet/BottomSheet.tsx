@@ -45,18 +45,14 @@ function BottomSheet({ isClosed, setIsClosed }) {
   const handleDoubleClick = (e) => {
     switch (e.detail) {
       case 1:
-        // console.log("click");
         break;
       case 2:
         if (!prevIsOpen && isOpen) {
           controls.start('hidden');
           setIsOpen(false);
-          // console.log("double click visible");
         } else if (prevIsOpen && !isOpen) {
           controls.start('visible');
           setIsOpen(true);
-
-          // console.log("double click hidden");
         }
 
         break;

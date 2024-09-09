@@ -77,58 +77,6 @@ const LatestPurchases = ({ invoices }: { invoices: invoicesListBody[] | undefine
           ))}
         </Container>
       )}
-      {invoices ? (
-        invoices.length > 0 &&
-        invoices.map((item, index) => (
-          <Container
-            key={'invoice' + item.invoice.id + index}
-            className={cn(
-              'mt-2',
-              invoices.length > index + 1 && 'border-b-[1px] border-gray-700',
-            )}
-          >
-            <Link href={`${ROUTES.PURCHASE_DETAIL}/${item.invoice.id}`}>
-              <Container center className='justify-between'>
-                <Container className=' w-8'>
-                  <XImage
-                    className='rounded-full'
-                    src={item.business.logo_base_url + item.business.logo_path}
-                    alt='Picture of the author'
-                    width={1000}
-                    height={1000}
-                  />
-                </Container>
-                <ArrowLeft2 color={ICON_COLOR.light_gray} />
-              </Container>
-              <Container center className='justify-between'>
-                <Text color={COLOR_ENUM.WHITE}>{item.business.name}</Text>
-                <Text>
-                  {formatNumberWithCommas(item.invoice.amount)} {common.rial}
-                </Text>
-              </Container>
-              <Text color={COLOR_ENUM.LIGHT_GRAY}>
-                {convertRfcToJalaliWithClock(item.invoice.created_at)}
-              </Text>
-            </Link>
-          </Container>
-        ))
-      ) : (
-        <Container>
-          {[1, 2].map((item) => (
-            <Container
-              key={'invoice' + 'loading' + item}
-              className='border-b-[1px] border-gray-700 pb-2'
-            >
-              <SkeletonLoader width='w-8' height='h-8' className='mt-3 rounded-full' />
-              <Container className='flex w-full justify-between'>
-                <SkeletonLoader width='w-20' height='h-3' className='mt-2' />
-                <SkeletonLoader width='w-28' height='h-3' className='mt-2' />
-              </Container>
-              <SkeletonLoader width='w-52' height='h-3' className='mt-4' />
-            </Container>
-          ))}
-        </Container>
-      )}
     </Container>
   );
 };

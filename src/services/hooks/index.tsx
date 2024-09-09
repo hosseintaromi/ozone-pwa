@@ -142,14 +142,15 @@ export const useGetWalletTransactions = (id: number | null) => {
   });
 };
 
-export const useGetVoucher = (params?: voucherParams) => {
+export const useGetVoucher = (active: boolean, params?: voucherParams) => {
   return useInfiniteQuery({
     queryFn: ({ pageParam }) => getVouchers(pageParam, params),
-    queryKey: [QUERY_KEYS.GET_VOUCHER],
+    queryKey: [QUERY_KEYS.GET_VOUCHER, params],
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     getPreviousPageParam: (firstPage) => firstPage.previousCursor,
     gcTime: 0,
+    enabled: !!params && active,
   });
 };
 
