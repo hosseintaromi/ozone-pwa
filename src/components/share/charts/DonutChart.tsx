@@ -19,7 +19,6 @@ const PieChart = ({
     y: number | undefined;
   }[];
 }) => {
-  console.log('ddd', data);
   const options = {
     chart: {
       with: '25px',

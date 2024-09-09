@@ -63,7 +63,6 @@ const useUserManagement = () => {
       if (cookies) {
         const parsedCookie = JSON.parse(decodeURIComponent(cookies));
         parsedCookie.mobile = formatPhoneNumber(parsedCookie.mobile);
-        console.log(parsedCookie);
         setCookieValue(parsedCookie);
       }
     } catch (error) {

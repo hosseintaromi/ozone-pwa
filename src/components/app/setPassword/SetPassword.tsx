@@ -57,7 +57,6 @@ const SetPassword = () => {
         { password: values.password },
         {
           onSuccess: () => {
-            console.log('first');
             router.push(ROUTES.HOME);
           },
         },

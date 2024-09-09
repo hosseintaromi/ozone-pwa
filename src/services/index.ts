@@ -194,7 +194,6 @@ export const getVouchers = async (page: number, params?: voucherParams) => {
       qry: params,
     }),
   );
-  console.log(data);
   return {
     data: data.data,
     previousCursor: data.meta.pagination.current_page - 1,

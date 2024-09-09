@@ -21,7 +21,6 @@ const VoucherDetail = () => {
     goToVoucherPage();
     return null;
   }
-  console.log(selectedVoucher, selectedVoucher?.id);
   const {
     status,
     code,
