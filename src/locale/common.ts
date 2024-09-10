@@ -34,5 +34,6 @@ const common = {
   cancel: 'انصراف',
   activation: 'فعالسازی',
   inActivation: 'غیر فعالسازی',
+  exitBtn: 'خروج',
 };
 export default common;
