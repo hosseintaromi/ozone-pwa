@@ -7,7 +7,7 @@ import XImage from '@/components/share/x-image';
 import locale from '@/locale';
 import { SIZE_ENUM } from 'ozone-uikit';
 import React, { useState } from 'react';
-import ProfileDialog from './QrDialog';
+import BarcodeDialog from './BarcodeDialog';
 
 const ScanDialog = () => {
   const {
@@ -48,7 +48,7 @@ const ScanDialog = () => {
           {scan.guideButton}
         </Button>
       </Container>
-      <ProfileDialog show={show} setShow={setShow} />
+      <BarcodeDialog show={show} setShow={setShow} />
     </Container>
   );
 };
