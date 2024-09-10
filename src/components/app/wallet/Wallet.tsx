@@ -16,6 +16,7 @@ import { Virtuoso } from 'react-virtuoso';
 import cn from '@/lib/clsxm';
 import XImage from '@/components/share/x-image';
 import useWalletStore from '@/store/wallet-store';
+import { SkeletonLoader } from '@/components/share/skeleton/SkeletonLoader';
 
 export default function Wallet() {
   const [sheetHeight, setSheetHeight] = useState(500);
@@ -102,13 +103,13 @@ export default function Wallet() {
               <Text className='text-bold text-sm text-neutral-500'>{emptyTransactions}</Text>
             </Container>
           )}
-          {isPending && (
-            <Container center className='mt-[25%]'>
-              <Spinner />
-            </Container>
-          )}
+          {isPending && [1, 2, 3].map((i) => <WalletLoading key={`'WalletLoading'${i}`} />)}
         </Container>
       </BottomSheet>
     </div>
   );
 }
+
+const WalletLoading = () => (
+  <SkeletonLoader width='w-full' height='h-[100px]' className='mt-5 rounded-xl' />
+);
