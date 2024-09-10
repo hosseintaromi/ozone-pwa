@@ -210,7 +210,31 @@ export function convertToEnglishNumber(num) {
       String.fromCharCode(persianNumber.charCodeAt(0) - 1728),
     );
 }
-
+export function persianDateGenerator2(date: Date, type?: 'noDash') {
+  const persianDate = new Intl.DateTimeFormat('fa', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    weekday: 'long',
+  }).formatToParts(date);
+  const year = persianDate[0].value;
+  const month = persianDate[2].value;
+  const day = persianDate[4].value;
+  const weekday = persianDate[6].value;
+  const hour = persianDate[8].value;
+  const minute = persianDate[10].value;
+  if (type === 'noDash') {
+    return `${weekday} ${day} ${month} ${year}  ${hour}:${minute}`;
+  } else return `${weekday} ${day} ${month} ${year} - ${hour}:${minute}`;
+}
+export function currency(rial: number) {
+  if (rial >= 0) {
+    const rialComma = rial.toLocaleString('fa');
+    return `${rialComma}`;
+  }
+}
 export function isValidNationalCode(nationalCode: string) {
   if (!/^\d{10}$/.test(nationalCode)) return false;
   const check = +nationalCode[9];

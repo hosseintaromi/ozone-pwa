@@ -35,5 +35,10 @@ const common = {
   activation: 'فعالسازی',
   inActivation: 'غیر فعالسازی',
   exitBtn: 'خروج',
+  dataAndTime: 'تاریخ و ساعت',
+  issueTracking: 'شماره پیگیری',
+  totalPaidAmount: ' کل مبلغ شارژ شده',
+  successfulTransaction: 'تراکنش موفق',
+  transactionFailed: 'تراکنش ناموفق',
 };
 export default common;
