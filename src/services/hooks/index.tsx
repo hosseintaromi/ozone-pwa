@@ -99,7 +99,7 @@ export const useGetUser = (token: string | null) => {
 
 export const useGetAccountWallet = () => {
   return useQuery({
-    queryFn: getAccountWallets,
+    queryFn: () => getAccountWallets(),
     queryKey: [QUERY_KEYS.GET_WALLETS],
   });
 };

@@ -89,7 +89,7 @@ export type DonutChartBody = {
 };
 
 export type invoicesListParams = {
-  rom_date?: string;
+  from_date?: string;
   to_date?: string;
   business_id?: string;
   page: string;

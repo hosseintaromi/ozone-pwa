@@ -15,7 +15,7 @@ import ChooseWallet from './components/ChooseWallet';
 import LatestPurchases from './components/LatestPurchases';
 import { AnimatedTabs } from '../../share/animatedTabs';
 import DonutChart from '../../share/charts/DonutChart';
-import { useGetDonut, useGetInvoices, useGetAccountWallet } from '@/services/hooks';
+import { useGetDonut, useGetAccountWallet } from '@/services/hooks';
 import { AccountWalletType } from '@/models/digitalWallet.model';
 
 import {
@@ -23,9 +23,15 @@ import {
   SkeletonLoaderDonut,
 } from '@/components/share/skeleton/SkeletonLoader';
 import { DATE_SCOPE } from '@/models/transaction.model';
+import {
+  formattedLast30Days,
+  formattedLast7Days,
+  formattedToday,
+} from '@/components/app/home/components/helper';
 
 const Home = () => {
   const { app } = locale;
+  const { data: wallets } = useGetAccountWallet();
   const [show, setShow] = useState(false);
   const tabData = [
     { id: DATE_SCOPE.DAILY, label: app.daily },
@@ -34,42 +40,7 @@ const Home = () => {
   ];
   const [activeTab, setActiveTab] = useState(tabData[0].id);
 
-  function formatDate(date) {
-    const pad = (num) => num.toString().padStart(2, '0');
-    return (
-      date.getUTCFullYear() +
-      '-' +
-      pad(date.getUTCMonth() + 1) +
-      '-' +
-      pad(date.getUTCDate()) +
-      'T' +
-      pad(date.getUTCHours()) +
-      ':' +
-      pad(date.getUTCMinutes()) +
-      ':' +
-      pad(date.getUTCSeconds()) +
-      'Z'
-    );
-  }
-
-  // Today's date
-  const today = new Date();
-  const formattedToday = formatDate(today);
-
-  // Date 7 days ago
-  const last7Days = new Date();
-  last7Days.setDate(today.getDate() - 7);
-  const formattedLast7Days = formatDate(last7Days);
-
-  // Date 30 days ago
-  const last30Days = new Date();
-  last30Days.setDate(today.getDate() - 30);
-  const formattedLast30Days = formatDate(last30Days);
-
-  const { data: wallets } = useGetAccountWallet();
-
   const [activeWallet, setActiveWallet] = useState<AccountWalletType | undefined>();
-
   const { isPending, mutate, data } = useGetDonut();
   const showChart = data?.deposit_percentages || data?.withdraw_percentages;
   const chartData = [
@@ -83,25 +54,19 @@ const Home = () => {
     },
   ];
 
-  const { data: invoices, mutate: getInvoices } = useGetInvoices();
   useEffect(() => {
-    mutate({
-      wallet_id: activeWallet?.id.toString(),
-      from_date:
-        activeTab === DATE_SCOPE.DAILY
-          ? formattedToday
-          : activeTab === DATE_SCOPE.WEEKLY
-            ? formattedLast7Days
-            : formattedLast30Days,
-      to_date: formattedToday,
-    });
+    activeWallet?.id &&
+      mutate({
+        wallet_id: activeWallet?.id.toString(),
+        from_date:
+          activeTab === DATE_SCOPE.DAILY
+            ? formattedToday
+            : activeTab === DATE_SCOPE.WEEKLY
+              ? formattedLast7Days
+              : formattedLast30Days,
+        to_date: formattedToday,
+      });
   }, [activeTab, activeWallet?.id]);
-  useEffect(() => {
-    if (!activeWallet?.id) return;
-    getInvoices({
-      page: '1',
-    });
-  }, [activeWallet?.id]);
 
   useEffect(() => {
     wallets && setActiveWallet(wallets[0]);
@@ -136,8 +101,8 @@ const Home = () => {
                 <Container className='w-6'>
                   <XImage
                     src={
-                      activeWallet?.wallet_type.logo_base_url +
-                      activeWallet?.wallet_type.logo_path
+                      activeWallet?.wallet_type?.logo_base_url +
+                      activeWallet?.wallet_type?.logo_path
                     }
                     alt='Picture of the author'
                     width={1000}
@@ -187,7 +152,7 @@ const Home = () => {
         setActiveWallet={setActiveWallet}
       />
       {/* <PhysicalCard /> */}
-      <LatestPurchases invoices={invoices} />
+      <LatestPurchases />
     </Container>
   );
 };
