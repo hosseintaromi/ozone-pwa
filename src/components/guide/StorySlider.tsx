@@ -1,24 +1,74 @@
+import React from 'react';
 import Stories from 'stories-react';
 import 'stories-react/dist/index.css';
-const storySource = [
-  {
-    type: 'image',
-    url: '/images/guide/home/homeGuide1.svg',
-    duration: 5000,
-  },
-  {
-    type: 'image',
-    url: '/images/guide/home/homeGuide2.svg',
-    duration: 5000,
-  },
-];
+import XImage from '../share/x-image';
+import Container from '../share/container';
+import { Text } from '../share/typography';
 
-function StorySlider() {
+function NormalGuide({
+  title,
+  subTitle,
+  image,
+}: {
+  title: string;
+  subTitle: string;
+  image: string;
+}) {
   return (
-    <div style={{ direction: 'ltr' }} className='bg-red-700'>
-      <Stories width='400px' height='640px' stories={storySource} className='bg-red-700' />
-    </div>
+    <Container className='h-full bg-neutral-900 px-10 py-20 text-white'>
+      <Text>{title}</Text>
+      <Text>{subTitle}</Text>
+      <XImage src={image} alt='Picture of the author' width={1000} height={1000} />
+    </Container>
   );
 }
 
-export default StorySlider;
+export default function ComponentStories() {
+  const stories = [
+    {
+      type: 'component',
+      duration: 9000,
+      component: () => (
+        <NormalGuide
+          title='Hannad Rehman says: Story 1'
+          subTitle='a;sdlfas;df'
+          image='/images/image/getPhysicalCard.svg'
+        />
+      ),
+    },
+    {
+      type: 'component',
+      duration: 30000,
+      component: () => (
+        <NormalGuide
+          title='Hannad Rehman says: Story 1'
+          subTitle='a;sdlfas;df'
+          image='/images/image/getPhysicalCard.svg'
+        />
+      ),
+    },
+    {
+      duration: 9000,
+      type: 'component',
+      component: () => (
+        <NormalGuide
+          title='Hannad Rehman says: Story 1'
+          subTitle='a;sdlfas;df'
+          image='/images/image/getPhysicalCard.svg'
+        />
+      ),
+    },
+  ];
+
+  return (
+    <Container
+      center
+      className='mb-4 w-full'
+      style={{
+        direction: 'ltr',
+      }}
+    >
+      <Stories width='400px' height='600px' stories={stories} />
+    </Container>
+  );
+}
