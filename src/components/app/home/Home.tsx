@@ -85,16 +85,17 @@ const Home = () => {
 
   const { data: invoices, mutate: getInvoices } = useGetInvoices();
   useEffect(() => {
-    mutate({
-      wallet_id: activeWallet?.id.toString(),
-      from_date:
-        activeTab === DATE_SCOPE.DAILY
-          ? formattedToday
-          : activeTab === DATE_SCOPE.WEEKLY
-            ? formattedLast7Days
-            : formattedLast30Days,
-      to_date: formattedToday,
-    });
+    activeWallet?.id &&
+      mutate({
+        wallet_id: activeWallet?.id.toString(),
+        from_date:
+          activeTab === DATE_SCOPE.DAILY
+            ? formattedToday
+            : activeTab === DATE_SCOPE.WEEKLY
+              ? formattedLast7Days
+              : formattedLast30Days,
+        to_date: formattedToday,
+      });
   }, [activeTab, activeWallet?.id]);
   useEffect(() => {
     if (!activeWallet?.id) return;
