@@ -13,10 +13,11 @@ const ReceiptCard = ({ data }: { data: any }) => {
     common: {
       dataAndTime,
       issueTracking,
-      totalPaidAmount,
       rial,
       successfulTransaction,
       transactionFailed,
+      paidAmount,
+      transactionType,
     },
   } = locale;
   const { bank_amount, order_id, business, bank_transaction_date } = data;
@@ -31,11 +32,16 @@ const ReceiptCard = ({ data }: { data: any }) => {
         : persianDateGenerator2(new Date()),
     },
     {
+      title: transactionType,
+      amount: bank_amount,
+    },
+    {
       title: issueTracking,
       amount: order_id,
     },
+
     {
-      title: totalPaidAmount,
+      title: paidAmount,
       amount: bank_amount,
     },
   ];
@@ -47,16 +53,16 @@ const ReceiptCard = ({ data }: { data: any }) => {
     >
       <Container
         center
-        className='gray-down-dash-border relative w-full max-w-[420px] flex-col gap-3 pb-3 '
+        className='gray-down-dash-border relative mb-3 w-full max-w-[420px] flex-col gap-2 pb-3'
       >
         <XImage
           src={status === 'success' ? '/images/logo/success.svg' : '/images/logo/fail.svg'}
-          width={58}
-          height={58}
+          width={72}
+          height={72}
           alt='success logo'
         />
 
-        <Text size={SIZE_ENUM.MD} bold className='text-neutral-0'>
+        <Text size={SIZE_ENUM.MD} bold className='my-4 text-neutral-0'>
           {status === 'success' ? successfulTransaction : transactionFailed}
         </Text>
         <span
@@ -84,7 +90,7 @@ const ReceiptCard = ({ data }: { data: any }) => {
             <Text medium size={SIZE_ENUM.SM} className='text-neutral-200'>
               {i.title}
             </Text>
-            {index < 2 ? (
+            {index < 3 ? (
               <Text bold size={SIZE_ENUM.SM} className='text-neutral-0'>
                 {i.amount}
               </Text>

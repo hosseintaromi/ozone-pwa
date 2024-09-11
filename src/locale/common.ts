@@ -40,5 +40,9 @@ const common = {
   totalPaidAmount: ' کل مبلغ شارژ شده',
   successfulTransaction: 'تراکنش موفق',
   transactionFailed: 'تراکنش ناموفق',
+  paidAmount: 'مبلغ پرداخت',
+  transactionReceipt: 'رسید تراکنش',
+  transactionType: 'نوع تراکنش',
+  returnToPrevURL: (time?: string) => (time ? `بازگشت (${time})` : 'بازگشت  '),
 };
 export default common;
