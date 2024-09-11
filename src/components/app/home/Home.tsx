@@ -12,7 +12,7 @@ import ICON_SIZE, { ICON_COLOR } from '@/constant/icon-size-color';
 import locale from '@/locale';
 
 import ChooseWallet from './components/ChooseWallet';
-import LatestPurchases from './components/LatestPurchases';
+import LatestPurchases from './components/LatestPurchases/LatestPurchases';
 import { AnimatedTabs } from '../../share/animatedTabs';
 import DonutChart from '../../share/charts/DonutChart';
 import { useGetDonut, useGetAccountWallet } from '@/services/hooks';

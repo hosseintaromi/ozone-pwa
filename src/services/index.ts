@@ -165,6 +165,27 @@ export const getInvoices = async (params: invoicesListParams) => {
   return res.data.data;
 };
 
+export const getInvoicesWithPagination = async (
+  page: number,
+  params?: Omit<invoicesListParams, 'page'>,
+) => {
+  const { data }: { data: { data: invoicesListBody[]; meta: meta } } = await httpGetRequest(
+    APIUrlGenerator({
+      route: API_ROUTES.GET_INVOICES,
+      service: BACKEND_SERVICE.TRANSACTION,
+      qry: { ...params, page },
+    }),
+  );
+  return {
+    data: data.data,
+    previousCursor: data.meta.pagination.current_page - 1,
+    nextCursor:
+      data.meta.pagination.current_page === data.meta.pagination.total_pages
+        ? null
+        : data.meta.pagination.current_page + 1,
+  };
+};
+
 export const postLogout = async () => {
   const res: { data: any } = await httpPostRequest(
     APIUrlGenerator({

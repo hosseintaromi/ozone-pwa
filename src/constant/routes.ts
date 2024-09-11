@@ -13,6 +13,7 @@ export const API_ROUTES = {
   GET_ACCOUNT_WALLETS: '/wallets',
   GET_DONUT: '/transactions',
   GET_INVOICES: '/invoices',
+  GET_INVOICES_WITH_PAGE: (page: number) => `/invoices?page=${page}`,
   POST_LOGOUT: '/logout',
   POST_SET_PASSWORD: '/password/set',
   POST_Login_PASSWORD: '/login/password',

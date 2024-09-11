@@ -1,5 +1,4 @@
 'use client';
-import { ArrowLeft2 } from 'iconsax-react';
 import React, { useEffect } from 'react';
 
 import { SIZE_ENUM } from '@/components/share/@helpers/types';
@@ -8,17 +7,15 @@ import { Text } from '@/components/share/typography';
 import XImage from '@/components/share/x-image';
 
 import { COLOR_ENUM } from '@/@types';
-import { ICON_COLOR } from '@/constant/icon-size-color';
 import locale from '@/locale';
-import Link from 'next/link';
-import { ROUTES } from '@/constant/routes';
-import { formatNumberWithCommas } from '@/lib/helper';
-import { convertRfcToJalaliWithClock } from '@/lib/date';
-import cn from '@/lib/clsxm';
 import { SkeletonLoader } from '@/components/share/skeleton/SkeletonLoader';
 import { useGetInvoices } from '@/services/hooks';
+import { Button, VARIANT_ENUM } from 'ozone-uikit';
+import { useRouter } from 'next/navigation';
+import PurchaseItem from '@/components/app/home/components/LatestPurchases/PurchaseItem';
 
 const LatestPurchases = () => {
+  const router = useRouter();
   const { app, common } = locale;
   const { data: invoices, isPending, mutate } = useGetInvoices();
   useEffect(() => {
@@ -34,39 +31,7 @@ const LatestPurchases = () => {
       {!isPending ? (
         invoices &&
         invoices?.length > 0 &&
-        invoices.map((item, index) => (
-          <Container
-            key={'invoice' + item.invoice.id + index}
-            className={cn(
-              'mb-5 pb-2',
-              invoices.length > index + 1 && 'border-b-[1px] border-gray-700',
-            )}
-          >
-            <Link href={`${ROUTES.PURCHASE_DETAIL}/${item.invoice.id}`}>
-              <Container center className='justify-between'>
-                <Container className=' w-8'>
-                  <XImage
-                    className='rounded-full'
-                    src={item.business.logo_base_url + item.business.logo_path}
-                    alt='Picture of the author'
-                    width={1000}
-                    height={1000}
-                  />
-                </Container>
-                <ArrowLeft2 color={ICON_COLOR.light_gray} />
-              </Container>
-              <Container center className='justify-between'>
-                <Text color={COLOR_ENUM.WHITE}>{item.business.name}</Text>
-                <Text>
-                  {formatNumberWithCommas(item.invoice.amount)} {common.rial}
-                </Text>
-              </Container>
-              <Text color={COLOR_ENUM.LIGHT_GRAY}>
-                {convertRfcToJalaliWithClock(item.invoice.created_at)}
-              </Text>
-            </Link>
-          </Container>
-        ))
+        invoices.slice(0, 4).map((item, index) => <PurchaseItem item={item} index={index} />)
       ) : (
         <Container>
           {[1, 2].map((item) => (
@@ -96,6 +61,15 @@ const LatestPurchases = () => {
             {app.purchaseDetail.noPurchase}
           </Text>
         </Container>
+      )}
+      {invoices && invoices?.length > 4 && (
+        <Button
+          variant={VARIANT_ENUM.TEXT}
+          className='mx-auto text-primary'
+          onClick={() => router.push('/transaction-list')}
+        >
+          {common.showMore}
+        </Button>
       )}
     </Container>
   );

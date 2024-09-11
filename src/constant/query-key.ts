@@ -8,6 +8,7 @@ export const QUERY_KEYS = {
   GET_WALLETS_INQUIRY: 'get-wallets-inquiry',
   GET_DONUT: 'get-donut',
   GET_INVOICES: 'get-invoices',
+  GET_INVOICES_CHART: 'get-invoice-chart',
   GET_WALLET_TRANSACTIONS: 'get-wallet-transactions',
   GET_INIT_PASSWORD: 'get-init-password',
   POST_CHARGE_WALLET: 'post-charge-wallet',
@@ -18,4 +19,5 @@ export const QUERY_KEYS = {
   GET_QR_CODE: 'get_qr_code',
   GET_VOUCHER: 'get_voucher',
   GET_BUSINESSES: 'get_businesses',
+  GET_WALLET_TRANSACTIONS_PAGE: 'get-wallet-transactions-page',
 };

@@ -43,6 +43,8 @@ const common = {
   paidAmount: 'مبلغ پرداخت',
   transactionReceipt: 'رسید تراکنش',
   transactionType: 'نوع تراکنش',
+  showMore: 'نمایش بیشتر',
+  invoiceList: 'لیست خرید ها',
   returnToPrevURL: (time?: string) => (time ? `بازگشت (${time})` : 'بازگشت  '),
 };
 export default common;
