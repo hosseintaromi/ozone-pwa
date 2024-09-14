@@ -7,8 +7,9 @@ import React from 'react';
 import XImage from '@/components/share/x-image';
 import { useSearchParams } from 'next/navigation';
 import locale from '@/locale';
+import { receiptResType } from '@/constant/receipt.model';
 
-const ReceiptCard = ({ data }: { data: any }) => {
+const ReceiptCard = ({ data }: { data: receiptResType }) => {
   const {
     common: {
       dataAndTime,
@@ -20,9 +21,9 @@ const ReceiptCard = ({ data }: { data: any }) => {
       transactionType,
     },
   } = locale;
-  const { bank_amount, order_id, business, bank_transaction_date } = data;
+  const { bank_amount, status: statusFromReq, ref_number, bank_transaction_date } = data;
   const searchParams = useSearchParams();
-  const status = searchParams.get('status');
+  const status = searchParams.get('status') || statusFromReq;
 
   const items = [
     {
@@ -33,11 +34,11 @@ const ReceiptCard = ({ data }: { data: any }) => {
     },
     {
       title: transactionType,
-      amount: bank_amount,
+      amount: 'شارژ کیف پول',
     },
     {
       title: issueTracking,
-      amount: order_id,
+      amount: ref_number,
     },
 
     {

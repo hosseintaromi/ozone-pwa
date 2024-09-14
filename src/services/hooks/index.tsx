@@ -28,6 +28,7 @@ import {
   postChangeVoucherStatus,
   getBusinesses,
   getInvoicesWithPagination,
+  getReceipt,
 } from '..';
 import {
   loginInitTypeIn,
@@ -226,5 +227,13 @@ export const useGetBusinessesList = () => {
   return useQuery({
     queryFn: () => getBusinesses(),
     queryKey: [QUERY_KEYS.GET_BUSINESSES],
+  });
+};
+
+export const useGetReceipt = (token: string | null) => {
+  return useQuery({
+    queryFn: () => getReceipt(token),
+    queryKey: [QUERY_KEYS.GET_RECEIPT],
+    enabled: !!token,
   });
 };

@@ -20,4 +20,5 @@ export const QUERY_KEYS = {
   GET_VOUCHER: 'get_voucher',
   GET_BUSINESSES: 'get_businesses',
   GET_WALLET_TRANSACTIONS_PAGE: 'get-wallet-transactions-page',
+  GET_RECEIPT: 'get-receipt',
 };

@@ -44,6 +44,7 @@ import {
   metaType,
   voucherListResult,
 } from '@/models/digitalWallet.model';
+import { receiptResType } from '@/constant/receipt.model';
 
 export const postLoginInit = async (data: loginInitTypeIn) => {
   const res: { data: { data: loginInitTypeOut } } = await httpPostRequest(
@@ -351,6 +352,16 @@ export const getBusinesses = async () => {
     APIUrlGenerator({
       route: API_ROUTES.GET_BUSINESSES,
       service: BACKEND_SERVICE.USER_MANAGEMENT,
+    }),
+  );
+  return res.data.data;
+};
+
+export const getReceipt = async (token: string | null) => {
+  const res: { data: { data: receiptResType } } = await httpGetRequest(
+    APIUrlGenerator({
+      route: API_ROUTES.GET_RECEIPT(token),
+      service: BACKEND_SERVICE.TRANSACTION,
     }),
   );
   return res.data.data;
