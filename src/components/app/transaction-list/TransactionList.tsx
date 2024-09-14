@@ -1,7 +1,7 @@
 'use client';
 import { Container, SIZE_ENUM, Text } from 'ozone-uikit';
 import locale from '@/locale';
-import { ArrowRight, Sort } from 'iconsax-react';
+import { ArrowRight, CloseCircle, Sort } from 'iconsax-react';
 import { useRouter } from 'next/navigation';
 import { useGetInvoicesWithPagination } from '@/services/hooks';
 import { SkeletonLoader } from '@/components/share/skeleton/SkeletonLoader';
@@ -11,12 +11,18 @@ import cn from '@/lib/clsxm';
 import Spinner from '@/components/share/spinner/Spinner';
 import PurchaseItem from '@/components/app/home/components/LatestPurchases/PurchaseItem';
 import { invoicesListParams } from '@/models/transaction.model';
+import useCommonModalStore from '@/store/common-modal-store';
+import TransactionFilter from '@/components/app/transaction-list/TransactionFilter';
 
 const TransactionList = () => {
   const {
     common: { invoiceList },
+    app: {
+      voucher: { selectStore },
+    },
   } = locale;
   const router = useRouter();
+  const { setShow } = useCommonModalStore();
   const [filter, setFilter] = useState<Omit<invoicesListParams, 'page'>>({
     business_id: undefined,
     from_date: undefined,
@@ -31,6 +37,20 @@ const TransactionList = () => {
     refetch,
   } = useGetInvoicesWithPagination(filter);
   const flatInvoices = invoices?.pages.flatMap((data) => data.data);
+  const showFilterModal = () => {
+    setShow(true, {
+      Head: () => (
+        <Container center className='w-full justify-between py-3'>
+          <Text bold size={SIZE_ENUM.LG}>
+            {selectStore}
+          </Text>
+          <CloseCircle size='32' className='text-neutral-200' onClick={() => setShow(false)} />
+        </Container>
+      ),
+      Body: () => <TransactionFilter filter={filter} setFilter={setFilter} />,
+    });
+  };
+
   useEffect(() => {
     refetch();
   }, [filter]);
@@ -44,9 +64,12 @@ const TransactionList = () => {
         <Sort
           size='28'
           className='text-white'
-          onClick={() => {
-            setFilter({ ...filter, business_id: '35' });
-          }}
+          onClick={
+            showFilterModal
+            // () => {
+            //   setFilter({ ...filter, business_id: '35' });
+            // }
+          }
         />
       </Container>
       {flatInvoices && flatInvoices.length > 0 && (
