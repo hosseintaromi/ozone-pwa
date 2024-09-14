@@ -5,7 +5,6 @@ import { currency, persianDateGenerator2 } from '@/lib/helper';
 import cn from '@/lib/clsxm';
 import React from 'react';
 import XImage from '@/components/share/x-image';
-import { useSearchParams } from 'next/navigation';
 import locale from '@/locale';
 import { receiptResType } from '@/constant/receipt.model';
 
@@ -21,9 +20,7 @@ const ReceiptCard = ({ data }: { data: receiptResType }) => {
       transactionType,
     },
   } = locale;
-  const { bank_amount, status: statusFromReq, ref_number, bank_transaction_date } = data;
-  const searchParams = useSearchParams();
-  const status = searchParams.get('status') || statusFromReq;
+  const { bank_amount, status, ref_number, bank_transaction_date } = data;
 
   const items = [
     {
@@ -57,14 +54,14 @@ const ReceiptCard = ({ data }: { data: receiptResType }) => {
         className='gray-down-dash-border relative mb-3 w-full max-w-[420px] flex-col gap-2 pb-3'
       >
         <XImage
-          src={status === 'success' ? '/images/logo/success.svg' : '/images/logo/fail.svg'}
+          src={status === 'SUCCESS' ? '/images/logo/success.svg' : '/images/logo/fail.svg'}
           width={72}
           height={72}
           alt='success logo'
         />
 
         <Text size={SIZE_ENUM.MD} bold className='my-4 text-neutral-0'>
-          {status === 'success' ? successfulTransaction : transactionFailed}
+          {status === 'SUCCESS' ? successfulTransaction : transactionFailed}
         </Text>
         <span
           className={

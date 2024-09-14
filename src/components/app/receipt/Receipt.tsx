@@ -8,10 +8,8 @@ import { addToTime } from '@/lib/date';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useGetReceipt } from '@/services/hooks';
 import { SkeletonLoader } from '@/components/share/skeleton/SkeletonLoader';
-// import { useGetBankReceipt } from '@/services/hooks';
 
 const Receipt = () => {
-  // const { data } = useGetBankReceipt(searchParams.get('token'));
   const router = useRouter();
   const searchParams = useSearchParams();
   const {
