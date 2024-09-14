@@ -44,6 +44,7 @@ import {
   metaType,
   voucherListResult,
 } from '@/models/digitalWallet.model';
+import { receiptResType } from '@/constant/receipt.model';
 
 export const postLoginInit = async (data: loginInitTypeIn) => {
   const res: { data: { data: loginInitTypeOut } } = await httpPostRequest(
@@ -163,6 +164,27 @@ export const getInvoices = async (params: invoicesListParams) => {
     }),
   );
   return res.data.data;
+};
+
+export const getInvoicesWithPagination = async (
+  page: number,
+  params?: Omit<invoicesListParams, 'page'>,
+) => {
+  const { data }: { data: { data: invoicesListBody[]; meta: meta } } = await httpGetRequest(
+    APIUrlGenerator({
+      route: API_ROUTES.GET_INVOICES,
+      service: BACKEND_SERVICE.TRANSACTION,
+      qry: { ...params, page },
+    }),
+  );
+  return {
+    data: data.data,
+    previousCursor: data.meta.pagination.current_page - 1,
+    nextCursor:
+      data.meta.pagination.current_page === data.meta.pagination.total_pages
+        ? null
+        : data.meta.pagination.current_page + 1,
+  };
 };
 
 export const postLogout = async () => {
@@ -330,6 +352,16 @@ export const getBusinesses = async () => {
     APIUrlGenerator({
       route: API_ROUTES.GET_BUSINESSES,
       service: BACKEND_SERVICE.USER_MANAGEMENT,
+    }),
+  );
+  return res.data.data;
+};
+
+export const getReceipt = async (token: string | null) => {
+  const res: { data: { data: receiptResType } } = await httpGetRequest(
+    APIUrlGenerator({
+      route: API_ROUTES.GET_RECEIPT(token),
+      service: BACKEND_SERVICE.TRANSACTION,
     }),
   );
   return res.data.data;
