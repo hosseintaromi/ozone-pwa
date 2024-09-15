@@ -45,6 +45,7 @@ const common = {
   transactionType: 'نوع تراکنش',
   showMore: 'نمایش بیشتر',
   invoiceList: 'لیست خرید ها',
+  noInvoice: 'خریدی ثبت نشده است',
   returnToPrevURL: (time?: string) => (time ? `بازگشت (${time})` : 'بازگشت  '),
 };
 export default common;
