@@ -18,7 +18,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/constant/query-key';
 import { SkeletonLoader } from '@/components/share/skeleton/SkeletonLoader';
 
-const ProfileDialog = (props: PayInDialogType) => {
+const BarcodeDialog = (props: PayInDialogType) => {
   const { show, setShow } = props;
   const {
     app: { scan },
@@ -63,11 +63,11 @@ const ProfileDialog = (props: PayInDialogType) => {
               <Barcode
                 displayValue={false}
                 value={data?.serial || ''}
-                background='#1C2023'
-                lineColor='#C0C1C2'
+                background='#fff'
+                lineColor='#000'
                 height={70}
               />
-              <Text size={SIZE_ENUM.MD} light className='ltr w-full text-center'>
+              <Text size={SIZE_ENUM.MD} light className='ltr mt-5 w-full text-center'>
                 {addSpacesBetweenDigits(data?.serial)}
               </Text>
             </Container>
@@ -87,4 +87,4 @@ const ProfileDialog = (props: PayInDialogType) => {
   );
 };
 
-export default ProfileDialog;
+export default BarcodeDialog;

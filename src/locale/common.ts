@@ -35,5 +35,17 @@ const common = {
   activation: 'فعالسازی',
   inActivation: 'غیر فعالسازی',
   exitBtn: 'خروج',
+  dataAndTime: 'تاریخ و ساعت',
+  issueTracking: 'شماره پیگیری',
+  totalPaidAmount: ' کل مبلغ شارژ شده',
+  successfulTransaction: 'تراکنش موفق',
+  transactionFailed: 'تراکنش ناموفق',
+  paidAmount: 'مبلغ پرداخت',
+  transactionReceipt: 'رسید تراکنش',
+  transactionType: 'نوع تراکنش',
+  showMore: 'نمایش بیشتر',
+  invoiceList: 'لیست خرید ها',
+  noInvoice: 'خریدی ثبت نشده است',
+  returnToPrevURL: (time?: string) => (time ? `بازگشت (${time})` : 'بازگشت  '),
 };
 export default common;

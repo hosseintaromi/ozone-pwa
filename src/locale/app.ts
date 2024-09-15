@@ -16,6 +16,8 @@ const app = {
     product: 'کالا',
     price: 'قیمت',
     buyFrom: 'خرید از ',
+    noPurchase: 'خرید موجود نیست',
+    selectBusinessYouBuy: 'فروشگاه مورد نظر را که از آن خرید کرده اید را انتخاب کنید.',
   },
   chooseWallet: {
     title: 'انتخاب حساب',

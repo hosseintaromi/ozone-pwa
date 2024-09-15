@@ -27,6 +27,8 @@ import {
   getVouchers,
   postChangeVoucherStatus,
   getBusinesses,
+  getInvoicesWithPagination,
+  getReceipt,
 } from '..';
 import {
   loginInitTypeIn,
@@ -99,7 +101,7 @@ export const useGetUser = (token: string | null) => {
 
 export const useGetAccountWallet = () => {
   return useQuery({
-    queryFn: getAccountWallets,
+    queryFn: () => getAccountWallets(),
     queryKey: [QUERY_KEYS.GET_WALLETS],
   });
 };
@@ -107,14 +109,25 @@ export const useGetAccountWallet = () => {
 export const useGetInvoices = () => {
   return useMutation({
     mutationFn: (data: invoicesListParams) => getInvoices(data),
-    mutationKey: [QUERY_KEYS.GET_WALLETS],
+    mutationKey: [QUERY_KEYS.GET_INVOICES],
+  });
+};
+
+export const useGetInvoicesWithPagination = (data?: Omit<invoicesListParams, 'page'>) => {
+  return useInfiniteQuery({
+    queryFn: ({ pageParam }) => getInvoicesWithPagination(pageParam, data),
+    queryKey: [QUERY_KEYS.GET_WALLET_TRANSACTIONS_PAGE],
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    getPreviousPageParam: (firstPage) => firstPage.previousCursor,
+    gcTime: 0,
   });
 };
 
 export const useGetDonut = () => {
   return useMutation({
     mutationFn: (data: DonutChartParams) => getDonutChart(data),
-    mutationKey: [QUERY_KEYS.GET_INVOICES],
+    mutationKey: [QUERY_KEYS.GET_INVOICES_CHART],
   });
 };
 
@@ -214,5 +227,13 @@ export const useGetBusinessesList = () => {
   return useQuery({
     queryFn: () => getBusinesses(),
     queryKey: [QUERY_KEYS.GET_BUSINESSES],
+  });
+};
+
+export const useGetReceipt = (token: string | null) => {
+  return useQuery({
+    queryFn: () => getReceipt(token),
+    queryKey: [QUERY_KEYS.GET_RECEIPT],
+    enabled: !!token,
   });
 };
