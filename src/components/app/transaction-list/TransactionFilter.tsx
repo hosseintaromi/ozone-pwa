@@ -1,4 +1,4 @@
-import { Container, SIZE_ENUM } from 'ozone-uikit';
+import { Container, SIZE_ENUM, Text } from 'ozone-uikit';
 import RadioOption from '@/components/share/input/radio/option';
 import Circular from '@/components/share/input/radio/circular';
 import XImage from '@/components/share/x-image';
@@ -7,6 +7,8 @@ import React, { useEffect, useState } from 'react';
 import { useGetBusinessesList } from '@/services/hooks';
 import { invoicesListParams } from '@/models/transaction.model';
 import useCommonModalStore from '@/store/common-modal-store';
+import locale from '@/locale';
+import { Category2 } from 'iconsax-react';
 
 const TransactionFilter = ({
   filter,
@@ -15,12 +17,21 @@ const TransactionFilter = ({
   filter: Omit<invoicesListParams, 'page'>;
   setFilter: any;
 }) => {
+  const {
+    common: { all },
+    app: {
+      purchaseDetail: { selectBusinessYouBuy },
+    },
+  } = locale;
   const { setShow } = useCommonModalStore();
   const { data } = useGetBusinessesList();
-  const [selectedItem, setSelectedItem] = useState(0);
+  const [selectedItem, setSelectedItem] = useState(-1);
   const handleChange = (value) => {
+    if (value === -1) {
+      setFilter({ ...filter, business_id: undefined });
+    } else setFilter({ ...filter, business_id: value.toString() });
     setSelectedItem(value);
-    setFilter({ ...filter, business_id: value.toString() });
+
     setShow(false);
   };
   useEffect(() => {
@@ -28,28 +39,41 @@ const TransactionFilter = ({
   }, [filter]);
   return (
     <Container>
-      <RadioGroup value={selectedItem} onChange={(value) => handleChange(value)}>
-        {data?.map((item) => (
-          <RadioOption value={item.id} key={item.id + 'chooseBusiness'}>
+      <Text semiBold size={SIZE_ENUM.SM} className='mb-6 text-right text-neutral-200'>
+        {selectBusinessYouBuy}
+      </Text>
+      <Container className='max-h-[calc(100dvh-170px)] overflow-auto px-1'>
+        <RadioGroup value={selectedItem} onChange={(value) => handleChange(value)}>
+          <RadioOption value={-1}>
             {({ checked }) => (
               <Circular checked={checked} size={SIZE_ENUM.LG}>
                 <Container center className='my-3 gap-4 text-white'>
-                  <Container className=' w-11'>
-                    <XImage
-                      className='rounded-full'
-                      src={item.logo_base_url + item.logo_path}
-                      alt='Picture of the author'
-                      width={1000}
-                      height={1000}
-                    />
-                  </Container>
-                  {item.name}
+                  <Category2 size='35' className='mr-1 text-white' />
+                  {all}
                 </Container>
               </Circular>
             )}
           </RadioOption>
-        ))}
-      </RadioGroup>
+          {data?.map((item) => (
+            <RadioOption value={item.id} key={item.id + 'chooseBusiness'}>
+              {({ checked }) => (
+                <Circular checked={checked} size={SIZE_ENUM.LG}>
+                  <Container center className='my-3 gap-4 text-white'>
+                    <XImage
+                      className='rounded-full'
+                      src={item.logo_base_url + item.logo_path}
+                      alt='Picture of the author'
+                      width={42}
+                      height={42}
+                    />
+                    {item.name}
+                  </Container>
+                </Circular>
+              )}
+            </RadioOption>
+          ))}
+        </RadioGroup>
+      </Container>
     </Container>
   );
 };

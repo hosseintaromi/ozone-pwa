@@ -13,10 +13,11 @@ import PurchaseItem from '@/components/app/home/components/LatestPurchases/Purch
 import { invoicesListParams } from '@/models/transaction.model';
 import useCommonModalStore from '@/store/common-modal-store';
 import TransactionFilter from '@/components/app/transaction-list/TransactionFilter';
+import XImage from '@/components/share/x-image';
 
 const TransactionList = () => {
   const {
-    common: { invoiceList },
+    common: { invoiceList, noInvoice },
     app: {
       voucher: { selectStore },
     },
@@ -61,20 +62,10 @@ const TransactionList = () => {
         <Text size={SIZE_ENUM.LG} bold>
           {invoiceList}
         </Text>
-        <Sort
-          size='28'
-          className='text-white'
-          onClick={
-            showFilterModal
-            // () => {
-            //   setFilter({ ...filter, business_id: '35' });
-            // }
-          }
-        />
+        <Sort size='28' className='text-white' onClick={showFilterModal} />
       </Container>
       {flatInvoices && flatInvoices.length > 0 && (
         <Virtuoso
-          // style={{ height: '500px' }}
           className={cn('pb-30 mb-[60px]')}
           style={{ height: '790px' }}
           endReached={() =>
@@ -96,6 +87,17 @@ const TransactionList = () => {
           data={flatInvoices}
           itemContent={(index, item) => <PurchaseItem item={item} index={index} />}
         />
+      )}
+      {flatInvoices?.length === 0 && !isPending && (
+        <Container center className='mt-[70%] flex-col gap-4'>
+          <XImage
+            src='/images/image/emptyState.svg'
+            alt='Picture of the author'
+            width={140}
+            height={70}
+          />
+          <Text className='text-bold text-sm text-neutral-500'>{noInvoice}</Text>
+        </Container>
       )}
       {isPending &&
         [1, 2, 3, 4, 5, 6].map((i) => <TransactionLoading key={`'WalletLoading'${i}`} />)}
