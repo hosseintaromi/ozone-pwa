@@ -1,64 +1,44 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import Stories from 'stories-react';
 import 'stories-react/dist/index.css';
-import XImage from '../share/x-image';
 import Container from '../share/container';
-import { Text } from '../share/typography';
-
-function NormalGuide({
-  title,
-  subTitle,
-  image,
-}: {
-  title: string;
-  subTitle: string;
-  image: string;
-}) {
-  return (
-    <Container className='h-full bg-neutral-900 px-10 py-20 text-white'>
-      <Text>{title}</Text>
-      <Text>{subTitle}</Text>
-      <XImage src={image} alt='Picture of the author' width={1000} height={1000} />
-    </Container>
-  );
-}
+import NormalGuide from './NormalGuide';
+import { guideData, StoryData } from './data';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function ComponentStories() {
-  const stories = [
-    {
-      type: 'component',
-      duration: 9000,
-      component: () => (
-        <NormalGuide
-          title='Hannad Rehman says: Story 1'
-          subTitle='a;sdlfas;df'
-          image='/images/image/getPhysicalCard.svg'
-        />
-      ),
-    },
-    {
-      type: 'component',
-      duration: 30000,
-      component: () => (
-        <NormalGuide
-          title='Hannad Rehman says: Story 1'
-          subTitle='a;sdlfas;df'
-          image='/images/image/getPhysicalCard.svg'
-        />
-      ),
-    },
-    {
-      duration: 9000,
-      type: 'component',
-      component: () => (
-        <NormalGuide
-          title='Hannad Rehman says: Story 1'
-          subTitle='a;sdlfas;df'
-          image='/images/image/getPhysicalCard.svg'
-        />
-      ),
-    },
-  ];
+  const [stories, setStories] = useState<StoryData[]>([]);
+  const searchParams = useSearchParams();
+
+  const search = searchParams.get('page');
+  const router = useRouter();
+
+  useEffect(() => {
+    const loadedStories: StoryData[] = [];
+    if (!search || !guideData[search]) {
+      router.push('/');
+      return;
+    }
+    console.log(router.back);
+    const data = guideData[search];
+    for (let i = 0; i < data.length; i++) {
+      loadedStories.push({
+        type: 'component',
+        duration: 9000,
+        component: () => (
+          <NormalGuide
+            title={data[i].title}
+            subTitle={data[i].subTitle}
+            image={data[i].image}
+          />
+        ),
+      });
+    }
+
+    setStories(loadedStories);
+  }, []);
 
   return (
     <Container
@@ -68,7 +48,12 @@ export default function ComponentStories() {
         direction: 'ltr',
       }}
     >
-      <Stories width='400px' height='600px' stories={stories} />
+      <Stories
+        width='400px'
+        height='600px'
+        stories={stories}
+        onAllStoriesEnd={() => router.back()}
+      />
     </Container>
   );
 }

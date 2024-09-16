@@ -12,6 +12,7 @@ import useUserManagement from '@/hooks/useUserManagement';
 import ChangePassword from './ChangePassword';
 import useCommonModalStore from '@/store/common-modal-store';
 import { Button, SIZE_ENUM, VARIANT_ENUM } from 'ozone-uikit';
+import GuideDialog from '@/components/guide/GuideDialog';
 
 const Settings = () => {
   const {
@@ -26,6 +27,7 @@ const Settings = () => {
 
   const [showLock, setShowLock] = useState(false);
   const [show, setShow] = useState(false);
+  const [showGuide, setShowGuide] = useState(false);
   useEffect(() => {
     if (!isSuccess) return;
     removeUserData();
@@ -81,7 +83,7 @@ const Settings = () => {
     {
       title: help,
       icon: <InfoCircle color={ICON_COLOR.light_gray} size={ICON_SIZE.lg} />,
-      action: () => {},
+      action: () => setShowGuide((pre) => !pre),
     },
     {
       title: call,
@@ -103,6 +105,7 @@ const Settings = () => {
       <ProfileInfo />
       <ChangePassword show={showLock} setShow={setShowLock} />
       <ProfileDialog show={show} setShow={setShow} />
+      <GuideDialog show={showGuide} setShow={setShowGuide} />
       {settingList.map((item) => (
         <Container
           key={item.title}
