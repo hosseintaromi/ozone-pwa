@@ -1,24 +1,59 @@
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import Stories from 'stories-react';
 import 'stories-react/dist/index.css';
-const storySource = [
-  {
-    type: 'image',
-    url: '/images/guide/home/homeGuide1.svg',
-    duration: 5000,
-  },
-  {
-    type: 'image',
-    url: '/images/guide/home/homeGuide2.svg',
-    duration: 5000,
-  },
-];
+import Container from '../share/container';
+import NormalGuide from './NormalGuide';
+import { guideData, StoryData } from './data';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-function StorySlider() {
+export default function ComponentStories() {
+  const [stories, setStories] = useState<StoryData[]>([]);
+  const searchParams = useSearchParams();
+
+  const search = searchParams.get('page');
+  const router = useRouter();
+
+  useEffect(() => {
+    const loadedStories: StoryData[] = [];
+    if (!search || !guideData[search]) {
+      router.push('/');
+      return;
+    }
+    console.log(router.back);
+    const data = guideData[search];
+    for (let i = 0; i < data.length; i++) {
+      loadedStories.push({
+        type: 'component',
+        duration: 9000,
+        component: () => (
+          <NormalGuide
+            title={data[i].title}
+            subTitle={data[i].subTitle}
+            image={data[i].image}
+          />
+        ),
+      });
+    }
+
+    setStories(loadedStories);
+  }, []);
+
   return (
-    <div style={{ direction: 'ltr' }} className='bg-red-700'>
-      <Stories width='400px' height='640px' stories={storySource} className='bg-red-700' />
-    </div>
+    <Container
+      center
+      className='mb-4 w-full'
+      style={{
+        direction: 'ltr',
+      }}
+    >
+      <Stories
+        width='400px'
+        height='600px'
+        stories={stories}
+        onAllStoriesEnd={() => router.back()}
+      />
+    </Container>
   );
 }
-
-export default StorySlider;

@@ -28,6 +28,7 @@ import {
   formattedLast7Days,
   formattedToday,
 } from '@/components/app/home/components/helper';
+import { useRouter } from 'next/navigation';
 
 const Home = () => {
   const { app } = locale;
@@ -53,7 +54,7 @@ const Home = () => {
       y: data?.withdraw,
     },
   ];
-
+  const router = useRouter();
   useEffect(() => {
     activeWallet?.id &&
       mutate({
@@ -75,7 +76,7 @@ const Home = () => {
   return (
     <Container className='h-[calc(100dvh-90px)] overflow-auto'>
       <Navbar>
-        <InfoCircle color='#fff' size={24} />
+        <InfoCircle color='#fff' size={24} onClick={() => router.push('/guide/?page=home')} />
         <Container className='w-44'>
           <XImage
             src='/images/logo/Name.svg'

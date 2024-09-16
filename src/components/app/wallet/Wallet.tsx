@@ -17,6 +17,7 @@ import cn from '@/lib/clsxm';
 import XImage from '@/components/share/x-image';
 import useWalletStore from '@/store/wallet-store';
 import { SkeletonLoader } from '@/components/share/skeleton/SkeletonLoader';
+import { useRouter } from 'next/navigation';
 
 export default function Wallet() {
   const [sheetHeight, setSheetHeight] = useState(500);
@@ -33,11 +34,16 @@ export default function Wallet() {
     hasNextPage,
   } = useGetWalletTransactions(selectedWallet?.id);
   const flatTransactions = transaction?.pages.flatMap((data) => data.data);
+  const router = useRouter();
 
   return (
     <div className='h-dvh bg-neutral-800'>
       <Navbar>
-        <InfoCircle color='#fff' size={30} />
+        <InfoCircle
+          color='#fff'
+          size={30}
+          onClick={() => router.push('/guide/?page=account')}
+        />
         <Text>{title} </Text>
 
         <Link href={ROUTES.ADD_WALLET}>
