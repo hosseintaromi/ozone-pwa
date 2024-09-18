@@ -35,7 +35,6 @@ input::-webkit-inner-spin-button {
 
 .Toastify__toast-theme--light {
   background: transparent !important;
-  font-family: 'Yekan Bakh', Tahoma, Arial;
 }
 
 .Toastify__toast-container {
@@ -90,11 +89,12 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
 .rtl {
   direction: rtl !important;
 }
-
+.Toastify__toast {
+  font-family: inherit !important;
+}
 .Toastify__toast-theme--light {
   box-shadow: none !important;
   background: transparent;
-  font-family: 'Yekan Bakh', serif !important;
 }
 div[data-rsbs-scroll] {
   overflow: hidden;
