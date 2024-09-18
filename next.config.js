@@ -12,7 +12,9 @@ const withSerwist = withSerwistInit({
 const nextConfig = {
   output: 'standalone',
   trailingSlash: true,
-
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
   },
