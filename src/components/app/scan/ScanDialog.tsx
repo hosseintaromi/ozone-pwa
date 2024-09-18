@@ -8,18 +8,22 @@ import locale from '@/locale';
 import { SIZE_ENUM } from 'ozone-uikit';
 import React, { useState } from 'react';
 import BarcodeDialog from './BarcodeDialog';
+import GuideDialog from '@/components/guide/GuideDialog';
 
 const ScanDialog = () => {
   const {
     app: { scan },
   } = locale;
   const [show, setShow] = useState(false);
+  const [showGuide, setShowGuide] = useState(false);
 
   return (
     <Container className='flex h-dvh flex-col items-center justify-between px-5 pb-32 text-center'>
       <Text size={SIZE_ENUM.LG} className='mt-4'>
         {scan.title}
       </Text>
+      <GuideDialog show={showGuide} setShow={setShowGuide} />
+
       <Container>
         <Container center className='h-60 flex-col gap-3'>
           <XImage
@@ -44,7 +48,11 @@ const ScanDialog = () => {
         >
           {scan.button}
         </Button>
-        <Button className='h-14  w-full' variant={VARIANT_ENUM.TEXT}>
+        <Button
+          className='h-14  w-full'
+          variant={VARIANT_ENUM.TEXT}
+          onClick={() => setShowGuide((pre) => !pre)}
+        >
           {scan.guideButton}
         </Button>
       </Container>

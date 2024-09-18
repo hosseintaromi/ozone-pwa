@@ -38,11 +38,11 @@ const SeeMorePurchase = ({
     },
     {
       name: purchaseDetail.accountNumber,
-      amount: 9999999999999,
+      amount: data?.ref_number,
     },
     {
       name: purchaseDetail.issueTracking,
-      amount: 9999999999999,
+      amount: data?.order_id,
     },
   ];
 
@@ -174,22 +174,27 @@ const SeeMorePurchase = ({
                 >
                   {item.name}
                 </Text>
-                <Container center className='gap-1'>
-                  <Text
-                    bold
-                    size={index < 3 ? SIZE_ENUM.MD : SIZE_ENUM.XMD}
-                    className={cn('text-neutral-200', index === 3 && 'text-primary')}
-                  >
-                    {formatNumberWithCommas(item.amount)}
-                  </Text>
-                  <Text
-                    bold
-                    size={SIZE_ENUM.SM}
-                    className={cn('text-neutral-200', index === 3 && 'text-primary')}
-                  >
-                    {common.rial}
-                  </Text>
-                </Container>
+
+                <Text
+                  bold
+                  size={index < 3 ? SIZE_ENUM.MD : SIZE_ENUM.XMD}
+                  className={cn('text-neutral-200', index === 3 && 'text-primary')}
+                >
+                  {index === 0 ? (
+                    <Container center className='gap-1'>
+                      {formatNumberWithCommas(item.amount)}
+                      <Text
+                        bold
+                        size={SIZE_ENUM.SM}
+                        // className={cn('text-neutral-200', index === 3 && 'text-primary')}
+                      >
+                        {common.rial}
+                      </Text>
+                    </Container>
+                  ) : (
+                    item.amount
+                  )}
+                </Text>
               </Container>
             ))}
           </Container>

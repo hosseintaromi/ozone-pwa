@@ -5,6 +5,7 @@ import { Container, SIZE_ENUM, Text } from 'ozone-uikit';
 import locale from '@/locale';
 import useCommonModalStore from '@/store/common-modal-store';
 import Filter from '@/components/app/voucher/components/Filter';
+import { useRouter } from 'next/navigation';
 
 const Header = () => {
   const {
@@ -14,6 +15,8 @@ const Header = () => {
     },
   } = locale;
   const { setShow } = useCommonModalStore();
+  const router = useRouter();
+
   const showFilterModal = () => {
     setShow(true, {
       Head: () => (
@@ -29,7 +32,11 @@ const Header = () => {
   };
   return (
     <Navbar>
-      <InfoCircle size='28' className='text-white' />
+      <InfoCircle
+        size='28'
+        className='text-white'
+        onClick={() => router.push('/guide/?page=coupon')}
+      />
       <Text size={SIZE_ENUM.LG}>{title}</Text>
       <Setting4
         size='28'
