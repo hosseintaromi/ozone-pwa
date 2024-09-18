@@ -21,7 +21,7 @@ import { usePatchWalletStatus } from '@/services/hooks';
 import { useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/constant/query-key';
 import { toast } from 'react-toastify';
-import { ErrorMsg, SuccessMsg } from '@/components/share/toast/toast';
+import { ErrorMsg, InfoMsg, SuccessMsg } from '@/components/share/toast/toast';
 const WHITE_COLOR = colors['neutral-0'];
 const NormalCard = ({ data, addWallet }: { data: AccountWalletType; addWallet?: boolean }) => {
   const queryClient = useQueryClient();
@@ -51,7 +51,7 @@ const NormalCard = ({ data, addWallet }: { data: AccountWalletType; addWallet?: 
         onSuccess: () => {
           queryClient.refetchQueries({ queryKey: [QUERY_KEYS.GET_WALLETS] });
           status === 'ACTIVE'
-            ? toast(<ErrorMsg text={walletInactive} />)
+            ? toast(<InfoMsg text={walletInactive} />)
             : toast(<SuccessMsg text={walletActive} />);
         },
       },
@@ -146,7 +146,6 @@ const NormalCard = ({ data, addWallet }: { data: AccountWalletType; addWallet?: 
             )}
             onClick={changeWalletStatus}
             disabled={isPending}
-            isLoading={isPending}
           >
             {status === 'ACTIVE' ? inActive : active}
           </Button>

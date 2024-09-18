@@ -64,7 +64,7 @@ const IncreaseCredit = (props: PayInDialogType) => {
   const { handleSubmit, values, errors, isValid, setValues, setFieldValue, handleBlur } =
     useFormik({
       initialValues: {
-        amount: 1000000,
+        amount: 10000000,
       },
       validationSchema: object().shape({
         amount: validation.amountCheck,
