@@ -7,6 +7,7 @@ import Container from '../share/container';
 import NormalGuide from './NormalGuide';
 import { guideData, StoryData } from './data';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { CloseCircle } from 'iconsax-react';
 
 export default function ComponentStories() {
   const [stories, setStories] = useState<StoryData[]>([]);
@@ -21,12 +22,11 @@ export default function ComponentStories() {
       router.push('/');
       return;
     }
-    console.log(router.back);
     const data = guideData[search];
     for (let i = 0; i < data.length; i++) {
       loadedStories.push({
         type: 'component',
-        duration: 9000,
+        duration: 3000,
         component: () => (
           <NormalGuide
             title={data[i].title}
@@ -48,6 +48,12 @@ export default function ComponentStories() {
         direction: 'ltr',
       }}
     >
+      <Container
+        className='absolute left-6 top-9 z-50 text-white'
+        onClick={() => router.back()}
+      >
+        <CloseCircle />
+      </Container>
       <Stories
         width='400px'
         height='600px'
