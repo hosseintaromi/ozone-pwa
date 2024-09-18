@@ -51,7 +51,7 @@ const NormalCard = ({ data, addWallet }: { data: AccountWalletType; addWallet?: 
         onSuccess: () => {
           queryClient.refetchQueries({ queryKey: [QUERY_KEYS.GET_WALLETS] });
           status === 'ACTIVE'
-            ? toast(<ErrorMsg text={walletInactive} />)
+            ? toast(<SuccessMsg text={walletInactive} />)
             : toast(<SuccessMsg text={walletActive} />);
         },
       },
@@ -146,7 +146,6 @@ const NormalCard = ({ data, addWallet }: { data: AccountWalletType; addWallet?: 
             )}
             onClick={changeWalletStatus}
             disabled={isPending}
-            isLoading={isPending}
           >
             {status === 'ACTIVE' ? inActive : active}
           </Button>
