@@ -65,7 +65,7 @@ const NormalCard = ({ data, addWallet }: { data: AccountWalletType; addWallet?: 
       {status === 'INACTIVE' && (
         <Container className='absolute inset-0 z-[100] rounded-[14px] bg-neutral-700/50' />
       )}
-      <IncreaseCredit show={show} setShow={setShow} />
+      <IncreaseCredit show={show} setShow={setShow} walletId={id} />
       <XImage
         src={color === WHITE_COLOR ? whiteShadow2 : whiteShadow}
         alt=''

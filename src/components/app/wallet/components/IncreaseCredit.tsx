@@ -57,7 +57,7 @@ const offerList = [
 ];
 
 const IncreaseCredit = (props: PayInDialogType) => {
-  const { mutate: mutateChargeWallet } = usePostChargeWallet(18);
+  const { mutate: mutateChargeWallet } = usePostChargeWallet(props.walletId);
   const { show, setShow } = props;
   const { app } = locale;
 
