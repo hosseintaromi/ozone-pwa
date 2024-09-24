@@ -62,26 +62,30 @@ const PhoneNumber = ({
       );
     },
   });
+
   const persianNumToEnNumChange = (e) => {
     e.target.value = convertToEnglishNumber(e.target.value);
     handleChange(e);
   };
+
   return (
     <Container className='flex h-dvh flex-col items-center justify-between p-4'>
       <Container className='flex w-full flex-col items-center'>
-        <Container className='mt-5 w-14  xs:w-16 '>
+        <Container className='mt-5 w-14 xs:w-16'>
           <XImage
             placeholder
             src='/images/logo/Logo.svg'
             alt='Picture of the author'
             width={1000}
             height={1000}
+            data-testid='logo'
           />
         </Container>
 
-        <Text className='text-1xl mt-5 xs:text-2xl' bold>
+        <Text className='text-1xl mt-5 xs:text-2xl' bold data-testid='welcome-text'>
           {common.to} <span className='text-primary'>{common.ozoneCard}</span> {common.welcome}
         </Text>
+
         <Container className='m-5 w-44'>
           <Carousel
             slidesPerView={1}
@@ -89,6 +93,7 @@ const PhoneNumber = ({
             autoplay={{
               delay: 3000,
             }}
+            data-testid='carousel'
           >
             {[
               '/images/guide/New-1.mp4',
@@ -102,6 +107,7 @@ const PhoneNumber = ({
                   className='h-90'
                   playsInline
                   onClick={(e) => e.preventDefault()}
+                  data-testid='carousel-video'
                 >
                   <source src={item} type='video/mp4' />
                   Your browser does not support the video tag.
@@ -119,20 +125,30 @@ const PhoneNumber = ({
           className='text-right'
           type={INPUT_TYPES.TEL}
           inputMode='numeric'
-          errorMessage={errors.phoneNumber}
+          errorMessage={errors.phoneNumber} // فقط پیام خطا به صورت رشته
           maxLength={11}
           value={values.phoneNumber}
           onChange={isIos ? persianNumToEnNumChange : handleChange}
           LeftIcon={() => (
             <CloseCircle
+              data-testid='reset-icon'
               color={COLOR_ENUM.WHITE}
               className='size-7'
               onClick={() => resetForm()}
             />
           )}
+          data-testid='phone-input'
         />
+
+        {errors.phoneNumber && (
+          <span data-testid='phone-error' className='error-message'>
+            {errors.phoneNumber}
+          </span>
+        )}
+
         <Container className='mt-10'>
           <Button
+            data-testid='submit-button'
             type={BUTTON_TYPE.SUBMIT}
             size={SIZE_ENUM.XL}
             className='w-full'
@@ -140,20 +156,27 @@ const PhoneNumber = ({
           >
             {common.record}
           </Button>
+
           <Text className='mt-6 w-full text-center'>
-            <span className='text-primary' onClick={() => setOpen(true)}>
+            <span
+              className='text-primary'
+              onClick={() => setOpen(true)}
+              data-testid='terms-link'
+            >
               {login.TermsAndConditions}
             </span>
             {login.readAndAgree}
           </Text>
         </Container>
       </form>
+
       <BottomSheet
         open={open}
         onDismiss={() => setOpen(false)}
         blocking={false}
         snapPoints={({ maxHeight }) => [maxHeight]}
         header
+        data-testid='bottom-sheet'
       >
         <Container className='px-4 py-3 text-justify'>
           {[1, 2, 3, 4, 5].map((i) => (
