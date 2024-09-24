@@ -1,7 +1,7 @@
-import { voucherBusinesses } from '@/models/digitalWallet.model';
+import { voucherMerchantes } from '@/models/digitalWallet.model';
 
 type Props = {
-  logos: voucherBusinesses[];
+  logos: voucherMerchantes[];
   isExpired: boolean;
 };
 

@@ -25,7 +25,7 @@ const TransactionList = () => {
   const router = useRouter();
   const { setShow } = useCommonModalStore();
   const [filter, setFilter] = useState<Omit<invoicesListParams, 'page'>>({
-    business_id: undefined,
+    merchant_id: undefined,
     from_date: undefined,
     to_date: undefined,
   });

@@ -26,7 +26,7 @@ import {
   getQrCode,
   getVouchers,
   postChangeVoucherStatus,
-  getBusinesses,
+  getMerchantes,
   getInvoicesWithPagination,
   getReceipt,
 } from '..';
@@ -223,9 +223,9 @@ export const usePostVoucherChange = () => {
   });
 };
 
-export const useGetBusinessesList = () => {
+export const useGetMerchantesList = () => {
   return useQuery({
-    queryFn: () => getBusinesses(),
+    queryFn: () => getMerchantes(),
     queryKey: [QUERY_KEYS.GET_BUSINESSES],
   });
 };

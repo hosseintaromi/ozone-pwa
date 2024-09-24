@@ -25,7 +25,7 @@ const PurchaseItem = ({ item, index }: { item: invoicesListBody; index: number }
           <Container className=' w-8'>
             <XImage
               className='rounded-full'
-              src={item.business.logo_base_url + item.business.logo_path}
+              src={item.merchant.logo_base_url + item.merchant.logo_path}
               alt='Picture of the author'
               width={1000}
               height={1000}
@@ -34,7 +34,7 @@ const PurchaseItem = ({ item, index }: { item: invoicesListBody; index: number }
           <ArrowLeft2 color={ICON_COLOR.light_gray} />
         </Container>
         <Container center className='justify-between'>
-          <Text color={COLOR_ENUM.WHITE}>{item.business.name}</Text>
+          <Text color={COLOR_ENUM.WHITE}>{item.merchant.name}</Text>
           <Text>
             {formatNumberWithCommas(item.invoice.amount)} {common.rial}
           </Text>

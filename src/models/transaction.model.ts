@@ -1,11 +1,11 @@
 export type invoiceDetail = {
   status: 'PENDING';
   order_id: string;
-  business_account_id: number;
+  merchant_account_id: number;
   customer_account_id: number;
   ref_number: string;
   amount: number;
-  business: {
+  merchant: {
     name: string;
     logo_base_url: string;
     logo_path: string;
@@ -91,7 +91,7 @@ export type DonutChartBody = {
 export type invoicesListParams = {
   from_date?: string;
   to_date?: string;
-  business_id?: string;
+  merchant_id?: string;
   page: string;
 };
 
@@ -102,7 +102,7 @@ export type invoicesListBody = {
     order_id: string;
     branch_code: string;
     type: 'ONLINE';
-    business_account_id: number;
+    merchant_account_id: number;
     customer_account_id: number;
     amount: number;
     mobile: string;
@@ -122,7 +122,7 @@ export type invoicesListBody = {
     updated_at: null;
     ref_number: string;
   };
-  business: {
+  merchant: {
     name: string;
     logo_base_url: string;
     logo_path: string;

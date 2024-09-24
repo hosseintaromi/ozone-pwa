@@ -26,7 +26,7 @@ const VoucherDetail = () => {
       amount,
       amount_type,
       max_percent_amount,
-      voucher_businesses,
+      voucher_merchants,
       min_invoice_amount,
     },
   } = selectedVoucher;
@@ -136,7 +136,7 @@ const VoucherDetail = () => {
           className='gray-down-dash-border relative w-full flex-col gap-3 pb-3'
         >
           <Text className='text-neutral-500'>{canBeUsedIn}</Text>
-          <Logos logos={voucher_businesses} expired={status === 'EXPIRED'} />
+          <Logos logos={voucher_merchants} expired={status === 'EXPIRED'} />
 
           <Text size={SIZE_ENUM.MD} bold className='my-2 text-white'>
             {amount_type === 'PERCENT' && cards.couponValue(max_percent_amount, amount)}

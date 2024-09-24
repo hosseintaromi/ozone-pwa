@@ -48,9 +48,9 @@ const PurchaseDetail = ({ params }: { params: string }) => {
           <SkeletonLoaderAvatar />
         ) : (
           <Container className=' w-10'>
-            {data?.business.logo_base_url && data?.business.logo_path && (
+            {data?.merchant.logo_base_url && data?.merchant.logo_path && (
               <XImage
-                src={data?.business.logo_base_url + data?.business.logo_path}
+                src={data?.merchant.logo_base_url + data?.merchant.logo_path}
                 alt='Picture of the author'
                 width={1000}
                 height={1000}
@@ -69,7 +69,7 @@ const PurchaseDetail = ({ params }: { params: string }) => {
           <>
             <Text size={SIZE_ENUM.XMD}>
               {purchaseDetail.buyFrom}
-              {data?.business.name}
+              {data?.merchant.name}
             </Text>
 
             <Text className='mt-1 text-neutral-500'>

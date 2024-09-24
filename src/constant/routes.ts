@@ -28,7 +28,7 @@ export const API_ROUTES = {
   GET_QR_CODE: '/barcode',
   GET_VOUCHER_LIST: `/list`,
   POST_CHANGE_VOUCHER_STATUS: (id: string) => `/status/${id}`,
-  GET_BUSINESSES: '/businesses',
+  GET_BUSINESSES: '/merchantes',
   GET_RECEIPT: (token: string | null) => `/payments/${token}/result`,
 };
 

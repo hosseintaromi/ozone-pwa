@@ -34,7 +34,7 @@ const VoucherList = ({ activeTab, id }: { id: number; activeTab: number }) => {
       <Text size={SIZE_ENUM.SM} bold className='text-neutral-200'>
         {couponCanDisable}
       </Text>
-      {flatVoucherList && flatVoucherList.length > 0 && (
+      {flatVoucherList && flatVoucherList?.length > 0 && (
         <Virtuoso
           style={{ height: '670px' }}
           endReached={() =>

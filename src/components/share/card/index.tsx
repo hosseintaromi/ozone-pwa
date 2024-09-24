@@ -29,7 +29,7 @@ const Card = ({ data }: Props) => {
       amount_type,
       max_percent_amount,
       min_invoice_amount,
-      voucher_businesses,
+      voucher_merchants,
     },
     expired_at,
     status,
@@ -162,7 +162,7 @@ const Card = ({ data }: Props) => {
           )}
         </Container>
         <Container center className={cn('gray-right-dash-border relative w-[75px]  pb-3')}>
-          <Logos logos={voucher_businesses} isExpired={status === 'EXPIRED'} />
+          <Logos logos={voucher_merchants} isExpired={status === 'EXPIRED'} />
           <Scissor
             size={ICON_SIZE.md}
             className={cn(

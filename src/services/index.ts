@@ -20,7 +20,7 @@ import {
   meta,
 } from '@/models/transaction.model';
 import {
-  businessList,
+  merchantList,
   changePasswordBody,
   kycBodyType,
   kycVerify,
@@ -347,8 +347,8 @@ export const postChangeVoucherStatus = async (body: voucherChangeBody) => {
   );
   return data;
 };
-export const getBusinesses = async () => {
-  const res: { data: { data: businessList[] } } = await httpGetRequest(
+export const getMerchantes = async () => {
+  const res: { data: { data: merchantList[] } } = await httpGetRequest(
     APIUrlGenerator({
       route: API_ROUTES.GET_BUSINESSES,
       service: BACKEND_SERVICE.USER_MANAGEMENT,

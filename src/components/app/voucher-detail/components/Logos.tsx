@@ -1,13 +1,13 @@
 import { Container, SIZE_ENUM, Text } from 'ozone-uikit';
 import XImage from '@/components/share/x-image';
-import { voucherBusinesses } from '@/models/digitalWallet.model';
+import { voucherMerchantes } from '@/models/digitalWallet.model';
 import cn from '@/lib/clsxm';
 import { useEffect, useState } from 'react';
 import { ArrowDown2, CloseCircle } from 'iconsax-react';
 import commonModalStore from '@/store/common-modal-store';
 import locale from '@/locale';
 
-const Logos = ({ logos, expired }: { logos: voucherBusinesses[]; expired: boolean }) => {
+const Logos = ({ logos, expired }: { logos: voucherMerchantes[]; expired: boolean }) => {
   const {
     common: { stores },
     app: {

@@ -33,7 +33,7 @@ export interface userMe {
   birth_date_kyc: boolean;
 }
 
-export interface businessList {
+export interface merchantList {
   id: number;
   account_id: number;
   name: string;
@@ -43,4 +43,4 @@ export interface businessList {
   logo_path: string;
 }
 
-export type selectedStore = businessList & { logo?: JSX.Element };
+export type selectedStore = merchantList & { logo?: JSX.Element };

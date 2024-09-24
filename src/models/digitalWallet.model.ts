@@ -108,7 +108,7 @@ export type qrBody = {
   serial: string;
   expire_at: string;
 };
-export type voucherBusinesses = {
+export type voucherMerchantes = {
   id: number;
   voucher_id: number;
   account_id: number;
@@ -138,14 +138,14 @@ export type voucherType = {
     expire_day_count: number;
     status: VOUCHER_STATUS;
     voucher_accounts: null;
-    voucher_businesses: voucherBusinesses[];
+    voucher_merchants: voucherMerchantes[];
   };
 };
 
 export type voucherParams = {
   status?: string;
   type?: string;
-  business_account_id?: string;
+  merchant_account_id?: string;
 };
 
 export type voucherChangeBody = {

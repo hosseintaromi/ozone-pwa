@@ -4,8 +4,8 @@ import { ArrowDown2 } from 'iconsax-react';
 import { Container, SIZE_ENUM, Text } from 'ozone-uikit';
 import cn from '@/lib/clsxm';
 import XImage from '@/components/share/x-image';
-import { useGetBusinessesList } from '@/services/hooks';
-import { businessList, selectedStore } from '@/models/userManagement.model';
+import { useGetMerchantesList } from '@/services/hooks';
+import { merchantList, selectedStore } from '@/models/userManagement.model';
 export default function SelectOption({
   title,
   selected,
@@ -15,13 +15,13 @@ export default function SelectOption({
   title: string;
   selected: selectedStore;
   selectedHandler: (data: selectedStore) => void;
-  selectAll: businessList;
+  selectAll: merchantList;
 }) {
-  const { data } = useGetBusinessesList();
-  const [businesses, setBusinesses] = useState<selectedStore[]>([]);
+  const { data } = useGetMerchantesList();
+  const [merchantes, setMerchantes] = useState<selectedStore[]>([]);
   useEffect(() => {
     if (data) {
-      setBusinesses([selectAll, ...data]);
+      setMerchantes([selectAll, ...data]);
     }
   }, [data]);
   return (
@@ -65,25 +65,25 @@ export default function SelectOption({
                 !open && 'opacity-0',
               )}
             >
-              {businesses.map((business) => (
+              {merchantes.map((merchant) => (
                 <ListboxOption
-                  key={business.name}
-                  value={business}
+                  key={merchant.name}
+                  value={merchant}
                   className='group flex cursor-default select-none items-center gap-4 rounded-lg px-3 py-2.5 data-[focus]:bg-white/10'
                 >
-                  {business.logo ? (
-                    business.logo
+                  {merchant.logo ? (
+                    merchant.logo
                   ) : (
                     <XImage
                       className='rounded-full'
-                      src={business.logo_base_url + business.logo_path}
-                      alt={business.name}
+                      src={merchant.logo_base_url + merchant.logo_path}
+                      alt={merchant.name}
                       width={30}
                       height={30}
                     />
                   )}
                   <Text size={SIZE_ENUM.LG} className='text-white'>
-                    {business.name}
+                    {merchant.name}
                   </Text>
                 </ListboxOption>
               ))}
