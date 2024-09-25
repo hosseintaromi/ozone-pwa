@@ -133,7 +133,7 @@ const PhoneNumber = ({
             <CloseCircle
               data-testid='reset-icon'
               color={COLOR_ENUM.WHITE}
-              className='size-7'
+              className='size-7 cursor-pointer'
               onClick={() => resetForm()}
             />
           )}

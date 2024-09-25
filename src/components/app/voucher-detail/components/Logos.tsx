@@ -23,7 +23,11 @@ const Logos = ({ logos, expired }: { logos: voucherMerchantes[]; expired: boolea
           <Text bold className='text-xl text-white'>
             {stores}
           </Text>
-          <CloseCircle size='32' className='text-neutral-200' onClick={() => setShow(false)} />
+          <CloseCircle
+            size='32'
+            className='cursor-pointer text-neutral-200'
+            onClick={() => setShow(false)}
+          />
         </Container>
       ),
       Body: () => (

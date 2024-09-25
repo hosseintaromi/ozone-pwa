@@ -24,7 +24,11 @@ const Header = () => {
           <Text size={SIZE_ENUM.LG} className='text-white'>
             {filter}
           </Text>
-          <CloseCircle size='32' className='text-neutral-200' onClick={() => setShow(false)} />
+          <CloseCircle
+            size='32'
+            className='cursor-pointer text-neutral-200'
+            onClick={() => setShow(false)}
+          />
         </Container>
       ),
       Body: () => <Filter />,
@@ -34,8 +38,8 @@ const Header = () => {
     <Navbar>
       <InfoCircle
         size='28'
-        className='text-white'
         onClick={() => router.push('/guide/?page=coupon')}
+        className='cursor-pointer text-white'
       />
       <Text size={SIZE_ENUM.LG}>{title}</Text>
       <Setting4

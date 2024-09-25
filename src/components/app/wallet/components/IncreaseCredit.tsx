@@ -126,7 +126,7 @@ const IncreaseCredit = (props: PayInDialogType) => {
             />
             <CloseCircle
               color={COLOR_ENUM.WHITE}
-              className='absolute left-3 top-3 size-7'
+              className='absolute left-3 top-3 size-7 cursor-pointer'
               onClick={() => setValues({ amount: 0 })}
             />
           </Container>

@@ -12,7 +12,10 @@ export default function ModalHead({ isCustomHead, children, setShow }: Props) {
   ) : (
     <Dialog.Title className='relative mb-8 text-right'>
       {setShow && (
-        <Container className='absolute left-0' onClick={() => setShow((pre) => !pre)}>
+        <Container
+          className='absolute left-0 cursor-pointer'
+          onClick={() => setShow((pre) => !pre)}
+        >
           <CloseCircle size='26' color={colors['neutral-0']} />
         </Container>
       )}

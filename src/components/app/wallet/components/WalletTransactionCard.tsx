@@ -38,7 +38,11 @@ const WalletTransactionCard = ({ data }: { data: WalletTransactionCardType }) =>
       Head: () => (
         <Container center className='w-full justify-between pb-8 pt-4'>
           <Text size={SIZE_ENUM.LG}>{common.transactionDetails}</Text>
-          <CloseCircle size='27' className='text-neutral-200' onClick={() => setShow(false)} />
+          <CloseCircle
+            size='27'
+            className='cursor-pointer text-neutral-200'
+            onClick={() => setShow(false)}
+          />
         </Container>
       ),
       Body: () => (

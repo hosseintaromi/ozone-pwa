@@ -43,13 +43,15 @@ export default function ComponentStories() {
   return (
     <Container
       center
-      className='mb-4 w-full'
+      className='mb-4 w-full cursor-pointer'
       style={{
         direction: 'ltr',
+        cursor: 'pointer!important',
+        zIndex: 222,
       }}
     >
       <Container
-        className='absolute left-6 top-9 z-50 text-white'
+        className='absolute left-6 top-9 z-50 cursor-pointer text-white'
         onClick={() => router.back()}
       >
         <CloseCircle />

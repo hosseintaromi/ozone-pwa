@@ -167,9 +167,9 @@ export const useGetVoucher = (active: boolean, params?: voucherParams) => {
   });
 };
 
-export const usePostChargeWallet = (id: number) => {
+export const usePostChargeWallet = (id?: number) => {
   return useMutation({
-    mutationFn: (body: chargeWalletBody) => postChargeWallet(body, id),
+    mutationFn: (body: chargeWalletBody) => postChargeWallet(body, id || 0),
     mutationKey: [QUERY_KEYS.POST_CHARGE_WALLET],
   });
 };

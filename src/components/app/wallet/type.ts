@@ -19,7 +19,7 @@ export type WalletTransactionCardType = {
 export type PayInDialogType = {
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   show: boolean;
-  walletId: number;
+  walletId?: number;
 };
 
 export interface ChooseWalletType extends PayInDialogType {

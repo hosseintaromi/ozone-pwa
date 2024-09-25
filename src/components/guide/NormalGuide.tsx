@@ -13,7 +13,7 @@ function NormalGuide({
   image: string;
 }) {
   return (
-    <Container className='h-full bg-neutral-900 px-10 py-20 text-center text-white'>
+    <Container className='h-full !cursor-pointer bg-neutral-900 px-10 py-20 text-center text-white'>
       <Text className='mb-5 w-full text-xl' bold>
         {title}
       </Text>

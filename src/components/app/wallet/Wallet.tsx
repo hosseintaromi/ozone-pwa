@@ -43,6 +43,7 @@ export default function Wallet() {
           color='#fff'
           size={30}
           onClick={() => router.push('/guide/?page=account')}
+          className='cursor-pointer'
         />
         <Text>{title} </Text>
 

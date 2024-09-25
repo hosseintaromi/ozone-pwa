@@ -76,7 +76,12 @@ const Home = () => {
   return (
     <Container className='h-[calc(100dvh-90px)] overflow-auto'>
       <Navbar>
-        <InfoCircle color='#fff' size={24} onClick={() => router.push('/guide/?page=home')} />
+        <InfoCircle
+          color='#fff'
+          size={24}
+          onClick={() => router.push('/guide/?page=home')}
+          className='cursor-pointer'
+        />
         <Container className='w-44'>
           <XImage
             src='/images/logo/Name.svg'

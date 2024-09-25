@@ -45,7 +45,11 @@ const TransactionList = () => {
           <Text bold size={SIZE_ENUM.LG}>
             {selectStore}
           </Text>
-          <CloseCircle size='32' className='text-neutral-200' onClick={() => setShow(false)} />
+          <CloseCircle
+            size='32'
+            className='cursor-pointer text-neutral-200'
+            onClick={() => setShow(false)}
+          />
         </Container>
       ),
       Body: () => <TransactionFilter filter={filter} setFilter={setFilter} />,
